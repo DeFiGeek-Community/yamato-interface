@@ -1,0 +1,55 @@
+name: Build & Test
+
+on:
+  [push]
+  # push:
+  #   branches: [$default-branch]
+  # pull_request:
+  #   branches: [$default-branch]
+
+jobs:
+  build_dev:
+    if: github.ref != 'refs/heads/production'
+    runs-on: ubuntu-latest
+    # strategy:
+    #   matrix:
+    #     node-version: [12.x, 14.x]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: '14.x'
+      - name: Install dependencies
+        run: yarn
+      - name: build
+        run: yarn build
+        env:
+          CI: false
+      - name: discord notification（if failure）
+        uses: sarisia/actions-status-discord@v1
+        if: ${{ failure() }}
+        with:
+          webhook: ${{ secrets.DISCORD_WEBHOOK }}
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: '14.x'
+      - name: Install dependencies
+        run: yarn
+      - name: format check
+        run: yarn ci:format
+      - name: lint check
+        run: yarn lint
+      - name: test
+        run: yarn test
+      - name: discord notification（if failure）
+        uses: sarisia/actions-status-discord@v1
+        if: ${{ failure() }}
+        with:
+          webhook: ${{ secrets.DISCORD_WEBHOOK }}
