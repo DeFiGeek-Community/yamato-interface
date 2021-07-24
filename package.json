@@ -11,7 +11,7 @@
     "lint:fix": "yarn lint --fix",
     "format": "prettier --config .prettierrc.json --write 'src/**/*.{js,jsx,ts,tsx}'",
     "diff-check": "git diff --exit-code -- .",
-    "ci:format": "yarn format && yarn diff-check",
+    "ci:format": "yarn lint:fix && yarn format && yarn diff-check",
     "eject": "react-scripts eject"
   },
   "dependencies": {

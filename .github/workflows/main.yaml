@@ -44,8 +44,6 @@ jobs:
         run: yarn
       - name: format check
         run: yarn ci:format
-      - name: lint check
-        run: yarn lint
       - name: test
         run: yarn test
       - name: discord notification（if failure）
