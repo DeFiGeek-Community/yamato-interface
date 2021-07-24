@@ -1,12 +1,18 @@
+import { ChakraProvider } from '@chakra-ui/react';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+import { HashRouter } from 'react-router-dom';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <ChakraProvider>
+      <HashRouter>
+        <App />
+      </HashRouter>
+    </ChakraProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
