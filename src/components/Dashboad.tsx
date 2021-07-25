@@ -1,4 +1,5 @@
 import {
+  Box,
   Stat,
   StatArrow,
   StatGroup,
@@ -9,7 +10,7 @@ import {
 
 export default function Dashboad() {
   return (
-    <>
+    <Box border="1px" borderColor="gray.200" borderRadius="md" p={4}>
       <StatGroup>
         <Stat>
           <StatLabel>TVL</StatLabel>
@@ -58,6 +59,6 @@ export default function Dashboad() {
           </StatHelpText>
         </Stat>
       </StatGroup>
-    </>
+    </Box>
   );
 }
