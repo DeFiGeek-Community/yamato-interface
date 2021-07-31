@@ -7,9 +7,10 @@ import {
   Box,
   Grid,
   GridItem,
-  Heading,
 } from '@chakra-ui/react';
 import { Helmet } from 'react-helmet';
+import { Link } from 'react-router-dom';
+import YamatoLogo from '../assets/images/yamato_log_with_title.png';
 import Dashboad from '../components/Dashboad';
 import Footer from '../components/Footer';
 import Infographics from '../components/Infographics';
@@ -19,7 +20,7 @@ export default function Index() {
   return (
     <>
       <Box p={4}>
-        <Helmet title="Yamato Protocol" />
+        <Helmet title="Yamato Interface" />
 
         <Grid
           templateRows="repeat(15, 1fr)"
@@ -27,9 +28,9 @@ export default function Index() {
           gap={4}
         >
           <GridItem rowSpan={1} colSpan={5}>
-            <Heading as="h1" size="xl">
-              Yamato Protocol
-            </Heading>
+            <Link to="/">
+              <img src={YamatoLogo} />
+            </Link>
           </GridItem>
 
           <GridItem rowSpan={4} colSpan={4}>
