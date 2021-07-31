@@ -12,6 +12,7 @@
     "format": "prettier --config .prettierrc.json --write 'src/**/*.{js,jsx,ts,tsx}'",
     "diff-check": "git diff --exit-code -- .",
     "ci:format": "yarn lint:fix && yarn format && yarn diff-check",
+    "svg:gen": "svgr ./src/assets/svgs --out-dir ./src/components/svgs",
     "eject": "react-scripts eject"
   },
   "dependencies": {
@@ -28,6 +29,7 @@
     "web-vitals": "^1.0.1"
   },
   "devDependencies": {
+    "@svgr/cli": "^5.5.0",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",

@@ -15,6 +15,7 @@ import Dashboad from '../components/Dashboad';
 import Footer from '../components/Footer';
 import Infographics from '../components/Infographics';
 import World from '../components/World';
+import SvgYamatoLogWithTitle from '../components/svgs/YamatoLogWithTitle';
 
 export default function Index() {
   return (
@@ -29,7 +30,8 @@ export default function Index() {
         >
           <GridItem rowSpan={1} colSpan={5}>
             <Link to="/">
-              <img src={YamatoLogo} />
+              {/* <img src={YamatoLogo} /> */}
+              <SvgYamatoLogWithTitle />
             </Link>
           </GridItem>
 
