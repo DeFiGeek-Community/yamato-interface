@@ -34,13 +34,11 @@ async function fetchChunk(
   let resultsBlockNumber: number;
   let results: { success: boolean; returnData: string }[];
   try {
-    const {
-      blockNumber,
-      returnData,
-    } = await multicall2Contract.callStatic.tryBlockAndAggregate(
-      false,
-      chunk.map((obj) => ({ target: obj.address, callData: obj.callData }))
-    );
+    const { blockNumber, returnData } =
+      await multicall2Contract.callStatic.tryBlockAndAggregate(
+        false,
+        chunk.map((obj) => ({ target: obj.address, callData: obj.callData }))
+      );
     resultsBlockNumber = blockNumber.toNumber();
     results = returnData;
   } catch (error) {

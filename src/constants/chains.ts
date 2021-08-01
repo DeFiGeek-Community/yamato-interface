@@ -21,6 +21,6 @@ export const NETWORK_LABELS: {
 };
 
 export const targetedChain = process.env.REACT_APP_CHAIN ?? 'mainnet';
-export const targetedChainId = (SupportedChainId[
+export const targetedChainId = SupportedChainId[
   targetedChain.toUpperCase() as any
-] as unknown) as number;
+] as unknown as number;

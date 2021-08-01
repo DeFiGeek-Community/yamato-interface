@@ -93,9 +93,8 @@ export default createReducer(initialState, (builder) =>
           } else {
             if ((current.fetchingBlockNumber ?? 0) >= fetchingBlockNumber)
               return;
-            state.callResults[chainId][
-              callKey
-            ].fetchingBlockNumber = fetchingBlockNumber;
+            state.callResults[chainId][callKey].fetchingBlockNumber =
+              fetchingBlockNumber;
           }
         });
       }

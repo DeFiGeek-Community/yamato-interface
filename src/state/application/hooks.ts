@@ -31,11 +31,10 @@ export function useModalOpen(modal: ApplicationModal): boolean {
 export function useToggleModal(modal: ApplicationModal): () => void {
   const open = useModalOpen(modal);
   const dispatch = useDispatch<AppDispatch>();
-  return useCallback(() => dispatch(setOpenModal(open ? null : modal)), [
-    dispatch,
-    modal,
-    open,
-  ]);
+  return useCallback(
+    () => dispatch(setOpenModal(open ? null : modal)),
+    [dispatch, modal, open]
+  );
 }
 
 export function useOpenModal(modal: ApplicationModal): () => void {
