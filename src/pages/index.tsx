@@ -10,12 +10,12 @@ import {
 } from '@chakra-ui/react';
 import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
-import YamatoLogo from '../assets/images/yamato_log_with_title.png';
 import Dashboad from '../components/Dashboad';
 import Footer from '../components/Footer';
 import Infographics from '../components/Infographics';
 import World from '../components/World';
 import SvgYamatoLogWithTitle from '../components/svgs/YamatoLogWithTitle';
+import Web3Status from '../components/wallet-connect-button';
 
 export default function Index() {
   return (
@@ -28,11 +28,15 @@ export default function Index() {
           templateColumns="repeat(5, 1fr)"
           gap={4}
         >
-          <GridItem rowSpan={1} colSpan={5}>
+          <GridItem rowSpan={1} colSpan={4}>
             <Link to="/">
               {/* <img src={YamatoLogo} /> */}
               <SvgYamatoLogWithTitle />
             </Link>
+          </GridItem>
+
+          <GridItem rowSpan={1} colSpan={1}>
+            <Web3Status />
           </GridItem>
 
           <GridItem rowSpan={4} colSpan={4}>

@@ -1,9 +1,9 @@
 import { AbstractConnector } from '@web3-react/abstract-connector';
 import { UnsupportedChainIdError, useWeb3React } from '@web3-react/core';
-import { Row, Button as AntButton } from 'antd';
 import { darken, lighten } from 'polished';
 import { forwardRef } from 'react';
 import { Activity } from 'react-feather';
+import { Button as RebassButton } from 'rebass/styled-components';
 import styled, { css } from 'styled-components';
 // import CoinbaseWalletIcon from '../../../assets/images/coinbaseWalletIcon.svg';
 // import FortmaticIcon from '../../../assets/images/fortmaticIcon.png';
@@ -26,6 +26,7 @@ import { shortenAddress } from '../../utils/web3';
 // import PortisIcon from '../../..assets/images/portisIcon.png';
 import Loader from '../Loader';
 import Identicon from './Identicon';
+import Row from './Row';
 import WalletModal from './WalletModal';
 
 const IconWrapper = styled.div<{ size?: number }>`
@@ -39,7 +40,7 @@ const IconWrapper = styled.div<{ size?: number }>`
 `;
 
 // eslint-disable-next-line react/display-name
-const Button = forwardRef((props, ref) => <AntButton />);
+const Button = forwardRef((props, ref) => <RebassButton />);
 
 const Web3StatusGeneric = styled(Button)`
   ${({ theme }) => theme.flexRowNoWrap}
@@ -174,7 +175,7 @@ function Web3StatusInner() {
             {NETWORK_LABELS[chainId]}
           </span>
         )}
-        <AntButton id="web3-status-connected" onClick={toggleWalletModal}>
+        <RebassButton id="web3-status-connected" onClick={toggleWalletModal}>
           <span
             style={{
               display: 'flex',
@@ -195,27 +196,27 @@ function Web3StatusInner() {
               <StatusIcon connector={connector} />
             )}
           </span>
-        </AntButton>
+        </RebassButton>
       </>
     );
   } else if (error) {
     return (
-      <AntButton onClick={toggleWalletModal}>
+      <RebassButton onClick={toggleWalletModal}>
         <NetworkIcon />
         <Text>
           {error instanceof UnsupportedChainIdError ? 'Wrong Network' : 'Error'}
         </Text>
-      </AntButton>
+      </RebassButton>
     );
   } else {
     return (
-      <AntButton
+      <RebassButton
         id="connect-wallet"
         onClick={toggleWalletModal}
         // faded={!account}
       >
         <Text>Connect to a wallet</Text>
-      </AntButton>
+      </RebassButton>
     );
   }
 }
