@@ -36,7 +36,15 @@ export default function Index() {
           </GridItem>
 
           <GridItem rowSpan={1} colSpan={1}>
-            <Web3Status />
+            <div
+              style={{
+                textAlign: 'right',
+                width: '100%',
+                padding: '16px 16px',
+              }}
+            >
+              <Web3Status />
+            </div>
           </GridItem>
 
           <GridItem rowSpan={4} colSpan={4}>
