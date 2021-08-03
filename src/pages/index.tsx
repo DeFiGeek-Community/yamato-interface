@@ -10,12 +10,11 @@ import {
 } from '@chakra-ui/react';
 import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
-import YamatoLogo from '../assets/images/yamato_log_with_title.png';
 import Dashboad from '../components/Dashboad';
 import Footer from '../components/Footer';
 import Infographics from '../components/Infographics';
 import World from '../components/World';
-import SvgYamatoLogWithTitle from '../components/svgs/YamatoLogWithTitle';
+import SvgYamatoLogWithTitle from '../components/svgs/YamatoLogoWithTitle';
 
 export default function Index() {
   return (
