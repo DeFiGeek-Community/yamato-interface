@@ -24,14 +24,13 @@ export default function Index() {
         <Helmet title="Yamato Interface" />
 
         <Grid
-          templateRows="repeat(15, 1fr)"
+          templateRows="repeat(16, 1fr)"
           templateColumns="repeat(5, 1fr)"
           gap={4}
         >
           <GridItem rowSpan={1} colSpan={4}>
             <Link to="/">
-              {/* <img src={YamatoLogo} /> */}
-              <SvgYamatoLogWithTitle />
+              <SvgYamatoLogWithTitle width={255} height={25} />
             </Link>
           </GridItem>
 
@@ -55,7 +54,7 @@ export default function Index() {
             <World />
           </GridItem>
 
-          <GridItem rowSpan={8} colSpan={4}>
+          <GridItem rowSpan={9} colSpan={4}>
             <Accordion allowMultiple>
               <AccordionItem>
                 <h2>
@@ -83,7 +82,7 @@ export default function Index() {
             </Accordion>
           </GridItem>
 
-          <GridItem rowSpan={4} colSpan={1}>
+          <GridItem rowSpan={5} colSpan={1}>
             <Infographics />
           </GridItem>
 
