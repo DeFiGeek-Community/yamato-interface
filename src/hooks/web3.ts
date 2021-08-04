@@ -143,17 +143,3 @@ export function getContract(
 export function calculateGasMargin(value: BigNumberValueType) {
   return divide(add(multiply(value, 10000), 1000), 10000);
 }
-
-export function getLibrary(provider: any): Web3Provider {
-  // latest ethers version tries to detect the network which fails
-  const library = new Web3Provider(
-    provider,
-    typeof provider.chainId === 'number'
-      ? provider.chainId
-      : typeof provider.chainId === 'string'
-      ? parseInt(provider.chainId)
-      : 'any'
-  );
-  library.pollingInterval = 15000;
-  return library;
-}

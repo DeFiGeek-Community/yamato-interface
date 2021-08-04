@@ -1,5 +1,4 @@
 import { getAddress } from '@ethersproject/address';
-import { Web3Provider } from '@ethersproject/providers';
 import { ethers } from 'ethers';
 
 // returns the checksummed address if the address is valid, otherwise returns false
@@ -26,17 +25,4 @@ export function parseEther(ether: string) {
 
 export function formatEther(wei: ethers.BigNumberish) {
   return ethers.utils.formatEther(wei);
-}
-
-export function getLibrary(provider: any): Web3Provider {
-  const library = new Web3Provider(
-    provider,
-    typeof provider.chainId === 'number'
-      ? provider.chainId
-      : typeof provider.chainId === 'string'
-      ? parseInt(provider.chainId)
-      : 'any'
-  );
-  library.pollingInterval = 15_000;
-  return library;
 }

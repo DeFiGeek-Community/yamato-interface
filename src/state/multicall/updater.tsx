@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef } from 'react';
 import { Multicall2 } from '../../abis/types';
 import { useMulticall2Contract } from '../../hooks/useContract';
 import useDebounce from '../../hooks/useDebounce';
-import { useActiveWeb3React } from '../../hooks/useWeb3';
+import { useActiveWeb3React } from '../../hooks/web3';
 import chunkArray from '../../utils/chunkArray';
 import { retry, RetryableError } from '../../utils/retry';
 import { useBlockNumber } from '../application/hooks';

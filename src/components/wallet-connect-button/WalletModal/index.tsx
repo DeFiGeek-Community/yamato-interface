@@ -1,4 +1,4 @@
-import { Modal } from '@chakra-ui/react';
+import { Modal, ModalOverlay, ModalContent } from '@chakra-ui/react';
 import { AbstractConnector } from '@web3-react/abstract-connector';
 import { UnsupportedChainIdError, useWeb3React } from '@web3-react/core';
 import { WalletConnectConnector } from '@web3-react/walletconnect-connector';
@@ -352,7 +352,10 @@ export default function WalletModal({ ENSName }: { ENSName?: string }) {
 
   return (
     <Modal isOpen={walletModalOpen} onClose={toggleWalletModal}>
-      <Wrapper>{getModalContent()}</Wrapper>
+      <ModalOverlay />
+      <ModalContent>
+        <Wrapper>{getModalContent()}</Wrapper>
+      </ModalContent>
     </Modal>
   );
 }

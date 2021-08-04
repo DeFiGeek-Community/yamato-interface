@@ -7,22 +7,30 @@ import { Provider } from 'react-redux';
 import { HashRouter } from 'react-router-dom';
 import App from './App';
 import { NETWORK_CONTEXT_NAME } from './constants/web3';
-import { getLibrary } from './hooks/useWeb3';
 import reportWebVitals from './reportWebVitals';
 import store from './state';
+import ThemeProvider from './theme';
+import getLibrary from './utils/getLibrary';
 
 const Web3ProviderNetwork = createWeb3ReactRoot(NETWORK_CONTEXT_NAME);
+
+const { ethereum } = window;
+if (!!ethereum) {
+  ethereum.autoRefreshOnNetworkChange = false;
+}
 
 ReactDOM.render(
   <React.StrictMode>
     <Web3ReactProvider getLibrary={getLibrary}>
       <Web3ProviderNetwork getLibrary={getLibrary}>
         <Provider store={store}>
-          <ChakraProvider>
-            <HashRouter>
-              <App />
-            </HashRouter>
-          </ChakraProvider>
+          <ThemeProvider>
+            <ChakraProvider>
+              <HashRouter>
+                <App />
+              </HashRouter>
+            </ChakraProvider>
+          </ThemeProvider>
         </Provider>
       </Web3ProviderNetwork>
     </Web3ReactProvider>

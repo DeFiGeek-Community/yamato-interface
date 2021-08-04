@@ -214,6 +214,7 @@ function Web3StatusInner() {
         id="connect-wallet"
         onClick={toggleWalletModal}
         // faded={!account}
+        style={{ color: 'black' }}
       >
         <Text>Connect to a wallet</Text>
       </RebassButton>

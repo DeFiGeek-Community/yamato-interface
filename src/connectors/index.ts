@@ -3,7 +3,7 @@ import { InjectedConnector } from '@web3-react/injected-connector';
 // import { PortisConnector } from '@web3-react/portis-connector';
 import { WalletConnectConnector } from '@web3-react/walletconnect-connector';
 import { NETWORK_LABELS, targetedChain } from '../constants/chains';
-import { getLibrary } from '../utils/web3';
+import getLibrary from '../utils/getLibrary';
 // import { WalletLinkConnector } from '@web3-react/walletlink-connector';
 
 // import { FortmaticConnector } from './Fortmatic';

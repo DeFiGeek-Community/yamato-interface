@@ -13,7 +13,7 @@ import {
   // portis,
 } from '../../../connectors';
 import { SUPPORTED_WALLETS } from '../../../constants/web3';
-import { useActiveWeb3React } from '../../../hooks/useWeb3';
+import { useActiveWeb3React } from '../../../hooks/web3';
 import { AppDispatch } from '../../../state';
 import { getEtherscanLink } from '../../../utils/externalLink';
 import { shortenAddress } from '../../../utils/web3';

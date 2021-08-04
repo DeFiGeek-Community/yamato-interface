@@ -16,7 +16,7 @@ import {
   MULTICALL2_ADDRESSES,
   ENS_REGISTRAR_ADDRESSES,
 } from '../constants/contracts';
-import { getContract, useActiveWeb3React } from './useWeb3';
+import { getContract, useActiveWeb3React } from './web3';
 
 // // returns null on errors
 export function useContract<T extends Contract = Contract>(

@@ -18,7 +18,4 @@ export const MULTICALL2_ADDRESSES: AddressMap = {
     '0x5BA1e12693Dc8F9c48aAD8770482f4739bEeD696',
     false
   ),
-  [SupportedChainId.ARBITRUM_KOVAN]:
-    '0xc80e33a6f02cf08557a0ca3d94d1474d73f64bc1',
-  [SupportedChainId.ARBITRUM_ONE]: '0x021CeAC7e681dBCE9b5039d2535ED97590eB395c',
 };

@@ -4,8 +4,11 @@ export enum SupportedChainId {
   RINKEBY = 4,
   GOERLI = 5,
   KOVAN = 42,
-  ARBITRUM_KOVAN = 144545313136048,
+
   ARBITRUM_ONE = 42161,
+  ARBITRUM_RINKEBY = 421611,
+  OPTIMISM = 10,
+  OPTIMISTIC_KOVAN = 69,
 }
 
 export const NETWORK_LABELS: {
@@ -16,8 +19,6 @@ export const NETWORK_LABELS: {
   [SupportedChainId.ROPSTEN]: 'Ropsten',
   [SupportedChainId.GOERLI]: 'Görli',
   [SupportedChainId.KOVAN]: 'Kovan',
-  [SupportedChainId.ARBITRUM_KOVAN]: 'kArbitrum',
-  [SupportedChainId.ARBITRUM_ONE]: 'Arbitrum One',
 };
 
 export const targetedChain = process.env.REACT_APP_CHAIN ?? 'mainnet';
