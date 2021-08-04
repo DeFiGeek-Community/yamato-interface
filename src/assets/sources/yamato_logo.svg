@@ -2,14 +2,14 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   width="150"
-   height="150"
-   viewBox="0 0 39.687477 39.687502"
+   width="1500.0004"
+   height="1500.0004"
+   viewBox="0 0 396.87487 396.87511"
    version="1.1"
    id="svg5"
    inkscape:version="1.1 (c68e22c387, 2021-05-23)"
-   sodipodi:docname="yamatologomark.svg"
-   inkscape:export-filename="C:\Users\Sorachi\Desktop\DeFiGeek Community JAPAN\yamatoProtocol関連\yamatoProtocol_logo\案111111111111113.png"
+   sodipodi:docname="yamatologo_mark.svg"
+   inkscape:export-filename="C:\Users\Sorachi\Desktop\DeFiGeek Community JAPAN\yamatoProtocol関連\yamatoProtocol_logo\案3.png"
    inkscape:export-xdpi="96"
    inkscape:export-ydpi="96"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
@@ -27,18 +27,18 @@
      inkscape:document-units="px"
      showgrid="false"
      units="px"
-     showguides="false"
+     showguides="true"
      inkscape:guide-bbox="true"
      inkscape:lockguides="true"
-     inkscape:zoom="1.28"
-     inkscape:cx="57.812502"
-     inkscape:cy="139.84375"
-     inkscape:window-width="1485"
-     inkscape:window-height="1040"
-     inkscape:window-x="201"
-     inkscape:window-y="0"
-     inkscape:window-maximized="0"
-     inkscape:current-layer="g1103"
+     inkscape:zoom="0.1767767"
+     inkscape:cx="616.5971"
+     inkscape:cy="1055.0033"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1"
      fit-margin-top="0"
      fit-margin-left="0"
      fit-margin-right="0"
@@ -180,192 +180,80 @@
      inkscape:label="レイヤー 1"
      inkscape:groupmode="layer"
      id="layer1">
-    <circle
-       style="display:none;fill:#5bad92;stroke:none;stroke-width:7.56708;stroke-linecap:round;stroke-linejoin:round"
-       id="path909"
-       cx="198.4375"
-       cy="198.4375"
-       r="198.4375" />
     <g
-       id="g1031"
-       transform="matrix(8.4955188,0,0,8.4955188,31.280067,-2569.9461)"
-       style="display:none;stroke-width:0.117709"
-       inkscape:export-filename="C:\Users\Sorachi\Desktop\DeFiGeek Community JAPAN\yamatoProtocol関連\yamatoProtocol_logo\path2ew62320.png"
-       inkscape:export-xdpi="96"
-       inkscape:export-ydpi="96">
+       id="g7539">
+      <path
+         style="color:#000000;fill:#5bad92;stroke-width:7.56708;stroke-linecap:round;stroke-linejoin:round;-inkscape-stroke:none"
+         d="M 396.875,198.4375 A 198.4375,198.4375 0 0 1 198.4375,396.875 198.4375,198.4375 0 0 1 0,198.4375 198.4375,198.4375 0 0 1 198.4375,0 198.4375,198.4375 0 0 1 396.875,198.4375 Z"
+         id="path2620"
+         inkscape:export-filename="C:\Users\Sorachi\Desktop\DeFiGeek Community JAPAN\yamatoProtocol関連\yamatoProtocol_logo\rect1443324385.png"
+         inkscape:export-xdpi="96"
+         inkscape:export-ydpi="96" />
+      <path
+         style="color:#000000;fill:#f9aea5;stroke-width:19.8438;-inkscape-stroke:none"
+         d="m 171.73688,225.11379 26.57711,46.0329 26.57711,-46.0329 z"
+         id="path2622"
+         inkscape:export-filename="C:\Users\Sorachi\Desktop\DeFiGeek Community JAPAN\yamatoProtocol関連\yamatoProtocol_logo\rect1443324385.png"
+         inkscape:export-xdpi="96"
+         inkscape:export-ydpi="96" />
       <g
-         aria-label="Yamato-Protocol"
-         id="text5465"
-         style="font-size:36.5474px;line-height:1.25;letter-spacing:-0.669396px;word-spacing:0px;stroke-width:0.0311437">
+         inkscape:transform-center-x="3.0801949e-06"
+         inkscape:transform-center-y="-20.206277"
+         transform="matrix(0.14146267,0,0,0.14146267,70.820221,87.597692)"
+         id="g2626"
+         inkscape:export-filename="C:\Users\Sorachi\Desktop\DeFiGeek Community JAPAN\yamatoProtocol関連\yamatoProtocol_logo\rect1443324385.png"
+         inkscape:export-xdpi="96"
+         inkscape:export-ydpi="96">
         <path
-           d="m 47.832326,312.72988 h 6.460039 l 5.23862,9.12152 v 0 l 5.236636,-9.12152 h 6.210203 l -8.841409,14.26099 -0.0099,12.00745 h -5.44285 l 0.0099,-12.11452 z"
-           style="font-weight:bold;font-family:Helvetica;-inkscape-font-specification:'Helvetica, Bold';fill:#5bad92;fill-opacity:1;stroke-width:0.0311437"
-           id="path49866"
-           sodipodi:nodetypes="ccccccccccc" />
-        <path
-           d="m 71.613195,325.8641 q 0.624589,-4.05091 2.730348,-5.40716 2.105758,-1.3741 5.764067,-1.3741 3.694,0 5.83545,1.39195 2.141449,1.39194 2.141449,4.17582 v 10.42172 q 0,2.69466 1.124261,3.14079 v 0.7852 h -5.603459 q -0.339063,-0.96365 -0.481826,-2.19498 v -0.16061 q -2.426976,2.85526 -6.120976,2.85526 -2.569739,0 -4.300744,-1.42763 -1.731005,-1.44548 -1.731005,-4.24721 0,-5.31793 5.621304,-6.13882 l 4.586271,-0.69597 q 1.784541,-0.26768 1.784541,-1.62393 0,-2.21283 -3.122947,-2.21283 -1.731005,0 -2.40913,0.67812 -0.678126,0.67813 -0.85658,2.03438 z m 11.349681,3.72969 q -0.517517,0.37475 -1.51686,0.64243 -0.981497,0.26769 -1.927304,0.41045 -1.552551,0.21414 -2.498358,0.83873 -0.927961,0.60675 -0.927961,1.99869 0,1.23133 0.678126,1.78454 0.678125,0.55321 1.820231,0.55321 1.784542,0 3.069411,-1.10642 1.302715,-1.10641 1.302715,-2.65896 z m -2.587584,-12.50963 z m 3.4977,21.91416 z"
-           style="font-weight:bold;font-family:Helvetica;-inkscape-font-specification:'Helvetica, Bold';fill:#5bad92;fill-opacity:1;stroke-width:0.0311437"
-           id="path49868" />
-        <path
-           d="m 91.912154,319.58251 h 4.889643 v 2.92665 q 1.998686,-3.42632 5.764063,-3.42632 2.12361,0 3.35494,0.89227 1.24918,0.89227 1.98084,2.24853 1.82023,-3.1408 5.37147,-3.1408 2.92665,0 4.76473,1.73101 1.83807,1.731 1.83807,4.72903 v 13.45544 h -5.12163 v -11.77797 q 0,-3.83676 -2.94449,-3.83676 -3.35494,0 -3.35494,3.96168 v 11.65305 h -5.12163 v -11.65305 q 0,-2.23068 -0.71382,-3.08726 -0.69597,-0.87442 -2.33775,-0.87442 -3.247863,0 -3.247863,3.78322 v 11.83151 h -5.121633 z"
-           style="font-weight:bold;font-family:Helvetica;-inkscape-font-specification:'Helvetica, Bold';fill:#5bad92;fill-opacity:1;stroke-width:0.0311437"
-           id="path49870" />
-        <path
-           d="m 123.09682,325.8641 q 0.62459,-4.05091 2.73035,-5.40716 2.10576,-1.3741 5.76407,-1.3741 3.694,0 5.83545,1.39195 2.14145,1.39194 2.14145,4.17582 v 10.42172 q 0,2.69466 1.12426,3.14079 v 0.7852 h -5.60346 q -0.33906,-0.96365 -0.48183,-2.19498 v -0.16061 q -2.42697,2.85526 -6.12097,2.85526 -2.56974,0 -4.30075,-1.42763 -1.731,-1.44548 -1.731,-4.24721 0,-5.31793 5.6213,-6.13882 l 4.58627,-0.69597 q 1.78454,-0.26768 1.78454,-1.62393 0,-2.21283 -3.12294,-2.21283 -1.73101,0 -2.40913,0.67812 -0.67813,0.67813 -0.85658,2.03438 z m 11.34968,3.72969 q -0.51751,0.37475 -1.51686,0.64243 -0.98149,0.26769 -1.9273,0.41045 -1.55255,0.21414 -2.49836,0.83873 -0.92796,0.60675 -0.92796,1.99869 0,1.23133 0.67813,1.78454 0.67812,0.55321 1.82023,0.55321 1.78454,0 3.06941,-1.10642 1.30271,-1.10641 1.30271,-2.65896 z m -2.58758,-12.50963 z m 3.4977,21.91416 z"
-           style="font-weight:bold;font-family:Helvetica;-inkscape-font-specification:'Helvetica, Bold';fill:#5bad92;fill-opacity:1;stroke-width:0.0311437"
-           id="path49872" />
-        <path
-           d="m 141.3971,323.20513 v -3.62262 h 2.64112 v -5.13947 h 5.12163 v 5.13947 h 3.14079 v 3.62262 h -3.14079 v 10.61802 q 0,1.07073 0.41044,1.32056 0.42829,0.24984 1.7667,0.24984 0.46398,0 1.01719,-0.0535 v 3.90815 q -1.48117,0.0535 -2.56974,0.0535 -3.42632,0 -4.58627,-0.9458 -1.15995,-0.94581 -1.15995,-3.26571 v -11.88505 z m 6.44219,15.79319 z"
-           style="font-weight:bold;font-family:Helvetica;-inkscape-font-specification:'Helvetica, Bold';fill:#5bad92;fill-opacity:1;stroke-width:0.0311437"
-           id="path49874" />
-        <path
-           d="m 153.86192,329.29042 q 0,-4.69335 2.73035,-7.44154 2.73035,-2.76604 7.1917,-2.76604 4.24721,0 7.08463,2.65897 2.83742,2.65897 2.83742,7.54861 0,4.51489 -2.64112,7.37015 -2.64112,2.83742 -7.28093,2.83742 -4.26505,0 -7.10247,-2.65896 -2.81958,-2.67681 -2.81958,-7.54861 z m 5.28224,0.0535 q 0,5.90684 4.63981,5.90684 4.63981,0 4.63981,-5.90684 0,-5.90683 -4.63981,-5.90683 -4.63981,0 -4.63981,5.90683 z m 4.71119,-12.25979 z"
-           style="font-weight:bold;font-family:Helvetica;-inkscape-font-specification:'Helvetica, Bold';fill:#5bad92;fill-opacity:1;stroke-width:0.0311437"
-           id="path49876" />
-        <path
-           d="m 188.53516,312.72988 h 11.88505 q 3.92599,0 6.0139,2.30205 2.10576,2.28422 2.10576,5.90684 0,3.90814 -2.30206,6.26373 -2.28421,2.3556 -5.99606,2.3556 h -6.26374 v 9.44022 h -5.44285 z m 5.44285,4.60411 v 7.61999 h 5.01456 q 4.01522,0 4.01522,-3.92599 0,-2.1236 -1.1778,-2.9088 -1.17779,-0.7852 -3.58692,-0.7852 z"
-           style="font-weight:bold;font-family:Helvetica;-inkscape-font-specification:'Helvetica, Bold';fill:#5bad92;fill-opacity:1;stroke-width:0.0311437"
-           id="path49880" />
-        <path
-           d="m 211.76078,338.99832 v -19.41581 h 4.88964 v 3.51555 q 1.08857,-2.21283 2.33775,-3.1051 1.24918,-0.91012 3.14079,-0.91012 0.24984,0 1.03504,0.0535 v 5.19301 q -0.76736,-0.0535 -1.32056,-0.0535 -4.96103,0 -4.96103,4.60411 v 10.11835 z m 6.0139,-21.91416 z m -3.51554,21.91416 z"
-           style="font-weight:bold;font-family:Helvetica;-inkscape-font-specification:'Helvetica, Bold';fill:#5bad92;fill-opacity:1;stroke-width:0.0311437"
-           id="path49882" />
-        <path
-           d="m 224.27914,329.29042 q 0,-4.69335 2.73034,-7.44154 2.73035,-2.76604 7.1917,-2.76604 4.24721,0 7.08463,2.65897 2.83742,2.65897 2.83742,7.54861 0,4.51489 -2.64112,7.37015 -2.64112,2.83742 -7.28093,2.83742 -4.26505,0 -7.10247,-2.65896 -2.81957,-2.67681 -2.81957,-7.54861 z m 5.28224,0.0535 q 0,5.90684 4.6398,5.90684 4.63981,0 4.63981,-5.90684 0,-5.90683 -4.63981,-5.90683 -4.6398,0 -4.6398,5.90683 z m 4.71119,-12.25979 z"
-           style="font-weight:bold;font-family:Helvetica;-inkscape-font-specification:'Helvetica, Bold';fill:#5bad92;fill-opacity:1;stroke-width:0.0311437"
-           id="path49884" />
-        <path
-           d="m 244.9707,323.20513 v -3.62262 h 2.64112 v -5.13947 h 5.12163 v 5.13947 h 3.14079 v 3.62262 h -3.14079 v 10.61802 q 0,1.07073 0.41044,1.32056 0.42829,0.24984 1.7667,0.24984 0.46398,0 1.01719,-0.0535 v 3.90815 q -1.48117,0.0535 -2.56974,0.0535 -3.42632,0 -4.58627,-0.9458 -1.15995,-0.94581 -1.15995,-3.26571 v -11.88505 z m 6.44219,15.79319 z"
-           style="font-weight:bold;font-family:Helvetica;-inkscape-font-specification:'Helvetica, Bold';fill:#5bad92;fill-opacity:1;stroke-width:0.0311437"
-           id="path49886" />
-        <path
-           d="m 257.43552,329.29042 q 0,-4.69335 2.73035,-7.44154 2.73035,-2.76604 7.1917,-2.76604 4.24721,0 7.08463,2.65897 2.83742,2.65897 2.83742,7.54861 0,4.51489 -2.64112,7.37015 -2.64112,2.83742 -7.28093,2.83742 -4.26505,0 -7.10247,-2.65896 -2.81958,-2.67681 -2.81958,-7.54861 z m 5.28225,0.0535 q 0,5.90684 4.6398,5.90684 4.63981,0 4.63981,-5.90684 0,-5.90683 -4.63981,-5.90683 -4.6398,0 -4.6398,5.90683 z m 4.71118,-12.25979 z"
-           style="font-weight:bold;font-family:Helvetica;-inkscape-font-specification:'Helvetica, Bold';fill:#5bad92;fill-opacity:1;stroke-width:0.0311437"
-           id="path49888" />
-        <path
-           d="m 291.65391,331.78878 h 5.28224 q -0.57106,3.67615 -2.80173,5.69268 -2.23068,2.01653 -6.12098,2.01653 -4.05091,0 -6.49573,-2.46266 -2.42697,-2.48052 -2.42697,-7.42369 0,-4.72904 2.30205,-7.62 2.30206,-2.9088 6.90618,-2.9088 3.46201,0 5.79976,1.78454 2.35559,1.7667 2.83742,5.63915 v 0 h -5.28224 v 0 q -0.26769,-1.30271 -1.01719,-2.17714 -0.73167,-0.89227 -2.19499,-0.89227 -4.06875,0 -4.06875,6.08529 0,5.72838 3.81892,5.72838 1.42763,0 2.44482,-0.99935 1.01719,-0.99934 1.01719,-2.46266 z m -3.28356,-14.70462 z m -0.28553,21.91416 z"
-           style="font-weight:bold;font-family:Helvetica;-inkscape-font-specification:'Helvetica, Bold';fill:#5bad92;fill-opacity:1;stroke-width:0.0311437"
-           id="path49890" />
-        <path
-           d="m 298.74726,329.29042 q 0,-4.69335 2.73035,-7.44154 2.73035,-2.76604 7.1917,-2.76604 4.24721,0 7.08463,2.65897 2.83742,2.65897 2.83742,7.54861 0,4.51489 -2.64112,7.37015 -2.64112,2.83742 -7.28093,2.83742 -4.26505,0 -7.10247,-2.65896 -2.81958,-2.67681 -2.81958,-7.54861 z m 5.28224,0.0535 q 0,5.90684 4.63981,5.90684 4.63981,0 4.63981,-5.90684 0,-5.90683 -4.63981,-5.90683 -4.63981,0 -4.63981,5.90683 z m 4.71119,-12.25979 z"
-           style="font-weight:bold;font-family:Helvetica;-inkscape-font-specification:'Helvetica, Bold';fill:#5bad92;fill-opacity:1;stroke-width:0.0311437"
-           id="path49892" />
-        <path
-           d="m 321.6695,338.99832 v -26.26844 h 5.12163 v 26.26844 z m 2.56974,-28.26713 z m 0,28.26713 z"
-           style="font-weight:bold;font-family:Helvetica;-inkscape-font-specification:'Helvetica, Bold';fill:#5bad92;fill-opacity:1;stroke-width:0.0311437"
-           id="path49894" />
+           style="color:#000000;fill:#5bad92;stroke-width:140.276;-inkscape-stroke:none"
+           d="M 406.4477,922.49044 901.2538,65.461182 1396.0599,922.49046 Z"
+           id="path2575" />
       </g>
-      <path
-         sodipodi:type="star"
-         style="fill:#fcfaf2;fill-opacity:1;stroke:none;stroke-width:3.32237;stroke-linecap:round;stroke-linejoin:round"
-         id="path20073-3"
-         inkscape:flatsided="true"
-         sodipodi:sides="3"
-         sodipodi:cx="249.29526"
-         sodipodi:cy="-224.70244"
-         sodipodi:r1="22.622484"
-         sodipodi:r2="11.311242"
-         sodipodi:arg1="0.52359878"
-         sodipodi:arg2="1.5707963"
-         inkscape:rounded="0"
-         inkscape:randomized="0"
-         transform="matrix(-0.26739033,0,0,-0.26880396,126.19015,255.36948)"
-         inkscape:transform-center-y="1.5202548"
-         d="m 268.8869,-213.3912 -39.18329,0 19.59165,-33.93372 z"
-         inkscape:transform-center-x="-2.0074996e-06" />
-      <path
-         sodipodi:type="star"
-         style="fill:#f9aea5;fill-opacity:1;stroke:none;stroke-width:7.68495;stroke-linecap:round;stroke-linejoin:round"
-         id="path20073-3-2"
-         inkscape:flatsided="true"
-         sodipodi:sides="3"
-         sodipodi:cx="249.29526"
-         sodipodi:cy="-224.70244"
-         sodipodi:r1="22.622484"
-         sodipodi:r2="11.311242"
-         sodipodi:arg1="0.52359878"
-         sodipodi:arg2="1.5707963"
-         inkscape:rounded="0"
-         inkscape:randomized="0"
-         transform="matrix(-0.11559884,0,0,-0.11620999,88.349227,289.65772)"
-         inkscape:transform-center-y="0.65724397"
-         inkscape:transform-center-x="-1.5961771e-06"
-         d="m 268.8869,-213.3912 -39.18329,0 19.59165,-33.93372 z" />
-    </g>
-    <g
-       id="g1103">
       <g
-         id="g1072"
-         style="stroke-width:10"
-         transform="scale(0.09999997)">
+         inkscape:transform-center-x="3.0801949e-06"
+         inkscape:transform-center-y="-20.206277"
+         transform="matrix(0.14146267,0,0,0.14146267,0.82362959,147.374)"
+         id="g2630"
+         inkscape:export-filename="C:\Users\Sorachi\Desktop\DeFiGeek Community JAPAN\yamatoProtocol関連\yamatoProtocol_logo\rect1443324385.png"
+         inkscape:export-xdpi="96"
+         inkscape:export-ydpi="96">
         <path
-           style="color:#000000;fill:#5bad92;stroke-width:75.6709;stroke-linecap:round;stroke-linejoin:round;-inkscape-stroke:none"
-           d="M 396.875,198.4375 A 198.4375,198.4375 0 0 1 198.4375,396.875 198.4375,198.4375 0 0 1 0,198.4375 198.4375,198.4375 0 0 1 198.4375,0 198.4375,198.4375 0 0 1 396.875,198.4375 Z"
-           id="path2620"
-           inkscape:export-filename="C:\Users\Sorachi\Desktop\DeFiGeek Community JAPAN\yamatoProtocol関連\yamatoProtocol_logo\rect1443324385.png"
-           inkscape:export-xdpi="96"
-           inkscape:export-ydpi="96" />
+           style="color:#000000;fill:#5bad92;stroke-width:140.276;-inkscape-stroke:none"
+           d="M 406.4477,922.49044 901.2538,65.461182 1396.0599,922.49046 Z"
+           id="path2581" />
+      </g>
+      <g
+         inkscape:transform-center-x="3.0801949e-06"
+         inkscape:transform-center-y="-20.206277"
+         transform="matrix(0.14146267,0,0,0.14146267,140.81681,147.37401)"
+         id="g2634"
+         inkscape:export-filename="C:\Users\Sorachi\Desktop\DeFiGeek Community JAPAN\yamatoProtocol関連\yamatoProtocol_logo\rect1443324385.png"
+         inkscape:export-xdpi="96"
+         inkscape:export-ydpi="96">
         <path
-           style="color:#000000;fill:#f9aea5;stroke-width:198.438;-inkscape-stroke:none"
-           d="m 171.73688,225.11379 26.57711,46.0329 26.57711,-46.0329 z"
-           id="path2622"
-           inkscape:export-filename="C:\Users\Sorachi\Desktop\DeFiGeek Community JAPAN\yamatoProtocol関連\yamatoProtocol_logo\rect1443324385.png"
-           inkscape:export-xdpi="96"
-           inkscape:export-ydpi="96" />
-        <g
-           inkscape:transform-center-x="3.0801949e-06"
-           inkscape:transform-center-y="-20.206277"
-           transform="matrix(0.14146267,0,0,0.14146267,70.820221,87.597692)"
-           id="g2626"
-           inkscape:export-filename="C:\Users\Sorachi\Desktop\DeFiGeek Community JAPAN\yamatoProtocol関連\yamatoProtocol_logo\rect1443324385.png"
-           inkscape:export-xdpi="96"
-           inkscape:export-ydpi="96"
-           style="stroke-width:10">
-          <path
-             style="color:#000000;fill:#5bad92;stroke-width:1402.76;-inkscape-stroke:none"
-             d="M 406.4477,922.49044 901.2538,65.461182 1396.0599,922.49046 Z"
-             id="path2575" />
-          <path
-             style="color:#000000;fill:#fcfaf2;stroke-width:10;-inkscape-stroke:none"
-             d="M 901.25391,-74.814453 284.96484,992.62891 H 406.44727 1517.543 Z m 0,280.550783 373.32229,646.61523 H 527.92969 Z"
-             id="path2577" />
-        </g>
-        <g
-           inkscape:transform-center-x="3.0801949e-06"
-           inkscape:transform-center-y="-20.206277"
-           transform="matrix(0.14146267,0,0,0.14146267,0.82362959,147.374)"
-           id="g2630"
-           inkscape:export-filename="C:\Users\Sorachi\Desktop\DeFiGeek Community JAPAN\yamatoProtocol関連\yamatoProtocol_logo\rect1443324385.png"
-           inkscape:export-xdpi="96"
-           inkscape:export-ydpi="96"
-           style="stroke-width:10">
-          <path
-             style="color:#000000;fill:#5bad92;stroke-width:1402.76;-inkscape-stroke:none"
-             d="M 406.4477,922.49044 901.2538,65.461182 1396.0599,922.49046 Z"
-             id="path2581" />
-          <path
-             style="color:#000000;fill:#fcfaf2;stroke-width:10;-inkscape-stroke:none"
-             d="M 901.25391,-74.814453 284.96484,992.62891 H 406.44727 1517.543 Z m 0,280.550783 373.32229,646.61523 H 527.92969 Z"
-             id="path2583" />
-        </g>
-        <g
-           inkscape:transform-center-x="3.0801949e-06"
-           inkscape:transform-center-y="-20.206277"
-           transform="matrix(0.14146267,0,0,0.14146267,140.81681,147.37401)"
-           id="g2634"
-           inkscape:export-filename="C:\Users\Sorachi\Desktop\DeFiGeek Community JAPAN\yamatoProtocol関連\yamatoProtocol_logo\rect1443324385.png"
-           inkscape:export-xdpi="96"
-           inkscape:export-ydpi="96"
-           style="stroke-width:10">
-          <path
-             style="color:#000000;fill:#5bad92;stroke-width:1402.76;-inkscape-stroke:none"
-             d="M 406.4477,922.49044 901.2538,65.461182 1396.0599,922.49046 Z"
-             id="path2587" />
-          <path
-             style="color:#000000;fill:#fcfaf2;stroke-width:10;-inkscape-stroke:none"
-             d="M 901.25391,-74.814453 284.96484,992.62891 H 406.44727 1517.543 Z m 0,280.550783 373.32229,646.61523 H 527.92969 Z"
-             id="path2589" />
-        </g>
+           style="color:#000000;fill:#5bad92;stroke-width:140.276;-inkscape-stroke:none"
+           d="M 406.4477,922.49044 901.2538,65.461182 1396.0599,922.49046 Z"
+           id="path2587" />
+        <path
+           style="color:#000000;fill:#fcfaf2;-inkscape-stroke:none"
+           d="m 406.44727,992.62891 c -934.58779,-1356.27746 -467.293895,-678.13873 0,0 z"
+           id="path2589"
+           sodipodi:nodetypes="cc" />
+      </g>
+      <g
+         inkscape:transform-center-x="3.0801949e-06"
+         inkscape:transform-center-y="-20.206277"
+         transform="matrix(0.14146267,0,0,0.14146267,53.493626,-286.57954)"
+         id="g2626-6"
+         inkscape:export-filename="C:\Users\Sorachi\Desktop\DeFiGeek Community JAPAN\yamatoProtocol関連\yamatoProtocol_logo\rect1443324385.png"
+         inkscape:export-xdpi="96"
+         inkscape:export-ydpi="96">
+        <path
+           id="path2577-4"
+           style="color:#000000;display:inline;fill:#fcfaf2;stroke-width:1;-inkscape-stroke:none"
+           d="M 1023.7357,2570.2452 654.35085,3210.0402 528.9285,2992.8032 -87.359433,4060.2448 h 121.48441 868.129883 242.96524 989.6108 l -616.288,-1067.4416 -125.4224,217.237 z m 0,280.551 288.3976,499.5195 -84.9251,147.0957 H 820.26676 L 735.33802,3350.3157 Z M 902.25126,3919.9693 H 155.60574 L 528.9285,3273.3542 c 124.4425,215.5374 248.88202,431.0766 373.32276,646.6151 z m 616.29164,-646.6151 373.3228,646.6151 h -746.6492 c 124.4458,-215.5362 248.8822,-431.0779 373.3264,-646.6151 z m -617.28894,364.3327 h 244.96344 l -122.4817,212.1447 z"
+           sodipodi:nodetypes="ccccccccccccccccccccccccccccc"
+           sodipodi:insensitive="true" />
       </g>
     </g>
   </g>

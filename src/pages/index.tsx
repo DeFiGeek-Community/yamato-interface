@@ -14,7 +14,7 @@ import Dashboad from '../components/Dashboad';
 import Footer from '../components/Footer';
 import Infographics from '../components/Infographics';
 import World from '../components/World';
-import SvgYamatoLogWithTitle from '../components/svgs/YamatoLogWithTitle';
+import SvgYamatoLogWithTitle from '../components/svgs/YamatoLogoWithTitle';
 import Web3Status from '../components/wallet-connect-button';
 
 export default function Index() {
