@@ -6,8 +6,6 @@ import styled, {
   DefaultTheme,
   ThemeProvider as StyledComponentsThemeProvider,
 } from 'styled-components';
-// import { useIsDarkMode } from '../state/user/hooks'
-const useIsDarkMode = () => true;
 import { Colors } from './styled';
 
 export * from './components';
@@ -33,46 +31,46 @@ const mediaWidthTemplates: {
 const white = '#FFFFFF';
 const black = '#000000';
 
-export function colors(darkMode: boolean): Colors {
+export function colors(): Colors {
   return {
     // base
     white,
     black,
 
     // text
-    text1: darkMode ? '#FFFFFF' : '#000000',
-    text2: darkMode ? '#C3C5CB' : '#565A69',
-    text3: darkMode ? '#6C7284' : '#888D9B',
-    text4: darkMode ? '#565A69' : '#C3C5CB',
-    text5: darkMode ? '#2C2F36' : '#EDEEF2',
+    text1: '#000000',
+    text2: '#565A69',
+    text3: '#888D9B',
+    text4: '#C3C5CB',
+    text5: '#EDEEF2',
 
     // backgrounds / greys
-    bg0: darkMode ? '#191B1F' : '#FFF',
-    bg1: darkMode ? '#212429' : '#F7F8FA',
-    bg2: darkMode ? '#2C2F36' : '#EDEEF2',
-    bg3: darkMode ? '#40444F' : '#CED0D9',
-    bg4: darkMode ? '#565A69' : '#888D9B',
-    bg5: darkMode ? '#6C7284' : '#888D9B',
-    bg6: darkMode ? '#1A2028' : '#6C7284',
+    bg0: '#FFF',
+    bg1: '#F7F8FA',
+    bg2: '#EDEEF2',
+    bg3: '#CED0D9',
+    bg4: '#888D9B',
+    bg5: '#888D9B',
+    bg6: '#6C7284',
 
     //specialty colors
-    modalBG: darkMode ? 'rgba(0,0,0,.425)' : 'rgba(0,0,0,0.3)',
-    advancedBG: darkMode ? 'rgba(0,0,0,0.1)' : 'rgba(255,255,255,0.6)',
+    modalBG: 'rgba(0,0,0,0.3)',
+    advancedBG: 'rgba(255,255,255,0.6)',
 
     //primary colors
-    primary1: darkMode ? '#2172E5' : '#ff007a',
-    primary2: darkMode ? '#3680E7' : '#FF8CC3',
-    primary3: darkMode ? '#4D8FEA' : '#FF99C9',
-    primary4: darkMode ? '#376bad70' : '#F6DDE8',
-    primary5: darkMode ? '#153d6f70' : '#FDEAF1',
+    primary1: '#ff007a',
+    primary2: '#FF8CC3',
+    primary3: '#FF99C9',
+    primary4: '#F6DDE8',
+    primary5: '#FDEAF1',
 
     // color text
-    primaryText1: darkMode ? '#6da8ff' : '#ff007a',
+    primaryText1: '#ff007a',
 
     // secondary colors
-    secondary1: darkMode ? '#2172E5' : '#ff007a',
-    secondary2: darkMode ? '#17000b26' : '#F6DDE8',
-    secondary3: darkMode ? '#17000b26' : '#FDEAF1',
+    secondary1: '#ff007a',
+    secondary2: '#F6DDE8',
+    secondary3: '#FDEAF1',
 
     // other
     red1: '#FD4040',
@@ -95,9 +93,9 @@ export function colors(darkMode: boolean): Colors {
   };
 }
 
-export function theme(darkMode: boolean): DefaultTheme {
+export function theme(): DefaultTheme {
   return {
-    ...colors(darkMode),
+    ...colors(),
 
     grids: {
       sm: 8,
@@ -106,7 +104,7 @@ export function theme(darkMode: boolean): DefaultTheme {
     },
 
     //shadows
-    shadow1: darkMode ? '#000' : '#2F80ED',
+    shadow1: '#2F80ED',
 
     // media queries
     mediaWidth: mediaWidthTemplates,
@@ -128,9 +126,7 @@ export default function ThemeProvider({
 }: {
   children: React.ReactNode;
 }) {
-  const darkMode = useIsDarkMode();
-
-  const themeObject = useMemo(() => theme(darkMode), [darkMode]);
+  const themeObject = useMemo(() => theme(), []);
 
   return (
     <StyledComponentsThemeProvider theme={themeObject}>
@@ -249,7 +245,7 @@ body {
 }
 
  a {
-   color: ${colors(false).blue1}; 
+   color: ${colors().blue1}; 
  }
 
 * {

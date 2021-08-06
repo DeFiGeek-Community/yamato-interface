@@ -39,7 +39,6 @@ export default function Index() {
               style={{
                 textAlign: 'right',
                 width: '100%',
-                padding: '16px 16px',
               }}
             >
               <Web3Status />
