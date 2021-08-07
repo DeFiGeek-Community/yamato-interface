@@ -13,9 +13,11 @@ import { Link } from 'react-router-dom';
 import Dashboad from '../components/Dashboad';
 import Footer from '../components/Footer';
 import Infographics from '../components/Infographics';
+import Pledge from '../components/Pledge';
+import Redemption from '../components/Redemption';
+import Web3Status from '../components/WalletConnectButton';
 import World from '../components/World';
 import SvgYamatoLogWithTitle from '../components/svgs/YamatoLogoWithTitle';
-import Web3Status from '../components/wallet-connect-button';
 
 export default function Index() {
   return (
@@ -54,29 +56,31 @@ export default function Index() {
           </GridItem>
 
           <GridItem rowSpan={9} colSpan={4}>
-            <Accordion allowMultiple>
+            <Accordion allowMultiple defaultIndex={[0]}>
               <AccordionItem>
-                <h2>
-                  <AccordionButton>
-                    <Box flex="1" textAlign="left">
-                      My Pledge
-                    </Box>
-                    <AccordionIcon />
-                  </AccordionButton>
-                </h2>
-                <AccordionPanel pb={4}>Under construction</AccordionPanel>
+                <AccordionButton>
+                  <Box flex="1" textAlign="left">
+                    <h2>My Pledge</h2>
+                  </Box>
+                  <AccordionIcon />
+                </AccordionButton>
+
+                <AccordionPanel pb={4}>
+                  <Pledge />
+                </AccordionPanel>
               </AccordionItem>
 
               <AccordionItem>
-                <h2>
-                  <AccordionButton>
-                    <Box flex="1" textAlign="left">
-                      償還
-                    </Box>
-                    <AccordionIcon />
-                  </AccordionButton>
-                </h2>
-                <AccordionPanel pb={4}>Under construction</AccordionPanel>
+                <AccordionButton>
+                  <Box flex="1" textAlign="left">
+                    <h2>償還</h2>
+                  </Box>
+                  <AccordionIcon />
+                </AccordionButton>
+
+                <AccordionPanel pb={4}>
+                  <Redemption />
+                </AccordionPanel>
               </AccordionItem>
             </Accordion>
           </GridItem>
