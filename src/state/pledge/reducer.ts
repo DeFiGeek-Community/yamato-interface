@@ -5,11 +5,14 @@ import {
   withdrawCollateral,
 } from './actions';
 
+export type PledgeDetail = {
+  collateral: number; // ETH
+  debt: number; // CJPY
+  withdrawalLockDate: number; // unix time
+};
+
 export interface PledgeState {
-  [owner: string]: {
-    collateral: number;
-    debt: number;
-  };
+  [owner: string]: PledgeDetail;
 }
 
 const initialState: PledgeState = {};
@@ -18,8 +21,8 @@ export default createReducer(initialState, (builder) =>
   builder
     .addCase(
       fetchingMyPledge,
-      (state, { payload: { owner, collateral, debt } }) => {
-        state[owner] = { collateral, debt };
+      (state, { payload: { owner, collateral, debt, withdrawalLockDate } }) => {
+        state[owner] = { collateral, debt, withdrawalLockDate };
       }
     )
     .addCase(depositCollateral, (state, { payload: { owner, collateral } }) => {

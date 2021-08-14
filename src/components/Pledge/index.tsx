@@ -8,7 +8,7 @@ export default function Pledge() {
 
   // one shot
   useEffect(() => {
-    fetchingMyPledge(10, 10);
+    fetchingMyPledge(10, 10, Date.now() / 1000 + 1000);
   }, []);
 
   return (
