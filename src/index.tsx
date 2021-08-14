@@ -21,19 +21,19 @@ if (!!ethereum) {
 
 ReactDOM.render(
   <React.StrictMode>
-    <Web3ReactProvider getLibrary={getLibrary}>
-      <Web3ProviderNetwork getLibrary={getLibrary}>
-        <Provider store={store}>
+    <HashRouter>
+      <Web3ReactProvider getLibrary={getLibrary}>
+        <Web3ProviderNetwork getLibrary={getLibrary}>
           <ThemeProvider>
             <ChakraProvider>
-              <HashRouter>
+              <Provider store={store}>
                 <App />
-              </HashRouter>
+              </Provider>
             </ChakraProvider>
           </ThemeProvider>
-        </Provider>
-      </Web3ProviderNetwork>
-    </Web3ReactProvider>
+        </Web3ProviderNetwork>
+      </Web3ReactProvider>
+    </HashRouter>
   </React.StrictMode>,
   document.getElementById('root')
 );

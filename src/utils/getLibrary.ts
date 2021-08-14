@@ -10,7 +10,6 @@ const NETWORK_POLLING_INTERVALS: { [chainId: number]: number } = {
 };
 
 export default function getLibrary(provider: any): Web3Provider {
-  console.log('ライブラリ開始', provider);
   const library = new Web3Provider(
     provider,
     typeof provider.chainId === 'number'
@@ -19,7 +18,6 @@ export default function getLibrary(provider: any): Web3Provider {
       ? parseInt(provider.chainId)
       : 'any'
   );
-  console.log('ライブラリ', library, provider);
   library.pollingInterval = 15_000;
   library.detectNetwork().then((network) => {
     const networkPollingInterval = NETWORK_POLLING_INTERVALS[network.chainId];
