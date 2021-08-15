@@ -108,6 +108,10 @@ const Web3StatusConnected = styled(Web3StatusGeneric)<{ pending?: boolean }>`
   }
 `;
 
+const YamatoButton = styled(RebassButton)`
+  color: black;
+`;
+
 const Text = styled.p`
   flex: 1 1 auto;
   overflow: hidden;
@@ -175,7 +179,7 @@ function Web3StatusInner() {
             {NETWORK_LABELS[chainId]}
           </span>
         )}
-        <RebassButton id="web3-status-connected" onClick={toggleWalletModal}>
+        <YamatoButton id="web3-status-connected" onClick={toggleWalletModal}>
           <span
             style={{
               display: 'flex',
@@ -196,28 +200,27 @@ function Web3StatusInner() {
               <StatusIcon connector={connector} />
             )}
           </span>
-        </RebassButton>
+        </YamatoButton>
       </>
     );
   } else if (error) {
     return (
-      <RebassButton onClick={toggleWalletModal}>
+      <YamatoButton onClick={toggleWalletModal}>
         <NetworkIcon />
         <Text>
           {error instanceof UnsupportedChainIdError ? 'Wrong Network' : 'Error'}
         </Text>
-      </RebassButton>
+      </YamatoButton>
     );
   } else {
     return (
-      <RebassButton
+      <YamatoButton
         id="connect-wallet"
         onClick={toggleWalletModal}
         // faded={!account}
-        style={{ color: 'black' }}
       >
         <Text>Connect to a wallet</Text>
-      </RebassButton>
+      </YamatoButton>
     );
   }
 }

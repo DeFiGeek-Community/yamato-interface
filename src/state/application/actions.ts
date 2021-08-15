@@ -1,4 +1,7 @@
-import { createAction } from '@reduxjs/toolkit';
+import {
+  createAction,
+  ActionCreatorWithOptionalPayload,
+} from '@reduxjs/toolkit';
 
 export type PopupContent = {
   txn: {
@@ -48,4 +51,11 @@ export const startTx = createAction('application/startTx');
 export const setHash = createAction<{ hash: string; type: 'donate' | 'claim' }>(
   'application/setHash'
 );
-export const endTx = createAction<{ hash?: string }>('application/endTx');
+export const endTx = createAction<{ hash?: string }>(
+  'application/endTx'
+) as ActionCreatorWithOptionalPayload<
+  {
+    hash?: string;
+  },
+  string
+>;
