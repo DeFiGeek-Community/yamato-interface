@@ -3,16 +3,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, AppState } from '../index';
 import { fetchingEthRate } from './actions';
 
-export function useMarketDataForPledge(): { rate: number } {
+export function useYamatoStateForPledge(): { rateOfEthJpy: number } {
   return useSelector((state: AppState) => ({
-    rate: state.market.rate,
+    rateOfEthJpy: state.yamatoEntirety.rateOfEthJpy,
   }));
 }
 
-export function useFetchingEthRate(): (rate: number) => void {
+export function useFetchingEthRate(): (rateOfEthJpy: number) => void {
   const dispatch = useDispatch<AppDispatch>();
   return useCallback(
-    (rate: number) => dispatch(fetchingEthRate({ rate })),
+    (rateOfEthJpy: number) => dispatch(fetchingEthRate({ rateOfEthJpy })),
     [dispatch]
   );
 }
