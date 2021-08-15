@@ -10,6 +10,7 @@ import {
 } from '@chakra-ui/react';
 import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
+import { CategoryTitle } from '../components/CommonItem';
 import Dashboad from '../components/Dashboad';
 import Footer from '../components/Footer';
 import Infographics from '../components/Infographics';
@@ -60,7 +61,7 @@ export default function Index() {
               <AccordionItem>
                 <AccordionButton>
                   <Box flex="1" textAlign="left">
-                    <h2>My Pledge</h2>
+                    <CategoryTitle>My Pledge</CategoryTitle>
                   </Box>
                   <AccordionIcon />
                 </AccordionButton>
@@ -73,7 +74,7 @@ export default function Index() {
               <AccordionItem>
                 <AccordionButton>
                   <Box flex="1" textAlign="left">
-                    <h2>償還</h2>
+                    <CategoryTitle>償還</CategoryTitle>
                   </Box>
                   <AccordionIcon />
                 </AccordionButton>

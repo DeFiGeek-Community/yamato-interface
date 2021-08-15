@@ -1,23 +1,24 @@
 import { HStack } from '@chakra-ui/react';
 import { YAMATO_SYMBOL } from '../../../constants/yamato';
 import { useActiveWeb3React } from '../../../hooks/web3';
-import { useMarketDataForPledge } from '../../../state/market/hooks';
 import { usePledgeData } from '../../../state/pledge/hooks';
+import { useYamatoStateForPledge } from '../../../state/yamato-entirety/hooks';
 import { multiplyToNum } from '../../../utils/bignumber';
-import { Label, CurrentValue } from '../common';
+import { ItemTitle } from '../../CommonItem';
+import { CurrentValue } from '../common';
 import DepositInput from './DepositInput';
 import WithdrawalInput from './WithdrawalInput';
 
 export default function Collateral() {
   const { account, library } = useActiveWeb3React();
 
-  const market = useMarketDataForPledge();
+  const yamato = useYamatoStateForPledge();
   const pledge = usePledgeData();
 
   return (
     <>
       <HStack spacing="24px" align="start">
-        <Label>担保数</Label>
+        <ItemTitle>担保数</ItemTitle>
         <div>
           <CurrentValue>
             {pledge.collateral}
@@ -35,10 +36,10 @@ export default function Collateral() {
       </HStack>
 
       <HStack spacing="24px" align="start">
-        <Label>評価額</Label>
+        <ItemTitle>評価額</ItemTitle>
         <div>
           <CurrentValue>
-            ¥{multiplyToNum(pledge.collateral, market.rate)}
+            ¥{multiplyToNum(pledge.collateral, yamato.rateOfEthJpy)}
           </CurrentValue>
         </div>
       </HStack>
