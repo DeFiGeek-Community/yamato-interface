@@ -1,7 +1,9 @@
 import { createReducer } from '@reduxjs/toolkit';
 import {
+  borrowDebt,
   depositCollateral,
   fetchingMyPledge,
+  repayDebt,
   withdrawCollateral,
 } from './actions';
 
@@ -40,4 +42,16 @@ export default createReducer(initialState, (builder) =>
         state[owner].collateral = state[owner].collateral - collateral;
       }
     )
+    .addCase(borrowDebt, (state, { payload: { owner, debt } }) => {
+      if (state[owner] == null || owner === '') {
+        return state;
+      }
+      state[owner].debt = state[owner].debt + debt;
+    })
+    .addCase(repayDebt, (state, { payload: { owner, debt } }) => {
+      if (state[owner] == null || owner === '') {
+        return state;
+      }
+      state[owner].debt = state[owner].debt - debt;
+    })
 );
