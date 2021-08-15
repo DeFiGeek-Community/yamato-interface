@@ -1,5 +1,4 @@
-import { COINGECKO_URL } from '../constants/api';
-import { getBigNumber, multiplyToNum } from './bignumber';
+import { divideToNum, getBigNumber, multiplyToNum } from './bignumber';
 
 export type CryptoCurrency = 'eth' | 'txjp';
 export type FiatCurrency = 'jpy';
@@ -74,21 +73,9 @@ export function getFialSymbol(currency: FiatCurrency) {
   return '';
 }
 
-/**
- * CoinGecko
- * https://www.coingecko.com/api/documentations/v3#/coins/get_coins_list
- */
-
-export function getOracleUrlForFiatPriceOfToken(
-  tokenName: string,
-  fiatSymbol: FiatCurrency
-) {
-  return `${COINGECKO_URL}?ids=${tokenName}&vs_currencies=${fiatSymbol}`;
-}
-
-export function getTokenName(currency: CryptoCurrency) {
-  if (currency === 'eth') {
-    return 'ethereum';
-  }
-  return '';
+export function formatCollateralizationRatio(
+  collateral: number,
+  debt: number
+): string {
+  return (divideToNum(collateral, debt) * 100).toFixed(2);
 }
