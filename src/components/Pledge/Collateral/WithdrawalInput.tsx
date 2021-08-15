@@ -4,17 +4,20 @@ import {
   FormErrorMessage,
   FormHelperText,
   FormLabel,
+  HStack,
   Input,
-  Stack,
+  VStack,
 } from '@chakra-ui/react';
 import { format } from 'date-fns';
 import { Formik, Form, Field, FormikHelpers, FieldProps } from 'formik';
 import { useState } from 'react';
+import { YAMATO_SYMBOL } from '../../../constants/yamato';
 import useInterval from '../../../hooks/useInterval';
 import { useWithdrawCollateral } from '../../../state/pledge/hooks';
 import { subtractToNum } from '../../../utils/bignumber';
+import { formatCollateralizationRatio } from '../../../utils/prices';
 
-type Props = { collateral: number; withdrawalLockDate: number };
+type Props = { collateral: number; debt: number; withdrawalLockDate: number };
 
 export default function WithdrawalInput(props: Props) {
   const withdrawCollateral = useWithdrawCollateral();
@@ -31,16 +34,16 @@ export default function WithdrawalInput(props: Props) {
   }, 500);
 
   function validateWithdrawal(value: number) {
-    let error;
     if (value == null || typeof value !== 'number') {
-      error = 'withdrawal must be number';
-    } else if (value > props.collateral) {
-      error = '残高を超えています';
+      return '数値で入力してください。';
     }
-    if (!error) {
-      setWithdrawal(value);
+    if (value > props.collateral) {
+      return '残高を超えています。';
     }
-    return error;
+
+    // Value is correct
+    setWithdrawal(value);
+    return undefined;
   }
 
   function submitWithdrawal(
@@ -61,48 +64,61 @@ export default function WithdrawalInput(props: Props) {
     <Formik initialValues={{ withdrawal: 0 }} onSubmit={submitWithdrawal}>
       {(formikProps) => (
         <Form>
-          <Stack spacing={4} direction="row" align="flex-end">
-            <Field name="withdrawal" validate={validateWithdrawal}>
-              {({ field, form }: FieldProps) => (
-                <FormControl
-                  isInvalid={
-                    !!form.errors.withdrawal && !!form.touched.withdrawal
-                  }
-                  style={{ maxWidth: '200px' }}
-                >
-                  <FormLabel htmlFor="withdrawal">引出量入力</FormLabel>
-                  <Input
-                    {...field}
-                    id="withdrawal"
-                    type="number"
-                    placeholder="ETH"
-                  />
-                  <FormErrorMessage>{form.errors.withdrawal}</FormErrorMessage>
-                </FormControl>
-              )}
-            </Field>
-            <Button
-              colorScheme="teal"
-              isLoading={formikProps.isSubmitting}
-              type="submit"
-            >
-              引出実行
-            </Button>
-          </Stack>
-          {withdrawal > 0 && (
-            <div style={{ marginTop: '8px' }}>
-              <label>変動予測値表示</label>
-              <span>{subtractToNum(props.collateral, withdrawal)}</span>
-            </div>
-          )}
-          {remainLockTime > 0 && (
-            <div style={{ marginTop: '8px' }}>
-              <label>ロックタイムカウントダウン </label>
-              <span>
-                {format(remainLockTime * 1000, 'あとdd日HH時mm分ss秒')}
-              </span>
-            </div>
-          )}
+          <VStack spacing={4} align="start">
+            <HStack spacing={4} align="flex-end">
+              <Field name="withdrawal" validate={validateWithdrawal}>
+                {({ field, form }: FieldProps) => (
+                  <FormControl
+                    isInvalid={
+                      !!form.errors.withdrawal && !!form.touched.withdrawal
+                    }
+                    style={{ maxWidth: '200px' }}
+                  >
+                    <FormLabel htmlFor="withdrawal">引出量入力</FormLabel>
+                    <Input
+                      {...field}
+                      id="withdrawal"
+                      type="number"
+                      placeholder={YAMATO_SYMBOL.COLLATERAL}
+                    />
+                    <FormErrorMessage>
+                      {form.errors.withdrawal}
+                    </FormErrorMessage>
+                  </FormControl>
+                )}
+              </Field>
+              <Button
+                colorScheme="teal"
+                isLoading={formikProps.isSubmitting}
+                type="submit"
+              >
+                引出実行
+              </Button>
+            </HStack>
+            {withdrawal > 0 && (
+              <HStack spacing={4} align="flex-end">
+                <label>変動予測値表示</label>
+                <span>
+                  {subtractToNum(props.collateral, withdrawal)}
+                  {YAMATO_SYMBOL.COLLATERAL}
+                  {', 担保率'}
+                  {formatCollateralizationRatio(
+                    props.collateral - withdrawal,
+                    props.debt
+                  )}
+                  %
+                </span>
+              </HStack>
+            )}
+            {remainLockTime > 0 && (
+              <HStack spacing={4} align="flex-end">
+                <label>ロックタイムカウントダウン </label>
+                <span>
+                  {format(remainLockTime * 1000, 'あとdd日HH時mm分ss秒')}
+                </span>
+              </HStack>
+            )}
+          </VStack>
         </Form>
       )}
     </Formik>

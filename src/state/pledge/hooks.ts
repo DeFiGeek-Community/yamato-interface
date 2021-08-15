@@ -3,8 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useActiveWeb3React } from '../../hooks/web3';
 import { AppDispatch, AppState } from '../index';
 import {
+  borrowDebt,
   depositCollateral,
   fetchingMyPledge,
+  repayDebt,
   withdrawCollateral,
 } from './actions';
 import { PledgeDetail } from './reducer';
@@ -41,6 +43,7 @@ export function useFetchingMyPledge(): (
     [dispatch, account]
   );
 }
+
 export function useDepositCollateral(): (collateral: number) => void {
   const dispatch = useDispatch<AppDispatch>();
   const { account } = useActiveWeb3React();
@@ -56,6 +59,23 @@ export function useWithdrawCollateral(): (collateral: number) => void {
   return useCallback(
     (collateral: number) =>
       dispatch(withdrawCollateral({ owner: account ?? '', collateral })),
+    [dispatch, account]
+  );
+}
+
+export function useBorrowDebt(): (debt: number) => void {
+  const dispatch = useDispatch<AppDispatch>();
+  const { account } = useActiveWeb3React();
+  return useCallback(
+    (debt: number) => dispatch(borrowDebt({ owner: account ?? '', debt })),
+    [dispatch, account]
+  );
+}
+export function useRepayDebt(): (debt: number) => void {
+  const dispatch = useDispatch<AppDispatch>();
+  const { account } = useActiveWeb3React();
+  return useCallback(
+    (debt: number) => dispatch(repayDebt({ owner: account ?? '', debt })),
     [dispatch, account]
   );
 }
