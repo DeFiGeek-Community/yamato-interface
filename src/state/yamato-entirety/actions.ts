@@ -1,5 +1,11 @@
 import { createAction } from '@reduxjs/toolkit';
 
-export const fetchingEthRate = createAction<{
+export const fetchYamatoState = createAction<{
+  totalCollateral: number;
+  totalDebt: number;
+  tcr: number;
+}>('yamato-entirety/fetchYamatoState');
+
+export const fetchRateOfEthJpy = createAction<{
   rateOfEthJpy: number;
-}>('yamato-entirety/fetchingEthRate');
+}>('yamato-entirety/fetchRateOfEthJpy');

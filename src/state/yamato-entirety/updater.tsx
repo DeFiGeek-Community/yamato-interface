@@ -1,11 +1,27 @@
 import useInterval from '../../hooks/useInterval';
-import { useFetchingEthRate } from './hooks';
+import { useFetchRateOfEthJpy, useFetchYamatoState } from './hooks';
 
 export default function Updater(): null {
-  const fetchingEthRate = useFetchingEthRate();
+  const fetchYamatoState = useFetchYamatoState();
+  const fetchRateOfEthJpy = useFetchRateOfEthJpy();
 
   useInterval(() => {
-    fetchingEthRate(300000 + Math.random() * 1000);
+    // TODO: replace me.
+    const mockState = {
+      totalCollateral: 4 + Math.random(),
+      totalDebt: 1200000 + Math.random() * 100000,
+    };
+    fetchYamatoState(
+      mockState.totalCollateral,
+      mockState.totalDebt,
+      ((mockState.totalCollateral * 300000) / mockState.totalDebt) * 100
+    );
+  }, 5000);
+
+  useInterval(() => {
+    // TODO: replace me.
+    const mockState = 300000 + Math.random() * 1000;
+    fetchRateOfEthJpy(mockState);
   }, 5000);
 
   return null;

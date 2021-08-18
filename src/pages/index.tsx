@@ -74,7 +74,7 @@ export default function Index() {
               <AccordionItem>
                 <AccordionButton>
                   <Box flex="1" textAlign="left">
-                    <CategoryTitle>償還</CategoryTitle>
+                    <CategoryTitle>Functions</CategoryTitle>
                   </Box>
                   <AccordionIcon />
                 </AccordionButton>

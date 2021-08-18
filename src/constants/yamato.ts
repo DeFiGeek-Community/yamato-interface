@@ -5,4 +5,8 @@ export const YAMATO_SYMBOL = {
   GOVERNANCE_LOCK: 'veYMT',
 };
 
-export const MIN_COLLATERAL_RATIO = 110; // %
+// TODO: Get from Yamato Contract and move to state.
+export const MCR = 110; // MinimumCollateralizationRatio
+export const RRR = 80; // RedemptionReserveRate
+export const SRR = 20; // SweepReserveRate
+export const GRR = 1; // GasReserveRate
