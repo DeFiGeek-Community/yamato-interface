@@ -18,6 +18,7 @@ describe('yamato-entirety reducer', () => {
       const newState = {
         totalCollateral: 10,
         totalDebt: 5,
+        tvl: 11,
         tcr: 110,
         redemptionReserve: 2,
         sweepReserve: 1,
