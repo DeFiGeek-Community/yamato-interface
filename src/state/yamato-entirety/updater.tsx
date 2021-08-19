@@ -21,7 +21,7 @@ export default function Updater(): null {
       ((mockState.totalCollateral * 300000) / mockState.totalDebt) * 100,
       mockState.redemptionReserve, // redemptionReserve in Pool.sol
       mockState.sweepReserve, // sweepReserve in Pool.sol
-      mockState.sweepableCandiate // FIXME
+      mockState.sweepableCandiate // FIXME: ISSUE #27
     );
   }, 5000);
 
