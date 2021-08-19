@@ -57,33 +57,11 @@ export default function Index() {
           </GridItem>
 
           <GridItem rowSpan={9} colSpan={4}>
-            <Accordion allowMultiple defaultIndex={[0]}>
-              <AccordionItem>
-                <AccordionButton>
-                  <Box flex="1" textAlign="left">
-                    <CategoryTitle>My Pledge</CategoryTitle>
-                  </Box>
-                  <AccordionIcon />
-                </AccordionButton>
+            <Pledge />
 
-                <AccordionPanel pb={4}>
-                  <Pledge />
-                </AccordionPanel>
-              </AccordionItem>
+            <Box className="divider" mt={12} />
 
-              <AccordionItem>
-                <AccordionButton>
-                  <Box flex="1" textAlign="left">
-                    <CategoryTitle>Functions</CategoryTitle>
-                  </Box>
-                  <AccordionIcon />
-                </AccordionButton>
-
-                <AccordionPanel pb={4}>
-                  <Redemption />
-                </AccordionPanel>
-              </AccordionItem>
-            </Accordion>
+            <Redemption />
           </GridItem>
 
           <GridItem rowSpan={5} colSpan={1}>
