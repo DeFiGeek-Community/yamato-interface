@@ -3,8 +3,7 @@ import { YAMATO_SYMBOL } from '../../../constants/yamato';
 import { useActiveWeb3React } from '../../../hooks/web3';
 import { usePledgeData } from '../../../state/pledge/hooks';
 import { formatCollateralizationRatio } from '../../../utils/prices';
-import { ItemTitle } from '../../CommonItem';
-import { CurrentValue } from '../common';
+import { CurrentValue, ItemTitle } from '../../CommonItem';
 import BorrowInput from './BorrowingInput';
 import RepayInput from './RepayInput';
 

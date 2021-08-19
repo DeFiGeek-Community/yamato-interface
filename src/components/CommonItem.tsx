@@ -11,3 +11,10 @@ export const ItemTitle = styled.label`
   margin-top: 32px;
   font-weight: bold;
 `;
+
+export const CurrentValue = styled.p<{ width?: number }>`
+  width: ${({ width }) => width ?? 200}px;
+  color: #818181;
+  margin-top: 32px;
+  font-weight: bold;
+`;

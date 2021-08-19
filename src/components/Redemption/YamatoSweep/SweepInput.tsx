@@ -1,7 +1,6 @@
 import { Button, HStack, VStack } from '@chakra-ui/react';
 import { Formik, Form, FormikHelpers } from 'formik';
-import { useState } from 'react';
-import { GRR, MCR, YAMATO_SYMBOL } from '../../../constants/yamato';
+import { YAMATO_SYMBOL } from '../../../constants/yamato';
 import { useActiveWeb3React } from '../../../hooks/web3';
 
 type Props = {

@@ -4,8 +4,7 @@ import { useActiveWeb3React } from '../../../hooks/web3';
 import { usePledgeData } from '../../../state/pledge/hooks';
 import { useYamatoStateForPledge } from '../../../state/yamato-entirety/hooks';
 import { multiplyToNum } from '../../../utils/bignumber';
-import { ItemTitle } from '../../CommonItem';
-import { CurrentValue } from '../common';
+import { ItemTitle, CurrentValue } from '../../CommonItem';
 import DepositInput from './DepositInput';
 import WithdrawalInput from './WithdrawalInput';
 
