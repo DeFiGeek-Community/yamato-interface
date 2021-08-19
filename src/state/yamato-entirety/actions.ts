@@ -5,6 +5,7 @@ export const fetchYamatoState = createAction<{
   totalDebt: number;
   tcr: number;
   redemptionReserve: number;
+  sweepReserve: number;
 }>('yamato-entirety/fetchYamatoState');
 
 export const fetchRateOfEthJpy = createAction<{
