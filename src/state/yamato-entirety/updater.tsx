@@ -10,11 +10,13 @@ export default function Updater(): null {
     const mockState = {
       totalCollateral: 4 + Math.random(),
       totalDebt: 1200000 + Math.random() * 100000,
+      redemptionReserve: 10,
     };
     fetchYamatoState(
       mockState.totalCollateral,
       mockState.totalDebt,
-      ((mockState.totalCollateral * 300000) / mockState.totalDebt) * 100
+      ((mockState.totalCollateral * 300000) / mockState.totalDebt) * 100,
+      mockState.redemptionReserve
     );
   }, 5000);
 

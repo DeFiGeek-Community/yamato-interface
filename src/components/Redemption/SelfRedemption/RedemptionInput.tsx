@@ -9,8 +9,12 @@ import {
 } from '@chakra-ui/react';
 import { Formik, Form, Field, FieldProps, FormikHelpers } from 'formik';
 import { useState } from 'react';
-import { GRR, MCR, YAMATO_SYMBOL } from '../../../constants/yamato';
+import { YAMATO_SYMBOL } from '../../../constants/yamato';
 import { useActiveWeb3React } from '../../../hooks/web3';
+import {
+  getExpectedCollateral,
+  getRedeemableCandidate,
+} from '../shared/function';
 
 type Props = {
   totalCollateral: number;
@@ -23,26 +27,12 @@ export default function RedemptionInput(props: Props) {
   const { account, library } = useActiveWeb3React();
 
   const [redemption, setRedemption] = useState(0);
-
-  function getRedeemableCandidate() {
-    if (props.tcr >= MCR) {
-      return 0;
-    }
-
-    const totalCollPerJpy = props.totalCollateral * props.rateOfEthJpy;
-    return (props.totalDebt * MCR - totalCollPerJpy * 100) / MCR;
-  }
-
-  function getExpectedCollateral() {
-    const redeemableAmount =
-      redemption > getRedeemableCandidate()
-        ? getRedeemableCandidate()
-        : redemption;
-    const redeemableAmountPerEth = redeemableAmount / props.rateOfEthJpy;
-
-    const expectedCollateral = redeemableAmountPerEth * ((100 - GRR) / 100);
-    return expectedCollateral;
-  }
+  const redeemableCandidate = getRedeemableCandidate(
+    props.totalCollateral,
+    props.totalDebt,
+    props.tcr,
+    props.rateOfEthJpy
+  );
 
   async function validateRedemption(value: number) {
     if (value == null || typeof value !== 'number') {
@@ -54,7 +44,7 @@ export default function RedemptionInput(props: Props) {
     //   return '残高が足りません。';
     // }
 
-    if (value > getRedeemableCandidate()) {
+    if (value > redeemableCandidate) {
       return '可能数量を超えています。';
     }
 
@@ -84,34 +74,49 @@ export default function RedemptionInput(props: Props) {
         <Form>
           <VStack mb={4}>
             <HStack spacing={4} align="flex-end">
-              <Field name="redemption" validate={validateRedemption}>
-                {({ field, form }: FieldProps) => (
-                  <FormControl
-                    isInvalid={
-                      !!form.errors.redemption && !!form.touched.redemption
-                    }
-                    style={{ maxWidth: '200px' }}
-                  >
-                    <FormLabel htmlFor="redemption">償還実行額入力</FormLabel>
-                    <Input
-                      {...field}
-                      id="redemption"
-                      type="number"
-                      placeholder={YAMATO_SYMBOL.YEN}
-                    />
-                    <FormErrorMessage>
-                      {form.errors.redemption}
-                    </FormErrorMessage>
-                  </FormControl>
+              <VStack>
+                <Field name="redemption" validate={validateRedemption}>
+                  {({ field, form }: FieldProps) => (
+                    <FormControl
+                      isInvalid={
+                        !!form.errors.redemption && !!form.touched.redemption
+                      }
+                      style={{ maxWidth: '200px' }}
+                    >
+                      <FormLabel htmlFor="redemption">償還実行額入力</FormLabel>
+                      <Input
+                        {...field}
+                        id="redemption"
+                        type="number"
+                        placeholder={YAMATO_SYMBOL.YEN}
+                      />
+                      <FormErrorMessage>
+                        {form.errors.redemption}
+                      </FormErrorMessage>
+                    </FormControl>
+                  )}
+                </Field>
+                {redemption > 0 && (
+                  <HStack spacing={4} align="flex-end">
+                    <label>予想担保獲得数</label>
+                    <span>
+                      {getExpectedCollateral(
+                        redemption,
+                        redeemableCandidate,
+                        props.rateOfEthJpy
+                      )}
+                      {YAMATO_SYMBOL.COLLATERAL}
+                    </span>
+                  </HStack>
                 )}
-              </Field>
-              <HStack spacing={4} align="start">
+              </VStack>
+              <VStack align="center">
                 <label>償還候補総額</label>
-                <p style={{ width: '150px' }}>
-                  {getRedeemableCandidate().toFixed(4)}
+                <span>
+                  {redeemableCandidate.toFixed(4)}
                   {YAMATO_SYMBOL.YEN}
-                </p>
-              </HStack>
+                </span>
+              </VStack>
               <Button
                 colorScheme="teal"
                 isLoading={formikProps.isSubmitting}
@@ -120,15 +125,6 @@ export default function RedemptionInput(props: Props) {
                 償還実行
               </Button>
             </HStack>
-            {redemption > 0 && (
-              <HStack spacing={4} align="flex-end">
-                <label>予想担保獲得数</label>
-                <span>
-                  {getExpectedCollateral()}
-                  {YAMATO_SYMBOL.COLLATERAL}
-                </span>
-              </HStack>
-            )}
           </VStack>
         </Form>
       )}

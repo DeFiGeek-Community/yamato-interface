@@ -9,14 +9,22 @@ export function useYamatoStateForPledge() {
     totalDebt: state.yamatoEntirety.totalDebt,
     tcr: state.yamatoEntirety.tcr,
     rateOfEthJpy: state.yamatoEntirety.rateOfEthJpy,
+    redemptionReserve: state.yamatoEntirety.redemptionReserve,
   }));
 }
 
 export function useFetchYamatoState() {
   const dispatch = useDispatch<AppDispatch>();
   return useCallback(
-    (totalCollateral: number, totalDebt: number, tcr: number) =>
-      dispatch(fetchYamatoState({ totalCollateral, totalDebt, tcr })),
+    (
+      totalCollateral: number,
+      totalDebt: number,
+      tcr: number,
+      redemptionReserve: number
+    ) =>
+      dispatch(
+        fetchYamatoState({ totalCollateral, totalDebt, tcr, redemptionReserve })
+      ),
     [dispatch]
   );
 }
