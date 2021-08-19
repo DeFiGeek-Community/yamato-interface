@@ -15,12 +15,13 @@ export default function Updater(): null {
       sweepableCandiate: 0.5,
     };
     fetchYamatoState(
-      mockState.totalCollateral,
-      mockState.totalDebt,
+      mockState.totalCollateral, // totalColl in Yamato.sol
+      mockState.totalDebt, // totalDebt in Yamato.sol
+      mockState.totalCollateral + 1, // lockedCollateral in Pool.sol
       ((mockState.totalCollateral * 300000) / mockState.totalDebt) * 100,
-      mockState.redemptionReserve,
-      mockState.sweepReserve,
-      mockState.sweepableCandiate
+      mockState.redemptionReserve, // redemptionReserve in Pool.sol
+      mockState.sweepReserve, // sweepReserve in Pool.sol
+      mockState.sweepableCandiate // FIXME
     );
   }, 5000);
 

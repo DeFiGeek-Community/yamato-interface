@@ -5,9 +5,16 @@ export const CategoryTitle = styled.h2`
   font-weight: bold;
 `;
 
-export const ItemTitle = styled.label`
+export const ItemTitle = styled.label<{ marginTop?: number }>`
   width: 200px;
   color: #818181;
-  margin-top: 32px;
+  margin-top: ${({ marginTop }) => marginTop ?? 0}px;
+  font-weight: bold;
+`;
+
+export const CurrentValue = styled.p<{ width?: number; marginTop?: number }>`
+  width: ${({ width }) => width ?? 200}px;
+  color: #818181;
+  margin-top: ${({ marginTop }) => marginTop ?? 0}px;
   font-weight: bold;
 `;

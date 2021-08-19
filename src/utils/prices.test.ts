@@ -56,17 +56,17 @@ describe('formatPrice', () => {
   describe('jpy which is 0 decimal point digits', () => {
     it('works for min value', () => {
       const minValue = 0.1;
-      expect(formatPrice(minValue, 'jpy').value).toBe('0');
+      expect(formatPrice(minValue, 'jpy').value).toBe('0.1');
     });
 
     it('works to be floored if overflow', () => {
-      const floored = 1.9;
-      expect(formatPrice(floored, 'jpy').value).toBe('1');
+      const floored = 1.99999;
+      expect(formatPrice(floored, 'jpy').value).toBe('1.9999');
     });
 
     it('works for comma', () => {
-      const comma = 12345.6789;
-      expect(formatPrice(comma, 'jpy').value).toBe('12,345');
+      const comma = 12345.67895;
+      expect(formatPrice(comma, 'jpy').value).toBe('12,345.6789');
     });
   });
 

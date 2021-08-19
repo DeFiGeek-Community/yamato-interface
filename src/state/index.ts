@@ -3,6 +3,7 @@ import { save, load } from 'redux-localstorage-simple';
 
 import application from './application/reducer';
 import { updateVersion } from './global/actions';
+import market from './market/reducer';
 import multicall from './multicall/reducer';
 import pledge from './pledge/reducer';
 import yamatoEntirety from './yamato-entirety/reducer';
@@ -13,6 +14,7 @@ const store = configureStore({
   reducer: {
     application,
     multicall,
+    market,
     yamatoEntirety,
     pledge,
   },

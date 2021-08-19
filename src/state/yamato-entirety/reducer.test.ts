@@ -18,6 +18,7 @@ describe('yamato-entirety reducer', () => {
       const newState = {
         totalCollateral: 10,
         totalDebt: 5,
+        tvl: 11,
         tcr: 110,
         redemptionReserve: 2,
         sweepReserve: 1,
@@ -30,7 +31,7 @@ describe('yamato-entirety reducer', () => {
   });
 
   describe('fetchRateOfEthJpy', () => {
-    it('fetch Eth Rate', () => {
+    it('fetch Rate Of EthJpy', () => {
       store.dispatch(fetchRateOfEthJpy({ rateOfEthJpy: 10 }));
       expect(store.getState()).toEqual({ ...initialState, rateOfEthJpy: 10 });
     });

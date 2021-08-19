@@ -2,9 +2,13 @@ import { createReducer } from '@reduxjs/toolkit';
 import { MCR } from '../../constants/yamato';
 import { fetchRateOfEthJpy, fetchYamatoState } from './actions';
 
+/**
+ * State over all in Yamato Contract
+ */
 export interface YamatoEntiretyState {
   totalCollateral: number; // ETH
   totalDebt: number; // CJPY
+  tvl: number; // ETH
   tcr: number; // Total Collateralization Ratio
   rateOfEthJpy: number; // ETH/JPY
   redemptionReserve: number; // ETH
@@ -15,6 +19,7 @@ export interface YamatoEntiretyState {
 export const initialState: YamatoEntiretyState = {
   totalCollateral: 0,
   totalDebt: 0,
+  tvl: 0,
   tcr: MCR,
   rateOfEthJpy: 0,
   redemptionReserve: 0,
@@ -32,6 +37,7 @@ export default createReducer(initialState, (builder) =>
           payload: {
             totalCollateral,
             totalDebt,
+            tvl,
             tcr,
             redemptionReserve,
             sweepReserve,
@@ -41,6 +47,7 @@ export default createReducer(initialState, (builder) =>
       ) => {
         state.totalCollateral = totalCollateral;
         state.totalDebt = totalDebt;
+        state.tvl = tvl;
         state.tcr = tcr;
         state.redemptionReserve = redemptionReserve;
         state.sweepReserve = sweepReserve;

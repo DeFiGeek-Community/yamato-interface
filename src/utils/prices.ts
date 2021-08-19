@@ -20,7 +20,7 @@ export function formatPrice(
     } else if (currency === 'txjp') {
       decimalDigits = 8;
     } else if (currency === 'jpy') {
-      decimalDigits = 0;
+      decimalDigits = 4;
     }
   }
 

@@ -11,7 +11,7 @@ export default function YamatoRedemption() {
 
   return (
     <HStack spacing="24px" align="start">
-      <ItemTitle>Yamato償還</ItemTitle>
+      <ItemTitle marginTop={32}>Yamato償還</ItemTitle>
 
       <RedemptionInput
         totalCollateral={yamato.totalCollateral}

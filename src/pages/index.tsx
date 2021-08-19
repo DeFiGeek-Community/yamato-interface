@@ -48,7 +48,7 @@ export default function Index() {
             </div>
           </GridItem>
 
-          <GridItem rowSpan={4} colSpan={4}>
+          <GridItem rowSpan={3} colSpan={4}>
             <Dashboad />
           </GridItem>
 
@@ -56,41 +56,19 @@ export default function Index() {
             <World />
           </GridItem>
 
-          <GridItem rowSpan={9} colSpan={4}>
-            <Accordion allowMultiple defaultIndex={[0]}>
-              <AccordionItem>
-                <AccordionButton>
-                  <Box flex="1" textAlign="left">
-                    <CategoryTitle>My Pledge</CategoryTitle>
-                  </Box>
-                  <AccordionIcon />
-                </AccordionButton>
+          <GridItem rowSpan={11} colSpan={4}>
+            <Pledge />
 
-                <AccordionPanel pb={4}>
-                  <Pledge />
-                </AccordionPanel>
-              </AccordionItem>
+            <Box className="divider" mt={12} />
 
-              <AccordionItem>
-                <AccordionButton>
-                  <Box flex="1" textAlign="left">
-                    <CategoryTitle>Functions</CategoryTitle>
-                  </Box>
-                  <AccordionIcon />
-                </AccordionButton>
-
-                <AccordionPanel pb={4}>
-                  <Redemption />
-                </AccordionPanel>
-              </AccordionItem>
-            </Accordion>
+            <Redemption />
           </GridItem>
 
           <GridItem rowSpan={5} colSpan={1}>
             <Infographics />
           </GridItem>
 
-          <GridItem rowSpan={2} colSpan={5}>
+          <GridItem rowSpan={1} colSpan={5}>
             <Footer />
           </GridItem>
         </Grid>

@@ -7,12 +7,14 @@ import {
   withdrawCollateral,
 } from './actions';
 
+/**
+ * Own Pledge State in Yamato Contract
+ */
 export type PledgeDetail = {
   collateral: number; // ETH
   debt: number; // CJPY
   withdrawalLockDate: number; // unix time
 };
-
 export interface PledgeState {
   [owner: string]: PledgeDetail;
 }

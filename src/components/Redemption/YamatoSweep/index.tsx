@@ -11,7 +11,7 @@ export default function YamatoSubrogation() {
 
   return (
     <HStack spacing="24px" align="start">
-      <ItemTitle>Yamato代位弁済</ItemTitle>
+      <ItemTitle marginTop={32}>Yamato代位弁済</ItemTitle>
 
       <SweepInput
         totalCollateral={yamato.totalCollateral}
