@@ -2,6 +2,9 @@ import { createReducer } from '@reduxjs/toolkit';
 import { MCR } from '../../constants/yamato';
 import { fetchRateOfEthJpy, fetchYamatoState } from './actions';
 
+/**
+ * State over all in Yamato Contract
+ */
 export interface YamatoEntiretyState {
   totalCollateral: number; // ETH
   totalDebt: number; // CJPY

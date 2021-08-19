@@ -3,11 +3,19 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, AppState } from '../index';
 import { fetchRateOfEthJpy, fetchYamatoState } from './actions';
 
+export function useYamatoStateForDashboard() {
+  return useSelector((state: AppState) => ({
+    totalDebt: state.yamatoEntirety.totalDebt,
+    tvl: state.yamatoEntirety.tvl,
+    tcr: state.yamatoEntirety.tcr,
+    rateOfEthJpy: state.yamatoEntirety.rateOfEthJpy,
+  }));
+}
+
 export function useYamatoStateForPledge() {
   return useSelector((state: AppState) => ({
     totalCollateral: state.yamatoEntirety.totalCollateral,
     totalDebt: state.yamatoEntirety.totalDebt,
-    tvl: state.yamatoEntirety.tvl,
     tcr: state.yamatoEntirety.tcr,
     rateOfEthJpy: state.yamatoEntirety.rateOfEthJpy,
     redemptionReserve: state.yamatoEntirety.redemptionReserve,
