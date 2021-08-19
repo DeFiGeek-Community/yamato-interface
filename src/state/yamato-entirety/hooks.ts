@@ -11,6 +11,7 @@ export function useYamatoStateForPledge() {
     rateOfEthJpy: state.yamatoEntirety.rateOfEthJpy,
     redemptionReserve: state.yamatoEntirety.redemptionReserve,
     sweepReserve: state.yamatoEntirety.sweepReserve,
+    sweepableCandiate: state.yamatoEntirety.sweepableCandiate,
   }));
 }
 
@@ -22,7 +23,8 @@ export function useFetchYamatoState() {
       totalDebt: number,
       tcr: number,
       redemptionReserve: number,
-      sweepReserve: number
+      sweepReserve: number,
+      sweepableCandiate: number
     ) =>
       dispatch(
         fetchYamatoState({
@@ -31,6 +33,7 @@ export function useFetchYamatoState() {
           tcr,
           redemptionReserve,
           sweepReserve,
+          sweepableCandiate,
         })
       ),
     [dispatch]

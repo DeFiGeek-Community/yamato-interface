@@ -21,6 +21,7 @@ describe('yamato-entirety reducer', () => {
         tcr: 110,
         redemptionReserve: 2,
         sweepReserve: 1,
+        sweepableCandiate: 0.5,
       };
 
       store.dispatch(fetchYamatoState(newState));

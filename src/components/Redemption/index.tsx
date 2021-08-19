@@ -1,7 +1,7 @@
 import { Box } from '@chakra-ui/react';
 import SelfRedemption from './SelfRedemption';
 import YamatoRedemption from './YamatoRedemption';
-import YamatoSubrogation from './YamatoSubrogation';
+import YamatoSubrogation from './YamatoSweep';
 
 export default function Redemption() {
   return (

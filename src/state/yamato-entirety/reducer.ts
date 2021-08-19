@@ -9,6 +9,7 @@ export interface YamatoEntiretyState {
   rateOfEthJpy: number; // ETH/JPY
   redemptionReserve: number; // ETH
   sweepReserve: number; // ETH
+  sweepableCandiate: number; // CJPY
 }
 
 export const initialState: YamatoEntiretyState = {
@@ -18,6 +19,7 @@ export const initialState: YamatoEntiretyState = {
   rateOfEthJpy: 0,
   redemptionReserve: 0,
   sweepReserve: 0,
+  sweepableCandiate: 0,
 };
 
 export default createReducer(initialState, (builder) =>
@@ -33,6 +35,7 @@ export default createReducer(initialState, (builder) =>
             tcr,
             redemptionReserve,
             sweepReserve,
+            sweepableCandiate,
           },
         }
       ) => {
@@ -41,6 +44,7 @@ export default createReducer(initialState, (builder) =>
         state.tcr = tcr;
         state.redemptionReserve = redemptionReserve;
         state.sweepReserve = sweepReserve;
+        state.sweepableCandiate = sweepableCandiate;
       }
     )
     .addCase(fetchRateOfEthJpy, (state, { payload: { rateOfEthJpy } }) => {

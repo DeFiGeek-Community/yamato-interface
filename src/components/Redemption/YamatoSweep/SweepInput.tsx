@@ -11,50 +11,38 @@ type Props = {
   rateOfEthJpy: number;
   redemptionReserve: number;
   sweepReserve: number;
+  sweepableCandiate: number;
 };
 
-export default function SubrogationInput(props: Props) {
+export default function SweepInput(props: Props) {
   const { account, library } = useActiveWeb3React();
 
-  const [redemption, setRedemption] = useState(0);
-
-  function getRedeemableCandidate() {
-    if (props.tcr >= MCR) {
-      return 0;
-    }
-
-    const totalCollPerJpy = props.totalCollateral * props.rateOfEthJpy;
-    return (props.totalDebt * MCR - totalCollPerJpy * 100) / MCR;
-  }
-
   function getExpectedReward() {
-    const redeemableAmount =
-      redemption > getRedeemableCandidate()
-        ? getRedeemableCandidate()
-        : redemption;
-    const redeemableAmountPerEth = redeemableAmount / props.rateOfEthJpy;
+    const amount =
+      props.sweepReserve > props.sweepableCandiate
+        ? props.sweepableCandiate
+        : props.sweepReserve;
 
-    const expectedCollateral = redeemableAmountPerEth * ((100 - GRR) / 100);
-    return expectedCollateral;
+    const reward = amount * 0.01;
+    return reward;
   }
 
-  function submitSubrogation(
-    values: { redemption: number },
+  function submitSweep(
+    values: { sweep: number },
     formikHelpers: FormikHelpers<{
-      redemption: number;
+      sweep: number;
     }>
   ) {
-    console.log('submit redemption', values);
-    // TODO: 償還実行。storeを使わずにabiを直接叩く。
-    values.redemption;
+    console.log('submit Sweep', values);
+    // TODO: 弁済実行。storeを使わずにabiを直接叩く。
+    values.sweep;
 
     // reset
-    setRedemption(0);
     formikHelpers.resetForm();
   }
 
   return (
-    <Formik initialValues={{ redemption: 0 }} onSubmit={submitSubrogation}>
+    <Formik initialValues={{ sweep: 0 }} onSubmit={submitSweep}>
       {(formikProps) => (
         <Form>
           <VStack mb={4}>
@@ -69,7 +57,7 @@ export default function SubrogationInput(props: Props) {
               <VStack align="center">
                 <label>弁済候補総額</label>
                 <span>
-                  {getRedeemableCandidate()}
+                  {props.sweepableCandiate}
                   {YAMATO_SYMBOL.YEN}
                 </span>
               </VStack>
