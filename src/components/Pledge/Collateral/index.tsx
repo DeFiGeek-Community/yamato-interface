@@ -17,9 +17,9 @@ export default function Collateral() {
   return (
     <>
       <HStack spacing="24px" align="start">
-        <ItemTitle>担保数</ItemTitle>
+        <ItemTitle marginTop={32}>担保数</ItemTitle>
         <div>
-          <CurrentValue>
+          <CurrentValue marginTop={32}>
             {pledge.collateral}
             {YAMATO_SYMBOL.COLLATERAL}
           </CurrentValue>
@@ -35,9 +35,9 @@ export default function Collateral() {
       </HStack>
 
       <HStack spacing="24px" align="start">
-        <ItemTitle>評価額</ItemTitle>
+        <ItemTitle marginTop={32}>評価額</ItemTitle>
         <div>
-          <CurrentValue>
+          <CurrentValue marginTop={32}>
             ¥{multiplyToNum(pledge.collateral, yamato.rateOfEthJpy)}
           </CurrentValue>
         </div>

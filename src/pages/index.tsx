@@ -48,7 +48,7 @@ export default function Index() {
             </div>
           </GridItem>
 
-          <GridItem rowSpan={4} colSpan={4}>
+          <GridItem rowSpan={3} colSpan={4}>
             <Dashboad />
           </GridItem>
 
@@ -56,7 +56,7 @@ export default function Index() {
             <World />
           </GridItem>
 
-          <GridItem rowSpan={9} colSpan={4}>
+          <GridItem rowSpan={11} colSpan={4}>
             <Pledge />
 
             <Box className="divider" mt={12} />
@@ -68,7 +68,7 @@ export default function Index() {
             <Infographics />
           </GridItem>
 
-          <GridItem rowSpan={2} colSpan={5}>
+          <GridItem rowSpan={1} colSpan={5}>
             <Footer />
           </GridItem>
         </Grid>
