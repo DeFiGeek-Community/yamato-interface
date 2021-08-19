@@ -3,7 +3,8 @@ import { YAMATO_SYMBOL } from '../../../constants/yamato';
 import { useActiveWeb3React } from '../../../hooks/web3';
 import { usePledgeData } from '../../../state/pledge/hooks';
 import { formatCollateralizationRatio } from '../../../utils/prices';
-import { Label, CurrentValue } from '../common';
+import { ItemTitle } from '../../CommonItem';
+import { CurrentValue } from '../common';
 import BorrowInput from './BorrowingInput';
 import RepayInput from './RepayInput';
 
@@ -15,7 +16,7 @@ export default function Debt() {
   return (
     <>
       <HStack spacing="24px" align="start">
-        <Label>借入量</Label>
+        <ItemTitle>借入量</ItemTitle>
         <div>
           <CurrentValue>
             {pledge.debt}
@@ -29,7 +30,7 @@ export default function Debt() {
       </HStack>
 
       <HStack spacing="24px" align="start">
-        <Label>担保率</Label>
+        <ItemTitle>担保率</ItemTitle>
         <div>
           <CurrentValue>
             {formatCollateralizationRatio(pledge.collateral, pledge.debt)}%

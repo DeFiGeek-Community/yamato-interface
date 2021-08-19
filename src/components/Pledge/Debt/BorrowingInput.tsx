@@ -10,7 +10,7 @@ import {
 } from '@chakra-ui/react';
 import { Formik, Form, Field, FormikHelpers, FieldProps } from 'formik';
 import { useState } from 'react';
-import { MIN_COLLATERAL_RATIO, YAMATO_SYMBOL } from '../../../constants/yamato';
+import { MCR, YAMATO_SYMBOL } from '../../../constants/yamato';
 import { useBorrowDebt } from '../../../state/pledge/hooks';
 import { addToNum } from '../../../utils/bignumber';
 import { formatCollateralizationRatio } from '../../../utils/prices';
@@ -29,8 +29,8 @@ export default function BorrowingInput(props: Props) {
 
     const sum = props.debt + value;
     const collateralRatio = (props.collateral / sum) * 100;
-    if (MIN_COLLATERAL_RATIO > collateralRatio) {
-      return `担保率は最低${MIN_COLLATERAL_RATIO}%が必要です。`;
+    if (MCR > collateralRatio) {
+      return `担保率は最低${MCR}%が必要です。`;
     }
 
     // Value is correct

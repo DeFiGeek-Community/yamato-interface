@@ -23,11 +23,7 @@ export function usePledgeData(): PledgeDetail {
   );
 }
 
-export function useFetchingMyPledge(): (
-  collateral: number,
-  debt: number,
-  withdrawalLockDate: number
-) => void {
+export function useFetchingMyPledge() {
   const dispatch = useDispatch<AppDispatch>();
   const { account } = useActiveWeb3React();
   return useCallback(
@@ -44,7 +40,7 @@ export function useFetchingMyPledge(): (
   );
 }
 
-export function useDepositCollateral(): (collateral: number) => void {
+export function useDepositCollateral() {
   const dispatch = useDispatch<AppDispatch>();
   const { account } = useActiveWeb3React();
   return useCallback(
@@ -53,7 +49,7 @@ export function useDepositCollateral(): (collateral: number) => void {
     [dispatch, account]
   );
 }
-export function useWithdrawCollateral(): (collateral: number) => void {
+export function useWithdrawCollateral() {
   const dispatch = useDispatch<AppDispatch>();
   const { account } = useActiveWeb3React();
   return useCallback(
@@ -63,7 +59,7 @@ export function useWithdrawCollateral(): (collateral: number) => void {
   );
 }
 
-export function useBorrowDebt(): (debt: number) => void {
+export function useBorrowDebt() {
   const dispatch = useDispatch<AppDispatch>();
   const { account } = useActiveWeb3React();
   return useCallback(
@@ -71,7 +67,7 @@ export function useBorrowDebt(): (debt: number) => void {
     [dispatch, account]
   );
 }
-export function useRepayDebt(): (debt: number) => void {
+export function useRepayDebt() {
   const dispatch = useDispatch<AppDispatch>();
   const { account } = useActiveWeb3React();
   return useCallback(

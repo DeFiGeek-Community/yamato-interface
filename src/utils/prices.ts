@@ -77,5 +77,8 @@ export function formatCollateralizationRatio(
   collateral: number,
   debt: number
 ): string {
+  if (debt === 0) {
+    return '0.00';
+  }
   return (divideToNum(collateral, debt) * 100).toFixed(2);
 }
