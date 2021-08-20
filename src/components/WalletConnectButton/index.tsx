@@ -22,6 +22,7 @@ import {
   usePendingTxCount,
   useWalletModalToggle,
 } from '../../state/application/hooks';
+import { useWalletState } from '../../state/wallet/hooks';
 import { shortenAddress } from '../../utils/web3';
 // import PortisIcon from '../../..assets/images/portisIcon.png';
 import Loader from '../Loader';
@@ -166,6 +167,7 @@ function Web3StatusInner() {
   const { account, connector, chainId, error } = useWeb3React();
 
   const { ENSName } = useENSName(account ?? undefined);
+  const { cjpy } = useWalletState();
 
   const toggleWalletModal = useWalletModalToggle();
   const txCount = usePendingTxCount();
@@ -192,13 +194,12 @@ function Web3StatusInner() {
                 <Text>{txCount} Pending...</Text> <Loader />
               </Row>
             ) : (
-              <>
-                <Text>{ENSName || shortenAddress(account)}</Text>
-              </>
+              <Text>{ENSName || shortenAddress(account)}</Text>
             )}
             {!hasPendingTransactions && connector && (
               <StatusIcon connector={connector} />
             )}
+            <Text>CJPY {cjpy}</Text>
           </span>
         </YamatoButton>
       </>
