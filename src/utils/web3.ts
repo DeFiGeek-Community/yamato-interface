@@ -1,4 +1,5 @@
 import { getAddress } from '@ethersproject/address';
+import { Web3Provider } from '@ethersproject/providers';
 import { ethers } from 'ethers';
 
 // returns the checksummed address if the address is valid, otherwise returns false
@@ -25,4 +26,13 @@ export function parseEther(ether: string) {
 
 export function formatEther(wei: ethers.BigNumberish) {
   return ethers.utils.formatEther(wei);
+}
+
+export async function getEthBalance(
+  account: string | null | undefined,
+  library: Web3Provider | undefined
+): Promise<number> {
+  return library && account
+    ? Number(formatEther(await library.getBalance(account)))
+    : 0;
 }

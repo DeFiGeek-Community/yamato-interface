@@ -11,6 +11,7 @@ import { Formik, Form, Field, FieldProps, FormikHelpers } from 'formik';
 import { useState } from 'react';
 import { YAMATO_SYMBOL } from '../../../constants/yamato';
 import { useActiveWeb3React } from '../../../hooks/web3';
+import { useWalletState } from '../../../state/wallet/hooks';
 import {
   getExpectedCollateral,
   getRedeemableCandidate,
@@ -25,6 +26,7 @@ type Props = {
 
 export default function RedemptionInput(props: Props) {
   const { account, library } = useActiveWeb3React();
+  const { cjpy } = useWalletState();
 
   const [redemption, setRedemption] = useState(0);
   const redeemableCandidate = getRedeemableCandidate(
@@ -38,11 +40,9 @@ export default function RedemptionInput(props: Props) {
     if (value == null || typeof value !== 'number') {
       return '数値で入力してください。';
     }
-
-    // FIXME: ウォレットのCJPY残高をチェックする
-    // if (value > getRedeemableCandidate()) {
-    //   return '残高が足りません。';
-    // }
+    if (value > cjpy) {
+      return '残高が足りません。';
+    }
 
     if (value > redeemableCandidate) {
       return '可能数量を超えています。';

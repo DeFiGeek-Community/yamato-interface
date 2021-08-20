@@ -13,15 +13,16 @@ import { useState } from 'react';
 import { YAMATO_SYMBOL } from '../../../constants/yamato';
 import { useActiveWeb3React } from '../../../hooks/web3';
 import { useDepositCollateral } from '../../../state/pledge/hooks';
+import { useWalletState } from '../../../state/wallet/hooks';
 import { addToNum } from '../../../utils/bignumber';
 import { formatCollateralizationRatio } from '../../../utils/prices';
-import { formatEther } from '../../../utils/web3';
 
 type Props = { collateral: number; debt: number };
 
 export default function DepositInput(props: Props) {
   const { account, library } = useActiveWeb3React();
   const depositCollateral = useDepositCollateral();
+  const { eth } = useWalletState();
 
   const [deposit, setDeposit] = useState(0);
 
@@ -29,12 +30,7 @@ export default function DepositInput(props: Props) {
     if (value == null || typeof value !== 'number') {
       return '数値で入力してください。';
     }
-
-    const balance =
-      library && account
-        ? Number(formatEther(await library.getBalance(account)))
-        : 0;
-    if (value > balance) {
+    if (value > eth) {
       return '残高を超えています。';
     }
 
