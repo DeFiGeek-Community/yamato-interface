@@ -1,7 +1,8 @@
 import { useCallback, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, AppState } from '../index';
-import { fetchRateOfEthJpy, fetchYamatoState } from './actions';
+import { fetchEvents, fetchRateOfEthJpy, fetchYamatoState } from './actions';
+import { LogEvent } from './reducer';
 
 export function useYamatoStateForDashboard() {
   return useSelector((state: AppState) => ({
@@ -21,6 +22,12 @@ export function useYamatoStateForPledge() {
     redemptionReserve: state.yamatoEntirety.redemptionReserve,
     sweepReserve: state.yamatoEntirety.sweepReserve,
     sweepableCandiate: state.yamatoEntirety.sweepableCandiate,
+  }));
+}
+
+export function useYamatoStateForWorld() {
+  return useSelector((state: AppState) => ({
+    events: state.yamatoEntirety.events,
   }));
 }
 
@@ -54,6 +61,13 @@ export function useFetchRateOfEthJpy() {
   const dispatch = useDispatch<AppDispatch>();
   return useCallback(
     (rateOfEthJpy: number) => dispatch(fetchRateOfEthJpy({ rateOfEthJpy })),
+    [dispatch]
+  );
+}
+export function useFetchEvents() {
+  const dispatch = useDispatch<AppDispatch>();
+  return useCallback(
+    (events: LogEvent[]) => dispatch(fetchEvents({ events })),
     [dispatch]
   );
 }

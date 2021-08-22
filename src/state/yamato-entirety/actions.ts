@@ -1,4 +1,5 @@
 import { createAction } from '@reduxjs/toolkit';
+import { LogEvent } from './reducer';
 
 export const fetchYamatoState = createAction<{
   totalCollateral: number;
@@ -13,3 +14,7 @@ export const fetchYamatoState = createAction<{
 export const fetchRateOfEthJpy = createAction<{
   rateOfEthJpy: number;
 }>('yamato-entirety/fetchRateOfEthJpy');
+
+export const fetchEvents = createAction<{
+  events: LogEvent[];
+}>('yamato-entirety/fetchEvents');

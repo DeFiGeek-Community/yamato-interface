@@ -1,5 +1,5 @@
 import { Store, createStore } from '@reduxjs/toolkit';
-import { fetchRateOfEthJpy, fetchYamatoState } from './actions';
+import { fetchEvents, fetchRateOfEthJpy, fetchYamatoState } from './actions';
 import reducer, { initialState, YamatoEntiretyState } from './reducer';
 
 describe('yamato-entirety reducer', () => {
@@ -34,6 +34,14 @@ describe('yamato-entirety reducer', () => {
     it('fetch Rate Of EthJpy', () => {
       store.dispatch(fetchRateOfEthJpy({ rateOfEthJpy: 10 }));
       expect(store.getState()).toEqual({ ...initialState, rateOfEthJpy: 10 });
+    });
+  });
+
+  describe('fetchEvents', () => {
+    it('fetch Events', () => {
+      const events = [{ id: 1 }, { id: 2 }];
+      store.dispatch(fetchEvents({ events }));
+      expect(store.getState()).toEqual({ ...initialState, events });
     });
   });
 });

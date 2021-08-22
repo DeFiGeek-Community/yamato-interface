@@ -1,9 +1,14 @@
 import useInterval from '../../hooks/useInterval';
-import { useFetchRateOfEthJpy, useFetchYamatoState } from './hooks';
+import {
+  useFetchEvents,
+  useFetchRateOfEthJpy,
+  useFetchYamatoState,
+} from './hooks';
 
 export default function Updater(): null {
   const fetchYamatoState = useFetchYamatoState();
   const fetchRateOfEthJpy = useFetchRateOfEthJpy();
+  const fetchEvents = useFetchEvents();
 
   useInterval(() => {
     // TODO: replace me.
@@ -29,6 +34,15 @@ export default function Updater(): null {
     // TODO: replace me.
     const mockState = 300000 + Math.random() * 1000;
     fetchRateOfEthJpy(mockState);
+  }, 5000);
+
+  useInterval(() => {
+    // TODO: replace me.
+    const mockState = [
+      { id: 1, address: '0xaaaa', category: 'deposit', value: '10' },
+      { id: 2, address: '0x1111', category: 'borrowing', value: '5' },
+    ];
+    fetchEvents(mockState);
   }, 5000);
 
   return null;
