@@ -9,7 +9,7 @@ import pledge from './pledge/reducer';
 import wallet from './wallet/reducer';
 import yamatoEntirety from './yamato-entirety/reducer';
 
-const PERSISTED_KEYS: string[] = [];
+const PERSISTED_KEYS: string[] = ['application'];
 
 const store = configureStore({
   reducer: {
