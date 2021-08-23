@@ -42,17 +42,38 @@ export default function Updater(): null {
     const mockState = [
       {
         id: '1',
-        date: 100,
-        address: '0xaaaa',
+        date: 10,
+        address: 'aaaaaaaa',
         category: 'deposit' as LogEventType,
         value: '10',
       },
       {
         id: '2',
-        date: 101,
-        address: '0x1111',
-        category: 'borrowing' as LogEventType,
+        date: 11,
+        address: '0xteatwo',
+        category: 'yamato_redemption' as LogEventType,
         value: '5',
+      },
+      {
+        id: `${Math.floor(Math.random() * 10)}`,
+        date: Math.floor(Math.random() * 1000),
+        address: `${Math.random().toString(32).substring(2)}`,
+        category: 'borrowing' as LogEventType,
+        value: `${Math.floor(Math.random() * 10)}`,
+      },
+      {
+        id: `${Math.floor(Math.random() * 10)}`,
+        date: Math.floor(Math.random() * 1000),
+        address: `${Math.random().toString(32).substring(2)}`,
+        category: 'repay' as LogEventType,
+        value: `${Math.floor(Math.random() * 10)}`,
+      },
+      {
+        id: `${Math.floor(Math.random() * 100)}`,
+        date: Math.floor(Math.random() * 1000),
+        address: `${Math.random().toString(32).substring(2)}`,
+        category: 'withdrawal' as LogEventType,
+        value: `${Math.floor(Math.random() * 10)}`,
       },
     ];
     fetchEvents(mockState);

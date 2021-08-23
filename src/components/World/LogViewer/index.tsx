@@ -63,5 +63,9 @@ export default function LogViewer() {
     });
   }
 
-  return <div style={{ minHeight: '500px' }}>{renderLogEvents()}</div>;
+  return (
+    <div style={{ height: '500px', overflowY: 'scroll' }}>
+      {renderLogEvents()}
+    </div>
+  );
 }
