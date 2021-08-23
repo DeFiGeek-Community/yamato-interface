@@ -2,7 +2,7 @@ import { createReducer } from '@reduxjs/toolkit';
 import { MCR } from '../../constants/yamato';
 import { fetchEvents, fetchRateOfEthJpy, fetchYamatoState } from './actions';
 
-export type EventType =
+export type LogEventType =
   | 'deposit'
   | 'withdrawal'
   | 'borrowing'
@@ -13,7 +13,13 @@ export type EventType =
   | 'self_redemption'
   | 'yamato_redemption'
   | 'yamato_sweep';
-export type LogEvent = Record<string, unknown>;
+export type LogEvent = {
+  id: string;
+  date: number;
+  address: string;
+  category: LogEventType;
+  value: any;
+};
 
 /**
  * State over all in Yamato Contract
@@ -27,7 +33,7 @@ export interface YamatoEntiretyState {
   redemptionReserve: number; // ETH
   sweepReserve: number; // ETH
   sweepableCandiate: number; // CJPY
-  events: LogEvent[]; // several ethereum events
+  events: Array<LogEvent>; // several ethereum events
 }
 
 export const initialState: YamatoEntiretyState = {
@@ -73,9 +79,17 @@ export default createReducer(initialState, (builder) =>
       state.rateOfEthJpy = rateOfEthJpy;
     })
     .addCase(fetchEvents, (state, { payload: { events } }) => {
-      const newStates = events.filter((newEvent) => {
-        return events.some((event) => event !== newEvent);
+      const additionals = events.filter((newEvent) => {
+        return !state.events.some((event) => event.id === newEvent.id);
       });
-      state.events = state.events.concat(newStates);
+      const newState = state.events.concat(additionals).sort((a, b) => {
+        if (a.date > b.date) {
+          return -1;
+        } else if (a.date < b.date) {
+          return 1;
+        }
+        return 0;
+      });
+      state.events = newState;
     })
 );

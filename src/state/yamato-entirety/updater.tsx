@@ -4,6 +4,7 @@ import {
   useFetchRateOfEthJpy,
   useFetchYamatoState,
 } from './hooks';
+import { LogEventType } from './reducer';
 
 export default function Updater(): null {
   const fetchYamatoState = useFetchYamatoState();
@@ -39,8 +40,20 @@ export default function Updater(): null {
   useInterval(() => {
     // TODO: replace me.
     const mockState = [
-      { id: 1, address: '0xaaaa', category: 'deposit', value: '10' },
-      { id: 2, address: '0x1111', category: 'borrowing', value: '5' },
+      {
+        id: '1',
+        date: 100,
+        address: '0xaaaa',
+        category: 'deposit' as LogEventType,
+        value: '10',
+      },
+      {
+        id: '2',
+        date: 101,
+        address: '0x1111',
+        category: 'borrowing' as LogEventType,
+        value: '5',
+      },
     ];
     fetchEvents(mockState);
   }, 5000);
