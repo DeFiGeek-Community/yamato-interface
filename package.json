@@ -4,9 +4,9 @@
   "license": "GPL-3.0-or-later",
   "private": true,
   "scripts": {
-    "start": "react-scripts start",
+    "start": "yarn compile-external-abi-types && react-scripts start",
     "build": "yarn compile-external-abi-types && react-scripts build",
-    "test": "react-scripts test",
+    "test": "yarn compile-external-abi-types && react-scripts test",
     "lint": "eslint . --ext .ts,.tsx ./src",
     "lint:fix": "yarn lint --fix",
     "format": "prettier --config .prettierrc.json --write 'src/**/*.{js,jsx,ts,tsx}'",

@@ -2,9 +2,9 @@ import { Contract } from '@ethersproject/contracts';
 // import ARGENT_WALLET_DETECTOR_ABI from 'abis/argent-wallet-detector.json';
 // import EIP_2612 from 'abis/eip_2612.json';
 import { useMemo } from 'react';
-import ENS_PUBLIC_RESOLVER_ABI from '../abis/ens-public-resolver.json';
-import ENS_ABI from '../abis/ens-registrar.json';
-import MULTICALL_ABI from '../abis/multicall2.json';
+import ENS_PUBLIC_RESOLVER_ABI from '../abis/external-abis/ens-public-resolver.json';
+import ENS_ABI from '../abis/external-abis/ens-registrar.json';
+import MULTICALL_ABI from '../abis/external-abis/multicall2.json';
 import {
   // ArgentWalletDetector,
   EnsPublicResolver,
