@@ -1,6 +1,11 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { MCR } from '../../constants/yamato';
-import { fetchEvents, fetchRateOfEthJpy, fetchYamatoState } from './actions';
+import {
+  fetchEvents,
+  fetchRateOfEthJpy,
+  fetchTokenState,
+  fetchYamatoState,
+} from './actions';
 
 export type LogEventType =
   | 'deposit'
@@ -25,26 +30,39 @@ export type LogEvent = {
  * State over all in Yamato Contract
  */
 export interface YamatoEntiretyState {
-  totalCollateral: number; // ETH
-  totalDebt: number; // CJPY
-  tvl: number; // ETH
-  tcr: number; // Total Collateralization Ratio
+  lending: {
+    totalCollateral: number; // ETH
+    totalDebt: number; // CJPY
+    tvl: number; // ETH
+    tcr: number; // Total Collateralization Ratio
+  };
+  pool: {
+    redemptionReserve: number; // ETH
+    sweepReserve: number; // ETH
+    sweepableCandiate: number; // CJPY
+  };
+  token: {
+    cjpy: { totalSupply: number };
+    ymt: { totalSupply: number };
+    veYmt: { totalSupply: number; boostRate: number; farmingScore: number };
+  };
   rateOfEthJpy: number; // ETH/JPY
-  redemptionReserve: number; // ETH
-  sweepReserve: number; // ETH
-  sweepableCandiate: number; // CJPY
   events: Array<LogEvent>; // several ethereum events
 }
 
 export const initialState: YamatoEntiretyState = {
-  totalCollateral: 0,
-  totalDebt: 0,
-  tvl: 0,
-  tcr: MCR,
+  lending: { totalCollateral: 0, totalDebt: 0, tvl: 0, tcr: MCR },
+  pool: {
+    redemptionReserve: 0,
+    sweepReserve: 0,
+    sweepableCandiate: 0,
+  },
+  token: {
+    cjpy: { totalSupply: 0 },
+    ymt: { totalSupply: 0 },
+    veYmt: { totalSupply: 0, boostRate: 0, farmingScore: 0 },
+  },
   rateOfEthJpy: 0,
-  redemptionReserve: 0,
-  sweepReserve: 0,
-  sweepableCandiate: 0,
   events: [],
 };
 
@@ -66,15 +84,15 @@ export default createReducer(initialState, (builder) =>
           },
         }
       ) => {
-        state.totalCollateral = totalCollateral;
-        state.totalDebt = totalDebt;
-        state.tvl = tvl;
-        state.tcr = tcr;
-        state.redemptionReserve = redemptionReserve;
-        state.sweepReserve = sweepReserve;
-        state.sweepableCandiate = sweepableCandiate;
+        state.lending = { totalCollateral, totalDebt, tvl, tcr };
+        state.pool = { redemptionReserve, sweepReserve, sweepableCandiate };
       }
     )
+    .addCase(fetchTokenState, (state, { payload: { cjpy, ymt, veYmt } }) => {
+      const farmingScore = state.lending.totalDebt * veYmt.boostRate; // FIXME: 担保率ブースト
+      const newState = { ...veYmt, farmingScore };
+      state.token = { cjpy, ymt, veYmt: newState };
+    })
     .addCase(fetchRateOfEthJpy, (state, { payload: { rateOfEthJpy } }) => {
       state.rateOfEthJpy = rateOfEthJpy;
     })

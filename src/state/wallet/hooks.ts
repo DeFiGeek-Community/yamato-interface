@@ -3,6 +3,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, AppState } from '../index';
 import { fetchWallet } from './actions';
 
+/**
+ * selector
+ */
 export function useWalletState() {
   return useSelector((state: AppState) => ({
     cjpy: state.wallet.cjpy,
@@ -10,6 +13,9 @@ export function useWalletState() {
   }));
 }
 
+/**
+ * dispatcher
+ */
 export function useFetchWallet() {
   const dispatch = useDispatch<AppDispatch>();
   return useCallback(

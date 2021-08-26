@@ -6,15 +6,14 @@ import {
 } from '../useContract';
 
 export async function useFetchYamatoEntiretyState(): Promise<{
-  tcr: number;
-  rateOfEthJpy: number;
+  totalCollateral: number;
+  totalDebt: number;
   redemptionReserve: number;
   sweepReserve: number;
   sweepableCandiate: number;
   tvl: number;
-  totalCollateral: number;
-  totalDebt: number;
-  mcr: number;
+  rateOfEthJpy: number;
+  tcr: number;
 }> {
   // TODO: subgraph pattern
   return useFetchYamatoEntiretyStateFromContract();
@@ -31,12 +30,10 @@ async function useFetchYamatoEntiretyStateFromContract() {
           formatEther(await yamatoMainContract.totalColl())
         ),
         totalDebt: (await yamatoMainContract.totalDebt()).toNumber(),
-        mcr: await yamatoMainContract.MCR(),
       }
     : {
         totalCollateral: 0,
         totalDebt: 0,
-        mcr: 110,
       };
   const yamatoPoolResults = yamatoPoolContract
     ? {

@@ -11,6 +11,12 @@ export const fetchYamatoState = createAction<{
   sweepableCandiate: number;
 }>('yamato-entirety/fetchYamatoState');
 
+export const fetchTokenState = createAction<{
+  cjpy: { totalSupply: number };
+  ymt: { totalSupply: number };
+  veYmt: { totalSupply: number; boostRate: number };
+}>('yamato-entirety/fetchTokenState');
+
 export const fetchRateOfEthJpy = createAction<{
   rateOfEthJpy: number;
 }>('yamato-entirety/fetchRateOfEthJpy');

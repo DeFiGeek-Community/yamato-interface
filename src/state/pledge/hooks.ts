@@ -11,18 +11,26 @@ import {
 } from './actions';
 import { PledgeDetail } from './reducer';
 
+/**
+ * selector
+ */
 export function usePledgeData(): PledgeDetail {
   const { account } = useActiveWeb3React();
-  return useSelector(
-    (state: AppState) =>
-      state.pledge[account ?? ''] ?? {
+  return useSelector((state: AppState) => {
+    if (!account) {
+      return {
         collateral: 0,
         debt: 0,
         withdrawalLockDate: 0,
-      }
-  );
+      };
+    }
+    return state.pledge[account];
+  });
 }
 
+/**
+ * dispatcher
+ */
 export function useFetchMyPledge() {
   const dispatch = useDispatch<AppDispatch>();
   return useCallback(
@@ -43,7 +51,6 @@ export function useFetchMyPledge() {
     [dispatch]
   );
 }
-
 export function useDepositCollateral() {
   const dispatch = useDispatch<AppDispatch>();
   const { account } = useActiveWeb3React();
@@ -62,7 +69,6 @@ export function useWithdrawCollateral() {
     [dispatch, account]
   );
 }
-
 export function useBorrowDebt() {
   const dispatch = useDispatch<AppDispatch>();
   const { account } = useActiveWeb3React();

@@ -1,36 +1,45 @@
 import { useCallback, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, AppState } from '../index';
-import { fetchEvents, fetchRateOfEthJpy, fetchYamatoState } from './actions';
+import {
+  fetchEvents,
+  fetchRateOfEthJpy,
+  fetchTokenState,
+  fetchYamatoState,
+} from './actions';
 import { LogEvent } from './reducer';
 
+/**
+ * selector
+ */
 export function useYamatoStateForDashboard() {
   return useSelector((state: AppState) => ({
-    totalDebt: state.yamatoEntirety.totalDebt,
-    tvl: state.yamatoEntirety.tvl,
-    tcr: state.yamatoEntirety.tcr,
+    totalSupplyOfCjpy: state.yamatoEntirety.token.cjpy.totalSupply,
+    tvl: state.yamatoEntirety.lending.tvl,
+    tcr: state.yamatoEntirety.lending.tcr,
     rateOfEthJpy: state.yamatoEntirety.rateOfEthJpy,
   }));
 }
-
 export function useYamatoStateForPledge() {
   return useSelector((state: AppState) => ({
-    totalCollateral: state.yamatoEntirety.totalCollateral,
-    totalDebt: state.yamatoEntirety.totalDebt,
-    tcr: state.yamatoEntirety.tcr,
+    totalCollateral: state.yamatoEntirety.lending.totalCollateral,
+    totalDebt: state.yamatoEntirety.lending.totalDebt,
+    tcr: state.yamatoEntirety.lending.tcr,
     rateOfEthJpy: state.yamatoEntirety.rateOfEthJpy,
-    redemptionReserve: state.yamatoEntirety.redemptionReserve,
-    sweepReserve: state.yamatoEntirety.sweepReserve,
-    sweepableCandiate: state.yamatoEntirety.sweepableCandiate,
+    redemptionReserve: state.yamatoEntirety.pool.redemptionReserve,
+    sweepReserve: state.yamatoEntirety.pool.sweepReserve,
+    sweepableCandiate: state.yamatoEntirety.pool.sweepableCandiate,
   }));
 }
-
 export function useYamatoStateForWorld() {
   return useSelector((state: AppState) => ({
     events: state.yamatoEntirety.events,
   }));
 }
 
+/**
+ * dispatcher
+ */
 export function useFetchYamatoState() {
   const dispatch = useDispatch<AppDispatch>();
   return useCallback(
@@ -54,6 +63,19 @@ export function useFetchYamatoState() {
           sweepableCandiate,
         })
       ),
+    [dispatch]
+  );
+}
+export function useFetchTokenState() {
+  const dispatch = useDispatch<AppDispatch>();
+  return useCallback(
+    (args: {
+      cjpy: { totalSupply: number };
+      ymt: { totalSupply: number };
+      veYmt: { totalSupply: number; boostRate: number };
+    }) => {
+      dispatch(fetchTokenState(args));
+    },
     [dispatch]
   );
 }
