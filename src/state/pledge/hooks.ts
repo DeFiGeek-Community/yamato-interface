@@ -5,7 +5,7 @@ import { AppDispatch, AppState } from '../index';
 import {
   borrowDebt,
   depositCollateral,
-  fetchingMyPledge,
+  fetchMyPledge,
   repayDebt,
   withdrawCollateral,
 } from './actions';
@@ -23,20 +23,24 @@ export function usePledgeData(): PledgeDetail {
   );
 }
 
-export function useFetchingMyPledge() {
+export function useFetchMyPledge() {
   const dispatch = useDispatch<AppDispatch>();
-  const { account } = useActiveWeb3React();
   return useCallback(
-    (collateral: number, debt: number, withdrawalLockDate: number) =>
+    (
+      account: string,
+      collateral: number,
+      debt: number,
+      withdrawalLockDate: number
+    ) =>
       dispatch(
-        fetchingMyPledge({
-          owner: account ?? '',
+        fetchMyPledge({
+          owner: account,
           collateral,
           debt,
           withdrawalLockDate,
         })
       ),
-    [dispatch, account]
+    [dispatch]
   );
 }
 

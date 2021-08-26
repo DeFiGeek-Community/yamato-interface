@@ -19,6 +19,7 @@ export default function Updater(): null {
       redemptionReserve: 10,
       sweepReserve: 2,
       sweepableCandiate: 0.5,
+      rateOfEthJpy: 300000 + Math.random() * 1000,
     };
     fetchYamatoState(
       mockState.totalCollateral, // totalColl in Yamato.sol
@@ -29,12 +30,7 @@ export default function Updater(): null {
       mockState.sweepReserve, // sweepReserve in Pool.sol
       mockState.sweepableCandiate // FIXME: ISSUE #27
     );
-  }, 5000);
-
-  useInterval(() => {
-    // TODO: replace me.
-    const mockState = 300000 + Math.random() * 1000;
-    fetchRateOfEthJpy(mockState);
+    fetchRateOfEthJpy(mockState.rateOfEthJpy);
   }, 5000);
 
   useInterval(() => {

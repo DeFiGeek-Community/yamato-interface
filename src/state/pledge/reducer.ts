@@ -2,7 +2,7 @@ import { createReducer } from '@reduxjs/toolkit';
 import {
   borrowDebt,
   depositCollateral,
-  fetchingMyPledge,
+  fetchMyPledge,
   repayDebt,
   withdrawCollateral,
 } from './actions';
@@ -24,7 +24,7 @@ const initialState: PledgeState = {};
 export default createReducer(initialState, (builder) =>
   builder
     .addCase(
-      fetchingMyPledge,
+      fetchMyPledge,
       (state, { payload: { owner, collateral, debt, withdrawalLockDate } }) => {
         state[owner] = { collateral, debt, withdrawalLockDate };
       }
