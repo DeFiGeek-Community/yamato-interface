@@ -8,16 +8,16 @@ import styled, { css } from 'styled-components';
 // import CoinbaseWalletIcon from '../../../assets/images/coinbaseWalletIcon.svg';
 // import FortmaticIcon from '../../../assets/images/fortmaticIcon.png';
 import WalletConnectIcon from '../../assets/images/walletConnectIcon.svg';
+import { NETWORK_LABELS } from '../../constants/chains';
+import { NETWORK_CONTEXT_NAME } from '../../constants/web3';
+import useENSName from '../../hooks/useENSName';
 import {
   // fortmatic,
   injected,
   // portis,
   walletconnect,
   // walletlink,
-} from '../../connectors';
-import { NETWORK_LABELS } from '../../constants/chains';
-import { NETWORK_CONTEXT_NAME } from '../../constants/web3';
-import useENSName from '../../hooks/useENSName';
+} from '../../infrastructures/connectors';
 import {
   usePendingTxCount,
   useWalletModalToggle,

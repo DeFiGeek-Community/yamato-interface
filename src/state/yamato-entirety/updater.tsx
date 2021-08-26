@@ -2,12 +2,14 @@ import useInterval from '../../hooks/useInterval';
 import {
   useFetchEvents,
   useFetchRateOfEthJpy,
+  useFetchTokenState,
   useFetchYamatoState,
 } from './hooks';
 import { LogEventType } from './reducer';
 
 export default function Updater(): null {
   const fetchYamatoState = useFetchYamatoState();
+  const fetchTokenState = useFetchTokenState();
   const fetchRateOfEthJpy = useFetchRateOfEthJpy();
   const fetchEvents = useFetchEvents();
 
@@ -19,6 +21,7 @@ export default function Updater(): null {
       redemptionReserve: 10,
       sweepReserve: 2,
       sweepableCandiate: 0.5,
+      rateOfEthJpy: 300000 + Math.random() * 1000,
     };
     fetchYamatoState(
       mockState.totalCollateral, // totalColl in Yamato.sol
@@ -29,12 +32,17 @@ export default function Updater(): null {
       mockState.sweepReserve, // sweepReserve in Pool.sol
       mockState.sweepableCandiate // FIXME: ISSUE #27
     );
+    fetchRateOfEthJpy(mockState.rateOfEthJpy);
   }, 5000);
 
   useInterval(() => {
     // TODO: replace me.
-    const mockState = 300000 + Math.random() * 1000;
-    fetchRateOfEthJpy(mockState);
+    const mockState = {
+      cjpy: { totalSupply: 1000 },
+      ymt: { totalSupply: 100 },
+      veYmt: { totalSupply: 10, boostRate: 1.5 },
+    };
+    fetchTokenState(mockState);
   }, 5000);
 
   useInterval(() => {

@@ -4,6 +4,7 @@ import { Switch, Route } from 'react-router-dom';
 import Web3ReactManager from './components/Web3ReactManager';
 import Index from './pages/index';
 import MarketUpdater from './state/market/updater';
+import PledgeUpdater from './state/pledge/updater';
 import YamatoEntiretyUpdater from './state/yamato-entirety/updater';
 
 function App() {
@@ -12,6 +13,7 @@ function App() {
       <>
         <MarketUpdater />
         <YamatoEntiretyUpdater />
+        <PledgeUpdater />
         <Switch>
           <Route exact path="/">
             <Index />

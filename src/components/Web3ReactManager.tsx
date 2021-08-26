@@ -2,9 +2,9 @@ import { useWeb3React } from '@web3-react/core';
 import { useState, useEffect } from 'react';
 import styled from 'styled-components/macro';
 
-import { network } from '../connectors';
 import { NETWORK_CONTEXT_NAME } from '../constants/web3';
 import { useEagerConnect, useInactiveListener } from '../hooks/web3';
+import { network } from '../infrastructures/connectors';
 import Loader from './Loader';
 
 const MessageWrapper = styled.div`

@@ -1,5 +1,10 @@
 import { Store, createStore } from '@reduxjs/toolkit';
-import { fetchEvents, fetchRateOfEthJpy, fetchYamatoState } from './actions';
+import {
+  fetchEvents,
+  fetchRateOfEthJpy,
+  fetchTokenState,
+  fetchYamatoState,
+} from './actions';
 import reducer, {
   initialState,
   LogEvent,
@@ -20,16 +25,35 @@ describe('yamato-entirety reducer', () => {
   describe('fetchYamatoState', () => {
     it('fetch Yamato State', () => {
       const newState = {
-        totalCollateral: 10,
-        totalDebt: 5,
-        tvl: 11,
-        tcr: 110,
-        redemptionReserve: 2,
-        sweepReserve: 1,
-        sweepableCandiate: 0.5,
+        lending: { totalCollateral: 10, totalDebt: 5, tvl: 11, tcr: 110 },
+        pool: {
+          redemptionReserve: 2,
+          sweepReserve: 1,
+          sweepableCandiate: 0.5,
+        },
       };
 
-      store.dispatch(fetchYamatoState(newState));
+      store.dispatch(
+        fetchYamatoState({ ...newState.lending, ...newState.pool })
+      );
+      expect(store.getState()).toEqual({ ...initialState, ...newState });
+    });
+  });
+
+  describe('fetchTokenState', () => {
+    it('fetch Token State', () => {
+      const newState = {
+        token: {
+          cjpy: { totalSupply: 1000 },
+          ymt: { totalSupply: 100 },
+          veYmt: { totalSupply: 10, boostRate: 1.5 },
+        },
+      };
+
+      store.dispatch(fetchTokenState(newState.token));
+
+      (newState.token.veYmt as any).farmingScore =
+        initialState.lending.totalDebt * newState.token.veYmt.boostRate;
       expect(store.getState()).toEqual({ ...initialState, ...newState });
     });
   });

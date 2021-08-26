@@ -5,41 +5,52 @@ import { AppDispatch, AppState } from '../index';
 import {
   borrowDebt,
   depositCollateral,
-  fetchingMyPledge,
+  fetchMyPledge,
   repayDebt,
   withdrawCollateral,
 } from './actions';
 import { PledgeDetail } from './reducer';
 
+/**
+ * selector
+ */
 export function usePledgeData(): PledgeDetail {
   const { account } = useActiveWeb3React();
-  return useSelector(
-    (state: AppState) =>
-      state.pledge[account ?? ''] ?? {
+  return useSelector((state: AppState) => {
+    if (!account) {
+      return {
         collateral: 0,
         debt: 0,
         withdrawalLockDate: 0,
-      }
-  );
+      };
+    }
+    return state.pledge[account];
+  });
 }
 
-export function useFetchingMyPledge() {
+/**
+ * dispatcher
+ */
+export function useFetchMyPledge() {
   const dispatch = useDispatch<AppDispatch>();
-  const { account } = useActiveWeb3React();
   return useCallback(
-    (collateral: number, debt: number, withdrawalLockDate: number) =>
+    (
+      account: string,
+      collateral: number,
+      debt: number,
+      withdrawalLockDate: number
+    ) =>
       dispatch(
-        fetchingMyPledge({
-          owner: account ?? '',
+        fetchMyPledge({
+          owner: account,
           collateral,
           debt,
           withdrawalLockDate,
         })
       ),
-    [dispatch, account]
+    [dispatch]
   );
 }
-
 export function useDepositCollateral() {
   const dispatch = useDispatch<AppDispatch>();
   const { account } = useActiveWeb3React();
@@ -58,7 +69,6 @@ export function useWithdrawCollateral() {
     [dispatch, account]
   );
 }
-
 export function useBorrowDebt() {
   const dispatch = useDispatch<AppDispatch>();
   const { account } = useActiveWeb3React();

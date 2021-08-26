@@ -2,7 +2,7 @@ import { Store, createStore } from '@reduxjs/toolkit';
 import {
   borrowDebt,
   depositCollateral,
-  fetchingMyPledge,
+  fetchMyPledge,
   repayDebt,
   withdrawCollateral,
 } from './actions';
@@ -35,16 +35,16 @@ describe('pledge reducer', () => {
     expect(store.getState()).toEqual({});
   });
 
-  describe('fetchingMyPledge', () => {
-    it('fetching My Pledges', () => {
-      store.dispatch(fetchingMyPledge(paramOfDefaultPledge));
+  describe('fetchMyPledge', () => {
+    it('fetch My Pledges', () => {
+      store.dispatch(fetchMyPledge(paramOfDefaultPledge));
       expect(store.getState()).toEqual(defaultPledge);
     });
   });
 
   describe('depositCollateral', () => {
     beforeEach(() => {
-      store.dispatch(fetchingMyPledge(paramOfDefaultPledge));
+      store.dispatch(fetchMyPledge(paramOfDefaultPledge));
     });
 
     it('deposit Collateral', () => {
@@ -75,7 +75,7 @@ describe('pledge reducer', () => {
 
   describe('withdrawCollateral', () => {
     beforeEach(() => {
-      store.dispatch(fetchingMyPledge(paramOfDefaultPledge));
+      store.dispatch(fetchMyPledge(paramOfDefaultPledge));
     });
 
     it('withdraw Collateral', () => {
@@ -106,7 +106,7 @@ describe('pledge reducer', () => {
 
   describe('borrowDebt', () => {
     beforeEach(() => {
-      store.dispatch(fetchingMyPledge(paramOfDefaultPledge));
+      store.dispatch(fetchMyPledge(paramOfDefaultPledge));
     });
 
     it('borrow Debt', () => {
@@ -137,7 +137,7 @@ describe('pledge reducer', () => {
 
   describe('repayDebt', () => {
     beforeEach(() => {
-      store.dispatch(fetchingMyPledge(paramOfDefaultPledge));
+      store.dispatch(fetchMyPledge(paramOfDefaultPledge));
     });
 
     it('repay Debt', () => {

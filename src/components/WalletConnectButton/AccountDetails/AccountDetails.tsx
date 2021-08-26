@@ -5,15 +5,15 @@ import { Button } from 'rebass/styled-components';
 import styled, { ThemeContext } from 'styled-components';
 import WalletConnectIcon from '../../../assets/images/walletConnectIcon.svg';
 import { ReactComponent as Close } from '../../../assets/images/x.svg';
+import { SUPPORTED_WALLETS } from '../../../constants/web3';
+import { useActiveWeb3React } from '../../../hooks/web3';
 import {
   injected,
   walletconnect,
   // walletlink,
   // fortmatic,
   // portis,
-} from '../../../connectors';
-import { SUPPORTED_WALLETS } from '../../../constants/web3';
-import { useActiveWeb3React } from '../../../hooks/web3';
+} from '../../../infrastructures/connectors';
 import { AppDispatch } from '../../../state';
 import { getEtherscanLink } from '../../../utils/externalLink';
 import { shortenAddress } from '../../../utils/web3';

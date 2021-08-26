@@ -1,11 +1,11 @@
 import { createAction } from '@reduxjs/toolkit';
 import { PledgeDetail } from './reducer';
 
-export const fetchingMyPledge = createAction<
+export const fetchMyPledge = createAction<
   {
     owner: string;
   } & PledgeDetail
->('pledge/fetchingMyPledge');
+>('pledge/fetchMyPledge');
 
 export const depositCollateral = createAction<{
   owner: string;

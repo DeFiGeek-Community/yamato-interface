@@ -4,12 +4,18 @@ import { AppDispatch, AppState } from '../index';
 import { fetchRateOfCjpyJpy } from './actions';
 import { PriceSource } from './reducer';
 
+/**
+ * selector
+ */
 export function useMarketState() {
   return useSelector((state: AppState) => ({
     rateOfCjpyJpy: state.market.rateOfCjpyJpy,
   }));
 }
 
+/**
+ * dispatcher
+ */
 export function useFetchRateOfCjpyJpy() {
   const dispatch = useDispatch<AppDispatch>();
   return useCallback(

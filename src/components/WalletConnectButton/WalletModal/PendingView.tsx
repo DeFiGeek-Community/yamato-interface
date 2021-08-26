@@ -1,8 +1,8 @@
 import { AbstractConnector } from '@web3-react/abstract-connector';
 import { darken } from 'polished';
 import styled from 'styled-components';
-import { injected } from '../../../connectors';
 import { SUPPORTED_WALLETS } from '../../../constants/web3';
+import { injected } from '../../../infrastructures/connectors';
 import Loader from '../../Loader';
 import Option from './Option';
 

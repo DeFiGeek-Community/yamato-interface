@@ -62,7 +62,7 @@ export default function Dashboad() {
             />
             <DashboadItem
               title={'CJPY総発行数'}
-              stat={`${formatPrice(yamato.totalDebt, 'jpy').value} ${
+              stat={`${formatPrice(yamato.totalSupplyOfCjpy, 'jpy').value} ${
                 YAMATO_SYMBOL.YEN
               }`}
             />
