@@ -8,7 +8,7 @@ import {
   // portis,
   //walletconnect,
   // walletlink,
-} from '../connectors';
+} from '../infrastructures/connectors';
 
 export interface WalletInfo {
   connector?: AbstractConnector;

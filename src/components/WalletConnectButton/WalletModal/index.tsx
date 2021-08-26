@@ -7,10 +7,10 @@ import { isMobile } from 'react-device-detect';
 import styled from 'styled-components';
 import MetamaskIcon from '../../../assets/images/metamask.png';
 import { ReactComponent as Close } from '../../../assets/images/x.svg';
-import { injected } from '../../../connectors';
 // import { OVERLAY_READY } from '../../connectors/Fortmatic';
 import { SUPPORTED_WALLETS } from '../../../constants/web3';
 import usePrevious from '../../../hooks/usePrevious';
+import { injected } from '../../../infrastructures/connectors';
 import { ApplicationModal } from '../../../state/application/actions';
 import {
   useModalOpen,

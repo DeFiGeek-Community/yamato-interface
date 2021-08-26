@@ -1,16 +1,6 @@
-import {
-  Accordion,
-  AccordionItem,
-  AccordionButton,
-  AccordionPanel,
-  AccordionIcon,
-  Box,
-  Grid,
-  GridItem,
-} from '@chakra-ui/react';
+import { Box, Grid, GridItem } from '@chakra-ui/react';
 import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
-import { CategoryTitle } from '../components/CommonItem';
 import Dashboad from '../components/Dashboad';
 import Footer from '../components/Footer';
 import Infographics from '../components/Infographics';

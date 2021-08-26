@@ -28,4 +28,4 @@ yarn-error.log*
 memo
 
 # generated contract types
-/src/abis/types
+/src/infrastructures/abis/types

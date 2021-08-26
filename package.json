@@ -13,7 +13,7 @@
     "diff-check": "git diff --exit-code -- .",
     "ci:format": "yarn lint:fix && yarn format && yarn diff-check",
     "svg:gen": "svgr ./src/assets/sources --out-dir ./src/components/svgs",
-    "compile-external-abi-types": "typechain --target ethers-v5 --out-dir src/abis/types './src/abis/**/*.json'",
+    "compile-external-abi-types": "typechain --target ethers-v5 --out-dir src/infrastructures/abis/types './src/infrastructures/abis/**/*.json'",
     "eject": "react-scripts eject"
   },
   "dependencies": {
