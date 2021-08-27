@@ -1,4 +1,4 @@
-import { HStack } from '@chakra-ui/react';
+import { Grid, GridItem } from '@chakra-ui/react';
 import { YAMATO_SYMBOL } from '../../../constants/yamato';
 import { useActiveWeb3React } from '../../../hooks/web3';
 import { usePledgeData } from '../../../state/pledge/hooks';
@@ -13,29 +13,34 @@ export default function Debt() {
   const pledge = usePledgeData();
 
   return (
-    <>
-      <HStack spacing="24px" align="start">
+    <Grid templateColumns="repeat(6, 1fr)" gap={4} mb={4}>
+      <GridItem colSpan={1}>
         <ItemTitle marginTop={32}>借入量</ItemTitle>
-        <div>
-          <CurrentValue marginTop={32}>
-            {pledge.debt}
-            {YAMATO_SYMBOL.YEN}
-          </CurrentValue>
-        </div>
+      </GridItem>
 
+      <GridItem colSpan={1}>
+        <CurrentValue marginTop={32}>
+          {pledge.debt}
+          {YAMATO_SYMBOL.YEN}
+        </CurrentValue>
+      </GridItem>
+
+      <GridItem colSpan={2}>
         <BorrowInput collateral={pledge.collateral} debt={pledge.debt} />
+      </GridItem>
 
+      <GridItem colSpan={2}>
         <RepayInput collateral={pledge.collateral} debt={pledge.debt} />
-      </HStack>
+      </GridItem>
 
-      <HStack spacing="24px" align="start">
+      <GridItem colSpan={1}>
         <ItemTitle marginTop={32}>担保率</ItemTitle>
-        <div>
-          <CurrentValue marginTop={32}>
-            {formatCollateralizationRatio(pledge.collateral, pledge.debt)}%
-          </CurrentValue>
-        </div>
-      </HStack>
-    </>
+      </GridItem>
+      <GridItem colSpan={1}>
+        <CurrentValue marginTop={32}>
+          {formatCollateralizationRatio(pledge.collateral, pledge.debt)}%
+        </CurrentValue>
+      </GridItem>
+    </Grid>
   );
 }

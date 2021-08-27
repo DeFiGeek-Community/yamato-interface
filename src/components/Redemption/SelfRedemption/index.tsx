@@ -1,6 +1,5 @@
-import { HStack } from '@chakra-ui/react';
+import { Grid, GridItem } from '@chakra-ui/react';
 import { useActiveWeb3React } from '../../../hooks/web3';
-import { usePledgeData } from '../../../state/pledge/hooks';
 import { useYamatoStateForPledge } from '../../../state/yamato-entirety/hooks';
 import { ItemTitle } from '../../CommonItem';
 import RedemptionInput from './RedemptionInput';
@@ -9,18 +8,21 @@ export default function SelfRedemption() {
   const { account, library } = useActiveWeb3React();
 
   const yamato = useYamatoStateForPledge();
-  const pledge = usePledgeData();
 
   return (
-    <HStack spacing="24px" align="start">
-      <ItemTitle marginTop={32}>償還</ItemTitle>
+    <Grid templateColumns="repeat(4, 1fr)" gap={4} mb={12}>
+      <GridItem colSpan={1}>
+        <ItemTitle marginTop={32}>償還</ItemTitle>
+      </GridItem>
 
-      <RedemptionInput
-        totalCollateral={yamato.totalCollateral}
-        totalDebt={yamato.totalDebt}
-        tcr={yamato.tcr}
-        rateOfEthJpy={yamato.rateOfEthJpy}
-      />
-    </HStack>
+      <GridItem colSpan={3}>
+        <RedemptionInput
+          totalCollateral={yamato.totalCollateral}
+          totalDebt={yamato.totalDebt}
+          tcr={yamato.tcr}
+          rateOfEthJpy={yamato.rateOfEthJpy}
+        />
+      </GridItem>
+    </Grid>
   );
 }

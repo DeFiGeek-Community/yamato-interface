@@ -1,4 +1,4 @@
-import { HStack } from '@chakra-ui/react';
+import { Grid, GridItem } from '@chakra-ui/react';
 import { YAMATO_SYMBOL } from '../../../constants/yamato';
 import { useActiveWeb3React } from '../../../hooks/web3';
 import { usePledgeData } from '../../../state/pledge/hooks';
@@ -15,33 +15,38 @@ export default function Collateral() {
   const pledge = usePledgeData();
 
   return (
-    <>
-      <HStack spacing="24px" align="start">
+    <Grid templateColumns="repeat(6, 1fr)" gap={4} mb={4}>
+      <GridItem colSpan={1}>
         <ItemTitle marginTop={32}>担保数</ItemTitle>
-        <div>
-          <CurrentValue marginTop={32}>
-            {pledge.collateral}
-            {YAMATO_SYMBOL.COLLATERAL}
-          </CurrentValue>
-        </div>
+      </GridItem>
 
+      <GridItem colSpan={1}>
+        <CurrentValue marginTop={32}>
+          {pledge.collateral}
+          {YAMATO_SYMBOL.COLLATERAL}
+        </CurrentValue>
+      </GridItem>
+
+      <GridItem colSpan={2}>
         <DepositInput collateral={pledge.collateral} debt={pledge.debt} />
+      </GridItem>
 
+      <GridItem colSpan={2}>
         <WithdrawalInput
           collateral={pledge.collateral}
           debt={pledge.debt}
           withdrawalLockDate={pledge.withdrawalLockDate}
         />
-      </HStack>
+      </GridItem>
 
-      <HStack spacing="24px" align="start">
+      <GridItem colSpan={1}>
         <ItemTitle marginTop={32}>評価額</ItemTitle>
-        <div>
-          <CurrentValue marginTop={32}>
-            ¥{multiplyToNum(pledge.collateral, yamato.rateOfEthJpy)}
-          </CurrentValue>
-        </div>
-      </HStack>
-    </>
+      </GridItem>
+      <GridItem colSpan={1}>
+        <CurrentValue marginTop={32}>
+          ¥{multiplyToNum(pledge.collateral, yamato.rateOfEthJpy)}
+        </CurrentValue>
+      </GridItem>
+    </Grid>
   );
 }

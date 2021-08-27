@@ -18,16 +18,16 @@ export default function Index() {
 
         <Grid
           templateRows="repeat(16, 1fr)"
-          templateColumns="repeat(5, 1fr)"
+          templateColumns="repeat(4, 1fr)"
           gap={4}
         >
-          <GridItem rowSpan={1} colSpan={4}>
+          <GridItem rowSpan={1} colSpan={2}>
             <Link to="/">
               <SvgYamatoLogWithTitle width={255} height={25} />
             </Link>
           </GridItem>
 
-          <GridItem rowSpan={1} colSpan={1}>
+          <GridItem rowSpan={1} colSpan={2}>
             <div
               style={{
                 textAlign: 'right',
@@ -38,7 +38,7 @@ export default function Index() {
             </div>
           </GridItem>
 
-          <GridItem rowSpan={3} colSpan={4}>
+          <GridItem rowSpan={3} colSpan={3}>
             <Dashboad />
           </GridItem>
 
@@ -46,7 +46,7 @@ export default function Index() {
             <World />
           </GridItem>
 
-          <GridItem rowSpan={11} colSpan={4}>
+          <GridItem rowSpan={11} colSpan={3}>
             <Pledge />
 
             <Box className="divider" mt={12} />
@@ -58,7 +58,7 @@ export default function Index() {
             <Infographics />
           </GridItem>
 
-          <GridItem rowSpan={1} colSpan={5}>
+          <GridItem rowSpan={1} colSpan={4}>
             <Footer />
           </GridItem>
         </Grid>

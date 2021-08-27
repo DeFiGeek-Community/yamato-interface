@@ -5,6 +5,7 @@ import Web3ReactManager from './components/Web3ReactManager';
 import Index from './pages/index';
 import MarketUpdater from './state/market/updater';
 import PledgeUpdater from './state/pledge/updater';
+import WalletUpdater from './state/wallet/updater';
 import YamatoEntiretyUpdater from './state/yamato-entirety/updater';
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
         <MarketUpdater />
         <YamatoEntiretyUpdater />
         <PledgeUpdater />
+        <WalletUpdater />
         <Switch>
           <Route exact path="/">
             <Index />
