@@ -47,6 +47,7 @@ export interface YamatoEntiretyState {
     veYmt: { totalSupply: number; boostRate: number; farmingScore: number };
   };
   rateOfEthJpy: number; // ETH/JPY
+  prevRateOfEthJpy: number; // ETH/JPY
   events: Array<LogEvent>; // several ethereum events
 }
 
@@ -63,6 +64,7 @@ export const initialState: YamatoEntiretyState = {
     veYmt: { totalSupply: 0, boostRate: 0, farmingScore: 0 },
   },
   rateOfEthJpy: 0,
+  prevRateOfEthJpy: 0,
   events: [],
 };
 
@@ -94,6 +96,7 @@ export default createReducer(initialState, (builder) =>
       state.token = { cjpy, ymt, veYmt: newState };
     })
     .addCase(fetchRateOfEthJpy, (state, { payload: { rateOfEthJpy } }) => {
+      state.prevRateOfEthJpy = state.rateOfEthJpy;
       state.rateOfEthJpy = rateOfEthJpy;
     })
     .addCase(fetchEvents, (state, { payload: { events } }) => {

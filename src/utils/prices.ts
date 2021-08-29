@@ -82,3 +82,11 @@ export function formatCollateralizationRatio(
   }
   return (divideToNum(collateral, debt) * 100).toFixed(2);
 }
+
+export function getEthChangePercent(current: number, previous: number): number {
+  if (current === 0 || previous === 0) {
+    return 0;
+  }
+
+  return ((current - previous) / previous) * 100;
+}

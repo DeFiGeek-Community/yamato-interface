@@ -1,5 +1,6 @@
 import { useCallback, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { getEthChangePercent } from '../../utils/prices';
 import { AppDispatch, AppState } from '../index';
 import {
   fetchEvents,
@@ -13,12 +14,18 @@ import { LogEvent } from './reducer';
  * selector
  */
 export function useYamatoStateForDashboard() {
-  return useSelector((state: AppState) => ({
-    totalSupplyOfCjpy: state.yamatoEntirety.token.cjpy.totalSupply,
-    tvl: state.yamatoEntirety.lending.tvl,
-    tcr: state.yamatoEntirety.lending.tcr,
-    rateOfEthJpy: state.yamatoEntirety.rateOfEthJpy,
-  }));
+  return useSelector((state: AppState) => {
+    return {
+      totalSupplyOfCjpy: state.yamatoEntirety.token.cjpy.totalSupply,
+      tvl: state.yamatoEntirety.lending.tvl,
+      tcr: state.yamatoEntirety.lending.tcr,
+      rateOfEthJpy: state.yamatoEntirety.rateOfEthJpy,
+      ethChangePercent: getEthChangePercent(
+        state.yamatoEntirety.rateOfEthJpy,
+        state.yamatoEntirety.prevRateOfEthJpy
+      ),
+    };
+  });
 }
 export function useYamatoStateForPledge() {
   return useSelector((state: AppState) => ({

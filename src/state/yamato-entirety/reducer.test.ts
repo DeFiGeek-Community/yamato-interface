@@ -61,7 +61,11 @@ describe('yamato-entirety reducer', () => {
   describe('fetchRateOfEthJpy', () => {
     it('fetch Rate Of EthJpy', () => {
       store.dispatch(fetchRateOfEthJpy({ rateOfEthJpy: 10 }));
-      expect(store.getState()).toEqual({ ...initialState, rateOfEthJpy: 10 });
+      expect(store.getState()).toEqual({
+        ...initialState,
+        rateOfEthJpy: 10,
+        prevRateOfEthJpy: 0,
+      });
     });
   });
 
