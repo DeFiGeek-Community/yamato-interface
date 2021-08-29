@@ -49,8 +49,8 @@ export default function SweepInput(props: Props) {
               <VStack align="start">
                 <label>プール総額</label>
                 <span>
-                  {props.redemptionReserve}
-                  {YAMATO_SYMBOL.COLLATERAL}
+                  {props.redemptionReserve.toFixed(4)}
+                  {YAMATO_SYMBOL.YEN}
                 </span>
               </VStack>
             </GridItem>
@@ -59,8 +59,8 @@ export default function SweepInput(props: Props) {
               <VStack align="start">
                 <label>弁済候補総額</label>
                 <span>
-                  {props.sweepableCandiate}
-                  {YAMATO_SYMBOL.YEN}
+                  {props.sweepableCandiate.toFixed(4)}
+                  {YAMATO_SYMBOL.COLLATERAL}
                 </span>
               </VStack>
             </GridItem>
@@ -69,7 +69,7 @@ export default function SweepInput(props: Props) {
               <VStack align="start">
                 <label>実行リワード予測</label>
                 <span>
-                  {getExpectedReward()}
+                  {getExpectedReward().toFixed(4)}
                   {YAMATO_SYMBOL.YEN}
                 </span>
               </VStack>

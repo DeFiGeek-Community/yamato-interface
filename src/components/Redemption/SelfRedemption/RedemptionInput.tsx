@@ -45,7 +45,7 @@ export default function RedemptionInput(props: Props) {
       return '残高が足りません。';
     }
 
-    if (value > redeemableCandidate) {
+    if (value > redeemableCandidate.cjpy) {
       return '可能数量を超えています。';
     }
 
@@ -100,11 +100,7 @@ export default function RedemptionInput(props: Props) {
                 <VStack align="start" mt={4}>
                   <label>予想担保獲得数</label>
                   <span>
-                    {getExpectedCollateral(
-                      redemption,
-                      redeemableCandidate,
-                      props.rateOfEthJpy
-                    )}
+                    {getExpectedCollateral(redemption, redeemableCandidate.eth)}
                     {YAMATO_SYMBOL.COLLATERAL}
                   </span>
                 </VStack>
@@ -115,7 +111,7 @@ export default function RedemptionInput(props: Props) {
               <VStack align="start">
                 <label>償還候補総額</label>
                 <span>
-                  {redeemableCandidate.toFixed(4)}
+                  {redeemableCandidate.cjpy.toFixed(4)}
                   {YAMATO_SYMBOL.YEN}
                 </span>
               </VStack>

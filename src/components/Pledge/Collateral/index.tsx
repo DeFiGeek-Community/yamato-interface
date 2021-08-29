@@ -4,6 +4,7 @@ import { useActiveWeb3React } from '../../../hooks/web3';
 import { usePledgeData } from '../../../state/pledge/hooks';
 import { useYamatoStateForPledge } from '../../../state/yamato-entirety/hooks';
 import { multiplyToNum } from '../../../utils/bignumber';
+import { formatPrice } from '../../../utils/prices';
 import { ItemTitle, CurrentValue } from '../../CommonItem';
 import DepositInput from './DepositInput';
 import WithdrawalInput from './WithdrawalInput';
@@ -44,7 +45,13 @@ export default function Collateral() {
       </GridItem>
       <GridItem colSpan={1}>
         <CurrentValue marginTop={32}>
-          ¥{multiplyToNum(pledge.collateral, yamato.rateOfEthJpy)}
+          ¥
+          {
+            formatPrice(
+              multiplyToNum(pledge.collateral, yamato.rateOfEthJpy),
+              'eth'
+            ).value
+          }
         </CurrentValue>
       </GridItem>
     </Grid>
