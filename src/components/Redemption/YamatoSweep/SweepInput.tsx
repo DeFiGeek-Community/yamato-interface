@@ -62,6 +62,10 @@ export default function SweepInput(props: Props) {
                   {props.sweepableCandiate.toFixed(4)}
                   {YAMATO_SYMBOL.COLLATERAL}
                 </span>
+                <span>
+                  ({(props.sweepableCandiate * props.rateOfEthJpy).toFixed(4)}
+                  {YAMATO_SYMBOL.YEN})
+                </span>
               </VStack>
             </GridItem>
 
