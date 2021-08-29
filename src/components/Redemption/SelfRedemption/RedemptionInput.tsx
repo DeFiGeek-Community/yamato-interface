@@ -3,7 +3,8 @@ import {
   FormControl,
   FormErrorMessage,
   FormLabel,
-  HStack,
+  Grid,
+  GridItem,
   Input,
   VStack,
 } from '@chakra-ui/react';
@@ -44,7 +45,7 @@ export default function RedemptionInput(props: Props) {
       return '残高が足りません。';
     }
 
-    if (value > redeemableCandidate) {
+    if (value > redeemableCandidate.cjpy) {
       return '可能数量を超えています。';
     }
 
@@ -72,51 +73,51 @@ export default function RedemptionInput(props: Props) {
     <Formik initialValues={{ redemption: 0 }} onSubmit={submitRedemption}>
       {(formikProps) => (
         <Form>
-          <VStack mb={4}>
-            <HStack spacing={4} align="flex-end">
-              <VStack>
-                <Field name="redemption" validate={validateRedemption}>
-                  {({ field, form }: FieldProps) => (
-                    <FormControl
-                      isInvalid={
-                        !!form.errors.redemption && !!form.touched.redemption
-                      }
-                      style={{ maxWidth: '200px' }}
-                    >
-                      <FormLabel htmlFor="redemption">償還実行額入力</FormLabel>
-                      <Input
-                        {...field}
-                        id="redemption"
-                        type="number"
-                        placeholder={YAMATO_SYMBOL.YEN}
-                      />
-                      <FormErrorMessage>
-                        {form.errors.redemption}
-                      </FormErrorMessage>
-                    </FormControl>
-                  )}
-                </Field>
-                {redemption > 0 && (
-                  <HStack spacing={4} align="flex-end">
-                    <label>予想担保獲得数</label>
-                    <span>
-                      {getExpectedCollateral(
-                        redemption,
-                        redeemableCandidate,
-                        props.rateOfEthJpy
-                      )}
-                      {YAMATO_SYMBOL.COLLATERAL}
-                    </span>
-                  </HStack>
+          <Grid templateColumns="repeat(4, 1fr)" gap={4}>
+            <GridItem colSpan={1}>
+              <Field name="redemption" validate={validateRedemption}>
+                {({ field, form }: FieldProps) => (
+                  <FormControl
+                    isInvalid={
+                      !!form.errors.redemption && !!form.touched.redemption
+                    }
+                    style={{ maxWidth: '200px' }}
+                  >
+                    <FormLabel htmlFor="redemption">償還実行額入力</FormLabel>
+                    <Input
+                      {...field}
+                      id="redemption"
+                      type="number"
+                      placeholder={YAMATO_SYMBOL.YEN}
+                    />
+                    <FormErrorMessage>
+                      {form.errors.redemption}
+                    </FormErrorMessage>
+                  </FormControl>
                 )}
-              </VStack>
-              <VStack align="center">
+              </Field>
+              {redemption > 0 && (
+                <VStack align="start" mt={4}>
+                  <label>予想担保獲得数</label>
+                  <span>
+                    {getExpectedCollateral(redemption, redeemableCandidate.eth)}
+                    {YAMATO_SYMBOL.COLLATERAL}
+                  </span>
+                </VStack>
+              )}
+            </GridItem>
+
+            <GridItem colSpan={2}>
+              <VStack align="start">
                 <label>償還候補総額</label>
                 <span>
-                  {redeemableCandidate.toFixed(4)}
+                  {redeemableCandidate.cjpy.toFixed(4)}
                   {YAMATO_SYMBOL.YEN}
                 </span>
               </VStack>
+            </GridItem>
+
+            <GridItem colSpan={1}>
               <Button
                 colorScheme="teal"
                 isLoading={formikProps.isSubmitting}
@@ -124,8 +125,8 @@ export default function RedemptionInput(props: Props) {
               >
                 償還実行
               </Button>
-            </HStack>
-          </VStack>
+            </GridItem>
+          </Grid>
         </Form>
       )}
     </Formik>

@@ -1,4 +1,4 @@
-import { Button, HStack, VStack } from '@chakra-ui/react';
+import { Button, Grid, GridItem, VStack } from '@chakra-ui/react';
 import { Formik, Form, FormikHelpers } from 'formik';
 import { YAMATO_SYMBOL } from '../../../constants/yamato';
 import { useActiveWeb3React } from '../../../hooks/web3';
@@ -43,33 +43,41 @@ export default function RedemptionInput(props: Props) {
     <Formik initialValues={{ redemption: 0 }} onSubmit={submitRedemption}>
       {(formikProps) => (
         <Form>
-          <VStack mb={4}>
-            <HStack spacing={4} align="flex-end">
-              <VStack align="center">
+          <Grid templateColumns="repeat(4, 1fr)" gap={4}>
+            <GridItem colSpan={1}>
+              <VStack align="start">
                 <label>プール総額</label>
                 <span>
-                  {props.redemptionReserve}
-                  {YAMATO_SYMBOL.COLLATERAL}
-                </span>
-              </VStack>
-              <VStack align="center">
-                <label>償還候補総額</label>
-                <span>
-                  {redeemableCandidate}
+                  {props.redemptionReserve.toFixed(4)}
                   {YAMATO_SYMBOL.YEN}
                 </span>
               </VStack>
-              <VStack align="center">
-                <label>実行リワード予測</label>
+            </GridItem>
+
+            <GridItem colSpan={1}>
+              <VStack align="start">
+                <label>償還候補総額</label>
                 <span>
-                  {getExpectedCollateral(
-                    redeemableCandidate + 1, // dummy
-                    redeemableCandidate,
-                    props.rateOfEthJpy
-                  )}
+                  {redeemableCandidate.eth.toFixed(4)}
                   {YAMATO_SYMBOL.COLLATERAL}
                 </span>
               </VStack>
+            </GridItem>
+
+            <GridItem colSpan={1}>
+              <VStack align="start">
+                <label>実行リワード予測</label>
+                <span>
+                  {getExpectedCollateral(
+                    redeemableCandidate.eth + 1, // dummy
+                    redeemableCandidate.eth
+                  ).toFixed(4)}
+                  {YAMATO_SYMBOL.COLLATERAL}
+                </span>
+              </VStack>
+            </GridItem>
+
+            <GridItem colSpan={1}>
               <Button
                 colorScheme="teal"
                 isLoading={formikProps.isSubmitting}
@@ -77,8 +85,8 @@ export default function RedemptionInput(props: Props) {
               >
                 Yamato償還実行
               </Button>
-            </HStack>
-          </VStack>
+            </GridItem>
+          </Grid>
         </Form>
       )}
     </Formik>

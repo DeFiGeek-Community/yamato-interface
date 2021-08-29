@@ -10,6 +10,7 @@ export const ItemTitle = styled.label<{ marginTop?: number }>`
   color: #818181;
   margin-top: ${({ marginTop }) => marginTop ?? 0}px;
   font-weight: bold;
+  display: inline-block;
 `;
 
 export const CurrentValue = styled.p<{ width?: number; marginTop?: number }>`
@@ -17,4 +18,5 @@ export const CurrentValue = styled.p<{ width?: number; marginTop?: number }>`
   color: #818181;
   margin-top: ${({ marginTop }) => marginTop ?? 0}px;
   font-weight: bold;
+  display: inline-block;
 `;

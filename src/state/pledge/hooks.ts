@@ -17,7 +17,7 @@ import { PledgeDetail } from './reducer';
 export function usePledgeData(): PledgeDetail {
   const { account } = useActiveWeb3React();
   return useSelector((state: AppState) => {
-    if (!account) {
+    if (!account || !state.pledge[account]) {
       return {
         collateral: 0,
         debt: 0,

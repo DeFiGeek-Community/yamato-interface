@@ -1,4 +1,4 @@
-import { Button, HStack, VStack } from '@chakra-ui/react';
+import { Button, Grid, GridItem, VStack } from '@chakra-ui/react';
 import { Formik, Form, FormikHelpers } from 'formik';
 import { YAMATO_SYMBOL } from '../../../constants/yamato';
 import { useActiveWeb3React } from '../../../hooks/web3';
@@ -44,29 +44,38 @@ export default function SweepInput(props: Props) {
     <Formik initialValues={{ sweep: 0 }} onSubmit={submitSweep}>
       {(formikProps) => (
         <Form>
-          <VStack mb={4}>
-            <HStack spacing={4} align="flex-end">
-              <VStack align="center">
+          <Grid templateColumns="repeat(4, 1fr)" gap={4}>
+            <GridItem colSpan={1}>
+              <VStack align="start">
                 <label>プール総額</label>
                 <span>
-                  {props.redemptionReserve}
+                  {props.redemptionReserve.toFixed(4)}
+                  {YAMATO_SYMBOL.YEN}
+                </span>
+              </VStack>
+            </GridItem>
+
+            <GridItem colSpan={1}>
+              <VStack align="start">
+                <label>弁済候補総額</label>
+                <span>
+                  {props.sweepableCandiate.toFixed(4)}
                   {YAMATO_SYMBOL.COLLATERAL}
                 </span>
               </VStack>
-              <VStack align="center">
-                <label>弁済候補総額</label>
-                <span>
-                  {props.sweepableCandiate}
-                  {YAMATO_SYMBOL.YEN}
-                </span>
-              </VStack>
-              <VStack align="center">
+            </GridItem>
+
+            <GridItem colSpan={1}>
+              <VStack align="start">
                 <label>実行リワード予測</label>
                 <span>
-                  {getExpectedReward()}
+                  {getExpectedReward().toFixed(4)}
                   {YAMATO_SYMBOL.YEN}
                 </span>
               </VStack>
+            </GridItem>
+
+            <GridItem colSpan={1}>
               <Button
                 colorScheme="teal"
                 isLoading={formikProps.isSubmitting}
@@ -74,8 +83,8 @@ export default function SweepInput(props: Props) {
               >
                 代位弁済実行
               </Button>
-            </HStack>
-          </VStack>
+            </GridItem>
+          </Grid>
         </Form>
       )}
     </Formik>

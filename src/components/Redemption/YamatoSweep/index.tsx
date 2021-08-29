@@ -1,4 +1,4 @@
-import { Grid, HStack } from '@chakra-ui/react';
+import { Grid, GridItem } from '@chakra-ui/react';
 import { useActiveWeb3React } from '../../../hooks/web3';
 import { useYamatoStateForPledge } from '../../../state/yamato-entirety/hooks';
 import { ItemTitle } from '../../CommonItem';
@@ -10,18 +10,22 @@ export default function YamatoSubrogation() {
   const yamato = useYamatoStateForPledge();
 
   return (
-    <HStack spacing="24px" align="start">
-      <ItemTitle marginTop={32}>Yamato代位弁済</ItemTitle>
+    <Grid templateColumns="repeat(4, 1fr)" gap={4}>
+      <GridItem colSpan={1}>
+        <ItemTitle marginTop={32}>Yamato代位弁済</ItemTitle>
+      </GridItem>
 
-      <SweepInput
-        totalCollateral={yamato.totalCollateral}
-        totalDebt={yamato.totalDebt}
-        tcr={yamato.tcr}
-        rateOfEthJpy={yamato.rateOfEthJpy}
-        redemptionReserve={yamato.redemptionReserve}
-        sweepReserve={yamato.sweepReserve}
-        sweepableCandiate={yamato.sweepableCandiate}
-      />
-    </HStack>
+      <GridItem colSpan={3}>
+        <SweepInput
+          totalCollateral={yamato.totalCollateral}
+          totalDebt={yamato.totalDebt}
+          tcr={yamato.tcr}
+          rateOfEthJpy={yamato.rateOfEthJpy}
+          redemptionReserve={yamato.redemptionReserve}
+          sweepReserve={yamato.sweepReserve}
+          sweepableCandiate={yamato.sweepableCandiate}
+        />
+      </GridItem>
+    </Grid>
   );
 }
