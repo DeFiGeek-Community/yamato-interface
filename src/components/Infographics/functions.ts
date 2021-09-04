@@ -31,3 +31,7 @@ export function getColorCodePerTcr(tcr: number): number {
   }
   return Math.floor(360 - base * 6.2);
 }
+
+export function getBrightnessPerEth(ethPriceRank: number): number {
+  return 95 - Math.abs(ethPriceRank); // Max95% - Min50%
+}

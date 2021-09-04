@@ -23,6 +23,7 @@ import {
   SpringPlus8,
   SpringPlus9,
 } from '../svgs/spring-adjusted';
+import { getBrightnessPerEth } from './functions';
 
 interface Props {
   cjpyPriceRank: number;
@@ -81,13 +82,13 @@ function switchSpring(cjpyPriceRank: number, colorCode: number) {
 }
 
 function switchBackgroundColor(ethPriceRank: number) {
-  const brightness = 95 - Math.abs(ethPriceRank); // Max95% - Min50%
+  const brightness = getBrightnessPerEth(ethPriceRank); // Max95% - Min50%
   if (ethPriceRank > 0) {
     return `linear-gradient(180deg, hsla(360, 0%, 100%, 0) 0%, hsl(360, 100%, ${brightness}%) 100%)`;
   } else if (ethPriceRank < 0) {
     return `linear-gradient(180deg, hsla(236, 0%, 100%, 0) 0%, hsl(236, 100%, ${brightness}%) 100%)`;
   } else {
-    return `linear-gradient(180deg, hsla(287, 0%, 100%, 0) 0%, hsl(298, 100%, 95%) 100%)`;
+    return `linear-gradient(180deg, hsla(298, 0%, 100%, 0) 0%, hsl(298, 100%, 95%) 100%)`;
   }
 }
 

@@ -3,6 +3,7 @@ import { useMarketState } from '../../state/market/hooks';
 import { useYamatoStateForDashboard } from '../../state/yamato-entirety/hooks';
 import { CategoryTitle } from '../CommonItem';
 import CjpyPrice from './CjpyPrice';
+import EthPrice from './EthPrice';
 import {
   getCjpyPriceRank,
   getColorCodePerTcr,
@@ -20,7 +21,7 @@ function getCjpyRank(rateOfCjpyJpy: { [source: string]: number }) {
 
 export default function Infographics() {
   const { rateOfCjpyJpy } = useMarketState();
-  const { ethChangePercent, tcr } = useYamatoStateForDashboard();
+  const { rateOfEthJpy, ethChangePercent, tcr } = useYamatoStateForDashboard();
 
   const cjpyPriceRank = getCjpyRank(rateOfCjpyJpy);
   const ethPriceRank = getEthPriceRank(ethChangePercent);
@@ -43,6 +44,9 @@ export default function Infographics() {
               ethPriceRank={ethPriceRank}
               colorCodePerTcr={colorCodePerTcr}
             />
+          </GridItem>
+          <GridItem colSpan={1} rowSpan={1}>
+            <EthPrice ethPrice={rateOfEthJpy} ethPriceRank={ethPriceRank} />
           </GridItem>
         </Grid>
       </Box>

@@ -5,7 +5,7 @@ import { usePledgeData } from '../../../state/pledge/hooks';
 import { useYamatoStateForPledge } from '../../../state/yamato-entirety/hooks';
 import { multiplyToNum } from '../../../utils/bignumber';
 import { formatPrice } from '../../../utils/prices';
-import { ItemTitle, CurrentValue } from '../../CommonItem';
+import { ItemTitleForPledge, CurrentValue } from '../../CommonItem';
 import DepositInput from './DepositInput';
 import WithdrawalInput from './WithdrawalInput';
 
@@ -18,7 +18,7 @@ export default function Collateral() {
   return (
     <Grid templateColumns="repeat(6, 1fr)" gap={4} mb={4}>
       <GridItem colSpan={1}>
-        <ItemTitle marginTop={32}>担保数</ItemTitle>
+        <ItemTitleForPledge marginTop={32}>担保数</ItemTitleForPledge>
       </GridItem>
 
       <GridItem colSpan={1}>
@@ -41,7 +41,7 @@ export default function Collateral() {
       </GridItem>
 
       <GridItem colSpan={1}>
-        <ItemTitle marginTop={32}>評価額</ItemTitle>
+        <ItemTitleForPledge marginTop={32}>評価額</ItemTitleForPledge>
       </GridItem>
       <GridItem colSpan={1}>
         <CurrentValue marginTop={32}>

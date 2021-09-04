@@ -1,7 +1,7 @@
 import { Grid, GridItem } from '@chakra-ui/react';
 import { useActiveWeb3React } from '../../../hooks/web3';
 import { useYamatoStateForPledge } from '../../../state/yamato-entirety/hooks';
-import { ItemTitle } from '../../CommonItem';
+import { ItemTitleForPledge } from '../../CommonItem';
 import RedemptionInput from './RedemptionInput';
 
 export default function SelfRedemption() {
@@ -12,7 +12,7 @@ export default function SelfRedemption() {
   return (
     <Grid templateColumns="repeat(4, 1fr)" gap={4} mb={12}>
       <GridItem colSpan={1}>
-        <ItemTitle marginTop={32}>償還</ItemTitle>
+        <ItemTitleForPledge marginTop={32}>償還</ItemTitleForPledge>
       </GridItem>
 
       <GridItem colSpan={3}>
