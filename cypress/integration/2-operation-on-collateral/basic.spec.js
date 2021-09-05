@@ -2,7 +2,7 @@
 
 describe('Basic operations on collateral', () => {
   beforeEach(() => {
-    cy.visit(Cypress.env('baseUrl'));
+    cy.visit('/');
   });
 
   it('deposit collateral', () => {

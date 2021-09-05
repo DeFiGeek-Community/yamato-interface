@@ -2,7 +2,7 @@
 
 describe('visit interface pages', () => {
   beforeEach(() => {
-    cy.visit(Cypress.env('baseUrl'));
+    cy.visit('/');
   });
 
   it('visit top page and check title', () => {

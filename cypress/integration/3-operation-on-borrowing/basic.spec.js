@@ -2,7 +2,7 @@
 
 describe('Basic operations on borrowing', () => {
   beforeEach(() => {
-    cy.visit(Cypress.env('baseUrl'));
+    cy.visit('/');
   });
 
   it('borrow CJPY', () => {
