@@ -6,7 +6,7 @@ describe('Basic operations on collateral', () => {
   });
 
   it('deposit collateral', () => {
-    // !!TODO!!
+    // !!WIP!!
     cy.contains('預入実行');
   });
 
