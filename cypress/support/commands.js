@@ -13,7 +13,7 @@ import { Wallet } from '@ethersproject/wallet';
 import { Eip1193Bridge } from '@ethersproject/experimental/lib/eip1193-bridge';
 
 // todo: figure out how env vars actually work in CI
-const TEST_PRIVATE_KEY = Cypress.env('INTEGRATION_TEST_PRIVATE_KEY');
+const TEST_PRIVATE_KEY = Cypress.env('WALLET_PRIVATE_KEY');
 
 // address of the above key
 export const TEST_ADDRESS_NEVER_USE = new Wallet(TEST_PRIVATE_KEY).address;
