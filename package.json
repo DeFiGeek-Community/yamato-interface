@@ -7,6 +7,7 @@
     "start": "yarn compile-external-abi-types && react-scripts start",
     "build": "yarn compile-external-abi-types && react-scripts build",
     "test": "yarn compile-external-abi-types && react-scripts test",
+    "cypress": "cypress run",
     "cypress:open": "cypress open",
     "lint": "eslint . --ext .ts,.tsx ./src",
     "lint:fix": "yarn lint --fix",
