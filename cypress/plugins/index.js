@@ -12,6 +12,8 @@
 // This function is called when a project is opened or re-opened (e.g. due to
 // the project's config changing)
 
+require('dotenv').config();
+
 /**
  * @type {Cypress.PluginConfig}
  */
@@ -19,4 +21,18 @@
 module.exports = (on, config) => {
   // `on` is used to hook into various events Cypress emits
   // `config` is the resolved Cypress config
+
+  if (process.env.REACT_APP_NETWORK_URL) {
+    config.env.REACT_APP_NETWORK_URL = process.env.REACT_APP_NETWORK_URL;
+  }
+
+  if (process.env.CYPRESS_BASE_URL) {
+    config.baseUrl = process.env.CYPRESS_BASE_URL;
+  }
+
+  if (process.env.CYPRESS_WALLET_PRIVATE_KEY) {
+    config.env.WALLET_PRIVATE_KEY = process.env.CYPRESS_WALLET_PRIVATE_KEY;
+  }
+
+  return config;
 };
