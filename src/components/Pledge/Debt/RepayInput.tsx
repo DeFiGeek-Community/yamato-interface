@@ -69,6 +69,7 @@ export default function RepayInput(props: Props) {
                       id="repayment"
                       type="number"
                       placeholder={YAMATO_SYMBOL.YEN}
+                      data-e2e="borrowing-data-repayamount"
                     />
                     <FormErrorMessage>{form.errors.repayment}</FormErrorMessage>
                   </FormControl>
@@ -78,6 +79,7 @@ export default function RepayInput(props: Props) {
                 colorScheme="teal"
                 isLoading={formikProps.isSubmitting}
                 type="submit"
+                data-e2e="borrowing-act-repay"
               >
                 返済実行
               </Button>
