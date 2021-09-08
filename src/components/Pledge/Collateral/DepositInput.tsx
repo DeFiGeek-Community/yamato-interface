@@ -71,7 +71,7 @@ export default function DepositInput(props: Props) {
                       id="deposit"
                       type="number"
                       placeholder={YAMATO_SYMBOL.COLLATERAL}
-                      data-e2e="collateral-data-depositamount"
+                      data-testid="collateral-data-depositAmount"
                     />
                     <FormErrorMessage>{form.errors.deposit}</FormErrorMessage>
                   </FormControl>
@@ -81,7 +81,7 @@ export default function DepositInput(props: Props) {
                 colorScheme="teal"
                 isLoading={formikProps.isSubmitting}
                 type="submit"
-                data-e2e="collateral-act-deposit"
+                data-testid="collateral-act-deposit"
               >
                 預入実行
               </Button>

@@ -80,7 +80,7 @@ export default function WithdrawalInput(props: Props) {
                       id="withdrawal"
                       type="number"
                       placeholder={YAMATO_SYMBOL.COLLATERAL}
-                      data-e2e="collateral-data-withdrawalamount"
+                      data-testid="collateral-data-withdrawalAmount"
                     />
                     <FormErrorMessage>
                       {form.errors.withdrawal}
@@ -92,7 +92,7 @@ export default function WithdrawalInput(props: Props) {
                 colorScheme="teal"
                 isLoading={formikProps.isSubmitting}
                 type="submit"
-                data-e2e="collateral-act-withdraw"
+                data-testid="collateral-act-withdraw"
               >
                 引出実行
               </Button>

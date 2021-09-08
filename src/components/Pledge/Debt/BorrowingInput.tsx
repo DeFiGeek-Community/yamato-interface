@@ -72,7 +72,7 @@ export default function BorrowingInput(props: Props) {
                       id="borrowing"
                       type="number"
                       placeholder={YAMATO_SYMBOL.YEN}
-                      data-e2e="borrowing-data-borrowamount"
+                      data-testid="borrowing-data-borrowAmount"
                     />
                     <FormErrorMessage>{form.errors.borrowing}</FormErrorMessage>
                   </FormControl>
@@ -82,7 +82,7 @@ export default function BorrowingInput(props: Props) {
                 colorScheme="teal"
                 isLoading={formikProps.isSubmitting}
                 type="submit"
-                data-e2e="borrowing-act-borrow"
+                data-testid="borrowing-act-borrow"
               >
                 借入実行
               </Button>

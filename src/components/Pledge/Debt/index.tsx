@@ -19,7 +19,7 @@ export default function Debt() {
       </GridItem>
 
       <GridItem colSpan={1}>
-        <CurrentValue marginTop={32} data-e2e="borrowing-data-currentamount">
+        <CurrentValue marginTop={32} data-testid="borrowing-data-currentAmount">
           {pledge.debt}
           {YAMATO_SYMBOL.YEN}
         </CurrentValue>
