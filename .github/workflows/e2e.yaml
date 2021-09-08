@@ -22,5 +22,5 @@ jobs:
         env:
           REACT_APP_NETWORK_URL: ${{ secrets.REACT_APP_NETWORK_URL }}
           CYPRESS_BASE_URL: http://localhost:3000/#/
-          ## parameter took from Uniswap project
+          ## !TODO! parameter took from Uniswap project and must be replaced.
           CYPRESS_WALLET_PRIVATE_KEY: ${{ secrets.CYPRESS_WALLET_PRIVATE_KEY }}
