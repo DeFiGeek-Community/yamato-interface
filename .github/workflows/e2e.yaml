@@ -10,8 +10,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      # !!TODO!! cache components
-
       # Install NPM dependencies, cache them correctly
       # and run all Cypress tests
       - name: Cypress run
@@ -24,6 +22,5 @@ jobs:
         env:
           REACT_APP_NETWORK_URL: ${{ secrets.REACT_APP_NETWORK_URL }}
           CYPRESS_BASE_URL: http://localhost:3000/#/
-          # !!TODO!! following parameter must be the secrets
           ## parameter took from Uniswap project
-          CYPRESS_WALLET_PRIVATE_KEY: '0xe580410d7c37d26c6ad1a837bbae46bc27f9066a466fb3a66e770523b4666d19'
+          CYPRESS_WALLET_PRIVATE_KEY: ${{ secrets.CYPRESS_WALLET_PRIVATE_KEY }}
