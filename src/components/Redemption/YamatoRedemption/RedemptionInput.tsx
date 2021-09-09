@@ -61,6 +61,10 @@ export default function RedemptionInput(props: Props) {
                   {redeemableCandidate.eth.toFixed(4)}
                   {YAMATO_SYMBOL.COLLATERAL}
                 </span>
+                <span>
+                  ({redeemableCandidate.cjpy.toFixed(4)}
+                  {YAMATO_SYMBOL.YEN})
+                </span>
               </VStack>
             </GridItem>
 

@@ -37,9 +37,11 @@ export interface YamatoEntiretyState {
     tcr: number; // Total Collateralization Ratio
   };
   pool: {
-    redemptionReserve: number; // ETH
-    sweepReserve: number; // ETH
-    sweepableCandiate: number; // CJPY
+    redemptionReserve: number; // CJPY
+    prevRedemptionReserve: number; // CJPY
+    sweepReserve: number; // CJPY
+    prevSweepReserve: number; // CJPY
+    sweepableCandiate: number; // ETH
   };
   token: {
     cjpy: { totalSupply: number };
@@ -47,6 +49,7 @@ export interface YamatoEntiretyState {
     veYmt: { totalSupply: number; boostRate: number; farmingScore: number };
   };
   rateOfEthJpy: number; // ETH/JPY
+  prevRateOfEthJpy: number; // ETH/JPY
   events: Array<LogEvent>; // several ethereum events
 }
 
@@ -54,7 +57,9 @@ export const initialState: YamatoEntiretyState = {
   lending: { totalCollateral: 0, totalDebt: 0, tvl: 0, tcr: MCR },
   pool: {
     redemptionReserve: 0,
+    prevRedemptionReserve: 0,
     sweepReserve: 0,
+    prevSweepReserve: 0,
     sweepableCandiate: 0,
   },
   token: {
@@ -63,6 +68,7 @@ export const initialState: YamatoEntiretyState = {
     veYmt: { totalSupply: 0, boostRate: 0, farmingScore: 0 },
   },
   rateOfEthJpy: 0,
+  prevRateOfEthJpy: 0,
   events: [],
 };
 
@@ -85,7 +91,13 @@ export default createReducer(initialState, (builder) =>
         }
       ) => {
         state.lending = { totalCollateral, totalDebt, tvl, tcr };
-        state.pool = { redemptionReserve, sweepReserve, sweepableCandiate };
+        state.pool = {
+          redemptionReserve,
+          prevRedemptionReserve: state.pool.redemptionReserve,
+          sweepReserve,
+          prevSweepReserve: state.pool.sweepReserve,
+          sweepableCandiate,
+        };
       }
     )
     .addCase(fetchTokenState, (state, { payload: { cjpy, ymt, veYmt } }) => {
@@ -94,6 +106,7 @@ export default createReducer(initialState, (builder) =>
       state.token = { cjpy, ymt, veYmt: newState };
     })
     .addCase(fetchRateOfEthJpy, (state, { payload: { rateOfEthJpy } }) => {
+      state.prevRateOfEthJpy = state.rateOfEthJpy;
       state.rateOfEthJpy = rateOfEthJpy;
     })
     .addCase(fetchEvents, (state, { payload: { events } }) => {

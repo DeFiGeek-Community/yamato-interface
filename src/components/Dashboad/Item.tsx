@@ -1,5 +1,5 @@
 import { HStack } from '@chakra-ui/react';
-import { CurrentValue, ItemTitle } from '../CommonItem';
+import { CurrentValue, ItemTitleForPledge } from '../CommonItem';
 
 interface Props {
   title: string;
@@ -9,7 +9,7 @@ interface Props {
 export default function DashboadItem(props: Props) {
   return (
     <HStack align="start">
-      <ItemTitle>{props.title}</ItemTitle>
+      <ItemTitleForPledge>{props.title}</ItemTitleForPledge>
       <CurrentValue width={400}>{props.stat}</CurrentValue>
     </HStack>
   );

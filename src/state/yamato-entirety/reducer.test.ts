@@ -1,4 +1,5 @@
 import { Store, createStore } from '@reduxjs/toolkit';
+import Pool from '../../components/Infographics/Pool';
 import {
   fetchEvents,
   fetchRateOfEthJpy,
@@ -36,7 +37,11 @@ describe('yamato-entirety reducer', () => {
       store.dispatch(
         fetchYamatoState({ ...newState.lending, ...newState.pool })
       );
-      expect(store.getState()).toEqual({ ...initialState, ...newState });
+      expect(store.getState()).toEqual({
+        ...initialState,
+        ...newState,
+        pool: { ...initialState.pool, ...newState.pool },
+      });
     });
   });
 
@@ -61,7 +66,11 @@ describe('yamato-entirety reducer', () => {
   describe('fetchRateOfEthJpy', () => {
     it('fetch Rate Of EthJpy', () => {
       store.dispatch(fetchRateOfEthJpy({ rateOfEthJpy: 10 }));
-      expect(store.getState()).toEqual({ ...initialState, rateOfEthJpy: 10 });
+      expect(store.getState()).toEqual({
+        ...initialState,
+        rateOfEthJpy: 10,
+        prevRateOfEthJpy: 0,
+      });
     });
   });
 

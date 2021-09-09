@@ -3,7 +3,7 @@ import { YAMATO_SYMBOL } from '../../../constants/yamato';
 import { useActiveWeb3React } from '../../../hooks/web3';
 import { usePledgeData } from '../../../state/pledge/hooks';
 import { formatCollateralizationRatio } from '../../../utils/prices';
-import { CurrentValue, ItemTitle } from '../../CommonItem';
+import { CurrentValue, ItemTitleForPledge } from '../../CommonItem';
 import BorrowInput from './BorrowingInput';
 import RepayInput from './RepayInput';
 
@@ -15,7 +15,7 @@ export default function Debt() {
   return (
     <Grid templateColumns="repeat(6, 1fr)" gap={4} mb={4}>
       <GridItem colSpan={1}>
-        <ItemTitle marginTop={32}>借入量</ItemTitle>
+        <ItemTitleForPledge marginTop={32}>借入量</ItemTitleForPledge>
       </GridItem>
 
       <GridItem colSpan={1}>
@@ -34,7 +34,7 @@ export default function Debt() {
       </GridItem>
 
       <GridItem colSpan={1}>
-        <ItemTitle marginTop={32}>担保率</ItemTitle>
+        <ItemTitleForPledge marginTop={32}>担保率</ItemTitleForPledge>
       </GridItem>
       <GridItem colSpan={1}>
         <CurrentValue marginTop={32}>
