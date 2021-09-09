@@ -18,9 +18,9 @@ export default function Updater(): null {
     const mockState = {
       totalCollateral: 2.5 + Math.random() * 10,
       totalDebt: 1200000 + Math.random() * 100000,
-      redemptionReserve: 10,
-      sweepReserve: 2,
-      sweepableCandiate: 0.5,
+      redemptionReserve: Math.random() * 100000000,
+      sweepReserve: Math.random() * 10000000,
+      sweepableCandiate: Math.random(),
       rateOfEthJpy: 300000 + Math.random() * 1000,
     };
     fetchYamatoState(

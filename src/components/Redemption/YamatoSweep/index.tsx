@@ -7,7 +7,8 @@ import SweepInput from './SweepInput';
 export default function YamatoSubrogation() {
   const { account, library } = useActiveWeb3React();
 
-  const yamato = useYamatoStateForPledge();
+  const { rateOfEthJpy, sweepReserve, sweepableCandiate } =
+    useYamatoStateForPledge();
 
   return (
     <Grid templateColumns="repeat(4, 1fr)" gap={4}>
@@ -17,13 +18,9 @@ export default function YamatoSubrogation() {
 
       <GridItem colSpan={3}>
         <SweepInput
-          totalCollateral={yamato.totalCollateral}
-          totalDebt={yamato.totalDebt}
-          tcr={yamato.tcr}
-          rateOfEthJpy={yamato.rateOfEthJpy}
-          redemptionReserve={yamato.redemptionReserve}
-          sweepReserve={yamato.sweepReserve}
-          sweepableCandiate={yamato.sweepableCandiate}
+          rateOfEthJpy={rateOfEthJpy}
+          sweepReserve={sweepReserve}
+          sweepableCandiate={sweepableCandiate}
         />
       </GridItem>
     </Grid>
