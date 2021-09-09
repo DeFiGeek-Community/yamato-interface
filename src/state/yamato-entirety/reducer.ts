@@ -37,9 +37,11 @@ export interface YamatoEntiretyState {
     tcr: number; // Total Collateralization Ratio
   };
   pool: {
-    redemptionReserve: number; // ETH
-    sweepReserve: number; // ETH
-    sweepableCandiate: number; // CJPY
+    redemptionReserve: number; // CJPY
+    prevRedemptionReserve: number; // CJPY
+    sweepReserve: number; // CJPY
+    prevSweepReserve: number; // CJPY
+    sweepableCandiate: number; // ETH
   };
   token: {
     cjpy: { totalSupply: number };
@@ -55,7 +57,9 @@ export const initialState: YamatoEntiretyState = {
   lending: { totalCollateral: 0, totalDebt: 0, tvl: 0, tcr: MCR },
   pool: {
     redemptionReserve: 0,
+    prevRedemptionReserve: 0,
     sweepReserve: 0,
+    prevSweepReserve: 0,
     sweepableCandiate: 0,
   },
   token: {
@@ -87,7 +91,13 @@ export default createReducer(initialState, (builder) =>
         }
       ) => {
         state.lending = { totalCollateral, totalDebt, tvl, tcr };
-        state.pool = { redemptionReserve, sweepReserve, sweepableCandiate };
+        state.pool = {
+          redemptionReserve,
+          prevRedemptionReserve: state.pool.redemptionReserve,
+          sweepReserve,
+          prevSweepReserve: state.pool.sweepReserve,
+          sweepableCandiate,
+        };
       }
     )
     .addCase(fetchTokenState, (state, { payload: { cjpy, ymt, veYmt } }) => {

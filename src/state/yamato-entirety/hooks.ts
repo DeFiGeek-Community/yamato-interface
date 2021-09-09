@@ -43,6 +43,26 @@ export function useYamatoStateForWorld() {
     events: state.yamatoEntirety.events,
   }));
 }
+export function useYamatoStateForInfographics() {
+  return useSelector((state: AppState) => ({
+    tcr: state.yamatoEntirety.lending.tcr,
+    rateOfEthJpy: state.yamatoEntirety.rateOfEthJpy,
+    ethChangePercent: getEthChangePercent(
+      state.yamatoEntirety.rateOfEthJpy,
+      state.yamatoEntirety.prevRateOfEthJpy
+    ),
+    redemptionReserve: state.yamatoEntirety.pool.redemptionReserve,
+    isIncreaseForRedemptionReserve:
+      state.yamatoEntirety.pool.redemptionReserve -
+        state.yamatoEntirety.pool.prevRedemptionReserve >
+      0,
+    sweepReserve: state.yamatoEntirety.pool.sweepReserve,
+    isIncreaseForSweepReserve:
+      state.yamatoEntirety.pool.sweepReserve -
+        state.yamatoEntirety.pool.prevSweepReserve >
+      0,
+  }));
+}
 
 /**
  * dispatcher
