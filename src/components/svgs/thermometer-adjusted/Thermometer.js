@@ -18,12 +18,12 @@ function SvgThermometer(props) {
           d="M32 1H2v100h30V1z"
           fill="url(#thermometer_svg__paint0_linear)"
         />
-        <path d="M32 1H2v22.439h30V1z" fill="#FCFAF2" />
+        <path d={`M32 1H2v${props.rate}h30V1z`} fill="#FCFAF2" />
         <path
           stroke="#CFCFCF"
           strokeWidth={3}
           strokeLinecap="round"
-          d="M27.5 22.5h9"
+          d={`M27.5 ${props.rate}h9`}
         />
         <path
           d="M2 2v98.508C2 109.064 8.716 116 17 116c8.284 0 15-6.936 15-15.492V2"

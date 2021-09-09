@@ -22,12 +22,11 @@ import {
   Battery9Charge,
   Battery9Discharge,
 } from '../svgs/battery';
-import { getChargeRankOfRedemption, getChargeRankOfSweep } from './functions';
 
 interface Props {
-  redemptionReserve: number;
+  chargeRankOfRedemption: number;
   isIncreaseForRedemptionReserve: boolean;
-  sweepReserve: number;
+  chargeRankOfSweep: number;
   isIncreaseForSweepReserve: boolean;
 }
 
@@ -60,9 +59,9 @@ function renderBattery(chargeRank: number, isIncrease: boolean) {
 
 export default function Pool(props: Props) {
   const {
-    redemptionReserve,
+    chargeRankOfRedemption,
     isIncreaseForRedemptionReserve,
-    sweepReserve,
+    chargeRankOfSweep,
     isIncreaseForSweepReserve,
   } = props;
 
@@ -76,11 +75,13 @@ export default function Pool(props: Props) {
       >
         <ItemTitleForInfographics>償還プール</ItemTitleForInfographics>
       </Box>
-      <div>
-        {renderBattery(
-          getChargeRankOfRedemption(redemptionReserve),
-          isIncreaseForRedemptionReserve
-        )}
+      <div style={{ textAlign: 'center' }}>
+        <div style={{ display: 'inline-block' }}>
+          {renderBattery(
+            chargeRankOfRedemption,
+            isIncreaseForRedemptionReserve
+          )}
+        </div>
       </div>
       <Box
         display="flex"
@@ -90,11 +91,10 @@ export default function Pool(props: Props) {
       >
         <ItemTitleForInfographics>弁済プール</ItemTitleForInfographics>
       </Box>
-      <div>
-        {renderBattery(
-          getChargeRankOfSweep(sweepReserve),
-          isIncreaseForSweepReserve
-        )}
+      <div style={{ textAlign: 'center' }}>
+        <div style={{ display: 'inline-block' }}>
+          {renderBattery(chargeRankOfSweep, isIncreaseForSweepReserve)}
+        </div>
       </div>
     </Box>
   );

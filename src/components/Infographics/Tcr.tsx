@@ -1,7 +1,7 @@
 import { Box } from '@chakra-ui/react';
-import { formatPrice } from '../../utils/prices';
 import { ItemTitleForInfographics } from '../CommonItem';
 import { Thermometer } from '../svgs/thermometer-adjusted';
+import { getTcrRate } from './functions';
 
 interface Props {
   tcr: number;
@@ -21,8 +21,11 @@ export default function Tcr(props: Props) {
         <ItemTitleForInfographics>TCR</ItemTitleForInfographics>
         <ItemTitleForInfographics>{tcr.toFixed(2)}%</ItemTitleForInfographics>
       </Box>
-      <div>
-        <Thermometer />
+      <div style={{ textAlign: 'center' }}>
+        <Thermometer
+          rate={getTcrRate(tcr)}
+          style={{ display: 'inline-block' }}
+        />
       </div>
     </Box>
   );

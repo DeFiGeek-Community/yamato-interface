@@ -7,6 +7,8 @@ import EthPrice from './EthPrice';
 import Pool from './Pool';
 import Tcr from './Tcr';
 import {
+  getChargeRankOfRedemption,
+  getChargeRankOfSweep,
   getCjpyPriceRank,
   getColorCodePerTcr,
   getEthPriceRank,
@@ -36,6 +38,8 @@ export default function Infographics() {
   const cjpyPriceRank = getCjpyRank(rateOfCjpyJpy);
   const ethPriceRank = getEthPriceRank(ethChangePercent);
   const colorCodePerTcr = getColorCodePerTcr(tcr);
+  const chargeRankOfRedemption = getChargeRankOfRedemption(redemptionReserve);
+  const chargeRankOfSweep = getChargeRankOfSweep(sweepReserve);
 
   return (
     <>
@@ -63,9 +67,9 @@ export default function Infographics() {
           </GridItem>
           <GridItem colSpan={1} rowSpan={2}>
             <Pool
-              redemptionReserve={redemptionReserve}
+              chargeRankOfRedemption={chargeRankOfRedemption}
               isIncreaseForRedemptionReserve={isIncreaseForRedemptionReserve}
-              sweepReserve={sweepReserve}
+              chargeRankOfSweep={chargeRankOfSweep}
               isIncreaseForSweepReserve={isIncreaseForSweepReserve}
             />
           </GridItem>
