@@ -1,9 +1,11 @@
 import { Box, Grid, GridItem } from '@chakra-ui/react';
 import { useMarketState } from '../../state/market/hooks';
-import { useYamatoStateForDashboard } from '../../state/yamato-entirety/hooks';
+import { useYamatoStateForInfographics } from '../../state/yamato-entirety/hooks';
 import { CategoryTitle } from '../CommonItem';
 import CjpyPrice from './CjpyPrice';
 import EthPrice from './EthPrice';
+import Pool from './Pool';
+import Tcr from './Tcr';
 import {
   getCjpyPriceRank,
   getColorCodePerTcr,
@@ -21,7 +23,15 @@ function getCjpyRank(rateOfCjpyJpy: { [source: string]: number }) {
 
 export default function Infographics() {
   const { rateOfCjpyJpy } = useMarketState();
-  const { rateOfEthJpy, ethChangePercent, tcr } = useYamatoStateForDashboard();
+  const {
+    tcr,
+    rateOfEthJpy,
+    ethChangePercent,
+    redemptionReserve,
+    isIncreaseForRedemptionReserve,
+    sweepReserve,
+    isIncreaseForSweepReserve,
+  } = useYamatoStateForInfographics();
 
   const cjpyPriceRank = getCjpyRank(rateOfCjpyJpy);
   const ethPriceRank = getEthPriceRank(ethChangePercent);
@@ -47,6 +57,17 @@ export default function Infographics() {
           </GridItem>
           <GridItem colSpan={1} rowSpan={1}>
             <EthPrice ethPrice={rateOfEthJpy} ethPriceRank={ethPriceRank} />
+          </GridItem>
+          <GridItem colSpan={1} rowSpan={3}>
+            <Tcr tcr={tcr} />
+          </GridItem>
+          <GridItem colSpan={1} rowSpan={2}>
+            <Pool
+              redemptionReserve={redemptionReserve}
+              isIncreaseForRedemptionReserve={isIncreaseForRedemptionReserve}
+              sweepReserve={sweepReserve}
+              isIncreaseForSweepReserve={isIncreaseForSweepReserve}
+            />
           </GridItem>
         </Grid>
       </Box>

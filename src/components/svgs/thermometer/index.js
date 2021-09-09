@@ -1,1 +1,1 @@
-export { default as Thermometer } from './Thermometer'
+export { default as Thermometer } from './Thermometer';
