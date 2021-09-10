@@ -3,44 +3,15 @@ import * as React from 'react';
 function SvgThermometer(props) {
   return (
     <svg
-      width={39}
-      height={119}
+      width={75.633}
+      height={117.78}
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       {...props}
     >
-      <g filter="url(#thermometer_svg__filter0_d)">
-        <path
-          d="M2.147 100.501c0 8.284 6.716 15 15 15 8.284 0 15-6.716 15-15"
-          fill="#868BFF"
-        />
-        <path
-          d="M32 1H2v100h30V1z"
-          fill="url(#thermometer_svg__paint0_linear)"
-        />
-        <path d="M32 1H2v22.439h30V1z" fill="#FCFAF2" />
-        <path
-          stroke="#CFCFCF"
-          strokeWidth={3}
-          strokeLinecap="round"
-          d="M27.5 22.5h9"
-        />
-        <path
-          d="M2 2v98.508C2 109.064 8.716 116 17 116c8.284 0 15-6.936 15-15.492V2"
-          stroke="#CFCFCF"
-          strokeWidth={3.78}
-          strokeLinecap="round"
-        />
-        <path
-          stroke="#CFCFCF"
-          strokeWidth={3}
-          strokeLinecap="round"
-          d="M27.5 77.5h9"
-        />
-      </g>
       <defs>
         <linearGradient
-          id="thermometer_svg__paint0_linear"
+          id="thermometer_svg__a"
           x1={17}
           y1={1}
           x2={17}
@@ -51,28 +22,39 @@ function SvgThermometer(props) {
           <stop offset={0.683} stopColor="#E483FF" />
           <stop offset={0.761} stopColor="#838CFF" />
         </linearGradient>
-        <filter
-          id="thermometer_svg__filter0_d"
-          x={0.11}
-          y={0.11}
-          width={38.89}
-          height={118.78}
-          filterUnits="userSpaceOnUse"
-          colorInterpolationFilters="sRGB"
-        >
-          <feFlood floodOpacity={0} result="BackgroundImageFix" />
-          <feColorMatrix
-            in="SourceAlpha"
-            values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
-            result="hardAlpha"
-          />
-          <feOffset dx={1} dy={1} />
-          <feComposite in2="hardAlpha" operator="out" />
-          <feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0" />
-          <feBlend in2="BackgroundImageFix" result="effect1_dropShadow" />
-          <feBlend in="SourceGraphic" in2="effect1_dropShadow" result="shape" />
-        </filter>
       </defs>
+      <path
+        d="M2.037 100.39c0 8.285 6.715 15 15 15 8.284 0 15-6.715 15-15"
+        fill="#868bff"
+      />
+      <path
+        d="M32 1H2v100h30z"
+        fill="url(#thermometer_svg__a)"
+        transform="translate(-.11 -.11)"
+      />
+      <path d="M31.89.89h-30v39.024h30z" fill="#fcfaf2" />
+      <path
+        stroke="#cfcfcf"
+        strokeWidth={3}
+        strokeLinecap="round"
+        d="M27.39 39.39h9"
+      />
+      <path
+        d="M1.89 1.89v98.508c0 8.556 6.715 15.492 15 15.492 8.284 0 15-6.936 15-15.492V1.89"
+        stroke="#cfcfcf"
+        strokeWidth={3.78}
+        strokeLinecap="round"
+      />
+      <path
+        stroke="#cfcfcf"
+        strokeWidth={3}
+        strokeLinecap="round"
+        d="M27.39 77.39h9"
+      />
+      <path
+        d="M41.439 73.78l1.826 5.157 1.816-5.157h1.924v7.11h-1.47v-1.944l.147-3.354-1.92 5.298h-1.005l-1.914-5.293.146 3.35v1.943h-1.464v-7.11zm12.426 4.742c-.055.765-.338 1.367-.85 1.806-.507.44-1.178.66-2.01.66-.912 0-1.63-.307-2.154-.919-.521-.615-.782-1.458-.782-2.529v-.434c0-.684.12-1.286.362-1.807.24-.52.584-.92 1.03-1.196.45-.28.97-.42 1.563-.42.82 0 1.48.22 1.982.659.501.44.791 1.056.87 1.85H52.41c-.036-.458-.164-.79-.385-.996-.219-.208-.552-.312-1.001-.312-.489 0-.855.176-1.099.527-.24.349-.365.89-.371 1.626v.537c0 .769.115 1.33.346 1.685.235.355.603.532 1.104.532.452 0 .79-.102 1.01-.307.225-.209.354-.53.386-.962zm3.594-.235h-1.167v2.603h-1.465v-7.11h2.642c.84 0 1.487.188 1.943.562.456.374.684.903.684 1.587 0 .485-.106.89-.318 1.216-.208.322-.525.58-.952.771l1.538 2.905v.069h-1.572zm-1.167-1.186h1.182c.368 0 .652-.093.854-.279.202-.188.303-.447.303-.776 0-.335-.096-.599-.288-.791-.189-.192-.48-.288-.874-.288h-1.177zm10.689 3.789h-1.412v-5.44l-1.684.523v-1.148l2.944-1.054h.152zm2.446-.694c0-.224.075-.407.224-.546a.814.814 0 01.572-.21c.23 0 .421.07.571.21.153.14.23.322.23.546a.708.708 0 01-.225.542.821.821 0 01-.576.205.814.814 0 01-.572-.205.708.708 0 01-.224-.542zm6.206.694h-1.411v-5.44l-1.685.523v-1.148l2.945-1.054h.151z"
+        fill="#818181"
+      />
     </svg>
   );
 }

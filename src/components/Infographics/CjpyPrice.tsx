@@ -1,5 +1,5 @@
 import { Box, Grid, GridItem } from '@chakra-ui/react';
-import { ReactComponent as Arrow } from '../../assets/images/arrow-yen.svg';
+import Arrow from '../svgs/ArrowYen';
 import {
   Spring0,
   SpringMinus1,

@@ -35,10 +35,25 @@ export default function Infographics() {
     isIncreaseForSweepReserve,
   } = useYamatoStateForInfographics();
 
+  /**
+   * All 21 Ranks(-10 ~ +10)
+   */
   const cjpyPriceRank = getCjpyRank(rateOfCjpyJpy);
+  /**
+   * All 91 Ranks(-45 ~ +45)
+   */
   const ethPriceRank = getEthPriceRank(ethChangePercent);
+  /**
+   * All 125 ranks. Min 236 - Mid 298 - Max 360
+   */
   const colorCodePerTcr = getColorCodePerTcr(tcr);
+  /**
+   * Rank up per 5000,000
+   */
   const chargeRankOfRedemption = getChargeRankOfRedemption(redemptionReserve);
+  /**
+   * Rank up per 1000,000
+   */
   const chargeRankOfSweep = getChargeRankOfSweep(sweepReserve);
 
   return (

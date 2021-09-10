@@ -26,6 +26,7 @@ import { useWalletState } from '../../state/wallet/hooks';
 import { shortenAddress } from '../../utils/web3';
 // import PortisIcon from '../../..assets/images/portisIcon.png';
 import Loader from '../Loader';
+import CjpyLogo from '../svgs/CjpyLogo';
 import Identicon from './Identicon';
 import Row from './Row';
 import WalletModal from './WalletModal';
@@ -189,6 +190,9 @@ function Web3StatusInner() {
               alignItems: 'center',
             }}
           >
+            {!hasPendingTransactions && connector && (
+              <StatusIcon connector={connector} />
+            )}
             {hasPendingTransactions ? (
               <Row>
                 <Text>{txCount} Pending...</Text> <Loader />
@@ -196,10 +200,10 @@ function Web3StatusInner() {
             ) : (
               <Text>{ENSName || shortenAddress(account)}</Text>
             )}
-            {!hasPendingTransactions && connector && (
-              <StatusIcon connector={connector} />
-            )}
-            <Text>CJPY {cjpy}</Text>
+            <Text>
+              <CjpyLogo />
+              CJPY {cjpy}
+            </Text>
           </span>
         </YamatoButton>
       </>

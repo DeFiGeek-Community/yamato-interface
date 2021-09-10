@@ -1,9 +1,9 @@
 import { Box } from '@chakra-ui/react';
+import ArrowZero from '../../assets/sources/eth-change-arrow/eth-change-arrow-zero.svg';
 import { formatPrice } from '../../utils/prices';
 import { ItemTitleForInfographics } from '../CommonItem';
 import ArrowDown from '../svgs/eth-change-arrow-adjusted/EthChangeArrowDown.js';
 import ArrowUp from '../svgs/eth-change-arrow-adjusted/EthChangeArrowUp.js';
-import ArrowZero from '../svgs/eth-change-arrow-adjusted/EthChangeArrowZero.js';
 import { getBrightnessPerEth } from './functions';
 
 interface Props {
@@ -13,12 +13,13 @@ interface Props {
 
 function renderArrow(ethPriceRank: number) {
   const brightness = getBrightnessPerEth(ethPriceRank);
+  const style = { margin: 'auto' };
   if (ethPriceRank > 0) {
-    return <ArrowUp color={`hsl(360, 100%, ${brightness}%)`} />;
+    return <ArrowUp color={`hsl(360, 100%, ${brightness}%)`} style={style} />;
   } else if (ethPriceRank < 0) {
-    return <ArrowDown color={`hsl(236, 100%, ${brightness}%)`} />;
+    return <ArrowDown color={`hsl(236, 100%, ${brightness}%)`} style={style} />;
   } else {
-    return <ArrowZero color={`hsl(298, 100%, ${brightness}%)`} />;
+    return <img src={ArrowZero} style={{ ...style, height: '50px' }} />;
   }
 }
 
