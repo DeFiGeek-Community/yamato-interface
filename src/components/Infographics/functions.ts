@@ -68,8 +68,7 @@ export function getTcrRate(tcr: number): number {
 
 export function getSignalMessages(
   cjpyPriceRank: number,
-  ethPriceRank: number,
-  tcr: number
+  ethPriceRank: number
 ): string[] {
   const messages = [];
   if (cjpyPriceRank > 0 && ethPriceRank >= 10) {
@@ -81,7 +80,8 @@ export function getSignalMessages(
   if (cjpyPriceRank < 0 && ethPriceRank <= -10) {
     messages.push('CJPY 返済推奨');
   }
-  if (cjpyPriceRank < 0 && ethPriceRank <= -10 && tcr < MCR) {
+  // FIXME: 「償還対象Pledgeがあるか否か」を条件に追加する
+  if (cjpyPriceRank < 0 && ethPriceRank <= -10) {
     messages.push('償還推奨');
   }
   return messages;

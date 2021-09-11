@@ -58,7 +58,7 @@ export default function Infographics() {
   const chargeRankOfSweep = getChargeRankOfSweep(sweepReserve);
 
   function renderSignalMessages() {
-    const messages = getSignalMessages(cjpyPriceRank, ethPriceRank, tcr);
+    const messages = getSignalMessages(cjpyPriceRank, ethPriceRank);
     return messages.map((message, index) => <p key={index}>{message}</p>);
   }
 
