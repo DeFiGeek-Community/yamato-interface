@@ -12,6 +12,7 @@ import {
   getCjpyPriceRank,
   getColorCodePerTcr,
   getEthPriceRank,
+  getSignalMessages,
 } from './functions';
 
 function getCjpyRank(rateOfCjpyJpy: { [source: string]: number }) {
@@ -56,18 +57,26 @@ export default function Infographics() {
    */
   const chargeRankOfSweep = getChargeRankOfSweep(sweepReserve);
 
+  function renderSignalMessages() {
+    const messages = getSignalMessages(cjpyPriceRank, ethPriceRank, tcr);
+    return messages.map((message, index) => <p key={index}>{message}</p>);
+  }
+
   return (
     <>
       <Box border="1px" borderColor="gray.200" borderRadius="md" p={4}>
         <CategoryTitle>CJPY Now</CategoryTitle>
       </Box>
       <Box border="1px" borderColor="gray.200" borderRadius="md" p={4}>
+        <div style={{ minHeight: '16px', marginBottom: '10px' }}>
+          {renderSignalMessages()}
+        </div>
         <Grid
-          templateRows="repeat(6, 1fr)"
+          templateRows="repeat(5, 1fr)"
           templateColumns="repeat(2, 1fr)"
           gap={4}
         >
-          <GridItem colSpan={1} rowSpan={6}>
+          <GridItem colSpan={1} rowSpan={5}>
             <CjpyPrice
               cjpyPriceRank={cjpyPriceRank}
               ethPriceRank={ethPriceRank}
@@ -77,7 +86,7 @@ export default function Infographics() {
           <GridItem colSpan={1} rowSpan={1}>
             <EthPrice ethPrice={rateOfEthJpy} ethPriceRank={ethPriceRank} />
           </GridItem>
-          <GridItem colSpan={1} rowSpan={3}>
+          <GridItem colSpan={1} rowSpan={2}>
             <Tcr tcr={tcr} />
           </GridItem>
           <GridItem colSpan={1} rowSpan={2}>

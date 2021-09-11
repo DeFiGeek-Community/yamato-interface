@@ -46,7 +46,7 @@ export function getChargeRankOfSweep(chargeAmount: number): number {
   return getRank(chargeAmount, 100 * 10000); // rank up per 1000,000
 }
 
-function getRank(chargeAmount: number, baseNumber: number) {
+function getRank(chargeAmount: number, baseNumber: number): number {
   const base = Math.ceil(Math.ceil(chargeAmount) / baseNumber) + 1;
   // 10 ranks
   if (base === 0) {
@@ -57,11 +57,32 @@ function getRank(chargeAmount: number, baseNumber: number) {
   return base;
 }
 
-export function getTcrRate(tcr: number) {
+export function getTcrRate(tcr: number): number {
   if (tcr <= 0) {
     return 100;
   } else if (tcr > 500) {
     return 1;
   }
   return Math.abs(tcr / 5 - 99); // 0 to 500% fits in 100 to 1
+}
+
+export function getSignalMessages(
+  cjpyPriceRank: number,
+  ethPriceRank: number,
+  tcr: number
+): string[] {
+  const messages = [];
+  if (cjpyPriceRank > 0 && ethPriceRank >= 10) {
+    messages.push('CJPY 借入推奨');
+  }
+  if (cjpyPriceRank <= 0) {
+    messages.push('CJPY 買い推奨');
+  }
+  if (cjpyPriceRank <= 0 && ethPriceRank <= -10) {
+    messages.push('CJPY 返済推奨');
+  }
+  if (cjpyPriceRank <= 0 && ethPriceRank <= -10 && tcr < MCR) {
+    messages.push('償還推奨');
+  }
+  return messages;
 }
