@@ -75,13 +75,13 @@ export function getSignalMessages(
   if (cjpyPriceRank > 0 && ethPriceRank >= 10) {
     messages.push('CJPY 借入推奨');
   }
-  if (cjpyPriceRank <= 0) {
+  if (cjpyPriceRank < 0) {
     messages.push('CJPY 買い推奨');
   }
-  if (cjpyPriceRank <= 0 && ethPriceRank <= -10) {
+  if (cjpyPriceRank < 0 && ethPriceRank <= -10) {
     messages.push('CJPY 返済推奨');
   }
-  if (cjpyPriceRank <= 0 && ethPriceRank <= -10 && tcr < MCR) {
+  if (cjpyPriceRank < 0 && ethPriceRank <= -10 && tcr < MCR) {
     messages.push('償還推奨');
   }
   return messages;
