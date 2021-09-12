@@ -22,8 +22,11 @@ export const ItemTitleForInfographics = styled.label<{ marginTop?: number }>`
   color: #818181;
 `;
 
-export const CurrentValue = styled.p<{ width?: number; marginTop?: number }>`
-  width: ${({ width }) => width ?? 200}px;
+export const CurrentValue = styled.p<{
+  width?: string;
+  marginTop?: number;
+}>`
+  width: ${({ width }) => width ?? '200px'};
   color: #818181;
   margin-top: ${({ marginTop }) => marginTop ?? 0}px;
   font-weight: bold;

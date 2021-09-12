@@ -10,7 +10,7 @@ export default function DashboadItem(props: Props) {
   return (
     <HStack align="start">
       <ItemTitleForPledge>{props.title}</ItemTitleForPledge>
-      <CurrentValue width={400}>{props.stat}</CurrentValue>
+      <CurrentValue width="400px">{props.stat}</CurrentValue>
     </HStack>
   );
 }

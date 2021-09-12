@@ -12,8 +12,8 @@ import WithdrawalInput from './WithdrawalInput';
 export default function Collateral() {
   const { account, library } = useActiveWeb3React();
 
-  const yamato = useYamatoStateForPledge();
-  const pledge = usePledgeData();
+  const { rateOfEthJpy } = useYamatoStateForPledge();
+  const { collateral, debt, withdrawalLockDate } = usePledgeData();
 
   return (
     <Grid templateColumns="repeat(6, 1fr)" gap={4} mb={4}>
@@ -23,20 +23,20 @@ export default function Collateral() {
 
       <GridItem colSpan={1}>
         <CurrentValue marginTop={32}>
-          {pledge.collateral}
+          {collateral}
           {YAMATO_SYMBOL.COLLATERAL}
         </CurrentValue>
       </GridItem>
 
       <GridItem colSpan={2}>
-        <DepositInput collateral={pledge.collateral} debt={pledge.debt} />
+        <DepositInput collateral={collateral} debt={debt} />
       </GridItem>
 
       <GridItem colSpan={2}>
         <WithdrawalInput
-          collateral={pledge.collateral}
-          debt={pledge.debt}
-          withdrawalLockDate={pledge.withdrawalLockDate}
+          collateral={collateral}
+          debt={debt}
+          withdrawalLockDate={withdrawalLockDate}
         />
       </GridItem>
 
@@ -45,13 +45,7 @@ export default function Collateral() {
       </GridItem>
       <GridItem colSpan={1}>
         <CurrentValue marginTop={32}>
-          ¥
-          {
-            formatPrice(
-              multiplyToNum(pledge.collateral, yamato.rateOfEthJpy),
-              'eth'
-            ).value
-          }
+          ¥{formatPrice(multiplyToNum(collateral, rateOfEthJpy), 'eth').value}
         </CurrentValue>
       </GridItem>
     </Grid>

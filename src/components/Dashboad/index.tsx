@@ -54,8 +54,9 @@ export default function Dashboad() {
             />
           </VStack>
           <VStack>
+            {/* v1.5 feature
             <DashboadItem title={'veYMT数'} stat={'（工事中）'} />
-            <DashboadItem title={'総ファーミングスコア'} stat={'（工事中）'} />
+            <DashboadItem title={'総ファーミングスコア'} stat={'（工事中）'} /> */}
             <DashboadItem
               title={'ETHプライス'}
               stat={`¥${formatPrice(yamato.rateOfEthJpy, 'jpy').value}`}
