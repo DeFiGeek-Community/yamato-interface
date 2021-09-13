@@ -57,6 +57,13 @@ export default function Index() {
           <GridItem rowSpan={5} colSpan={1}>
             <Stack>
               <FormControl>
+                <FormLabel>rateOfCjpyJpy</FormLabel>
+                <NumberInput>
+                  <NumberInputField />
+                </NumberInput>
+                <FormHelperText>rateOfCjpyJpy is ...</FormHelperText>
+              </FormControl>
+              <FormControl>
                 <FormLabel>TCR</FormLabel>
                 <NumberInput>
                   <NumberInputField />
