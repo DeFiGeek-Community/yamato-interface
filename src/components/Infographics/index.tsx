@@ -24,7 +24,7 @@ function getCjpyRank(rateOfCjpyJpy: { [source: string]: number }) {
   return getCjpyPriceRank(rawPrice);
 }
 
-interface InfographicsProps {
+export interface InfographicsProps {
   rateOfCjpyJpy: {
     [source: string]: number;
   };
@@ -52,6 +52,8 @@ export default function Infographics(props: Partial<InfographicsProps>) {
     sweepReserve,
     isIncreaseForSweepReserve,
   } = vals;
+
+  console.log(rateOfCjpyJpy);
 
   /**
    * All 21 Ranks(-10 ~ +10)
