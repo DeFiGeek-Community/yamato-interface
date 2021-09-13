@@ -24,9 +24,26 @@ function getCjpyRank(rateOfCjpyJpy: { [source: string]: number }) {
   return getCjpyPriceRank(rawPrice);
 }
 
-export default function Infographics() {
-  const { rateOfCjpyJpy } = useMarketState();
+interface InfographicsProps {
+  rateOfCjpyJpy: {
+    [source: string]: number;
+  };
+  tcr: number;
+  rateOfEthJpy: number;
+  ethChangePercent: number;
+  redemptionReserve: number;
+  isIncreaseForRedemptionReserve: boolean;
+  sweepReserve: number;
+  isIncreaseForSweepReserve: boolean;
+}
+
+export default function Infographics(props: Partial<InfographicsProps>) {
+  const mstat = useMarketState();
+  const ysfi = useYamatoStateForInfographics();
+  const vals = { ...mstat, ...ysfi, ...props };
+
   const {
+    rateOfCjpyJpy,
     tcr,
     rateOfEthJpy,
     ethChangePercent,
@@ -34,7 +51,7 @@ export default function Infographics() {
     isIncreaseForRedemptionReserve,
     sweepReserve,
     isIncreaseForSweepReserve,
-  } = useYamatoStateForInfographics();
+  } = vals;
 
   /**
    * All 21 Ranks(-10 ~ +10)
