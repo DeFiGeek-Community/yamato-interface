@@ -38,9 +38,9 @@ export interface InfographicsProps {
 }
 
 export default function Infographics(props: Partial<InfographicsProps>) {
-  const mstat = useMarketState();
-  const ysfi = useYamatoStateForInfographics();
-  const vals = { ...mstat, ...ysfi, ...props };
+  const marketState = useMarketState();
+  const yamatoState = useYamatoStateForInfographics();
+  const vals = { ...marketState, ...yamatoState, ...props };
 
   const {
     rateOfCjpyJpy,
