@@ -53,8 +53,6 @@ export default function Infographics(props: Partial<InfographicsProps>) {
     isIncreaseForSweepReserve,
   } = vals;
 
-  console.log(rateOfCjpyJpy);
-
   /**
    * All 21 Ranks(-10 ~ +10)
    */
