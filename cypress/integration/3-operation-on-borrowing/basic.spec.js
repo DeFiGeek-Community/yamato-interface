@@ -7,11 +7,15 @@ describe('Basic operations on borrowing', () => {
 
   it('borrow CJPY', () => {
     // !!WIP!!
-    cy.contains('借入実行');
+    cy.get('[data-testid=borrowing-data-currentAmount]');
+    cy.get('[data-testid=borrowing-data-borrowAmount]');
+    cy.get('[data-testid=borrowing-act-borrow]');
   });
 
   it('repayment CJPY', () => {
     // !!WIP!!
-    cy.contains('返済実行');
+    cy.get('[data-testid=borrowing-data-currentAmount]');
+    cy.get('[data-testid=borrowing-data-repayAmount]');
+    cy.get('[data-testid=borrowing-act-repay]');
   });
 });
