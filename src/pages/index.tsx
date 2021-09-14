@@ -25,6 +25,7 @@ export default function Index() {
             <Link to="/">
               <SvgYamatoLogWithTitle width={255} height={25} />
             </Link>
+            <Link to="/tools/">ツール</Link>
           </GridItem>
 
           <GridItem rowSpan={1} colSpan={2}>
