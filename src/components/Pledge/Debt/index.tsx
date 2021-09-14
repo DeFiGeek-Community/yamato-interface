@@ -39,7 +39,7 @@ export default function Debt() {
       </GridItem>
 
       <GridItem colSpan={1}>
-        <CurrentValue marginTop={32}>
+        <CurrentValue marginTop={32} data-testid="borrowing-data-currentAmount">
           {debt}
           {YAMATO_SYMBOL.YEN}
         </CurrentValue>
