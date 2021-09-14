@@ -40,7 +40,7 @@ export interface InfographicsProps {
 export default function Infographics(props: Partial<InfographicsProps>) {
   const marketState = useMarketState();
   const yamatoState = useYamatoStateForInfographics();
-  const vals = { ...marketState, ...yamatoState, ...props };
+  const mixedValues = { ...marketState, ...yamatoState, ...props };
 
   const {
     rateOfCjpyJpy,
@@ -51,7 +51,7 @@ export default function Infographics(props: Partial<InfographicsProps>) {
     isIncreaseForRedemptionReserve,
     sweepReserve,
     isIncreaseForSweepReserve,
-  } = vals;
+  } = mixedValues;
 
   /**
    * All 21 Ranks(-10 ~ +10)
