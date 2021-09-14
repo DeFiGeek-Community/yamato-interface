@@ -4,23 +4,18 @@ import { YAMATO_SYMBOL } from '../../../constants/yamato';
 import { useActiveWeb3React } from '../../../hooks/web3';
 
 type Props = {
-  totalCollateral: number;
-  totalDebt: number;
-  tcr: number;
   rateOfEthJpy: number;
-  redemptionReserve: number;
   sweepReserve: number;
   sweepableCandiate: number;
 };
 
 export default function SweepInput(props: Props) {
+  const { rateOfEthJpy, sweepReserve, sweepableCandiate } = props;
   const { account, library } = useActiveWeb3React();
 
   function getExpectedReward() {
     const amount =
-      props.sweepReserve > props.sweepableCandiate
-        ? props.sweepableCandiate
-        : props.sweepReserve;
+      sweepReserve > sweepableCandiate ? sweepableCandiate : sweepReserve;
 
     const reward = amount * 0.01;
     return reward;
@@ -49,7 +44,7 @@ export default function SweepInput(props: Props) {
               <VStack align="start">
                 <label>プール総額</label>
                 <span>
-                  {props.redemptionReserve.toFixed(4)}
+                  {sweepReserve.toFixed(4)}
                   {YAMATO_SYMBOL.YEN}
                 </span>
               </VStack>
@@ -59,8 +54,8 @@ export default function SweepInput(props: Props) {
               <VStack align="start">
                 <label>弁済候補総額</label>
                 <span>
-                  {props.sweepableCandiate.toFixed(4)}
-                  {YAMATO_SYMBOL.COLLATERAL}
+                  {sweepableCandiate.toFixed(4)}
+                  {YAMATO_SYMBOL.YEN}
                 </span>
               </VStack>
             </GridItem>

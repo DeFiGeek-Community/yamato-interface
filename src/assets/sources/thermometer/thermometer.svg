@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="75.632965"
+   height="117.77953"
+   viewBox="0 0 75.632965 117.77953"
+   fill="none"
+   version="1.1"
+   id="svg40"
+   sodipodi:docname="温度計.svg"
+   inkscape:version="1.1 (c68e22c387, 2021-05-23)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview42"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     showgrid="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:zoom="2.4719027"
+     inkscape:cx="46.927413"
+     inkscape:cy="112.86852"
+     inkscape:window-width="1467"
+     inkscape:window-height="1040"
+     inkscape:window-x="178"
+     inkscape:window-y="63"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg40" />
+  <defs
+     id="defs38">
+    <filter
+       id="filter0_d"
+       x="0.110229"
+       y="0.110229"
+       width="38.889801"
+       height="118.78"
+       filterUnits="userSpaceOnUse"
+       color-interpolation-filters="sRGB">
+      <feFlood
+         flood-opacity="0"
+         result="BackgroundImageFix"
+         id="feFlood16" />
+      <feColorMatrix
+         in="SourceAlpha"
+         type="matrix"
+         values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+         result="hardAlpha"
+         id="feColorMatrix18" />
+      <feOffset
+         dx="1"
+         dy="1"
+         id="feOffset20" />
+      <feComposite
+         in2="hardAlpha"
+         operator="out"
+         id="feComposite22" />
+      <feColorMatrix
+         type="matrix"
+         values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"
+         id="feColorMatrix24" />
+      <feBlend
+         mode="normal"
+         in2="BackgroundImageFix"
+         result="effect1_dropShadow"
+         id="feBlend26" />
+      <feBlend
+         mode="normal"
+         in="SourceGraphic"
+         in2="effect1_dropShadow"
+         result="shape"
+         id="feBlend28" />
+    </filter>
+    <linearGradient
+       id="paint0_linear"
+       x1="17"
+       y1="1"
+       x2="17"
+       y2="101"
+       gradientUnits="userSpaceOnUse">
+      <stop
+         offset="0.390404"
+         stop-color="#FF8585"
+         id="stop31" />
+      <stop
+         offset="0.683086"
+         stop-color="#E483FF"
+         id="stop33" />
+      <stop
+         offset="0.76125"
+         stop-color="#838CFF"
+         id="stop35" />
+    </linearGradient>
+  </defs>
+  <g
+     style="fill:none"
+     id="g893"
+     transform="translate(-0.11023498,-0.11023498)">
+    <path
+       d="m 2.14691,100.501 c 0,8.284 6.71573,15 14.99999,15 8.2843,0 15,-6.716 15,-15"
+       fill="#868bff"
+       id="path859" />
+    <path
+       d="M 32,1 H 2 v 100 h 30 z"
+       fill="url(#paint0_linear)"
+       id="path861"
+       style="fill:url(#paint0_linear)" />
+    <path
+       d="M 32,1 H 2 v 39.0244 h 30 z"
+       fill="#fcfaf2"
+       id="path863" />
+    <line
+       x1="27.5"
+       y1="39.5"
+       x2="36.5"
+       y2="39.5"
+       stroke="#cfcfcf"
+       stroke-width="3"
+       stroke-linecap="round"
+       id="line865" />
+    <path
+       d="m 2,2 v 98.508 C 2,109.064 8.71573,116 17,116 c 8.2843,0 15,-6.936 15,-15.492 V 2"
+       stroke="#cfcfcf"
+       stroke-width="3.77953"
+       stroke-linecap="round"
+       id="path867" />
+    <line
+       x1="27.5"
+       y1="77.5"
+       x2="36.5"
+       y2="77.5"
+       stroke="#cfcfcf"
+       stroke-width="3"
+       stroke-linecap="round"
+       id="line869" />
+    <path
+       d="m 41.5488,73.8906 1.8262,5.1563 1.8164,-5.1563 h 1.9238 V 81 H 45.6455 V 79.0566 L 45.792,75.7021 43.873,81 h -1.0058 l -1.9141,-5.293 0.1465,3.3496 V 81 h -1.4648 v -7.1094 z m 12.4268,4.7412 c -0.0554,0.765 -0.3386,1.3672 -0.8496,1.8067 -0.5078,0.4394 -1.1784,0.6592 -2.0117,0.6592 -0.9115,0 -1.6293,-0.306 -2.1534,-0.918 -0.5208,-0.6152 -0.7812,-1.4583 -0.7812,-2.5293 v -0.4346 c 0,-0.6836 0.1204,-1.2858 0.3613,-1.8066 0.2409,-0.5209 0.5843,-0.9196 1.0303,-1.1963 0.4492,-0.28 0.97,-0.4199 1.5625,-0.4199 0.8203,0 1.4811,0.2197 1.9824,0.6591 0.5013,0.4395 0.791,1.0564 0.8692,1.8506 h -1.4649 c -0.0358,-0.4589 -0.1644,-0.791 -0.3857,-0.9961 -0.2181,-0.2083 -0.5518,-0.3125 -1.001,-0.3125 -0.4883,0 -0.8545,0.1758 -1.0986,0.5274 -0.2409,0.3483 -0.3646,0.8903 -0.3711,1.626 v 0.5371 c 0,0.7682 0.1155,1.3297 0.3466,1.6845 0.2344,0.3549 0.6023,0.5323 1.1036,0.5323 0.4524,0 0.7893,-0.1026 1.0107,-0.3076 0.2246,-0.2084 0.3532,-0.529 0.3857,-0.962 z m 3.5937,-0.2343 h -1.167 V 81 h -1.4648 v -7.1094 h 2.6416 c 0.8398,0 1.4876,0.1872 1.9434,0.5615 0.4557,0.3744 0.6836,0.9034 0.6836,1.587 0,0.485 -0.1058,0.8903 -0.3174,1.2158 -0.2084,0.3222 -0.5257,0.5794 -0.9522,0.7715 l 1.5381,2.9052 V 81 h -1.5723 z m -1.167,-1.1866 h 1.1817 c 0.3678,0 0.6527,-0.0927 0.8545,-0.2783 0.2018,-0.1888 0.3027,-0.4476 0.3027,-0.7764 0,-0.3352 -0.096,-0.5989 -0.2881,-0.791 -0.1888,-0.192 -0.4801,-0.2881 -0.874,-0.2881 H 56.4023 Z M 67.0908,81 h -1.4111 v -5.4395 l -1.6846,0.5225 v -1.1475 l 2.9444,-1.0546 h 0.1513 z m 2.4463,-0.6934 c 0,-0.2246 0.0749,-0.4069 0.2246,-0.5468 0.153,-0.14 0.3434,-0.21 0.5713,-0.21 0.2311,0 0.4216,0.07 0.5713,0.21 0.153,0.1399 0.2295,0.3222 0.2295,0.5468 0,0.2214 -0.0749,0.4021 -0.2246,0.542 -0.1498,0.1368 -0.3418,0.2051 -0.5762,0.2051 -0.2311,0 -0.4215,-0.0683 -0.5713,-0.2051 -0.1497,-0.1399 -0.2246,-0.3206 -0.2246,-0.542 z M 75.7432,81 H 74.332 v -5.4395 l -1.6845,0.5225 v -1.1475 l 2.9443,-1.0546 h 0.1514 z"
+       fill="#818181"
+       id="path871" />
+  </g>
+</svg>

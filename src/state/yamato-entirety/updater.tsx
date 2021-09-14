@@ -16,18 +16,20 @@ export default function Updater(): null {
   useInterval(() => {
     // TODO: replace me.
     const mockState = {
-      totalCollateral: 4 + Math.random(),
+      totalCollateral: 2.5 + Math.random() * 10,
       totalDebt: 1200000 + Math.random() * 100000,
-      redemptionReserve: 10,
-      sweepReserve: 2,
-      sweepableCandiate: 0.5,
+      redemptionReserve: Math.random() * 100000000,
+      sweepReserve: Math.random() * 10000000,
+      sweepableCandiate: Math.random() * 1000,
       rateOfEthJpy: 300000 + Math.random() * 1000,
     };
     fetchYamatoState(
       mockState.totalCollateral, // totalColl in Yamato.sol
       mockState.totalDebt, // totalDebt in Yamato.sol
       mockState.totalCollateral + 1, // lockedCollateral in Pool.sol
-      ((mockState.totalCollateral * 300000) / mockState.totalDebt) * 100,
+      ((mockState.totalCollateral * mockState.rateOfEthJpy) /
+        mockState.totalDebt) *
+        100,
       mockState.redemptionReserve, // redemptionReserve in Pool.sol
       mockState.sweepReserve, // sweepReserve in Pool.sol
       mockState.sweepableCandiate // FIXME: ISSUE #27

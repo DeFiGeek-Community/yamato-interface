@@ -5,53 +5,50 @@ import { usePledgeData } from '../../../state/pledge/hooks';
 import { useYamatoStateForPledge } from '../../../state/yamato-entirety/hooks';
 import { multiplyToNum } from '../../../utils/bignumber';
 import { formatPrice } from '../../../utils/prices';
-import { ItemTitle, CurrentValue } from '../../CommonItem';
+import { ItemTitleForPledge, CurrentValue } from '../../CommonItem';
 import DepositInput from './DepositInput';
 import WithdrawalInput from './WithdrawalInput';
 
 export default function Collateral() {
   const { account, library } = useActiveWeb3React();
 
-  const yamato = useYamatoStateForPledge();
-  const pledge = usePledgeData();
+  const { rateOfEthJpy } = useYamatoStateForPledge();
+  const { collateral, debt, withdrawalLockDate } = usePledgeData();
 
   return (
     <Grid templateColumns="repeat(6, 1fr)" gap={4} mb={4}>
       <GridItem colSpan={1}>
-        <ItemTitle marginTop={32}>担保数</ItemTitle>
+        <ItemTitleForPledge marginTop={32}>担保数</ItemTitleForPledge>
       </GridItem>
 
       <GridItem colSpan={1}>
-        <CurrentValue marginTop={32}>
-          {pledge.collateral}
+        <CurrentValue
+          marginTop={32}
+          data-testid="collateral-data-currentAmount"
+        >
+          {collateral}
           {YAMATO_SYMBOL.COLLATERAL}
         </CurrentValue>
       </GridItem>
 
       <GridItem colSpan={2}>
-        <DepositInput collateral={pledge.collateral} debt={pledge.debt} />
+        <DepositInput collateral={collateral} debt={debt} />
       </GridItem>
 
       <GridItem colSpan={2}>
         <WithdrawalInput
-          collateral={pledge.collateral}
-          debt={pledge.debt}
-          withdrawalLockDate={pledge.withdrawalLockDate}
+          collateral={collateral}
+          debt={debt}
+          withdrawalLockDate={withdrawalLockDate}
         />
       </GridItem>
 
       <GridItem colSpan={1}>
-        <ItemTitle marginTop={32}>評価額</ItemTitle>
+        <ItemTitleForPledge marginTop={32}>評価額</ItemTitleForPledge>
       </GridItem>
       <GridItem colSpan={1}>
         <CurrentValue marginTop={32}>
-          ¥
-          {
-            formatPrice(
-              multiplyToNum(pledge.collateral, yamato.rateOfEthJpy),
-              'eth'
-            ).value
-          }
+          ¥{formatPrice(multiplyToNum(collateral, rateOfEthJpy), 'eth').value}
         </CurrentValue>
       </GridItem>
     </Grid>
