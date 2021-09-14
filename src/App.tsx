@@ -3,6 +3,7 @@ import './App.css';
 import { Switch, Route } from 'react-router-dom';
 import Web3ReactManager from './components/Web3ReactManager';
 import Index from './pages/index';
+import Tools from './pages/tools';
 import MarketUpdater from './state/market/updater';
 import PledgeUpdater from './state/pledge/updater';
 import WalletUpdater from './state/wallet/updater';
@@ -19,6 +20,9 @@ function App() {
         <Switch>
           <Route exact path="/">
             <Index />
+          </Route>
+          <Route exact path="/tools/">
+            <Tools />
           </Route>
         </Switch>
       </>
