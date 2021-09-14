@@ -6,23 +6,24 @@ import { formatPrice } from '../../utils/prices';
 import { CategoryTitle } from '../CommonItem';
 import DashboadItem from './Item';
 
+function getRateOfCjpyJpy(rateOfCjpyJpy: { [source: string]: number }) {
+  const value = Object.values(rateOfCjpyJpy)[0];
+  return value ?? 0;
+}
+
+function getMarketRateOfCjpyJpy(rateOfCjpyJpy: { [source: string]: number }) {
+  const entries = Object.entries(rateOfCjpyJpy);
+  let v = '';
+  for (const entry of entries) {
+    v += `${entry[0]}:¥${formatPrice(entry[1], 'jpy').value}\n`;
+  }
+  return v;
+}
+
 export default function Dashboad() {
-  const market = useMarketState();
-  const yamato = useYamatoStateForDashboard();
-
-  function getRateOfCjpyJpy() {
-    const value = Object.values(market.rateOfCjpyJpy)[0];
-    return value ?? 0;
-  }
-
-  function getMarketRateOfCjpyJpy() {
-    const entries = Object.entries(market.rateOfCjpyJpy);
-    let v = '';
-    for (const entry of entries) {
-      v += `${entry[0]}:¥${formatPrice(entry[1], 'jpy').value}\n`;
-    }
-    return v;
-  }
+  const { rateOfCjpyJpy } = useMarketState();
+  const { tvl, tcr, rateOfEthJpy, totalSupplyOfCjpy } =
+    useYamatoStateForDashboard();
 
   return (
     <>
@@ -34,35 +35,33 @@ export default function Dashboad() {
           <VStack>
             <DashboadItem
               title={'TVL'}
-              stat={`${formatPrice(yamato.tvl, 'eth').value} ${
+              stat={`${formatPrice(tvl, 'eth').value} ${
                 YAMATO_SYMBOL.COLLATERAL
               }`}
             />
-            <DashboadItem
-              title={'TCR'}
-              stat={`${formatPrice(yamato.tcr, 'eth').value} ${
-                YAMATO_SYMBOL.COLLATERAL
-              }`}
-            />
+            <DashboadItem title={'TCR'} stat={`${tcr.toFixed(2)}%`} />
             <DashboadItem
               title={'CJPYプライス'}
-              stat={`¥${formatPrice(getRateOfCjpyJpy(), 'jpy').value}`}
+              stat={`¥${
+                formatPrice(getRateOfCjpyJpy(rateOfCjpyJpy), 'jpy').value
+              }`}
             />
             <DashboadItem
               title={'市場間価格差異'}
-              stat={getMarketRateOfCjpyJpy()}
+              stat={getMarketRateOfCjpyJpy(rateOfCjpyJpy)}
             />
           </VStack>
           <VStack>
+            {/* v1.5 feature
             <DashboadItem title={'veYMT数'} stat={'（工事中）'} />
-            <DashboadItem title={'総ファーミングスコア'} stat={'（工事中）'} />
+            <DashboadItem title={'総ファーミングスコア'} stat={'（工事中）'} /> */}
             <DashboadItem
               title={'ETHプライス'}
-              stat={`¥${formatPrice(yamato.rateOfEthJpy, 'jpy').value}`}
+              stat={`¥${formatPrice(rateOfEthJpy, 'jpy').value}`}
             />
             <DashboadItem
               title={'CJPY総発行数'}
-              stat={`${formatPrice(yamato.totalSupplyOfCjpy, 'jpy').value} ${
+              stat={`${formatPrice(totalSupplyOfCjpy, 'jpy').value} ${
                 YAMATO_SYMBOL.YEN
               }`}
             />

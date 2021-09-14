@@ -1,5 +1,6 @@
 import { useCallback, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { getEthChangePercent } from '../../utils/prices';
 import { AppDispatch, AppState } from '../index';
 import {
   fetchEvents,
@@ -13,12 +14,18 @@ import { LogEvent } from './reducer';
  * selector
  */
 export function useYamatoStateForDashboard() {
-  return useSelector((state: AppState) => ({
-    totalSupplyOfCjpy: state.yamatoEntirety.token.cjpy.totalSupply,
-    tvl: state.yamatoEntirety.lending.tvl,
-    tcr: state.yamatoEntirety.lending.tcr,
-    rateOfEthJpy: state.yamatoEntirety.rateOfEthJpy,
-  }));
+  return useSelector((state: AppState) => {
+    return {
+      totalSupplyOfCjpy: state.yamatoEntirety.token.cjpy.totalSupply,
+      tvl: state.yamatoEntirety.lending.tvl,
+      tcr: state.yamatoEntirety.lending.tcr,
+      rateOfEthJpy: state.yamatoEntirety.rateOfEthJpy,
+      ethChangePercent: getEthChangePercent(
+        state.yamatoEntirety.rateOfEthJpy,
+        state.yamatoEntirety.prevRateOfEthJpy
+      ),
+    };
+  });
 }
 export function useYamatoStateForPledge() {
   return useSelector((state: AppState) => ({
@@ -34,6 +41,26 @@ export function useYamatoStateForPledge() {
 export function useYamatoStateForWorld() {
   return useSelector((state: AppState) => ({
     events: state.yamatoEntirety.events,
+  }));
+}
+export function useYamatoStateForInfographics() {
+  return useSelector((state: AppState) => ({
+    tcr: state.yamatoEntirety.lending.tcr,
+    rateOfEthJpy: state.yamatoEntirety.rateOfEthJpy,
+    ethChangePercent: getEthChangePercent(
+      state.yamatoEntirety.rateOfEthJpy,
+      state.yamatoEntirety.prevRateOfEthJpy
+    ),
+    redemptionReserve: state.yamatoEntirety.pool.redemptionReserve,
+    isIncreaseForRedemptionReserve:
+      state.yamatoEntirety.pool.redemptionReserve -
+        state.yamatoEntirety.pool.prevRedemptionReserve >
+      0,
+    sweepReserve: state.yamatoEntirety.pool.sweepReserve,
+    isIncreaseForSweepReserve:
+      state.yamatoEntirety.pool.sweepReserve -
+        state.yamatoEntirety.pool.prevSweepReserve >
+      0,
   }));
 }
 

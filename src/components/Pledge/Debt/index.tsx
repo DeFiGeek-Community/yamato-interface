@@ -1,44 +1,76 @@
 import { Grid, GridItem } from '@chakra-ui/react';
-import { YAMATO_SYMBOL } from '../../../constants/yamato';
+import { MCR, YAMATO_SYMBOL } from '../../../constants/yamato';
 import { useActiveWeb3React } from '../../../hooks/web3';
 import { usePledgeData } from '../../../state/pledge/hooks';
-import { formatCollateralizationRatio } from '../../../utils/prices';
-import { CurrentValue, ItemTitle } from '../../CommonItem';
+import { useYamatoStateForPledge } from '../../../state/yamato-entirety/hooks';
+import {
+  formatCollateralizationRatio,
+  formatPrice,
+} from '../../../utils/prices';
+import { CurrentValue, ItemTitleForPledge } from '../../CommonItem';
 import BorrowInput from './BorrowingInput';
 import RepayInput from './RepayInput';
+
+function getBorrowableAmount(
+  collateral: number,
+  debt: number,
+  rateOfEthJpy: number
+) {
+  const collateralBasedJpy = collateral * rateOfEthJpy;
+  const ICR = collateralBasedJpy / debt;
+  if (ICR - MCR <= 0) {
+    return 0;
+  }
+
+  const borrowableAmount = collateralBasedJpy / (debt * (MCR / 100));
+  return borrowableAmount;
+}
 
 export default function Debt() {
   const { account, library } = useActiveWeb3React();
 
-  const pledge = usePledgeData();
+  const { rateOfEthJpy } = useYamatoStateForPledge();
+  const { collateral, debt } = usePledgeData();
 
   return (
     <Grid templateColumns="repeat(6, 1fr)" gap={4} mb={4}>
       <GridItem colSpan={1}>
-        <ItemTitle marginTop={32}>借入量</ItemTitle>
+        <ItemTitleForPledge marginTop={32}>借入量</ItemTitleForPledge>
       </GridItem>
 
       <GridItem colSpan={1}>
         <CurrentValue marginTop={32} data-testid="borrowing-data-currentAmount">
-          {pledge.debt}
+          {debt}
           {YAMATO_SYMBOL.YEN}
         </CurrentValue>
       </GridItem>
 
       <GridItem colSpan={2}>
-        <BorrowInput collateral={pledge.collateral} debt={pledge.debt} />
+        <BorrowInput collateral={collateral} debt={debt} />
       </GridItem>
 
       <GridItem colSpan={2}>
-        <RepayInput collateral={pledge.collateral} debt={pledge.debt} />
+        <RepayInput collateral={collateral} debt={debt} />
       </GridItem>
 
       <GridItem colSpan={1}>
-        <ItemTitle marginTop={32}>担保率</ItemTitle>
+        <ItemTitleForPledge marginTop={32}>担保率</ItemTitleForPledge>
       </GridItem>
       <GridItem colSpan={1}>
         <CurrentValue marginTop={32}>
-          {formatCollateralizationRatio(pledge.collateral, pledge.debt)}%
+          {formatCollateralizationRatio(collateral, debt)}%
+        </CurrentValue>
+      </GridItem>
+      <GridItem colSpan={4}>
+        <CurrentValue marginTop={32} width={'100%'}>
+          最大借入可能量...
+          {
+            formatPrice(
+              getBorrowableAmount(collateral, debt, rateOfEthJpy),
+              'jpy'
+            ).value
+          }
+          {YAMATO_SYMBOL.YEN}
         </CurrentValue>
       </GridItem>
     </Grid>
