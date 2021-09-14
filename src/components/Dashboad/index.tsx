@@ -11,13 +11,11 @@ function getRateOfCjpyJpy(rateOfCjpyJpy: { [source: string]: number }) {
   return value ?? 0;
 }
 
-function getMarketRateOfCjpyJpy(rateOfCjpyJpy: { [source: string]: number }) {
-  const entries = Object.entries(rateOfCjpyJpy);
-  let v = '';
-  for (const entry of entries) {
-    v += `${entry[0]}:¥${formatPrice(entry[1], 'jpy').value}\n`;
+function getMarketRateOfCjpyJpy(rateOfCjpyJpy: [string, number]) {
+  if (!rateOfCjpyJpy) {
+    return ``;
   }
-  return v;
+  return `${rateOfCjpyJpy[0]}:¥${formatPrice(rateOfCjpyJpy[1], 'jpy').value}\n`;
 }
 
 export default function Dashboad() {
@@ -48,7 +46,15 @@ export default function Dashboad() {
             />
             <DashboadItem
               title={'市場間価格差異'}
-              stat={getMarketRateOfCjpyJpy(rateOfCjpyJpy)}
+              stat={getMarketRateOfCjpyJpy(Object.entries(rateOfCjpyJpy)[0])}
+            />
+            <DashboadItem
+              title={''}
+              stat={getMarketRateOfCjpyJpy(Object.entries(rateOfCjpyJpy)[1])}
+            />
+            <DashboadItem
+              title={''}
+              stat={getMarketRateOfCjpyJpy(Object.entries(rateOfCjpyJpy)[2])}
             />
           </VStack>
           <VStack>
