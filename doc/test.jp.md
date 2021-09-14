@@ -1,4 +1,3 @@
-
 # テストについて
 
 本稿では本レポジトリに含まれるテストコードに関連する事柄について述べる。
@@ -18,16 +17,15 @@ E2E テスト等、いくつかのテストでは DOM 要素を識別する必�
 <category>-<type>-<name>
 ```
 
-- `category`: その要素が表示や操作するデータの種類
-    - 例: collateral, borrowing
+- `category`: その要素が表示したり操作するデータの種類
+  - 例: collateral, borrowing
 - `type`: その要素が担うのが data か、 act(action) か
-    - 大体 input や p 要素などが data, button は act
+  - 大体 input や p 要素などが data, button は act
 - `name`: その要素が担うものの名前
-    - data であるものは名詞、 action であるものは動詞が望ましい
-    - 
+  - data であるものは名詞、 action であるものは動詞が望ましい
+  -
 
 複数単語を使用する場合、全てキャメルケースにて記述する。
-
 
 本規則に基づいた名前の例:
 

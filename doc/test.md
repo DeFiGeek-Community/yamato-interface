@@ -1,4 +1,3 @@
-
 # Test
 
 This article is for topics related to the test of this repository.
@@ -19,12 +18,12 @@ The structure of value is as follows:
 <category>-<type>-<name>
 ```
 
-- `category`: The category of data whom the element displays or manipulates.
-    - e.g. : collateral, borrowing
+- `category`: The category of data that the element displays or manipulates.
+  - e.g. : collateral, borrowing
 - `type`: The type whether the element is for `data` or `act`(action).
-    - In many cases, an `input` or a `p` element has `data` type, and a `button` element has `act` type.
-- `name`: The name of the thing to whom the element is responsible.
-    - A noun is desirable for a `data` type element. A verb is desirable for `act` type element.
+  - In many cases, an `input` or a `p` element has `data` type, and a `button` element has `act` type.
+- `name`: The name of the thing to that the element is responsible.
+  - A noun is desirable for a `data` type element. A verb is desirable for `act` type element.
 
 The notation of these words is camel case.
 
