@@ -48,7 +48,7 @@ export default function Collateral() {
       </GridItem>
       <GridItem colSpan={1}>
         <CurrentValue marginTop={32}>
-          ¥{formatPrice(multiplyToNum(collateral, rateOfEthJpy), 'eth').value}
+          ¥{formatPrice(multiplyToNum(collateral, rateOfEthJpy), 'jpy').value}
         </CurrentValue>
       </GridItem>
     </Grid>

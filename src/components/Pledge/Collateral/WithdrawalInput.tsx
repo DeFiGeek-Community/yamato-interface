@@ -34,6 +34,7 @@ export default function WithdrawalInput(props: Props) {
   }, 500);
 
   function validateWithdrawal(value: number) {
+    // FIXME: ロックタイム中
     if (value == null || typeof value !== 'number') {
       return '数値で入力してください。';
     }
@@ -93,6 +94,7 @@ export default function WithdrawalInput(props: Props) {
                 isLoading={formikProps.isSubmitting}
                 type="submit"
                 data-testid="collateral-act-withdraw"
+                disabled={remainLockTime > 0}
               >
                 引出実行
               </Button>

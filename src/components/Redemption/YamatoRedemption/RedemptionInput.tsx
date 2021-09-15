@@ -2,6 +2,7 @@ import { Button, Grid, GridItem, VStack } from '@chakra-ui/react';
 import { Formik, Form, FormikHelpers } from 'formik';
 import { YAMATO_SYMBOL } from '../../../constants/yamato';
 import { useActiveWeb3React } from '../../../hooks/web3';
+import { formatPrice } from '../../../utils/prices';
 import {
   getExpectedCollateral,
   getRedeemableCandidate,
@@ -16,13 +17,15 @@ type Props = {
 };
 
 export default function RedemptionInput(props: Props) {
+  const { totalCollateral, totalDebt, tcr, rateOfEthJpy, redemptionReserve } =
+    props;
   const { account, library } = useActiveWeb3React();
 
   const redeemableCandidate = getRedeemableCandidate(
-    props.totalCollateral,
-    props.totalDebt,
-    props.tcr,
-    props.rateOfEthJpy
+    totalCollateral,
+    totalDebt,
+    tcr,
+    rateOfEthJpy
   );
 
   function submitRedemption(
@@ -48,7 +51,7 @@ export default function RedemptionInput(props: Props) {
               <VStack align="start">
                 <label>プール総額</label>
                 <span>
-                  {props.redemptionReserve.toFixed(4)}
+                  {formatPrice(redemptionReserve, 'jpy').value}
                   {YAMATO_SYMBOL.YEN}
                 </span>
               </VStack>
@@ -58,11 +61,11 @@ export default function RedemptionInput(props: Props) {
               <VStack align="start">
                 <label>償還候補総額</label>
                 <span>
-                  {redeemableCandidate.eth.toFixed(4)}
+                  {formatPrice(redeemableCandidate.eth, 'eth').value}
                   {YAMATO_SYMBOL.COLLATERAL}
                 </span>
                 <span>
-                  ({redeemableCandidate.cjpy.toFixed(4)}
+                  ({formatPrice(redeemableCandidate.cjpy, 'jpy').value}
                   {YAMATO_SYMBOL.YEN})
                 </span>
               </VStack>
@@ -72,10 +75,15 @@ export default function RedemptionInput(props: Props) {
               <VStack align="start">
                 <label>実行リワード予測</label>
                 <span>
-                  {getExpectedCollateral(
-                    redeemableCandidate.eth + 1, // dummy
-                    redeemableCandidate.eth
-                  ).toFixed(4)}
+                  {
+                    formatPrice(
+                      getExpectedCollateral(
+                        redeemableCandidate.eth + 1, // dummy
+                        redeemableCandidate.eth
+                      ),
+                      'eth'
+                    ).value
+                  }
                   {YAMATO_SYMBOL.COLLATERAL}
                 </span>
               </VStack>

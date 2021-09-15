@@ -2,6 +2,7 @@ import { Button, Grid, GridItem, VStack } from '@chakra-ui/react';
 import { Formik, Form, FormikHelpers } from 'formik';
 import { YAMATO_SYMBOL } from '../../../constants/yamato';
 import { useActiveWeb3React } from '../../../hooks/web3';
+import { formatPrice } from '../../../utils/prices';
 
 type Props = {
   rateOfEthJpy: number;
@@ -10,7 +11,7 @@ type Props = {
 };
 
 export default function SweepInput(props: Props) {
-  const { rateOfEthJpy, sweepReserve, sweepableCandiate } = props;
+  const { sweepReserve, sweepableCandiate } = props;
   const { account, library } = useActiveWeb3React();
 
   function getExpectedReward() {
@@ -44,7 +45,7 @@ export default function SweepInput(props: Props) {
               <VStack align="start">
                 <label>プール総額</label>
                 <span>
-                  {sweepReserve.toFixed(4)}
+                  {formatPrice(sweepReserve, 'jpy').value}
                   {YAMATO_SYMBOL.YEN}
                 </span>
               </VStack>
@@ -54,7 +55,7 @@ export default function SweepInput(props: Props) {
               <VStack align="start">
                 <label>弁済候補総額</label>
                 <span>
-                  {sweepableCandiate.toFixed(4)}
+                  {formatPrice(sweepableCandiate, 'jpy').value}
                   {YAMATO_SYMBOL.YEN}
                 </span>
               </VStack>
@@ -64,7 +65,7 @@ export default function SweepInput(props: Props) {
               <VStack align="start">
                 <label>実行リワード予測</label>
                 <span>
-                  {getExpectedReward().toFixed(4)}
+                  {formatPrice(getExpectedReward(), 'jpy').value}
                   {YAMATO_SYMBOL.YEN}
                 </span>
               </VStack>
