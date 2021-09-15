@@ -13,6 +13,7 @@ import { useState } from 'react';
 import { YAMATO_SYMBOL } from '../../../constants/yamato';
 import { useActiveWeb3React } from '../../../hooks/web3';
 import { useWalletState } from '../../../state/wallet/hooks';
+import { formatPrice } from '../../../utils/prices';
 import {
   getExpectedCollateral,
   getRedeemableCandidate,
@@ -100,7 +101,15 @@ export default function RedemptionInput(props: Props) {
                 <VStack align="start" mt={4}>
                   <label>予想担保獲得数</label>
                   <span>
-                    {getExpectedCollateral(redemption, redeemableCandidate.eth)}
+                    {
+                      formatPrice(
+                        getExpectedCollateral(
+                          redemption,
+                          redeemableCandidate.eth
+                        ),
+                        'eth'
+                      ).value
+                    }
                     {YAMATO_SYMBOL.COLLATERAL}
                   </span>
                 </VStack>
@@ -111,8 +120,12 @@ export default function RedemptionInput(props: Props) {
               <VStack align="start">
                 <label>償還候補総額</label>
                 <span>
-                  {redeemableCandidate.cjpy.toFixed(4)}
-                  {YAMATO_SYMBOL.YEN}
+                  {formatPrice(redeemableCandidate.eth, 'eth').value}
+                  {YAMATO_SYMBOL.COLLATERAL}
+                </span>
+                <span>
+                  ({formatPrice(redeemableCandidate.cjpy, 'jpy').value}
+                  {YAMATO_SYMBOL.YEN})
                 </span>
               </VStack>
             </GridItem>
