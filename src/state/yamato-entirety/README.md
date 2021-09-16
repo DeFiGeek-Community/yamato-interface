@@ -14,11 +14,11 @@ The parameters means as follows:
     - `tvl`: number; 
     - `tcr`: number; Total Collateralization Ratio of the users plege, derived from `(totalCollateral * rateOfEthJpy / totalDebt)`
 - `pool`: object; the parameters about
-    - redemptionReserve: number; the CJPY amount
-    - prevRedemptionReserve: number; the CJPY amount
-    - sweepReserve: number; the CJPY amount
-    - prevSweepReserve: number; the CJPY amount
-    - sweepableCandiate: number; the ETH amount
+    - `redemptionReserve`: number; the CJPY amount
+    - `prevRedemptionReserve`: number; the CJPY amount
+    - `sweepReserve`: number; the CJPY amount
+    - `prevSweepReserve`: number; the CJPY amount
+    - `sweepableCandiate`: number; the ETH amount
 - `token`: object; the parameters
     - `cjpy`: object;
         - `totalSupply`: number ; the total amount of CJPY that the Yamato protocol is supplying.
