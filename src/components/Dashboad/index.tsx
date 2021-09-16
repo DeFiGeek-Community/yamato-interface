@@ -1,9 +1,9 @@
-import { Box, HStack, VStack } from '@chakra-ui/react';
+import { HStack, VStack } from '@chakra-ui/react';
 import { YAMATO_SYMBOL } from '../../constants/yamato';
 import { useMarketState } from '../../state/market/hooks';
 import { useYamatoStateForDashboard } from '../../state/yamato-entirety/hooks';
 import { formatPrice } from '../../utils/prices';
-import { CategoryTitle } from '../CommonItem';
+import { CategoryTitle, ConentBox, HeaderBox1 } from '../CommonItem';
 import DashboadItem from './Item';
 
 function getRateOfCjpyJpy(rateOfCjpyJpy: { [source: string]: number }) {
@@ -25,10 +25,10 @@ export default function Dashboad() {
 
   return (
     <>
-      <Box border="1px" borderColor="gray.200" borderRadius="md" p={4}>
+      <HeaderBox1>
         <CategoryTitle>Yamato Statistics</CategoryTitle>
-      </Box>
-      <Box border="1px" borderColor="gray.200" borderRadius="md" p={4}>
+      </HeaderBox1>
+      <ConentBox>
         <HStack align="start" spacing={48}>
           <VStack>
             <DashboadItem
@@ -73,7 +73,7 @@ export default function Dashboad() {
             />
           </VStack>
         </HStack>
-      </Box>
+      </ConentBox>
     </>
   );
 }

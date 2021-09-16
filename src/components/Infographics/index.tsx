@@ -1,7 +1,7 @@
-import { Box, Grid, GridItem } from '@chakra-ui/react';
+import { Grid, GridItem } from '@chakra-ui/react';
 import { useMarketState } from '../../state/market/hooks';
 import { useYamatoStateForInfographics } from '../../state/yamato-entirety/hooks';
-import { CategoryTitle } from '../CommonItem';
+import { CategoryTitle, ConentBox, HeaderBox1 } from '../CommonItem';
 import CjpyPrice from './CjpyPrice';
 import EthPrice from './EthPrice';
 import Pool from './Pool';
@@ -81,10 +81,10 @@ export default function Infographics(props: Partial<InfographicsProps>) {
 
   return (
     <>
-      <Box border="1px" borderColor="gray.200" borderRadius="md" p={4}>
+      <HeaderBox1>
         <CategoryTitle>CJPY Now</CategoryTitle>
-      </Box>
-      <Box border="1px" borderColor="gray.200" borderRadius="md" p={4}>
+      </HeaderBox1>
+      <ConentBox>
         <div style={{ minHeight: '16px', marginBottom: '10px' }}>
           {renderSignalMessages()}
         </div>
@@ -115,7 +115,7 @@ export default function Infographics(props: Partial<InfographicsProps>) {
             />
           </GridItem>
         </Grid>
-      </Box>
+      </ConentBox>
     </>
   );
 }

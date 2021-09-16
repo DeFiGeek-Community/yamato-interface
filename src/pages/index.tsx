@@ -1,6 +1,7 @@
 import { Box, Grid, GridItem } from '@chakra-ui/react';
 import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
+import BackgroundImage from '../assets/images/background_main.png';
 import Dashboad from '../components/Dashboad';
 import Footer from '../components/Footer';
 import Infographics from '../components/Infographics';
@@ -13,11 +14,11 @@ import SvgYamatoLogWithTitle from '../components/svgs/YamatoLogoWithTitle';
 export default function Index() {
   return (
     <>
-      <Box p={4}>
-        <Helmet title="Yamato Interface" />
+      <Helmet title="Yamato Interface" />
 
+      <Box p={4} style={{ backgroundColor: '#FCFAF2' }}>
         <Grid
-          templateRows="repeat(16, 1fr)"
+          templateRows="repeat(1, 1fr)"
           templateColumns="repeat(4, 1fr)"
           gap={4}
         >
@@ -38,19 +39,32 @@ export default function Index() {
               <Web3Status />
             </div>
           </GridItem>
+        </Grid>
+      </Box>
 
-          <GridItem rowSpan={3} colSpan={3}>
+      <Box
+        style={{
+          padding: '20px',
+          backgroundImage: `url(${BackgroundImage})`,
+        }}
+      >
+        <Grid
+          templateRows="repeat(10, 1fr)"
+          templateColumns="repeat(4, 1fr)"
+          gap={4}
+        >
+          <GridItem rowSpan={2} colSpan={3}>
             <Dashboad />
           </GridItem>
 
-          <GridItem rowSpan={8} colSpan={1}>
+          <GridItem rowSpan={5} colSpan={1}>
             <World />
           </GridItem>
 
-          <GridItem rowSpan={11} colSpan={3}>
+          <GridItem rowSpan={7} colSpan={3}>
             <Pledge />
 
-            <Box className="divider" mt={12} />
+            <Box className="divider" mt={'20px'} />
 
             <Redemption />
           </GridItem>
@@ -58,11 +72,11 @@ export default function Index() {
           <GridItem rowSpan={5} colSpan={1}>
             <Infographics />
           </GridItem>
-
-          <GridItem rowSpan={1} colSpan={4}>
-            <Footer />
-          </GridItem>
         </Grid>
+      </Box>
+
+      <Box style={{ backgroundColor: '#FCFAF2' }}>
+        <Footer />
       </Box>
     </>
   );
