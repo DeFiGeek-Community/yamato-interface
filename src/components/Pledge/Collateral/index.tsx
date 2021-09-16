@@ -22,7 +22,10 @@ export default function Collateral() {
       </GridItem>
 
       <GridItem colSpan={1}>
-        <CurrentValue marginTop={32}>
+        <CurrentValue
+          marginTop={32}
+          data-testid="collateral-data-currentAmount"
+        >
           {collateral}
           {YAMATO_SYMBOL.COLLATERAL}
         </CurrentValue>

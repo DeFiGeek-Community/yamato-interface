@@ -6,8 +6,8 @@ export default function Updater(): null {
 
   useInterval(() => {
     // TODO: replace me.
-    const mockState = 0.7 + Math.random();
-    fetchRateOfCjpyJpy('uniswap', mockState);
+    fetchRateOfCjpyJpy('uniswap', 0.7 + Math.random());
+    fetchRateOfCjpyJpy('balancer', 0.7 + Math.random());
   }, 5000);
 
   return null;

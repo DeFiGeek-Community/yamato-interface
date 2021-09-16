@@ -55,11 +55,7 @@ export default function SweepInput(props: Props) {
                 <label>弁済候補総額</label>
                 <span>
                   {sweepableCandiate.toFixed(4)}
-                  {YAMATO_SYMBOL.COLLATERAL}
-                </span>
-                <span>
-                  ({(sweepableCandiate * rateOfEthJpy).toFixed(4)}
-                  {YAMATO_SYMBOL.YEN})
+                  {YAMATO_SYMBOL.YEN}
                 </span>
               </VStack>
             </GridItem>

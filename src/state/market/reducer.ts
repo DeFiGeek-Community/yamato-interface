@@ -1,7 +1,7 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { fetchRateOfCjpyJpy } from './actions';
 
-export type PriceSource = 'uniswap';
+export type PriceSource = 'uniswap' | 'balancer';
 
 /**
  * State gotten from External Markets such as DEX and statistical sites.

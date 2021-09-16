@@ -20,7 +20,7 @@ export default function Updater(): null {
       totalDebt: 1200000 + Math.random() * 100000,
       redemptionReserve: Math.random() * 100000000,
       sweepReserve: Math.random() * 10000000,
-      sweepableCandiate: Math.random(),
+      sweepableCandiate: Math.random() * 1000,
       rateOfEthJpy: 300000 + Math.random() * 1000,
     };
     fetchYamatoState(
