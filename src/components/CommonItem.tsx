@@ -6,8 +6,11 @@ export const CategoryTitle = styled.h2`
   font-weight: bold;
 `;
 
-export const ItemTitleForPledge = styled.label<{ marginTop?: number }>`
-  width: 200px;
+export const ItemTitleForPledge = styled.label<{
+  width?: string;
+  marginTop?: number;
+}>`
+  width: ${({ width }) => width ?? '100px'};
   color: #818181;
   margin-top: ${({ marginTop }) => marginTop ?? 0}px;
   font-weight: bold;
@@ -27,7 +30,7 @@ export const CurrentValue = styled.p<{
   width?: string;
   marginTop?: number;
 }>`
-  width: ${({ width }) => width ?? '200px'};
+  width: ${({ width }) => width ?? '100px'};
   color: #818181;
   margin-top: ${({ marginTop }) => marginTop ?? 0}px;
   font-weight: bold;

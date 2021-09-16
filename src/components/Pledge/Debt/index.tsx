@@ -33,7 +33,7 @@ export default function Debt() {
   const { collateral, debt } = usePledgeData();
 
   return (
-    <Grid templateColumns="repeat(6, 1fr)" gap={4} mb={4}>
+    <Grid templateColumns="repeat(8, 1fr)" gap={4} mb={4}>
       <GridItem colSpan={1}>
         <ItemTitleForPledge marginTop={32}>借入量</ItemTitleForPledge>
       </GridItem>
@@ -45,11 +45,11 @@ export default function Debt() {
         </CurrentValue>
       </GridItem>
 
-      <GridItem colSpan={2}>
+      <GridItem colSpan={3}>
         <BorrowInput collateral={collateral} debt={debt} />
       </GridItem>
 
-      <GridItem colSpan={2}>
+      <GridItem colSpan={3}>
         <RepayInput collateral={collateral} debt={debt} />
       </GridItem>
 

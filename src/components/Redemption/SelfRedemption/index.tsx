@@ -10,12 +10,14 @@ export default function SelfRedemption() {
   const yamato = useYamatoStateForPledge();
 
   return (
-    <Grid templateColumns="repeat(4, 1fr)" gap={4} mb={12}>
+    <Grid templateColumns="repeat(6, 1fr)" gap={4} mb={12}>
       <GridItem colSpan={1}>
-        <ItemTitleForPledge marginTop={32}>償還</ItemTitleForPledge>
+        <ItemTitleForPledge width="150px" marginTop={32}>
+          償還
+        </ItemTitleForPledge>
       </GridItem>
 
-      <GridItem colSpan={3}>
+      <GridItem colSpan={5}>
         <RedemptionInput
           totalCollateral={yamato.totalCollateral}
           totalDebt={yamato.totalDebt}
