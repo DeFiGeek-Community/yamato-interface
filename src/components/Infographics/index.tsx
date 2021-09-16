@@ -61,12 +61,9 @@ export default function Infographics(props: Partial<InfographicsProps>) {
   const state = useSelector(selector);
   const values = { ...state, ...props };
 
-  console.log(JSON.stringify(values));
-
   const { rateOfCjpyJpy, rateOfEthJpy, redemptionReserve, sweepReserve } =
     values;
 
-  
   const tcr =
     props.hasOwnProperty('totalCollateral') ||
     props.hasOwnProperty('totalDebt') ||
@@ -78,8 +75,6 @@ export default function Infographics(props: Partial<InfographicsProps>) {
     values.redemptionReserve > values.prevRedemptionReserve;
   const isIncreaseForSweepReserve =
     values.sweepReserve > values.prevSweepReserve;
-
-  console.log(tcr);
 
   /**
    * All 21 Ranks(-10 ~ +10)
