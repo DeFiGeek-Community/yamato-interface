@@ -1,6 +1,6 @@
 import { Box, Grid, GridItem } from '@chakra-ui/react';
-import { useMarketState } from '../../state/market/hooks';
-import { useYamatoStateForInfographics } from '../../state/yamato-entirety/hooks';
+import { useSelector } from 'react-redux';
+import { AppState } from '../../state';
 import { CategoryTitle } from '../CommonItem';
 import CjpyPrice from './CjpyPrice';
 import EthPrice from './EthPrice';
@@ -25,33 +25,61 @@ function getCjpyRank(rateOfCjpyJpy: { [source: string]: number }) {
 }
 
 export interface InfographicsProps {
+  // state.market
   rateOfCjpyJpy: {
     [source: string]: number;
   };
-  tcr: number;
-  rateOfEthJpy: number;
-  ethChangePercent: number;
-  redemptionReserve: number;
-  isIncreaseForRedemptionReserve: boolean;
-  sweepReserve: number;
-  isIncreaseForSweepReserve: boolean;
+
+  // state.yamatoEntirety
+  totalCollateral: number; // state.yamatoEntirety.lending.totalCollateral
+  totalDebt: number; // state.yamatoEntirety.lending.totalDebt
+  tcr: number; // state.yamatoEntirety.lending.tcr
+  rateOfEthJpy: number; // state.yamatoEntirety.rateOfEthJpy
+  prevRateOfEthJpy: number; // state.yamatoEntirety.prevRateOfEthJpy
+  redemptionReserve: number; // state.yamatoEntirety.pool.redemptionReserve
+  prevRedemptionReserve: number; // state.yamatoEntirety.pool.prevRedemptionReserve
+  sweepReserve: number; // state.yamatoEntirety.pool.sweepReserve
+  prevSweepReserve: number; // state.yamatoEntirety.pool.prevSweepReserve
+}
+
+function selector(state: AppState): InfographicsProps {
+  return {
+    rateOfCjpyJpy: state.market.rateOfCjpyJpy,
+    totalCollateral: state.yamatoEntirety.lending.totalCollateral,
+    totalDebt: state.yamatoEntirety.lending.totalDebt,
+    tcr: state.yamatoEntirety.lending.tcr,
+    rateOfEthJpy: state.yamatoEntirety.rateOfEthJpy,
+    prevRateOfEthJpy: state.yamatoEntirety.prevRateOfEthJpy,
+    redemptionReserve: state.yamatoEntirety.pool.redemptionReserve,
+    prevRedemptionReserve: state.yamatoEntirety.pool.prevRedemptionReserve,
+    sweepReserve: state.yamatoEntirety.pool.sweepReserve,
+    prevSweepReserve: state.yamatoEntirety.pool.prevSweepReserve,
+  };
 }
 
 export default function Infographics(props: Partial<InfographicsProps>) {
-  const marketState = useMarketState();
-  const yamatoState = useYamatoStateForInfographics();
-  const mixedValues = { ...marketState, ...yamatoState, ...props };
+  const state = useSelector(selector);
+  const values = { ...state, ...props };
 
-  const {
-    rateOfCjpyJpy,
-    tcr,
-    rateOfEthJpy,
-    ethChangePercent,
-    redemptionReserve,
-    isIncreaseForRedemptionReserve,
-    sweepReserve,
-    isIncreaseForSweepReserve,
-  } = mixedValues;
+  console.log(JSON.stringify(values));
+
+  const { rateOfCjpyJpy, rateOfEthJpy, redemptionReserve, sweepReserve } =
+    values;
+
+  
+  const tcr =
+    props.hasOwnProperty('totalCollateral') ||
+    props.hasOwnProperty('totalDebt') ||
+    props.hasOwnProperty('rateOfEthJpy')
+      ? (100 * values.totalCollateral * values.rateOfEthJpy) / values.totalDebt
+      : values.tcr;
+  const ethChangePercent = values.rateOfEthJpy / values.prevRateOfEthJpy;
+  const isIncreaseForRedemptionReserve =
+    values.redemptionReserve > values.prevRedemptionReserve;
+  const isIncreaseForSweepReserve =
+    values.sweepReserve > values.prevSweepReserve;
+
+  console.log(tcr);
 
   /**
    * All 21 Ranks(-10 ~ +10)
