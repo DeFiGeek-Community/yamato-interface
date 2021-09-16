@@ -16,7 +16,7 @@ export default function Collateral() {
   const { collateral, debt, withdrawalLockDate } = usePledgeData();
 
   return (
-    <Grid templateColumns="repeat(6, 1fr)" gap={4} mb={4}>
+    <Grid templateColumns="repeat(8, 1fr)" gap={4} mb={4}>
       <GridItem colSpan={1}>
         <ItemTitleForPledge marginTop={32}>担保数</ItemTitleForPledge>
       </GridItem>
@@ -31,11 +31,11 @@ export default function Collateral() {
         </CurrentValue>
       </GridItem>
 
-      <GridItem colSpan={2}>
+      <GridItem colSpan={3}>
         <DepositInput collateral={collateral} debt={debt} />
       </GridItem>
 
-      <GridItem colSpan={2}>
+      <GridItem colSpan={3}>
         <WithdrawalInput
           collateral={collateral}
           debt={debt}
@@ -48,7 +48,7 @@ export default function Collateral() {
       </GridItem>
       <GridItem colSpan={1}>
         <CurrentValue marginTop={32}>
-          ¥{formatPrice(multiplyToNum(collateral, rateOfEthJpy), 'eth').value}
+          ¥{formatPrice(multiplyToNum(collateral, rateOfEthJpy), 'jpy').value}
         </CurrentValue>
       </GridItem>
     </Grid>

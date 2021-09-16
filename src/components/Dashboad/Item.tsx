@@ -9,8 +9,8 @@ interface Props {
 export default function DashboadItem(props: Props) {
   return (
     <HStack align="start">
-      <ItemTitleForPledge>{props.title}</ItemTitleForPledge>
-      <CurrentValue width="400px">{props.stat}</CurrentValue>
+      <ItemTitleForPledge width="200px">{props.title}</ItemTitleForPledge>
+      <CurrentValue width="200px">{props.stat}</CurrentValue>
     </HStack>
   );
 }

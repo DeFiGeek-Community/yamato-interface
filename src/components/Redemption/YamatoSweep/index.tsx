@@ -11,12 +11,14 @@ export default function YamatoSubrogation() {
     useYamatoStateForPledge();
 
   return (
-    <Grid templateColumns="repeat(4, 1fr)" gap={4}>
+    <Grid templateColumns="repeat(6, 1fr)" gap={4}>
       <GridItem colSpan={1}>
-        <ItemTitleForPledge marginTop={32}>Yamato代位弁済</ItemTitleForPledge>
+        <ItemTitleForPledge width="150px" marginTop={32}>
+          Yamato代位弁済
+        </ItemTitleForPledge>
       </GridItem>
 
-      <GridItem colSpan={3}>
+      <GridItem colSpan={5}>
         <SweepInput
           rateOfEthJpy={rateOfEthJpy}
           sweepReserve={sweepReserve}

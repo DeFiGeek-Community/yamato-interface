@@ -1,5 +1,4 @@
-import { Box } from '@chakra-ui/react';
-import { CategoryTitle } from '../CommonItem';
+import { CategoryTitle, ConentBox, HeaderBox2 } from '../CommonItem';
 import SelfRedemption from './SelfRedemption';
 import YamatoRedemption from './YamatoRedemption';
 import YamatoSubrogation from './YamatoSweep';
@@ -7,14 +6,14 @@ import YamatoSubrogation from './YamatoSweep';
 export default function Redemption() {
   return (
     <>
-      <Box border="1px" borderColor="gray.200" borderRadius="md" p={4}>
+      <HeaderBox2>
         <CategoryTitle>Functions</CategoryTitle>
-      </Box>
-      <Box border="1px" borderColor="gray.200" borderRadius="md" p={4}>
+      </HeaderBox2>
+      <ConentBox>
         <SelfRedemption />
         <YamatoRedemption />
         <YamatoSubrogation />
-      </Box>
+      </ConentBox>
     </>
   );
 }
