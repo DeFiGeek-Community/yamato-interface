@@ -25,6 +25,8 @@ function getCjpyRank(rateOfCjpyJpy: { [source: string]: number }) {
 }
 
 export interface InfographicsProps {
+  rateOfCjpyJpyRaw?: number;
+
   // state.market
   rateOfCjpyJpy: {
     [source: string]: number;
@@ -61,9 +63,11 @@ export default function Infographics(props: Partial<InfographicsProps>) {
   const state = useSelector(selector);
   const values = { ...state, ...props };
 
-  const { rateOfCjpyJpy, rateOfEthJpy, redemptionReserve, sweepReserve } =
-    values;
+  const { rateOfEthJpy, redemptionReserve, sweepReserve } = values;
 
+  const rateOfCjpyJpy = props.rateOfCjpyJpyRaw
+    ? { manual: props.rateOfCjpyJpyRaw }
+    : values.rateOfCjpyJpy;
   const tcr =
     props.hasOwnProperty('totalCollateral') ||
     props.hasOwnProperty('totalDebt') ||
