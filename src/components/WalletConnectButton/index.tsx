@@ -7,6 +7,7 @@ import { Button as RebassButton } from 'rebass/styled-components';
 import styled, { css } from 'styled-components';
 // import CoinbaseWalletIcon from '../../../assets/images/coinbaseWalletIcon.svg';
 // import FortmaticIcon from '../../../assets/images/fortmaticIcon.png';
+import CJPYLogo from '../../assets/images/cjpy_mono_logo.png';
 import WalletConnectIcon from '../../assets/images/walletConnectIcon.svg';
 import { NETWORK_LABELS } from '../../constants/chains';
 import { NETWORK_CONTEXT_NAME } from '../../constants/web3';
@@ -26,7 +27,6 @@ import { useWalletState } from '../../state/wallet/hooks';
 import { shortenAddress } from '../../utils/web3';
 // import PortisIcon from '../../..assets/images/portisIcon.png';
 import Loader from '../Loader';
-import CjpyLogo from '../svgs/CjpyLogo';
 import Identicon from './Identicon';
 import Row from './Row';
 import WalletModal from './WalletModal';
@@ -120,9 +120,13 @@ const Text = styled.p`
   text-overflow: ellipsis;
   white-space: nowrap;
   margin: 0 0.5rem 0 0.25rem;
-  font-size: 1rem;
   width: fit-content;
-  font-weight: 500;
+
+  font-style: normal;
+  font-weight: bold;
+  font-size: 1.6rem;
+  line-height: 1.8rem;
+  color: #818181;
 `;
 
 const NetworkIcon = styled(Activity)`
@@ -198,10 +202,19 @@ function Web3StatusInner() {
                 <Text>{txCount} Pending...</Text> <Loader />
               </Row>
             ) : (
-              <Text>{ENSName || shortenAddress(account)}</Text>
+              <Text style={{ fontSize: '18px', lineHeight: '21px' }}>
+                Connected As
+                <br />
+                {ENSName || shortenAddress(account)}
+              </Text>
             )}
-            <Text>
-              <CjpyLogo />
+            <img src={CJPYLogo} width="35px" />
+            <Text
+              style={{
+                fontSize: '3rem',
+                lineHeight: '3.5rem',
+              }}
+            >
               CJPY {cjpy}
             </Text>
           </span>

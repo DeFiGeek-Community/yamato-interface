@@ -24,19 +24,28 @@ export default function Index() {
         >
           <GridItem rowSpan={1} colSpan={2}>
             <Link to="/">
-              <SvgYamatoLogWithTitle width={255} height={25} />
+              <SvgYamatoLogWithTitle width={422} height={50} />
             </Link>
-            <Link to="/tools/">ツール</Link>
           </GridItem>
 
           <GridItem rowSpan={1} colSpan={2}>
             <div
               style={{
                 textAlign: 'right',
-                width: '100%',
               }}
             >
               <Web3Status />
+              <Link
+                to="/tools/"
+                style={{
+                  fontSize: '1.6rem',
+                  fontWeight: 'bold',
+                  color: '#818181',
+                  verticalAlign: 'text-top',
+                }}
+              >
+                ツール
+              </Link>
             </div>
           </GridItem>
         </Grid>

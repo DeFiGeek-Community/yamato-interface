@@ -82,7 +82,9 @@ export default function Infographics(props: Partial<InfographicsProps>) {
   function renderSignalMessages() {
     const messages = getSignalMessages(cjpyPriceRank, ethPriceRank);
     return messages.map((message, index) => (
-      <ItemTitleValue key={index}>{message}</ItemTitleValue>
+      <ItemTitleValue key={index} style={{ display: 'block' }}>
+        {message}
+      </ItemTitleValue>
     ));
   }
 

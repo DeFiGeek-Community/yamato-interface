@@ -47,7 +47,7 @@ export const ItemTitleValue = styled.p<{
   width?: string;
   marginTop?: number;
 }>`
-  width: ${({ width }) => width ?? '100px'};
+  width: ${({ width }) => width ?? '100%'};
   color: #818181;
   margin-top: ${({ marginTop }) => marginTop ?? 0}px;
   display: inline-block;
