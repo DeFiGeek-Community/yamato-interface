@@ -227,16 +227,11 @@ export const ThemedBackground = styled.div<{
   transition: background 450ms ease;
 `;
 
-export const FixedGlobalStyle = createGlobalStyle`
-html, input, textarea, button {
-  font-family: 'Inter', sans-serif;
-  font-display: fallback;
-}
-@supports (font-variation-settings: normal) {
-  html, input, textarea, button {
-    font-family: 'Inter var', sans-serif;
-  }
-}
+export const ThemedGlobalStyle = createGlobalStyle`
+/* html {
+  color: ${({ theme }) => theme.text1};
+  background-color: ${({ theme }) => theme.bg1};
+} */
 
 html,
 body {
@@ -244,39 +239,33 @@ body {
   padding: 0;
 }
 
- a {
-   color: ${colors().blue1}; 
- }
-
-* {
-  box-sizing: border-box;
-}
-
-button {
-  user-select: none;
-}
-
 html {
-  font-size: 16px;
-  font-variant: none;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-  font-feature-settings: 'ss01' on, 'ss02' on,  'cv01' on, 'cv03' on;
-  
+	font-size: 62.5%; // 10px
 }
-`;
 
-export const ThemedGlobalStyle = createGlobalStyle`
-html {
-  color: ${({ theme }) => theme.text1};
-  background-color: ${({ theme }) => theme.bg1};
+@media screen and (max-width:1200px) {
+  html {
+    font-size: 56.25%; // 9px
+  }
+}
+
+@media screen and (max-width:768px) {
+  html {
+    font-size: 50%; // 8px
+  }
 }
 
 body {
-  min-height: 100vh;
-  background-position: 0 -30vh;
-  background-repeat: no-repeat;
+  font-family: -apple-system, BlinkMacSystemFont, 'Roboto', 'Segoe UI', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  font-display: fallback;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
 }
 `;
