@@ -1,11 +1,7 @@
 import {
-  Button,
   FormControl,
   FormErrorMessage,
-  FormHelperText,
-  FormLabel,
   HStack,
-  Input,
   VStack,
 } from '@chakra-ui/react';
 import { format } from 'date-fns';
@@ -15,22 +11,33 @@ import { YAMATO_SYMBOL } from '../../../constants/yamato';
 import useInterval from '../../../hooks/useInterval';
 import { useWithdrawCollateral } from '../../../state/pledge/hooks';
 import { subtractToNum } from '../../../utils/bignumber';
-import { formatCollateralizationRatio } from '../../../utils/prices';
+import {
+  formatCollateralizationRatio,
+  formatPrice,
+} from '../../../utils/prices';
+import { CustomButton, CustomFormLabel, CustomInput } from '../../CommonItem';
 
-type Props = { collateral: number; debt: number; withdrawalLockDate: number };
+type Props = {
+  collateral: number;
+  debt: number;
+  rateOfEthJpy: number;
+  withdrawalLockDate: number;
+};
 
 export default function WithdrawalInput(props: Props) {
+  const { collateral, debt, rateOfEthJpy, withdrawalLockDate } = props;
+
   const withdrawCollateral = useWithdrawCollateral();
 
   const [withdrawal, setWithdrawal] = useState(0);
   const [remainLockTime, setRemainLockTime] = useState(-1);
 
   useInterval(() => {
-    if (!props.withdrawalLockDate || !remainLockTime) {
+    if (!withdrawalLockDate || !remainLockTime) {
       return;
     }
     const now = Math.floor(Date.now() / 1000);
-    setRemainLockTime(props.withdrawalLockDate - now);
+    setRemainLockTime(withdrawalLockDate - now);
   }, 500);
 
   function validateWithdrawal(value: number) {
@@ -38,7 +45,7 @@ export default function WithdrawalInput(props: Props) {
     if (value == null || typeof value !== 'number') {
       return '数値で入力してください。';
     }
-    if (value > props.collateral) {
+    if (value > collateral) {
       return '残高を超えています。';
     }
 
@@ -66,7 +73,7 @@ export default function WithdrawalInput(props: Props) {
       {(formikProps) => (
         <Form>
           <VStack spacing={4} align="start">
-            <HStack spacing={4} align="flex-end">
+            <HStack spacing={4}>
               <Field name="withdrawal" validate={validateWithdrawal}>
                 {({ field, form }: FieldProps) => (
                   <FormControl
@@ -75,8 +82,8 @@ export default function WithdrawalInput(props: Props) {
                     }
                     style={{ maxWidth: '200px' }}
                   >
-                    <FormLabel htmlFor="withdrawal">引出量入力</FormLabel>
-                    <Input
+                    <CustomFormLabel htmlFor="withdrawal" text="引出量入力" />
+                    <CustomInput
                       {...field}
                       id="withdrawal"
                       type="number"
@@ -89,37 +96,38 @@ export default function WithdrawalInput(props: Props) {
                   </FormControl>
                 )}
               </Field>
-              <Button
-                colorScheme="teal"
+              <CustomButton
                 isLoading={formikProps.isSubmitting}
                 type="submit"
                 data-testid="collateral-act-withdraw"
                 disabled={remainLockTime > 0}
               >
                 引出実行
-              </Button>
+              </CustomButton>
             </HStack>
             {withdrawal > 0 && (
               <HStack spacing={4} align="flex-end">
-                <label>変動予測値表示</label>
-                <span>
-                  {subtractToNum(props.collateral, withdrawal)}
-                  {YAMATO_SYMBOL.COLLATERAL}
-                  {', 担保率'}
-                  {formatCollateralizationRatio(
-                    props.collateral - withdrawal,
-                    props.debt
-                  )}
-                  %
-                </span>
+                <CustomFormLabel
+                  text={`変動予測値表示...${
+                    formatPrice(subtractToNum(collateral, withdrawal), 'jpy')
+                      .value
+                  }${
+                    YAMATO_SYMBOL.COLLATERAL
+                  }, 担保率${formatCollateralizationRatio(
+                    (collateral - withdrawal) * rateOfEthJpy,
+                    debt
+                  )}%`}
+                />
               </HStack>
             )}
             {remainLockTime > 0 && (
               <HStack spacing={4} align="flex-end">
-                <label>ロックタイムカウントダウン </label>
-                <span>
-                  {format(remainLockTime * 1000, 'あとdd日HH時mm分ss秒')}
-                </span>
+                <CustomFormLabel
+                  text={`ロックタイムカウントダウン...${format(
+                    remainLockTime * 1000,
+                    'あとdd日HH時mm分ss秒'
+                  )}`}
+                />
               </HStack>
             )}
           </VStack>

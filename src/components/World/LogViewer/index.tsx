@@ -1,6 +1,7 @@
 import { LOG_EVENT_NAME } from '../../../constants/yamato';
 import { useYamatoStateForWorld } from '../../../state/yamato-entirety/hooks';
 import { LogEvent, LogEventType } from '../../../state/yamato-entirety/reducer';
+import { CurrentValue } from '../../CommonItem';
 
 function getColor(category: LogEventType) {
   switch (category) {
@@ -54,17 +55,17 @@ export default function LogViewer() {
       const color = getColor(event.category as LogEventType);
       const descriptor = getDescriptor(event);
       return (
-        <div key={index}>
+        <CurrentValue key={index} style={{ display: 'block' }}>
           <span style={{ color, fontWeight: 'bold' }}>{title}</span>
           <span>: {event.address}が</span>
           <span>{descriptor}</span>
-        </div>
+        </CurrentValue>
       );
     });
   }
 
   return (
-    <div style={{ height: '500px', overflowY: 'scroll' }}>
+    <div style={{ height: '350px', overflowY: 'scroll' }}>
       {renderLogEvents()}
     </div>
   );

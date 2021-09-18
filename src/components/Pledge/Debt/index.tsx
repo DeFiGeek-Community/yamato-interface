@@ -7,7 +7,11 @@ import {
   formatCollateralizationRatio,
   formatPrice,
 } from '../../../utils/prices';
-import { CurrentValue, ItemTitleForPledge } from '../../CommonItem';
+import {
+  ItemTitleValue,
+  ItemTitleForPledge,
+  CurrentValue,
+} from '../../CommonItem';
 import BorrowInput from './BorrowingInput';
 import RepayInput from './RepayInput';
 
@@ -39,39 +43,52 @@ export default function Debt() {
       </GridItem>
 
       <GridItem colSpan={1}>
-        <CurrentValue marginTop={32} data-testid="borrowing-data-currentAmount">
-          {debt}
+        <ItemTitleValue
+          marginTop={32}
+          data-testid="borrowing-data-currentAmount"
+        >
+          {formatPrice(debt, 'jpy').value}
           {YAMATO_SYMBOL.YEN}
-        </CurrentValue>
+        </ItemTitleValue>
       </GridItem>
 
       <GridItem colSpan={3}>
-        <BorrowInput collateral={collateral} debt={debt} />
+        <BorrowInput
+          collateral={collateral}
+          debt={debt}
+          rateOfEthJpy={rateOfEthJpy}
+        />
       </GridItem>
 
       <GridItem colSpan={3}>
-        <RepayInput collateral={collateral} debt={debt} />
+        <RepayInput
+          collateral={collateral}
+          debt={debt}
+          rateOfEthJpy={rateOfEthJpy}
+        />
       </GridItem>
 
       <GridItem colSpan={1}>
         <ItemTitleForPledge marginTop={32}>担保率</ItemTitleForPledge>
       </GridItem>
       <GridItem colSpan={1}>
-        <CurrentValue marginTop={32}>
-          {formatCollateralizationRatio(collateral, debt)}%
-        </CurrentValue>
+        <ItemTitleValue marginTop={32}>
+          {formatCollateralizationRatio(collateral * rateOfEthJpy, debt)}%
+        </ItemTitleValue>
       </GridItem>
-      <GridItem colSpan={4}>
-        <CurrentValue marginTop={32} width={'100%'}>
-          最大借入可能量...
-          {
-            formatPrice(
-              getBorrowableAmount(collateral, debt, rateOfEthJpy),
-              'jpy'
-            ).value
-          }
-          {YAMATO_SYMBOL.YEN}
-        </CurrentValue>
+      <GridItem colSpan={5}>
+        <div style={{ marginTop: '32px', textAlign: 'right' }}>
+          <CurrentValue>
+            最大借入可能量...
+            {
+              formatPrice(
+                getBorrowableAmount(collateral, debt, rateOfEthJpy),
+                'jpy'
+              ).value
+            }
+            {YAMATO_SYMBOL.YEN}
+          </CurrentValue>
+        </div>
       </GridItem>
     </Grid>
   );

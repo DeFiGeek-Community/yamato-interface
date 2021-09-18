@@ -5,7 +5,7 @@ import { usePledgeData } from '../../../state/pledge/hooks';
 import { useYamatoStateForPledge } from '../../../state/yamato-entirety/hooks';
 import { multiplyToNum } from '../../../utils/bignumber';
 import { formatPrice } from '../../../utils/prices';
-import { ItemTitleForPledge, CurrentValue } from '../../CommonItem';
+import { ItemTitleForPledge, ItemTitleValue } from '../../CommonItem';
 import DepositInput from './DepositInput';
 import WithdrawalInput from './WithdrawalInput';
 
@@ -22,23 +22,28 @@ export default function Collateral() {
       </GridItem>
 
       <GridItem colSpan={1}>
-        <CurrentValue
+        <ItemTitleValue
           marginTop={32}
           data-testid="collateral-data-currentAmount"
         >
           {collateral}
           {YAMATO_SYMBOL.COLLATERAL}
-        </CurrentValue>
+        </ItemTitleValue>
       </GridItem>
 
       <GridItem colSpan={3}>
-        <DepositInput collateral={collateral} debt={debt} />
+        <DepositInput
+          collateral={collateral}
+          debt={debt}
+          rateOfEthJpy={rateOfEthJpy}
+        />
       </GridItem>
 
       <GridItem colSpan={3}>
         <WithdrawalInput
           collateral={collateral}
           debt={debt}
+          rateOfEthJpy={rateOfEthJpy}
           withdrawalLockDate={withdrawalLockDate}
         />
       </GridItem>
@@ -47,9 +52,9 @@ export default function Collateral() {
         <ItemTitleForPledge marginTop={32}>評価額</ItemTitleForPledge>
       </GridItem>
       <GridItem colSpan={1}>
-        <CurrentValue marginTop={32}>
+        <ItemTitleValue marginTop={32}>
           ¥{formatPrice(multiplyToNum(collateral, rateOfEthJpy), 'jpy').value}
-        </CurrentValue>
+        </ItemTitleValue>
       </GridItem>
     </Grid>
   );

@@ -57,7 +57,7 @@ export default function Index() {
             <Dashboad />
           </GridItem>
 
-          <GridItem rowSpan={5} colSpan={1}>
+          <GridItem rowSpan={4} colSpan={1}>
             <World />
           </GridItem>
 

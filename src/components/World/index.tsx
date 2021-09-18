@@ -5,7 +5,7 @@ export default function World() {
   return (
     <>
       <HeaderBox1>
-        <CategoryTitle>リアルタイムTX</CategoryTitle>
+        <CategoryTitle>real time TX</CategoryTitle>
       </HeaderBox1>
       <ConentBox>
         <LogViewer />

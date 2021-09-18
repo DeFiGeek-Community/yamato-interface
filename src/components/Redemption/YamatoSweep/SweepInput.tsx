@@ -1,8 +1,9 @@
-import { Button, Grid, GridItem, VStack } from '@chakra-ui/react';
+import { Grid, GridItem, VStack } from '@chakra-ui/react';
 import { Formik, Form, FormikHelpers } from 'formik';
 import { YAMATO_SYMBOL } from '../../../constants/yamato';
 import { useActiveWeb3React } from '../../../hooks/web3';
 import { formatPrice } from '../../../utils/prices';
+import { CurrentValue, CustomButton, CustomFormLabel } from '../../CommonItem';
 
 type Props = {
   rateOfEthJpy: number;
@@ -12,6 +13,7 @@ type Props = {
 
 export default function SweepInput(props: Props) {
   const { sweepReserve, sweepableCandiate } = props;
+
   const { account, library } = useActiveWeb3React();
 
   function getExpectedReward() {
@@ -43,42 +45,38 @@ export default function SweepInput(props: Props) {
           <Grid templateColumns="repeat(4, 1fr)" gap={4}>
             <GridItem colSpan={1}>
               <VStack align="start">
-                <label>プール総額</label>
-                <span>
+                <CustomFormLabel text={'プール総額'} />
+                <CurrentValue>
                   {formatPrice(sweepReserve, 'jpy').value}
                   {YAMATO_SYMBOL.YEN}
-                </span>
+                </CurrentValue>
               </VStack>
             </GridItem>
 
             <GridItem colSpan={1}>
               <VStack align="start">
-                <label>弁済候補総額</label>
-                <span>
+                <CustomFormLabel text={'弁済候補総額'} />
+                <CurrentValue>
                   {formatPrice(sweepableCandiate, 'jpy').value}
                   {YAMATO_SYMBOL.YEN}
-                </span>
+                </CurrentValue>
               </VStack>
             </GridItem>
 
             <GridItem colSpan={1}>
               <VStack align="start">
-                <label>実行リワード予測</label>
-                <span>
+                <CustomFormLabel text={'実行リワード予測'} />
+                <CurrentValue>
                   {formatPrice(getExpectedReward(), 'jpy').value}
                   {YAMATO_SYMBOL.YEN}
-                </span>
+                </CurrentValue>
               </VStack>
             </GridItem>
 
             <GridItem colSpan={1}>
-              <Button
-                colorScheme="teal"
-                isLoading={formikProps.isSubmitting}
-                type="submit"
-              >
+              <CustomButton isLoading={formikProps.isSubmitting} type="submit">
                 代位弁済実行
-              </Button>
+              </CustomButton>
             </GridItem>
           </Grid>
         </Form>
