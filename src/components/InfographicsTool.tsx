@@ -41,8 +41,8 @@ export default function InfographicsTool() {
           </HeaderBox1>
           <ConentBox>
             <Grid
-              templateRows="repeat(8, 1fr)"
-              templateColumns="repeat(4, 1fr)"
+              templateRows="repeat(5, 1fr)"
+              templateColumns="repeat(2, 1fr)"
               gap={8}
             >
               <GridItem rowSpan={5} colSpan={1}>
