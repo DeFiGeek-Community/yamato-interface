@@ -1,5 +1,4 @@
 import {
-  Box,
   Grid,
   GridItem,
   Stack,
@@ -40,14 +39,14 @@ export default function Tools() {
   return (
     <Layout>
       <Helmet title="Yamato Tools" />
-      <Grid
-        templateRows="repeat(16, 1fr)"
-        templateColumns="repeat(4, 1fr)"
-        gap={4}
-      >
-        <Formik initialValues={{}} onSubmit={() => undefined}>
-          {(formik) => (
-            <Form>
+      <Formik initialValues={{}} onSubmit={() => undefined}>
+        {(formik) => (
+          <Form>
+            <Grid
+              templateRows="repeat(8, 1fr)"
+              templateColumns="repeat(4, 1fr)"
+              gap={8}
+            >
               <GridItem rowSpan={5} colSpan={1}>
                 <Infographics {...formik.values} />
               </GridItem>
@@ -108,10 +107,10 @@ export default function Tools() {
                   />
                 </Stack>
               </GridItem>
-            </Form>
-          )}
-        </Formik>
-      </Grid>
+            </Grid>
+          </Form>
+        )}
+      </Formik>
     </Layout>
   );
 }
