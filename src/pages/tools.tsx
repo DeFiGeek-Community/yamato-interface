@@ -45,7 +45,7 @@ export default function Index() {
       {(formik) => (
         <Form>
           <Box p={4}>
-            <Helmet title="ツール" />
+            <Helmet title="Yamato Tools" />
 
             <Grid
               templateRows="repeat(16, 1fr)"
