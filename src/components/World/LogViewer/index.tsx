@@ -1,3 +1,5 @@
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
+import styled from 'styled-components';
 import { LOG_EVENT_NAME } from '../../../constants/yamato';
 import { useYamatoStateForWorld } from '../../../state/yamato-entirety/hooks';
 import { LogEvent, LogEventType } from '../../../state/yamato-entirety/reducer';
@@ -45,27 +47,61 @@ function getDescriptor(event: LogEvent) {
   }
 }
 
+const Animation = styled.div`
+  transition: opacity 0.5s;
+
+  // enter from
+  &.fade-enter {
+    opacity: 0;
+  }
+
+  // enter to
+  &.fade-enter-active {
+    opacity: 1;
+  }
+
+  // exit from
+  &.fade-exit {
+    opacity: 1;
+  }
+
+  // exit to 
+  &.fade-exit-active {
+    opacity: 0;
+  }
+}`;
+
 export default function LogViewer() {
   const { events } = useYamatoStateForWorld();
   const diplayedEvents = events.slice(0, 20);
 
   function renderLogEvents() {
-    return diplayedEvents.map((event, index) => {
+    return diplayedEvents.map((event) => {
       const title = LOG_EVENT_NAME[event.category as LogEventType];
       const color = getColor(event.category as LogEventType);
       const descriptor = getDescriptor(event);
       return (
-        <Text key={index} style={{ display: 'block' }}>
-          <span style={{ color, fontWeight: 'bold' }}>{title}</span>
-          <span>: {event.address}が</span>
-          <span>{descriptor}</span>
-        </Text>
+        <CSSTransition key={event.id} timeout={500} classNames="fade">
+          <Animation>
+            <Text
+              key={event.id}
+              style={{
+                display: 'block',
+              }}
+            >
+              <span style={{ color, fontWeight: 'bold' }}>{title}</span>
+              <span>: {event.address}が</span>
+              <span>{descriptor}</span>
+            </Text>
+          </Animation>
+        </CSSTransition>
       );
     });
   }
 
   return (
     <div style={{ height: '250px', overflowY: 'scroll' }}>
+      <TransitionGroup>{renderLogEvents()}</TransitionGroup>
       {renderLogEvents()}
     </div>
   );
