@@ -1,6 +1,6 @@
 import { Grid, GridItem } from '@chakra-ui/react';
-import { useSelector } from 'react-redux';
-import { AppState } from '../../state';
+import { useMarketState } from '../../state/market/hooks';
+import { useYamatoStateForInfographics } from '../../state/yamato-entirety/hooks';
 import { CategoryTitle, ConentBox, HeaderBox1 } from '../CommonItem';
 import CjpyPrice from './CjpyPrice';
 import EthPrice from './EthPrice';
@@ -42,39 +42,27 @@ export interface InfographicsProps {
   prevSweepReserve: number; // state.yamatoEntirety.pool.prevSweepReserve
 }
 
-function selector(state: AppState): InfographicsProps {
-  return {
-    rateOfCjpyJpy: state.market.rateOfCjpyJpy,
-    totalCollateral: state.yamatoEntirety.lending.totalCollateral,
-    totalDebt: state.yamatoEntirety.lending.totalDebt,
-    tcr: state.yamatoEntirety.lending.tcr,
-    rateOfEthJpy: state.yamatoEntirety.rateOfEthJpy,
-    prevRateOfEthJpy: state.yamatoEntirety.prevRateOfEthJpy,
-    redemptionReserve: state.yamatoEntirety.pool.redemptionReserve,
-    prevRedemptionReserve: state.yamatoEntirety.pool.prevRedemptionReserve,
-    sweepReserve: state.yamatoEntirety.pool.sweepReserve,
-    prevSweepReserve: state.yamatoEntirety.pool.prevSweepReserve,
-  };
-}
-
 export default function Infographics(props: Partial<InfographicsProps>) {
-  const state = useSelector(selector);
-  const values = { ...state, ...props };
+  const marketState = useMarketState();
+  const yamatoState = useYamatoStateForInfographics();
+  const mixedValues = { ...marketState, ...yamatoState, ...props };
 
   const { rateOfCjpyJpy, rateOfEthJpy, redemptionReserve, sweepReserve } =
-    values;
+    mixedValues;
 
   const tcr =
     props.hasOwnProperty('totalCollateral') ||
     props.hasOwnProperty('totalDebt') ||
     props.hasOwnProperty('rateOfEthJpy')
-      ? (100 * values.totalCollateral * values.rateOfEthJpy) / values.totalDebt
-      : values.tcr;
-  const ethChangePercent = values.rateOfEthJpy / values.prevRateOfEthJpy;
+      ? (100 * mixedValues.totalCollateral * mixedValues.rateOfEthJpy) /
+        mixedValues.totalDebt
+      : mixedValues.tcr;
+  const ethChangePercent =
+    mixedValues.rateOfEthJpy / mixedValues.prevRateOfEthJpy;
   const isIncreaseForRedemptionReserve =
-    values.redemptionReserve > values.prevRedemptionReserve;
+    mixedValues.redemptionReserve > mixedValues.prevRedemptionReserve;
   const isIncreaseForSweepReserve =
-    values.sweepReserve > values.prevSweepReserve;
+    mixedValues.sweepReserve > mixedValues.prevSweepReserve;
 
   /**
    * All 21 Ranks(-10 ~ +10)
