@@ -17,6 +17,7 @@ import {
 import { AppDispatch } from '../../../state';
 import { getEtherscanLink } from '../../../utils/externalLink';
 import { shortenAddress } from '../../../utils/web3';
+import { CategoryTitle } from '../../CommonItem';
 import { ExternalLink } from '../../ExternalLink';
 // import CoinbaseWalletIcon from '../../assets/images/coinbaseWalletIcon.svg';
 // import FortmaticIcon from '../../assets/images/fortmaticIcon.png';
@@ -266,7 +267,9 @@ export default function AccountDetails({
   return (
     <>
       <UpperSection>
-        <HeaderRow>Account</HeaderRow>
+        <HeaderRow>
+          <CategoryTitle>Account</CategoryTitle>
+        </HeaderRow>
         <AccountSection>
           <YourAccount>
             <InfoCard>
