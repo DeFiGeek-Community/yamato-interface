@@ -12,7 +12,7 @@ import { useActiveWeb3React } from '../../../hooks/web3';
 import { useWalletState } from '../../../state/wallet/hooks';
 import { formatPrice } from '../../../utils/prices';
 import {
-  CurrentValue,
+  Text,
   CustomButton,
   CustomFormLabel,
   CustomInput,
@@ -108,7 +108,7 @@ export default function RedemptionInput(props: Props) {
               {redemption > 0 && (
                 <VStack align="start" mt={4}>
                   <CustomFormLabel text="予想担保獲得数" />
-                  <CurrentValue>
+                  <Text>
                     {
                       formatPrice(
                         getExpectedCollateral(
@@ -119,7 +119,7 @@ export default function RedemptionInput(props: Props) {
                       ).value
                     }
                     {YAMATO_SYMBOL.COLLATERAL}
-                  </CurrentValue>
+                  </Text>
                 </VStack>
               )}
             </GridItem>
@@ -127,14 +127,14 @@ export default function RedemptionInput(props: Props) {
             <GridItem colSpan={2}>
               <VStack align="start">
                 <CustomFormLabel text="償還候補総額" />
-                <CurrentValue>
+                <Text>
                   {formatPrice(redeemableCandidate.eth, 'eth').value}
                   {YAMATO_SYMBOL.COLLATERAL}
-                </CurrentValue>
-                <CurrentValue>
+                </Text>
+                <Text>
                   ({formatPrice(redeemableCandidate.cjpy, 'jpy').value}
                   {YAMATO_SYMBOL.YEN})
-                </CurrentValue>
+                </Text>
               </VStack>
             </GridItem>
 

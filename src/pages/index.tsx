@@ -58,7 +58,7 @@ export default function Index() {
         }}
       >
         <Grid
-          templateRows="repeat(10, 1fr)"
+          templateRows="repeat(9, 1fr)"
           templateColumns="repeat(4, 1fr)"
           gap={4}
         >

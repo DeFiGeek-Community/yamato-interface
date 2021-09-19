@@ -3,7 +3,7 @@ import { Formik, Form, FormikHelpers } from 'formik';
 import { YAMATO_SYMBOL } from '../../../constants/yamato';
 import { useActiveWeb3React } from '../../../hooks/web3';
 import { formatPrice } from '../../../utils/prices';
-import { CurrentValue, CustomButton, CustomFormLabel } from '../../CommonItem';
+import { Text, CustomButton, CustomFormLabel } from '../../CommonItem';
 import {
   getExpectedCollateral,
   getRedeemableCandidate,
@@ -52,31 +52,31 @@ export default function RedemptionInput(props: Props) {
             <GridItem colSpan={1}>
               <VStack align="start">
                 <CustomFormLabel text={'プール総額'} />
-                <CurrentValue>
+                <Text>
                   {formatPrice(redemptionReserve, 'jpy').value}
                   {YAMATO_SYMBOL.YEN}
-                </CurrentValue>
+                </Text>
               </VStack>
             </GridItem>
 
             <GridItem colSpan={1}>
               <VStack align="start">
                 <CustomFormLabel text={'償還候補総額'} />
-                <CurrentValue>
+                <Text>
                   {formatPrice(redeemableCandidate.eth, 'eth').value}
                   {YAMATO_SYMBOL.COLLATERAL}
-                </CurrentValue>
-                <CurrentValue>
+                </Text>
+                <Text>
                   ({formatPrice(redeemableCandidate.cjpy, 'jpy').value}
                   {YAMATO_SYMBOL.YEN})
-                </CurrentValue>
+                </Text>
               </VStack>
             </GridItem>
 
             <GridItem colSpan={1}>
               <VStack align="start">
                 <CustomFormLabel text={'実行リワード予測'} />
-                <CurrentValue>
+                <Text>
                   {
                     formatPrice(
                       getExpectedCollateral(
@@ -87,7 +87,7 @@ export default function RedemptionInput(props: Props) {
                     ).value
                   }
                   {YAMATO_SYMBOL.COLLATERAL}
-                </CurrentValue>
+                </Text>
               </VStack>
             </GridItem>
 

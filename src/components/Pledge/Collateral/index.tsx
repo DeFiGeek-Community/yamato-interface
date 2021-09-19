@@ -18,12 +18,12 @@ export default function Collateral() {
   return (
     <Grid templateColumns="repeat(8, 1fr)" gap={4} mb={4}>
       <GridItem colSpan={1}>
-        <ItemTitleForPledge marginTop={32}>担保数</ItemTitleForPledge>
+        <ItemTitleForPledge marginTop={26}>担保数</ItemTitleForPledge>
       </GridItem>
 
       <GridItem colSpan={1}>
         <ItemTitleValue
-          marginTop={32}
+          marginTop={26}
           data-testid="collateral-data-currentAmount"
         >
           {collateral}
@@ -49,10 +49,10 @@ export default function Collateral() {
       </GridItem>
 
       <GridItem colSpan={1}>
-        <ItemTitleForPledge marginTop={32}>評価額</ItemTitleForPledge>
+        <ItemTitleForPledge marginTop={26}>評価額</ItemTitleForPledge>
       </GridItem>
       <GridItem colSpan={1}>
-        <ItemTitleValue marginTop={32}>
+        <ItemTitleValue marginTop={26}>
           ¥{formatPrice(multiplyToNum(collateral, rateOfEthJpy), 'jpy').value}
         </ItemTitleValue>
       </GridItem>

@@ -3,7 +3,7 @@ import { Formik, Form, FormikHelpers } from 'formik';
 import { YAMATO_SYMBOL } from '../../../constants/yamato';
 import { useActiveWeb3React } from '../../../hooks/web3';
 import { formatPrice } from '../../../utils/prices';
-import { CurrentValue, CustomButton, CustomFormLabel } from '../../CommonItem';
+import { Text, CustomButton, CustomFormLabel } from '../../CommonItem';
 
 type Props = {
   rateOfEthJpy: number;
@@ -46,30 +46,30 @@ export default function SweepInput(props: Props) {
             <GridItem colSpan={1}>
               <VStack align="start">
                 <CustomFormLabel text={'プール総額'} />
-                <CurrentValue>
+                <Text>
                   {formatPrice(sweepReserve, 'jpy').value}
                   {YAMATO_SYMBOL.YEN}
-                </CurrentValue>
+                </Text>
               </VStack>
             </GridItem>
 
             <GridItem colSpan={1}>
               <VStack align="start">
                 <CustomFormLabel text={'弁済候補総額'} />
-                <CurrentValue>
+                <Text>
                   {formatPrice(sweepableCandiate, 'jpy').value}
                   {YAMATO_SYMBOL.YEN}
-                </CurrentValue>
+                </Text>
               </VStack>
             </GridItem>
 
             <GridItem colSpan={1}>
               <VStack align="start">
                 <CustomFormLabel text={'実行リワード予測'} />
-                <CurrentValue>
+                <Text>
                   {formatPrice(getExpectedReward(), 'jpy').value}
                   {YAMATO_SYMBOL.YEN}
-                </CurrentValue>
+                </Text>
               </VStack>
             </GridItem>
 

@@ -16,6 +16,14 @@ export const CategoryTitle = styled.h2`
   line-height: 2.1rem;
 `;
 
+export const Text = styled.span`
+  font-style: normal;
+  font-weight: 500;
+  font-size: 1.4rem;
+  line-height: 1.6rem;
+  color: #818181;
+`;
+
 /**
  * ItemTitle
  */
@@ -130,14 +138,6 @@ export function CustomFormLabel(props: {
     </FormLabel>
   );
 }
-
-export const CurrentValue = styled.span`
-  font-style: normal;
-  font-weight: 500;
-  font-size: 1.4rem;
-  line-height: 1.6rem;
-  color: #818181;
-`;
 
 export function CustomInput(
   props: {

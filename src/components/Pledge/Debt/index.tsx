@@ -7,11 +7,7 @@ import {
   formatCollateralizationRatio,
   formatPrice,
 } from '../../../utils/prices';
-import {
-  ItemTitleValue,
-  ItemTitleForPledge,
-  CurrentValue,
-} from '../../CommonItem';
+import { ItemTitleValue, ItemTitleForPledge, Text } from '../../CommonItem';
 import BorrowInput from './BorrowingInput';
 import RepayInput from './RepayInput';
 
@@ -39,12 +35,12 @@ export default function Debt() {
   return (
     <Grid templateColumns="repeat(8, 1fr)" gap={4} mb={4}>
       <GridItem colSpan={1}>
-        <ItemTitleForPledge marginTop={32}>借入量</ItemTitleForPledge>
+        <ItemTitleForPledge marginTop={26}>借入量</ItemTitleForPledge>
       </GridItem>
 
       <GridItem colSpan={1}>
         <ItemTitleValue
-          marginTop={32}
+          marginTop={26}
           data-testid="borrowing-data-currentAmount"
         >
           {formatPrice(debt, 'jpy').value}
@@ -69,16 +65,16 @@ export default function Debt() {
       </GridItem>
 
       <GridItem colSpan={1}>
-        <ItemTitleForPledge marginTop={32}>担保率</ItemTitleForPledge>
+        <ItemTitleForPledge marginTop={26}>担保率</ItemTitleForPledge>
       </GridItem>
       <GridItem colSpan={1}>
-        <ItemTitleValue marginTop={32}>
+        <ItemTitleValue marginTop={26}>
           {formatCollateralizationRatio(collateral * rateOfEthJpy, debt)}%
         </ItemTitleValue>
       </GridItem>
       <GridItem colSpan={5}>
         <div style={{ marginTop: '32px', textAlign: 'right' }}>
-          <CurrentValue>
+          <Text>
             最大借入可能量...
             {
               formatPrice(
@@ -87,7 +83,7 @@ export default function Debt() {
               ).value
             }
             {YAMATO_SYMBOL.YEN}
-          </CurrentValue>
+          </Text>
         </div>
       </GridItem>
     </Grid>
