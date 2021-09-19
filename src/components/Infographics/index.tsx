@@ -47,7 +47,7 @@ export interface InfographicsProps {
   prevSweepReserve: number; // state.yamatoEntirety.pool.prevSweepReserve
 }
 
-export default function Infographics(props: Partial<InfographicsProps>) {
+export function IInfographics(props: Partial<InfographicsProps>) {
   const marketState = useMarketState();
   const yamatoState = useYamatoStateForInfographics();
   const mixedValues = { ...marketState, ...yamatoState, ...props };
@@ -101,40 +101,48 @@ export default function Infographics(props: Partial<InfographicsProps>) {
 
   return (
     <>
+      <div style={{ minHeight: '16px', marginBottom: '10px' }}>
+        {renderSignalMessages()}
+      </div>
+      <Grid
+        templateRows="repeat(5, 1fr)"
+        templateColumns="repeat(2, 1fr)"
+        gap={4}
+      >
+        <GridItem colSpan={1} rowSpan={5}>
+          <CjpyPrice
+            cjpyPriceRank={cjpyPriceRank}
+            ethPriceRank={ethPriceRank}
+            colorCodePerTcr={colorCodePerTcr}
+          />
+        </GridItem>
+        <GridItem colSpan={1} rowSpan={1}>
+          <EthPrice ethPrice={rateOfEthJpy} ethPriceRank={ethPriceRank} />
+        </GridItem>
+        <GridItem colSpan={1} rowSpan={2}>
+          <Tcr tcr={tcr} />
+        </GridItem>
+        <GridItem colSpan={1} rowSpan={2}>
+          <Pool
+            chargeRankOfRedemption={chargeRankOfRedemption}
+            isIncreaseForRedemptionReserve={isIncreaseForRedemptionReserve}
+            chargeRankOfSweep={chargeRankOfSweep}
+            isIncreaseForSweepReserve={isIncreaseForSweepReserve}
+          />
+        </GridItem>
+      </Grid>
+    </>
+  );
+}
+
+export default function Infographics(props: Partial<InfographicsProps>) {
+  return (
+    <>
       <HeaderBox1>
         <CategoryTitle>CJPY Now</CategoryTitle>
       </HeaderBox1>
       <ConentBox>
-        <div style={{ minHeight: '16px', marginBottom: '10px' }}>
-          {renderSignalMessages()}
-        </div>
-        <Grid
-          templateRows="repeat(5, 1fr)"
-          templateColumns="repeat(2, 1fr)"
-          gap={4}
-        >
-          <GridItem colSpan={1} rowSpan={5}>
-            <CjpyPrice
-              cjpyPriceRank={cjpyPriceRank}
-              ethPriceRank={ethPriceRank}
-              colorCodePerTcr={colorCodePerTcr}
-            />
-          </GridItem>
-          <GridItem colSpan={1} rowSpan={1}>
-            <EthPrice ethPrice={rateOfEthJpy} ethPriceRank={ethPriceRank} />
-          </GridItem>
-          <GridItem colSpan={1} rowSpan={2}>
-            <Tcr tcr={tcr} />
-          </GridItem>
-          <GridItem colSpan={1} rowSpan={2}>
-            <Pool
-              chargeRankOfRedemption={chargeRankOfRedemption}
-              isIncreaseForRedemptionReserve={isIncreaseForRedemptionReserve}
-              chargeRankOfSweep={chargeRankOfSweep}
-              isIncreaseForSweepReserve={isIncreaseForSweepReserve}
-            />
-          </GridItem>
-        </Grid>
+        <IInfographics {...props} />
       </ConentBox>
     </>
   );
