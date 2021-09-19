@@ -31,10 +31,11 @@ export type LogEvent = {
  */
 export interface YamatoEntiretyState {
   lending: {
-    totalCollateral: number; // ETH
-    totalDebt: number; // CJPY
+    // the parameters about CJPY lending.
+    totalCollateral: number; // the ETH amount of collateral that the plege is holding.
+    totalDebt: number; // the CJPY amount of debt that the users plege is holding.
     tvl: number; // ETH
-    tcr: number; // Total Collateralization Ratio
+    tcr: number; // Total Collateralization Ratio of the users plege, derived from `(totalCollateral * rateOfEthJpy / totalDebt)`
   };
   pool: {
     redemptionReserve: number; // CJPY
@@ -44,13 +45,21 @@ export interface YamatoEntiretyState {
     sweepableCandiate: number; // ETH
   };
   token: {
-    cjpy: { totalSupply: number };
-    ymt: { totalSupply: number };
-    veYmt: { totalSupply: number; boostRate: number; farmingScore: number };
+    cjpy: {
+      totalSupply: number; // the total amount of CJPY that the Yamato protocol is supplying.
+    };
+    ymt: {
+      totalSupply: number; // the total amount of YMT that the Yamato protocol is supplying.
+    };
+    veYmt: {
+      totalSupply: number; // the total amount of veYMT that the Yamato protocol is supplying.
+      boostRate: number;
+      farmingScore: number;
+    };
   };
-  rateOfEthJpy: number; // ETH/JPY
-  prevRateOfEthJpy: number; // ETH/JPY
-  events: Array<LogEvent>; // several ethereum events
+  rateOfEthJpy: number; // the market price of ETH/JPY
+  prevRateOfEthJpy: number; // the previous market price of ETH/JPY
+  events: Array<LogEvent>; // the Ethereum events the users wallet has been recieved.
 }
 
 export const initialState: YamatoEntiretyState = {
