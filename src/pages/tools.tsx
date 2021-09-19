@@ -10,11 +10,8 @@ import {
 } from '@chakra-ui/react';
 import { Formik, Form } from 'formik';
 import { Helmet } from 'react-helmet';
-import { Link } from 'react-router-dom';
-import Footer from '../components/Footer';
 import Infographics from '../components/Infographics';
-import Web3Status from '../components/WalletConnectButton';
-import SvgYamatoLogWithTitle from '../components/svgs/YamatoLogoWithTitle';
+import Layout from '../components/Layout';
 
 function InputField(props: {
   name: string;
@@ -39,37 +36,18 @@ function InputField(props: {
   );
 }
 
-export default function Index() {
+export default function Tools() {
   return (
-    <Formik initialValues={{}} onSubmit={() => undefined}>
-      {(formik) => (
-        <Form>
-          <Box p={4}>
-            <Helmet title="Yamato Tools" />
-
-            <Grid
-              templateRows="repeat(16, 1fr)"
-              templateColumns="repeat(4, 1fr)"
-              gap={4}
-            >
-              <GridItem rowSpan={1} colSpan={2}>
-                <Link to="/">
-                  <SvgYamatoLogWithTitle width={255} height={25} />
-                </Link>
-                <Link to="/tools/">ツール</Link>
-              </GridItem>
-
-              <GridItem rowSpan={1} colSpan={2}>
-                <div
-                  style={{
-                    textAlign: 'right',
-                    width: '100%',
-                  }}
-                >
-                  <Web3Status />
-                </div>
-              </GridItem>
-
+    <Layout>
+      <Helmet title="Yamato Tools" />
+      <Grid
+        templateRows="repeat(16, 1fr)"
+        templateColumns="repeat(4, 1fr)"
+        gap={4}
+      >
+        <Formik initialValues={{}} onSubmit={() => undefined}>
+          {(formik) => (
+            <Form>
               <GridItem rowSpan={5} colSpan={1}>
                 <Infographics {...formik.values} />
               </GridItem>
@@ -130,14 +108,10 @@ export default function Index() {
                   />
                 </Stack>
               </GridItem>
-
-              <GridItem rowSpan={1} colSpan={4}>
-                <Footer />
-              </GridItem>
-            </Grid>
-          </Box>
-        </Form>
-      )}
-    </Formik>
+            </Form>
+          )}
+        </Formik>
+      </Grid>
+    </Layout>
   );
 }
