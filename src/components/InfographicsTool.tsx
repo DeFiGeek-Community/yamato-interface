@@ -1,6 +1,6 @@
 import { Grid, GridItem, Stack, FormControl } from '@chakra-ui/react';
 import { Formik, Form } from 'formik';
-import Infographics from '../components/Infographics';
+import { IInfographics } from '../components/Infographics';
 import {
   CategoryTitle,
   ConentBox,
@@ -36,19 +36,19 @@ export default function InfographicsTool() {
     <Formik initialValues={{}} onSubmit={() => undefined}>
       {(formik) => (
         <Form>
-          <Grid
-            templateRows="repeat(8, 1fr)"
-            templateColumns="repeat(4, 1fr)"
-            gap={8}
-          >
-            <GridItem rowSpan={5} colSpan={1}>
-              <Infographics {...formik.values} />
-            </GridItem>
-            <GridItem rowSpan={5} colSpan={1}>
-              <HeaderBox1>
-                <CategoryTitle>Manipulate Parameters</CategoryTitle>
-              </HeaderBox1>
-              <ConentBox>
+          <HeaderBox1>
+            <CategoryTitle>Infographics Simulator</CategoryTitle>
+          </HeaderBox1>
+          <ConentBox>
+            <Grid
+              templateRows="repeat(8, 1fr)"
+              templateColumns="repeat(4, 1fr)"
+              gap={8}
+            >
+              <GridItem rowSpan={5} colSpan={1}>
+                <IInfographics {...formik.values} />
+              </GridItem>
+              <GridItem rowSpan={5} colSpan={1}>
                 <Stack>
                   <InputField
                     name="totalCollateral"
@@ -105,9 +105,9 @@ export default function InfographicsTool() {
                     formik={formik}
                   />
                 </Stack>
-              </ConentBox>
-            </GridItem>
-          </Grid>
+              </GridItem>
+            </Grid>
+          </ConentBox>
         </Form>
       )}
     </Formik>
