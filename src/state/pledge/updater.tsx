@@ -12,7 +12,7 @@ export default function Updater(): null {
     // TODO: replace me.
     const mockState = {
       collateral: 3.5,
-      debt: 10,
+      debt: 800000,
       withdrawalLockDate: Date.now() / 1000 + 1000,
     };
     fetchMyPledge(

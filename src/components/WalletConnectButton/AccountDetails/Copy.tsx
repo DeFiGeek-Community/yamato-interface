@@ -4,21 +4,21 @@ import useCopyClipboard from '../../../hooks/useCopyClipboard';
 import { LinkStyledButton } from '../../ExternalLink';
 
 const CopyIcon = styled(LinkStyledButton)`
-  color: ${({ theme }) => theme.text3};
+  color: ${({ theme }) => theme.text1};
   flex-shrink: 0;
   display: flex;
   text-decoration: none;
-  font-size: 0.825rem;
+  font-size: 1.2rem;
   :hover,
   :active,
   :focus {
     text-decoration: none;
-    color: ${({ theme }) => theme.text2};
+    color: ${({ theme }) => theme.text0};
   }
 `;
 const TransactionStatusText = styled.span`
   margin-left: 0.25rem;
-  font-size: 0.825rem;
+  font-size: 1.2rem;
   ${({ theme }) => theme.flexRowNoWrap};
   align-items: center;
 `;

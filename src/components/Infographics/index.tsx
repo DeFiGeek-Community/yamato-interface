@@ -1,7 +1,12 @@
 import { Grid, GridItem } from '@chakra-ui/react';
 import { useMarketState } from '../../state/market/hooks';
 import { useYamatoStateForInfographics } from '../../state/yamato-entirety/hooks';
-import { CategoryTitle, ConentBox, HeaderBox1 } from '../CommonItem';
+import {
+  CategoryTitle,
+  ConentBox,
+  HeaderBox1,
+  ItemTitleValue,
+} from '../CommonItem';
 import CjpyPrice from './CjpyPrice';
 import EthPrice from './EthPrice';
 import Pool from './Pool';
@@ -87,7 +92,11 @@ export default function Infographics(props: Partial<InfographicsProps>) {
 
   function renderSignalMessages() {
     const messages = getSignalMessages(cjpyPriceRank, ethPriceRank);
-    return messages.map((message, index) => <p key={index}>{message}</p>);
+    return messages.map((message, index) => (
+      <ItemTitleValue key={index} style={{ display: 'block' }}>
+        {message}
+      </ItemTitleValue>
+    ));
   }
 
   return (

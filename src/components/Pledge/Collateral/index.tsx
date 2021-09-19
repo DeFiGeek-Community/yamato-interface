@@ -5,7 +5,7 @@ import { usePledgeData } from '../../../state/pledge/hooks';
 import { useYamatoStateForPledge } from '../../../state/yamato-entirety/hooks';
 import { multiplyToNum } from '../../../utils/bignumber';
 import { formatPrice } from '../../../utils/prices';
-import { ItemTitleForPledge, CurrentValue } from '../../CommonItem';
+import { ItemTitleForPledge, ItemTitleValue } from '../../CommonItem';
 import DepositInput from './DepositInput';
 import WithdrawalInput from './WithdrawalInput';
 
@@ -18,38 +18,43 @@ export default function Collateral() {
   return (
     <Grid templateColumns="repeat(8, 1fr)" gap={4} mb={4}>
       <GridItem colSpan={1}>
-        <ItemTitleForPledge marginTop={32}>担保数</ItemTitleForPledge>
+        <ItemTitleForPledge marginTop={26}>担保数</ItemTitleForPledge>
       </GridItem>
 
       <GridItem colSpan={1}>
-        <CurrentValue
-          marginTop={32}
+        <ItemTitleValue
+          marginTop={26}
           data-testid="collateral-data-currentAmount"
         >
           {collateral}
           {YAMATO_SYMBOL.COLLATERAL}
-        </CurrentValue>
+        </ItemTitleValue>
       </GridItem>
 
       <GridItem colSpan={3}>
-        <DepositInput collateral={collateral} debt={debt} />
+        <DepositInput
+          collateral={collateral}
+          debt={debt}
+          rateOfEthJpy={rateOfEthJpy}
+        />
       </GridItem>
 
       <GridItem colSpan={3}>
         <WithdrawalInput
           collateral={collateral}
           debt={debt}
+          rateOfEthJpy={rateOfEthJpy}
           withdrawalLockDate={withdrawalLockDate}
         />
       </GridItem>
 
       <GridItem colSpan={1}>
-        <ItemTitleForPledge marginTop={32}>評価額</ItemTitleForPledge>
+        <ItemTitleForPledge marginTop={26}>評価額</ItemTitleForPledge>
       </GridItem>
       <GridItem colSpan={1}>
-        <CurrentValue marginTop={32}>
+        <ItemTitleValue marginTop={26}>
           ¥{formatPrice(multiplyToNum(collateral, rateOfEthJpy), 'jpy').value}
-        </CurrentValue>
+        </ItemTitleValue>
       </GridItem>
     </Grid>
   );

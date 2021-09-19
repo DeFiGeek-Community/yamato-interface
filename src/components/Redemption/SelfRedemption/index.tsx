@@ -12,7 +12,7 @@ export default function SelfRedemption() {
   return (
     <Grid templateColumns="repeat(6, 1fr)" gap={4} mb={12}>
       <GridItem colSpan={1}>
-        <ItemTitleForPledge width="150px" marginTop={32}>
+        <ItemTitleForPledge width="150px" marginTop={26}>
           償還
         </ItemTitleForPledge>
       </GridItem>

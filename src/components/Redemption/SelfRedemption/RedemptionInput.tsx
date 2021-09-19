@@ -1,11 +1,8 @@
 import {
-  Button,
   FormControl,
   FormErrorMessage,
-  FormLabel,
   Grid,
   GridItem,
-  Input,
   VStack,
 } from '@chakra-ui/react';
 import { Formik, Form, Field, FieldProps, FormikHelpers } from 'formik';
@@ -14,6 +11,12 @@ import { YAMATO_SYMBOL } from '../../../constants/yamato';
 import { useActiveWeb3React } from '../../../hooks/web3';
 import { useWalletState } from '../../../state/wallet/hooks';
 import { formatPrice } from '../../../utils/prices';
+import {
+  Text,
+  CustomButton,
+  CustomFormLabel,
+  CustomInput,
+} from '../../CommonItem';
 import {
   getExpectedCollateral,
   getRedeemableCandidate,
@@ -27,15 +30,17 @@ type Props = {
 };
 
 export default function RedemptionInput(props: Props) {
+  const { totalCollateral, totalDebt, tcr, rateOfEthJpy } = props;
+
   const { account, library } = useActiveWeb3React();
   const { cjpy } = useWalletState();
 
   const [redemption, setRedemption] = useState(0);
   const redeemableCandidate = getRedeemableCandidate(
-    props.totalCollateral,
-    props.totalDebt,
-    props.tcr,
-    props.rateOfEthJpy
+    totalCollateral,
+    totalDebt,
+    tcr,
+    rateOfEthJpy
   );
 
   async function validateRedemption(value: number) {
@@ -84,8 +89,11 @@ export default function RedemptionInput(props: Props) {
                     }
                     style={{ maxWidth: '200px' }}
                   >
-                    <FormLabel htmlFor="redemption">償還実行額入力</FormLabel>
-                    <Input
+                    <CustomFormLabel
+                      htmlFor="redemption"
+                      text="償還実行額入力"
+                    />
+                    <CustomInput
                       {...field}
                       id="redemption"
                       type="number"
@@ -99,8 +107,8 @@ export default function RedemptionInput(props: Props) {
               </Field>
               {redemption > 0 && (
                 <VStack align="start" mt={4}>
-                  <label>予想担保獲得数</label>
-                  <span>
+                  <CustomFormLabel text="予想担保獲得数" />
+                  <Text>
                     {
                       formatPrice(
                         getExpectedCollateral(
@@ -111,33 +119,29 @@ export default function RedemptionInput(props: Props) {
                       ).value
                     }
                     {YAMATO_SYMBOL.COLLATERAL}
-                  </span>
+                  </Text>
                 </VStack>
               )}
             </GridItem>
 
             <GridItem colSpan={2}>
               <VStack align="start">
-                <label>償還候補総額</label>
-                <span>
+                <CustomFormLabel text="償還候補総額" />
+                <Text>
                   {formatPrice(redeemableCandidate.eth, 'eth').value}
                   {YAMATO_SYMBOL.COLLATERAL}
-                </span>
-                <span>
+                </Text>
+                <Text>
                   ({formatPrice(redeemableCandidate.cjpy, 'jpy').value}
                   {YAMATO_SYMBOL.YEN})
-                </span>
+                </Text>
               </VStack>
             </GridItem>
 
             <GridItem colSpan={1}>
-              <Button
-                colorScheme="teal"
-                isLoading={formikProps.isSubmitting}
-                type="submit"
-              >
+              <CustomButton isLoading={formikProps.isSubmitting} type="submit">
                 償還実行
-              </Button>
+              </CustomButton>
             </GridItem>
           </Grid>
         </Form>

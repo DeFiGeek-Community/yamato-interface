@@ -1,11 +1,7 @@
 import {
-  Button,
   FormControl,
   FormErrorMessage,
-  FormHelperText,
-  FormLabel,
   HStack,
-  Input,
   VStack,
 } from '@chakra-ui/react';
 import { Formik, Form, Field, FormikHelpers, FieldProps } from 'formik';
@@ -15,11 +11,17 @@ import { useActiveWeb3React } from '../../../hooks/web3';
 import { useDepositCollateral } from '../../../state/pledge/hooks';
 import { useWalletState } from '../../../state/wallet/hooks';
 import { addToNum } from '../../../utils/bignumber';
-import { formatCollateralizationRatio } from '../../../utils/prices';
+import {
+  formatCollateralizationRatio,
+  formatPrice,
+} from '../../../utils/prices';
+import { CustomButton, CustomFormLabel, CustomInput } from '../../CommonItem';
 
-type Props = { collateral: number; debt: number };
+type Props = { collateral: number; debt: number; rateOfEthJpy: number };
 
 export default function DepositInput(props: Props) {
+  const { collateral, debt, rateOfEthJpy } = props;
+
   const { account, library } = useActiveWeb3React();
   const depositCollateral = useDepositCollateral();
   const { eth } = useWalletState();
@@ -46,7 +48,7 @@ export default function DepositInput(props: Props) {
     }>
   ) {
     console.log('submit deposit', values);
-    depositCollateral(values.deposit);
+    depositCollateral(values.deposit ?? 0);
 
     // reset
     setDeposit(0);
@@ -58,15 +60,15 @@ export default function DepositInput(props: Props) {
       {(formikProps) => (
         <Form>
           <VStack spacing={4} align="start">
-            <HStack spacing={4} align="flex-end">
+            <HStack spacing={4}>
               <Field name="deposit" validate={validateDeposit}>
                 {({ field, form }: FieldProps) => (
                   <FormControl
                     isInvalid={!!form.errors.deposit && !!form.touched.deposit}
                     style={{ maxWidth: '200px' }}
                   >
-                    <FormLabel htmlFor="deposit">預入量入力</FormLabel>
-                    <Input
+                    <CustomFormLabel htmlFor="deposit" text="預入量入力" />
+                    <CustomInput
                       {...field}
                       id="deposit"
                       type="number"
@@ -77,28 +79,26 @@ export default function DepositInput(props: Props) {
                   </FormControl>
                 )}
               </Field>
-              <Button
-                colorScheme="teal"
+              <CustomButton
                 isLoading={formikProps.isSubmitting}
                 type="submit"
                 data-testid="collateral-act-deposit"
               >
                 預入実行
-              </Button>
+              </CustomButton>
             </HStack>
             {deposit > 0 && (
               <HStack spacing={4} align="flex-end">
-                <label>変動予測値表示</label>
-                <span>
-                  {addToNum(props.collateral, deposit)}
-                  {YAMATO_SYMBOL.COLLATERAL}
-                  {', 担保率'}
-                  {formatCollateralizationRatio(
-                    props.collateral + deposit,
-                    props.debt
-                  )}
-                  %
-                </span>
+                <CustomFormLabel
+                  text={`変動予測値表示...${
+                    formatPrice(addToNum(collateral, deposit), 'jpy').value
+                  }${
+                    YAMATO_SYMBOL.COLLATERAL
+                  }, 担保率${formatCollateralizationRatio(
+                    (collateral + deposit) * rateOfEthJpy,
+                    debt
+                  )}%`}
+                />
               </HStack>
             )}
           </VStack>

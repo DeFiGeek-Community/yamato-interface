@@ -1,11 +1,7 @@
 import {
-  Button,
   FormControl,
   FormErrorMessage,
-  FormHelperText,
-  FormLabel,
   HStack,
-  Input,
   VStack,
 } from '@chakra-ui/react';
 import { Formik, Form, Field, FormikHelpers, FieldProps } from 'formik';
@@ -13,11 +9,17 @@ import { useState } from 'react';
 import { YAMATO_SYMBOL } from '../../../constants/yamato';
 import { useRepayDebt } from '../../../state/pledge/hooks';
 import { subtractToNum } from '../../../utils/bignumber';
-import { formatCollateralizationRatio } from '../../../utils/prices';
+import {
+  formatCollateralizationRatio,
+  formatPrice,
+} from '../../../utils/prices';
+import { CustomButton, CustomFormLabel, CustomInput } from '../../CommonItem';
 
-type Props = { collateral: number; debt: number };
+type Props = { collateral: number; debt: number; rateOfEthJpy: number };
 
 export default function RepayInput(props: Props) {
+  const { collateral, debt, rateOfEthJpy } = props;
+
   const repayDebt = useRepayDebt();
 
   const [repayment, setRepayment] = useState(0);
@@ -26,7 +28,7 @@ export default function RepayInput(props: Props) {
     if (value == null || typeof value !== 'number') {
       return '数値で入力してください。';
     }
-    if (value > props.debt) {
+    if (value > debt) {
       return '残高を超えています。';
     }
 
@@ -54,7 +56,7 @@ export default function RepayInput(props: Props) {
       {(formikProps) => (
         <Form>
           <VStack spacing={4} align="start">
-            <HStack spacing={4} align="flex-end">
+            <HStack spacing={4}>
               <Field name="repayment" validate={validateRepayment}>
                 {({ field, form }: FieldProps) => (
                   <FormControl
@@ -63,8 +65,8 @@ export default function RepayInput(props: Props) {
                     }
                     style={{ maxWidth: '200px' }}
                   >
-                    <FormLabel htmlFor="repayment">引出量入力</FormLabel>
-                    <Input
+                    <CustomFormLabel htmlFor="repayment" text="引出量入力" />
+                    <CustomInput
                       {...field}
                       id="repayment"
                       type="number"
@@ -75,28 +77,24 @@ export default function RepayInput(props: Props) {
                   </FormControl>
                 )}
               </Field>
-              <Button
-                colorScheme="teal"
+              <CustomButton
                 isLoading={formikProps.isSubmitting}
                 type="submit"
                 data-testid="borrowing-act-repay"
               >
                 返済実行
-              </Button>
+              </CustomButton>
             </HStack>
             {repayment > 0 && (
               <HStack spacing={4} align="flex-end">
-                <label>変動予測値表示</label>
-                <span>
-                  {subtractToNum(props.debt, repayment)}
-                  {YAMATO_SYMBOL.YEN}
-                  {', 担保率'}
-                  {formatCollateralizationRatio(
-                    props.collateral,
-                    props.debt - repayment
-                  )}
-                  %
-                </span>
+                <CustomFormLabel
+                  text={`変動予測値表示...${
+                    formatPrice(subtractToNum(debt, repayment), 'jpy').value
+                  }${YAMATO_SYMBOL.YEN}, 担保率${formatCollateralizationRatio(
+                    collateral * rateOfEthJpy,
+                    debt - repayment
+                  )}%`}
+                />
               </HStack>
             )}
           </VStack>

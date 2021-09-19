@@ -16,6 +16,7 @@ import {
   useModalOpen,
   useWalletModalToggle,
 } from '../../../state/application/hooks';
+import { CategoryTitle, Text } from '../../CommonItem';
 import AccountDetails from '../AccountDetails/AccountDetails';
 import { AutoRow } from '../Row';
 import Option from './Option';
@@ -33,23 +34,24 @@ const CloseIcon = styled.div`
 
 const CloseColor = styled(Close)`
   path {
-    stroke: ${({ theme }) => theme.text4};
+    stroke: ${({ theme }) => theme.text1};
   }
 `;
 
 const Wrapper = styled.div`
   ${({ theme }) => theme.flexColumnNoWrap}
   margin: 0;
-  padding: 0;
-  width: 100%;
+  padding: 1.6rem;
+  width: 45rem;
+  font-size: 1.6rem;
+  background-color: ${({ theme }) => theme.bg2};
 `;
 
 const HeaderRow = styled.div`
   ${({ theme }) => theme.flexRowNoWrap};
   padding: 1rem 1rem;
   font-weight: 500;
-  color: ${(props) =>
-    props.color === 'blue' ? ({ theme }) => theme.primary1 : 'inherit'};
+  color: ${({ theme }) => theme.text1};
   ${({ theme }) => theme.mediaWidth.upToMedium`
     padding: 1rem;
   `};
@@ -57,9 +59,8 @@ const HeaderRow = styled.div`
 
 const ContentWrapper = styled.div`
   background-color: ${({ theme }) => theme.bg0};
-  padding: 0 1rem 1rem 1rem;
-  border-bottom-left-radius: 20px;
-  border-bottom-right-radius: 20px;
+  padding: 2rem;
+  border-radius: 20px;
   ${({ theme }) => theme.mediaWidth.upToMedium`padding: 0 1rem 1rem 1rem`};
 `;
 
@@ -68,7 +69,7 @@ const UpperSection = styled.div`
   h5 {
     margin: 0;
     margin-bottom: 0.5rem;
-    font-size: 1rem;
+    font-size: 1.6rem;
     font-weight: 400;
   }
   h5:last-child {
@@ -91,7 +92,8 @@ const OptionGrid = styled.div`
 
 const HoverText = styled.div`
   text-decoration: none;
-  color: ${({ theme }) => theme.text1};
+  color: ${({ theme }) => theme.text2};
+  font-size: 1.6rem;
   display: flex;
   align-items: center;
   :hover {
@@ -327,13 +329,13 @@ export default function WalletModal({ ENSName }: { ENSName?: string }) {
           </HeaderRow>
         ) : (
           <HeaderRow>
-            <HoverText>Connect to a wallet</HoverText>
+            <CategoryTitle>Connect to a wallet</CategoryTitle>
           </HeaderRow>
         )}
 
         <ContentWrapper>
           <AutoRow style={{ flexWrap: 'nowrap', marginBottom: '16px' }}>
-            <span>ウォレットを選んでください。 </span>
+            <Text>ウォレットを選んでください。 </Text>
           </AutoRow>
           {walletView === WALLET_VIEWS.PENDING ? (
             <PendingView

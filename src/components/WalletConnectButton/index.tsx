@@ -1,12 +1,11 @@
 import { AbstractConnector } from '@web3-react/abstract-connector';
 import { UnsupportedChainIdError, useWeb3React } from '@web3-react/core';
-import { darken, lighten } from 'polished';
-import { forwardRef } from 'react';
 import { Activity } from 'react-feather';
 import { Button as RebassButton } from 'rebass/styled-components';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 // import CoinbaseWalletIcon from '../../../assets/images/coinbaseWalletIcon.svg';
 // import FortmaticIcon from '../../../assets/images/fortmaticIcon.png';
+import CJPYLogo from '../../assets/images/cjpy_mono_logo.png';
 import WalletConnectIcon from '../../assets/images/walletConnectIcon.svg';
 import { NETWORK_LABELS } from '../../constants/chains';
 import { NETWORK_CONTEXT_NAME } from '../../constants/web3';
@@ -25,8 +24,8 @@ import {
 import { useWalletState } from '../../state/wallet/hooks';
 import { shortenAddress } from '../../utils/web3';
 // import PortisIcon from '../../..assets/images/portisIcon.png';
+import { Text } from '../CommonItem';
 import Loader from '../Loader';
-import CjpyLogo from '../svgs/CjpyLogo';
 import Identicon from './Identicon';
 import Row from './Row';
 import WalletModal from './WalletModal';
@@ -41,88 +40,29 @@ const IconWrapper = styled.div<{ size?: number }>`
   }
 `;
 
-// eslint-disable-next-line react/display-name
-const Button = forwardRef((props, ref) => <RebassButton />);
-
-const Web3StatusGeneric = styled(Button)`
-  ${({ theme }) => theme.flexRowNoWrap}
-  width: 100%;
-  align-items: center;
-  padding: 0.5rem;
-  border-radius: 12px;
-  cursor: pointer;
-  user-select: none;
-  :focus {
-    outline: none;
-  }
-`;
-const Web3StatusError = styled(Web3StatusGeneric)`
-  background-color: ${({ theme }) => theme.red1};
-  border: 1px solid ${({ theme }) => theme.red1};
-  color: ${({ theme }) => theme.white};
-  font-weight: 500;
-  :hover,
-  :focus {
-    background-color: ${({ theme }) => darken(0.1, theme.red1)};
-  }
+const WalletButton = styled(RebassButton)`
+  color: ${({ theme }) => theme.text1};
 `;
 
-const Web3StatusConnect = styled(Web3StatusGeneric)<{ faded?: boolean }>`
-  background-color: ${({ theme }) => theme.primary4};
-  border: none;
-  color: ${({ theme }) => theme.primaryText1};
-  font-weight: 500;
-  :hover,
-  :focus {
-    border: 1px solid ${({ theme }) => darken(0.05, theme.primary4)};
-    color: ${({ theme }) => theme.primaryText1};
-  }
-  ${({ faded }) =>
-    faded &&
-    css`
-      background-color: ${({ theme }) => theme.primary5};
-      border: 1px solid ${({ theme }) => theme.primary5};
-      color: ${({ theme }) => theme.primaryText1};
-      :hover,
-      :focus {
-        border: 1px solid ${({ theme }) => darken(0.05, theme.primary4)};
-        color: ${({ theme }) => darken(0.05, theme.primaryText1)};
-      }
-    `}
+export const WalletText = styled(Text)`
+  font-weight: bold;
+  font-size: 1.6rem;
+  line-height: 1.8rem;
 `;
 
-const Web3StatusConnected = styled(Web3StatusGeneric)<{ pending?: boolean }>`
-  background-color: ${({ pending, theme }) =>
-    pending ? theme.primary1 : theme.bg1};
-  border: 1px solid
-    ${({ pending, theme }) => (pending ? theme.primary1 : theme.bg2)};
-  color: ${({ pending, theme }) => (pending ? theme.white : theme.text1)};
-  font-weight: 500;
-  :hover,
-  :focus {
-    background-color: ${({ pending, theme }) =>
-      pending ? darken(0.05, theme.primary1) : lighten(0.05, theme.bg1)};
-    :focus {
-      border: 1px solid
-        ${({ pending, theme }) =>
-          pending ? darken(0.1, theme.primary1) : darken(0.1, theme.bg2)};
-    }
-  }
-`;
-
-const YamatoButton = styled(RebassButton)`
-  color: black;
-`;
-
-const Text = styled.p`
+const FlexText = styled(WalletText)`
   flex: 1 1 auto;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   margin: 0 0.5rem 0 0.25rem;
-  font-size: 1rem;
   width: fit-content;
-  font-weight: 500;
+
+  font-style: normal;
+  font-weight: bold;
+  font-size: 1.6rem;
+  line-height: 1.8rem;
+  color: ${({ theme }) => theme.text1};
 `;
 
 const NetworkIcon = styled(Activity)`
@@ -178,11 +118,16 @@ function Web3StatusInner() {
     return (
       <>
         {chainId && chainId !== 1 && (
-          <span style={{ color: 'orange', marginRight: '10px' }}>
+          <WalletText
+            style={{
+              color: 'orange',
+              marginRight: '1rem',
+            }}
+          >
             {NETWORK_LABELS[chainId]}
-          </span>
+          </WalletText>
         )}
-        <YamatoButton id="web3-status-connected" onClick={toggleWalletModal}>
+        <WalletButton id="web3-status-connected" onClick={toggleWalletModal}>
           <span
             style={{
               display: 'flex',
@@ -190,42 +135,64 @@ function Web3StatusInner() {
               alignItems: 'center',
             }}
           >
-            {!hasPendingTransactions && connector && (
+            {/* {!hasPendingTransactions && connector && (
               <StatusIcon connector={connector} />
-            )}
+            )} */}
             {hasPendingTransactions ? (
               <Row>
-                <Text>{txCount} Pending...</Text> <Loader />
+                <FlexText style={{ fontSize: '1.8rem', lineHeight: '2.1rem' }}>
+                  {txCount} Pending...
+                </FlexText>{' '}
+                <Loader />
               </Row>
             ) : (
-              <Text>{ENSName || shortenAddress(account)}</Text>
+              <FlexText style={{ fontSize: '1.8rem', lineHeight: '2.1rem' }}>
+                Connected As
+                <br />
+                {ENSName || shortenAddress(account)}
+              </FlexText>
             )}
-            <Text>
-              <CjpyLogo />
+            <img src={CJPYLogo} width="35px" />
+            <FlexText
+              style={{
+                fontSize: '3rem',
+                lineHeight: '3.5rem',
+              }}
+            >
               CJPY {cjpy}
-            </Text>
+            </FlexText>
           </span>
-        </YamatoButton>
+        </WalletButton>
       </>
     );
   } else if (error) {
     return (
-      <YamatoButton onClick={toggleWalletModal}>
+      <WalletButton onClick={toggleWalletModal}>
         <NetworkIcon />
-        <Text>
+        <FlexText>
           {error instanceof UnsupportedChainIdError ? 'Wrong Network' : 'Error'}
-        </Text>
-      </YamatoButton>
+        </FlexText>
+      </WalletButton>
     );
   } else {
     return (
-      <YamatoButton
+      <WalletButton
         id="connect-wallet"
         onClick={toggleWalletModal}
         // faded={!account}
+        style={{
+          verticalAlign: 'middle',
+        }}
       >
-        <Text>Connect to a wallet</Text>
-      </YamatoButton>
+        <WalletText
+          style={{
+            fontSize: '2rem',
+            lineHeight: '2.3rem',
+          }}
+        >
+          Connect Wallet →
+        </WalletText>
+      </WalletButton>
     );
   }
 }

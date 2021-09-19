@@ -24,20 +24,29 @@ export default function Index() {
         >
           <GridItem rowSpan={1} colSpan={2}>
             <Link to="/">
-              <SvgYamatoLogWithTitle width={255} height={25} />
+              <SvgYamatoLogWithTitle width={422} height={50} />
             </Link>
-            <Link to="/tools/">ツール</Link>
           </GridItem>
 
-          <GridItem rowSpan={1} colSpan={2}>
-            <div
+          <GridItem
+            rowSpan={1}
+            colSpan={2}
+            style={{
+              textAlign: 'right',
+            }}
+          >
+            <Web3Status />
+            <Link
+              to="/tools/"
               style={{
-                textAlign: 'right',
-                width: '100%',
+                fontSize: '1.6rem',
+                fontWeight: 'bold',
+                color: '#818181',
+                verticalAlign: 'middle',
               }}
             >
-              <Web3Status />
-            </div>
+              ツール
+            </Link>
           </GridItem>
         </Grid>
       </Box>
@@ -49,19 +58,19 @@ export default function Index() {
         }}
       >
         <Grid
-          templateRows="repeat(10, 1fr)"
+          templateRows="repeat(8, 1fr)"
           templateColumns="repeat(4, 1fr)"
-          gap={4}
+          gap={8}
         >
           <GridItem rowSpan={2} colSpan={3}>
             <Dashboad />
           </GridItem>
 
-          <GridItem rowSpan={5} colSpan={1}>
+          <GridItem rowSpan={3} colSpan={1}>
             <World />
           </GridItem>
 
-          <GridItem rowSpan={7} colSpan={3}>
+          <GridItem rowSpan={6} colSpan={3} mt={-14}>
             <Pledge />
 
             <Box className="divider" mt={'20px'} />

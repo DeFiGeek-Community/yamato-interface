@@ -49,6 +49,7 @@ export default function Updater(): null {
 
   useInterval(() => {
     // TODO: replace me.
+    const now = Date.now();
     const mockState = [
       {
         id: '1',
@@ -66,23 +67,30 @@ export default function Updater(): null {
       },
       {
         id: `${Math.floor(Math.random() * 10)}`,
-        date: Math.floor(Math.random() * 1000),
+        date: now + 1,
         address: `${Math.random().toString(32).substring(2)}`,
         category: 'borrowing' as LogEventType,
-        value: `${Math.floor(Math.random() * 10)}`,
+        value: `${Math.floor(Math.random() * 1000)}`,
       },
       {
         id: `${Math.floor(Math.random() * 10)}`,
-        date: Math.floor(Math.random() * 1000),
+        date: now + 2,
         address: `${Math.random().toString(32).substring(2)}`,
         category: 'repay' as LogEventType,
-        value: `${Math.floor(Math.random() * 10)}`,
+        value: `${Math.floor(Math.random() * 100)}`,
       },
       {
         id: `${Math.floor(Math.random() * 100)}`,
-        date: Math.floor(Math.random() * 1000),
+        date: now + 3,
         address: `${Math.random().toString(32).substring(2)}`,
         category: 'withdrawal' as LogEventType,
+        value: `${Math.floor(Math.random() * 10)}`,
+      },
+      {
+        id: '1',
+        date: now + 4,
+        address: `${Math.random().toString(32).substring(2)}`,
+        category: 'deposit' as LogEventType,
         value: `${Math.floor(Math.random() * 10)}`,
       },
     ];
