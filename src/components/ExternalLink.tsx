@@ -8,7 +8,7 @@ export const LinkStyledButton = styled.button<{ disabled?: boolean }>`
   text-decoration: none;
   background: none;
   cursor: ${({ disabled }) => (disabled ? 'default' : 'pointer')};
-  color: ${({ theme, disabled }) => (disabled ? theme.text2 : theme.primary1)};
+  color: ${({ theme, disabled }) => (disabled ? theme.text1 : theme.text0)};
   font-weight: 500;
   :hover {
     text-decoration: ${({ disabled }) => (disabled ? null : 'underline')};
@@ -25,8 +25,9 @@ export const LinkStyledButton = styled.button<{ disabled?: boolean }>`
 const StyledLink = styled.a`
   text-decoration: none;
   cursor: pointer;
-  /* color: ${({ theme }) => theme.primary1}; */
+  /* color: ${({ theme }) => theme.text1}; */
   font-weight: 500;
+  width: 100%;
   :hover {
     text-decoration: underline;
   }
@@ -62,7 +63,7 @@ export const LinkIcon = styled(LinkIconFeather)`
   height: 16px;
   width: 18px;
   margin-left: 10px;
-  stroke: ${({ theme }) => theme.blue1};
+  stroke: ${({ theme }) => theme.text0};
 `;
 
 /**

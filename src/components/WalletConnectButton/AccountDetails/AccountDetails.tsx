@@ -28,8 +28,7 @@ const HeaderRow = styled.div`
   ${({ theme }) => theme.flexRowNoWrap};
   padding: 1rem 1rem;
   font-weight: 500;
-  color: ${(props) =>
-    props.color === 'blue' ? ({ theme }) => theme.primary1 : 'inherit'};
+  color: ${({ theme }) => theme.text1};
   ${({ theme }) => theme.mediaWidth.upToMedium`
     padding: 1rem;
   `};
@@ -40,7 +39,7 @@ const UpperSection = styled.div`
   h5 {
     margin: 0;
     margin-bottom: 0.5rem;
-    font-size: 1rem;
+    font-size: 1.2rem;
     font-weight: 400;
   }
   h5:last-child {
@@ -54,12 +53,13 @@ const UpperSection = styled.div`
 
 const InfoCard = styled.div`
   padding: 1rem;
-  border: 1px solid ${({ theme }) => theme.bg3};
+  border: 1px solid ${({ theme }) => theme.text1};
   border-radius: 20px;
   position: relative;
   display: grid;
   grid-row-gap: 12px;
   margin-bottom: 20px;
+  background-color: ${({ theme }) => theme.bg0};
 `;
 
 const AccountGroupingRow = styled.div`
@@ -102,7 +102,7 @@ const LowerSection = styled.div`
   h5 {
     margin: 0;
     font-weight: 400;
-    color: ${({ theme }) => theme.text3};
+    color: ${({ theme }) => theme.text1};
   }
 `;
 
@@ -112,7 +112,7 @@ const AccountControl = styled.div`
   min-width: 0;
   width: 100%;
   font-weight: 500;
-  font-size: 1.25rem;
+  font-size: 1.4rem;
   a:hover {
     text-decoration: underline;
   }
@@ -126,13 +126,12 @@ const AccountControl = styled.div`
 `;
 
 const AddressLink = styled(ExternalLink)<{ hasENS: boolean; isENS: boolean }>`
-  font-size: 0.825rem;
-  color: ${({ theme }) => theme.text3};
+  color: ${({ theme }) => theme.text1};
   margin-left: 1rem;
-  font-size: 0.825rem;
+  font-size: 1.2rem;
   display: flex;
   :hover {
-    color: ${({ theme }) => theme.text2};
+    color: ${({ theme }) => theme.text0};
   }
 `;
 
@@ -148,15 +147,15 @@ const CloseIcon = styled.div`
 
 const CloseColor = styled(Close)`
   path {
-    stroke: ${({ theme }) => theme.text4};
+    stroke: ${({ theme }) => theme.text1};
   }
 `;
 
 const WalletName = styled.div`
   width: initial;
-  font-size: 0.825rem;
+  font-size: 1.2rem;
   font-weight: 500;
-  color: ${({ theme }) => theme.text3};
+  color: ${({ theme }) => theme.text1};
 `;
 
 const IconWrapper = styled.div<{ size?: number }>`
@@ -182,7 +181,7 @@ const WalletAction = styled(Button)`
   width: fit-content;
   font-weight: 400;
   margin-left: 8px;
-  font-size: 0.825rem;
+  font-size: 1.4rem;
   padding: 4px 6px;
   :hover {
     cursor: pointer;
@@ -191,7 +190,7 @@ const WalletAction = styled(Button)`
 `;
 
 const MainWalletAction = styled(WalletAction)`
-  color: ${({ theme }) => theme.primary1};
+  color: ${({ theme }) => theme.text1};
 `;
 
 interface AccountDetailsProps {
@@ -289,7 +288,6 @@ export default function AccountDetails({
                     </WalletAction>
                   )} */}
                   <WalletAction
-                    style={{ fontSize: '.825rem', fontWeight: 400 }}
                     onClick={() => {
                       openOptions();
                     }}
@@ -318,62 +316,32 @@ export default function AccountDetails({
                 </AccountControl>
               </AccountGroupingRow>
               <AccountGroupingRow>
-                {ENSName ? (
-                  <>
-                    <AccountControl>
-                      <div>
-                        {account && (
-                          <Copy toCopy={account}>
-                            <span style={{ marginLeft: '4px' }}>
-                              Copy Address
-                            </span>
-                          </Copy>
-                        )}
-                        {chainId && account && (
-                          <AddressLink
-                            hasENS={!!ENSName}
-                            isENS={true}
-                            href={
-                              chainId &&
-                              getEtherscanLink(chainId, ENSName, 'address')
-                            }
-                          >
-                            <LinkIcon size={16} />
-                            <span style={{ marginLeft: '4px' }}>
-                              View on Etherscan
-                            </span>
-                          </AddressLink>
-                        )}
-                      </div>
-                    </AccountControl>
-                  </>
-                ) : (
-                  <>
-                    <AccountControl>
-                      <div>
-                        {account && (
-                          <Copy toCopy={account}>
-                            <span style={{ marginLeft: '4px' }}>
-                              Copy Address
-                            </span>
-                          </Copy>
-                        )}
-                        {chainId && account && (
-                          <AddressLink
-                            hasENS={!!ENSName}
-                            isENS={false}
-                            href={getEtherscanLink(chainId, account, 'address')}
-                          >
-                            <LinkIcon size={16} />
-                            <span style={{ marginLeft: '4px' }}>
-                              View on Etherscan
-                            </span>
-                          </AddressLink>
-                        )}
-                      </div>
-                    </AccountControl>
-                  </>
-                )}
+                <AccountControl>
+                  <div>
+                    {account && (
+                      <Copy toCopy={account}>
+                        <span style={{ marginLeft: '4px' }}>Copy Address</span>
+                      </Copy>
+                    )}
+                    {chainId && account && (
+                      <AddressLink
+                        hasENS={!!ENSName}
+                        isENS={true}
+                        href={
+                          chainId &&
+                          getEtherscanLink(
+                            chainId,
+                            ENSName ?? account,
+                            'address'
+                          )
+                        }
+                      >
+                        <LinkIcon size={16} />
+                        <p style={{ marginLeft: '4px' }}>View on Etherscan</p>
+                      </AddressLink>
+                    )}
+                  </div>
+                </AccountControl>
               </AccountGroupingRow>
             </InfoCard>
           </YourAccount>

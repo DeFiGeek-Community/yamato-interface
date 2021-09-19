@@ -65,7 +65,7 @@ export default function LogViewer() {
   }
 
   return (
-    <div style={{ height: '350px', overflowY: 'scroll' }}>
+    <div style={{ height: '250px', overflowY: 'scroll' }}>
       {renderLogEvents()}
     </div>
   );

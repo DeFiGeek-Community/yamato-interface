@@ -1,8 +1,8 @@
 import { AbstractConnector } from '@web3-react/abstract-connector';
-import { darken } from 'polished';
 import styled from 'styled-components';
 import { SUPPORTED_WALLETS } from '../../../constants/web3';
 import { injected } from '../../../infrastructures/connectors';
+import { Text } from '../../CommonItem';
 import Loader from '../../Loader';
 import Option from './Option';
 
@@ -22,8 +22,9 @@ const LoadingMessage = styled.div<{ error?: boolean }>`
   justify-content: flex-start;
   border-radius: 12px;
   margin-bottom: 20px;
-  color: ${({ theme, error }) => (error ? theme.red1 : 'inherit')};
-  border: 1px solid ${({ theme, error }) => (error ? theme.red1 : theme.text4)};
+  color: ${({ theme, error }) => (error ? theme.error : 'inherit')};
+  border: 1px solid
+    ${({ theme, error }) => (error ? theme.error : theme.success)};
   & > * {
     padding: 1rem;
   }
@@ -37,16 +38,17 @@ const ErrorGroup = styled.div`
 
 const ErrorButton = styled.div`
   border-radius: 8px;
-  font-size: 12px;
+  font-size: 1.4rem;
   color: ${({ theme }) => theme.text1};
-  background-color: ${({ theme }) => theme.bg4};
+  background-color: ${({ theme }) => theme.bg0};
   margin-left: 1rem;
   padding: 0.5rem;
   font-weight: 600;
   user-select: none;
   &:hover {
     cursor: pointer;
-    background-color: ${({ theme }) => darken(0.1, theme.text4)};
+    border: 1px solid;
+    border-color: ${({ theme }) => theme.text0};
   }
 `;
 
@@ -75,27 +77,31 @@ export default function PendingView({
         <LoadingWrapper>
           {error ? (
             <ErrorGroup>
-              <div>Error connecting.</div>
+              <div
+                style={{
+                  fontSize: '1.4rem',
+                }}
+              >
+                Error connecting.
+              </div>
               <div style={{ display: 'flex', flexDirection: 'column' }}>
                 <ErrorButton
                   onClick={() => {
                     setPendingError(false);
                     connector && tryActivation(connector);
                   }}
-                  style={{ width: connector === injected ? '30%' : '100%' }}
                 >
                   Try Again
                 </ErrorButton>
                 {connector === injected && (
-                  <p
+                  <Text
                     style={{
-                      color: 'white',
                       fontSize: '0.5rem',
-                      margin: '12px 16px 0px',
+                      margin: '0px 12px 0px',
                     }}
                   >
                     または拡張機能から直接操作してみてください。
-                  </p>
+                  </Text>
                 )}
               </div>
             </ErrorGroup>

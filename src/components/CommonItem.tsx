@@ -6,22 +6,22 @@ import {
   Input,
   InputProps,
 } from '@chakra-ui/react';
-import styled from 'styled-components';
-
-export const CategoryTitle = styled.h2`
-  color: #fcfaf2;
-  font-style: normal;
-  font-weight: bold;
-  font-size: 1.8rem;
-  line-height: 2.1rem;
-`;
+import styled, { css } from 'styled-components';
 
 export const Text = styled.span`
   font-style: normal;
   font-weight: 500;
   font-size: 1.4rem;
   line-height: 1.6rem;
-  color: #818181;
+  color: ${({ theme }) => theme.text1};
+`;
+
+export const CategoryTitle = styled.h2`
+  color: ${({ theme }) => theme.text2};
+  font-style: normal;
+  font-weight: bold;
+  font-size: 1.8rem;
+  line-height: 2.1rem;
 `;
 
 /**
@@ -32,7 +32,7 @@ export const ItemTitleForPledge = styled.label<{
   marginTop?: number;
 }>`
   width: ${({ width }) => width ?? '100px'};
-  color: #818181;
+  color: ${({ theme }) => theme.text1};
   margin-top: ${({ marginTop }) => marginTop ?? 0}px;
   display: inline-block;
   font-style: normal;
@@ -48,7 +48,7 @@ export const ItemTitleForInfographics = styled.label<{
   font-weight: bold;
   font-size: 1.2rem;
   line-height: 1.4rem;
-  color: #818181;
+  color: ${({ theme }) => theme.text1};
 `;
 
 export const ItemTitleValue = styled.p<{
@@ -56,13 +56,13 @@ export const ItemTitleValue = styled.p<{
   marginTop?: number;
 }>`
   width: ${({ width }) => width ?? '100%'};
-  color: #818181;
+  color: ${({ theme }) => theme.text1};
   margin-top: ${({ marginTop }) => marginTop ?? 0}px;
   display: inline-block;
   font-style: normal;
   font-weight: bold;
-  font-size: 14px;
-  line-height: 16px;
+  font-size: 1.4rem;
+  line-height: 1.6rem;
 `;
 
 /**
@@ -74,6 +74,15 @@ const boxStyle = (color: string) => ({
   boxSizing: 'border-box',
   boxShadow: '3px 3px 0px rgba(0, 0, 0, 0.25)',
 });
+
+const boxStyle2 = (color: string) => css`
+  background-color: ${color};
+  border: 1px solid ${color};
+  box-sizing: border-box;
+  box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.25);
+`;
+
+console.log(boxStyle2('red'));
 
 export function HeaderBox1(props: any) {
   return (
