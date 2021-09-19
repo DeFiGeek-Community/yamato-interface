@@ -45,7 +45,7 @@ export default function Index() {
       {(formik) => (
         <Form>
           <Box p={4}>
-            <Helmet title="Yamato Interface" />
+            <Helmet title="ツール" />
 
             <Grid
               templateRows="repeat(16, 1fr)"
@@ -82,7 +82,7 @@ export default function Index() {
                   />
                   <InputField
                     name="totalDebt"
-                    label="負債総額(CJPY)"
+                    label="借入総額(CJPY)"
                     formik={formik}
                   />
                   <InputField
@@ -110,22 +110,22 @@ export default function Index() {
                   />
                   <InputField
                     name="redemptionReserve"
-                    label="償還準備額"
+                    label="償還プール(CJPY)"
                     formik={formik}
                   />
                   <InputField
                     name="prevRedemptionReserve"
-                    label="直前の償還準備額"
+                    label="直前の償還プール(CJPY)"
                     formik={formik}
                   />
                   <InputField
                     name="sweepReserve"
-                    label="弁済候補総額"
+                    label="弁済プール(CJPY)"
                     formik={formik}
                   />
                   <InputField
                     name="prevSweepReserve"
-                    label="直前の弁済候補総額"
+                    label="直前の弁済プール(CJPY)"
                     formik={formik}
                   />
                 </Stack>
