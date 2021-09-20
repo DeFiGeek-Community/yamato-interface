@@ -30,33 +30,44 @@ function getCjpyRank(rateOfCjpyJpy: { [source: string]: number }) {
 }
 
 export interface InfographicsProps {
+  // state.market
   rateOfCjpyJpy: {
     [source: string]: number;
   };
-  tcr: number;
-  rateOfEthJpy: number;
-  ethChangePercent: number;
-  redemptionReserve: number;
-  isIncreaseForRedemptionReserve: boolean;
-  sweepReserve: number;
-  isIncreaseForSweepReserve: boolean;
+
+  // state.yamatoEntirety
+  totalCollateral: number; // state.yamatoEntirety.lending.totalCollateral
+  totalDebt: number; // state.yamatoEntirety.lending.totalDebt
+  tcr: number; // state.yamatoEntirety.lending.tcr
+  rateOfEthJpy: number; // state.yamatoEntirety.rateOfEthJpy
+  prevRateOfEthJpy: number; // state.yamatoEntirety.prevRateOfEthJpy
+  redemptionReserve: number; // state.yamatoEntirety.pool.redemptionReserve
+  prevRedemptionReserve: number; // state.yamatoEntirety.pool.prevRedemptionReserve
+  sweepReserve: number; // state.yamatoEntirety.pool.sweepReserve
+  prevSweepReserve: number; // state.yamatoEntirety.pool.prevSweepReserve
 }
 
-export default function Infographics(props: Partial<InfographicsProps>) {
+export function InfographicsContent(props: Partial<InfographicsProps>) {
   const marketState = useMarketState();
   const yamatoState = useYamatoStateForInfographics();
   const mixedValues = { ...marketState, ...yamatoState, ...props };
 
-  const {
-    rateOfCjpyJpy,
-    tcr,
-    rateOfEthJpy,
-    ethChangePercent,
-    redemptionReserve,
-    isIncreaseForRedemptionReserve,
-    sweepReserve,
-    isIncreaseForSweepReserve,
-  } = mixedValues;
+  const { rateOfCjpyJpy, rateOfEthJpy, redemptionReserve, sweepReserve } =
+    mixedValues;
+
+  const tcr =
+    props.hasOwnProperty('totalCollateral') ||
+    props.hasOwnProperty('totalDebt') ||
+    props.hasOwnProperty('rateOfEthJpy')
+      ? (100 * mixedValues.totalCollateral * mixedValues.rateOfEthJpy) /
+        mixedValues.totalDebt
+      : mixedValues.tcr;
+  const ethChangePercent =
+    mixedValues.rateOfEthJpy / mixedValues.prevRateOfEthJpy;
+  const isIncreaseForRedemptionReserve =
+    mixedValues.redemptionReserve > mixedValues.prevRedemptionReserve;
+  const isIncreaseForSweepReserve =
+    mixedValues.sweepReserve > mixedValues.prevSweepReserve;
 
   /**
    * All 21 Ranks(-10 ~ +10)
@@ -90,40 +101,48 @@ export default function Infographics(props: Partial<InfographicsProps>) {
 
   return (
     <>
+      <div style={{ minHeight: '16px', marginBottom: '10px' }}>
+        {renderSignalMessages()}
+      </div>
+      <Grid
+        templateRows="repeat(5, 1fr)"
+        templateColumns="repeat(2, 1fr)"
+        gap={4}
+      >
+        <GridItem colSpan={1} rowSpan={5}>
+          <CjpyPrice
+            cjpyPriceRank={cjpyPriceRank}
+            ethPriceRank={ethPriceRank}
+            colorCodePerTcr={colorCodePerTcr}
+          />
+        </GridItem>
+        <GridItem colSpan={1} rowSpan={1}>
+          <EthPrice ethPrice={rateOfEthJpy} ethPriceRank={ethPriceRank} />
+        </GridItem>
+        <GridItem colSpan={1} rowSpan={2}>
+          <Tcr tcr={tcr} />
+        </GridItem>
+        <GridItem colSpan={1} rowSpan={2}>
+          <Pool
+            chargeRankOfRedemption={chargeRankOfRedemption}
+            isIncreaseForRedemptionReserve={isIncreaseForRedemptionReserve}
+            chargeRankOfSweep={chargeRankOfSweep}
+            isIncreaseForSweepReserve={isIncreaseForSweepReserve}
+          />
+        </GridItem>
+      </Grid>
+    </>
+  );
+}
+
+export default function Infographics(props: Partial<InfographicsProps>) {
+  return (
+    <>
       <HeaderBox1>
         <CategoryTitle>CJPY Now</CategoryTitle>
       </HeaderBox1>
       <ConentBox>
-        <div style={{ minHeight: '16px', marginBottom: '10px' }}>
-          {renderSignalMessages()}
-        </div>
-        <Grid
-          templateRows="repeat(5, 1fr)"
-          templateColumns="repeat(2, 1fr)"
-          gap={4}
-        >
-          <GridItem colSpan={1} rowSpan={5}>
-            <CjpyPrice
-              cjpyPriceRank={cjpyPriceRank}
-              ethPriceRank={ethPriceRank}
-              colorCodePerTcr={colorCodePerTcr}
-            />
-          </GridItem>
-          <GridItem colSpan={1} rowSpan={1}>
-            <EthPrice ethPrice={rateOfEthJpy} ethPriceRank={ethPriceRank} />
-          </GridItem>
-          <GridItem colSpan={1} rowSpan={2}>
-            <Tcr tcr={tcr} />
-          </GridItem>
-          <GridItem colSpan={1} rowSpan={2}>
-            <Pool
-              chargeRankOfRedemption={chargeRankOfRedemption}
-              isIncreaseForRedemptionReserve={isIncreaseForRedemptionReserve}
-              chargeRankOfSweep={chargeRankOfSweep}
-              isIncreaseForSweepReserve={isIncreaseForSweepReserve}
-            />
-          </GridItem>
-        </Grid>
+        <InfographicsContent {...props} />
       </ConentBox>
     </>
   );
