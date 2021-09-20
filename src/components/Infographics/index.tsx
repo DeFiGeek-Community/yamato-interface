@@ -47,7 +47,7 @@ export interface InfographicsProps {
   prevSweepReserve: number; // state.yamatoEntirety.pool.prevSweepReserve
 }
 
-export function IInfographics(props: Partial<InfographicsProps>) {
+export function InfographicsContent(props: Partial<InfographicsProps>) {
   const marketState = useMarketState();
   const yamatoState = useYamatoStateForInfographics();
   const mixedValues = { ...marketState, ...yamatoState, ...props };
@@ -142,7 +142,7 @@ export default function Infographics(props: Partial<InfographicsProps>) {
         <CategoryTitle>CJPY Now</CategoryTitle>
       </HeaderBox1>
       <ConentBox>
-        <IInfographics {...props} />
+        <InfographicsContent {...props} />
       </ConentBox>
     </>
   );

@@ -1,6 +1,6 @@
 import { Grid, GridItem, Stack, FormControl } from '@chakra-ui/react';
 import { Formik, Form } from 'formik';
-import { IInfographics } from '../components/Infographics';
+import { InfographicsContent } from '../components/Infographics';
 import {
   CategoryTitle,
   ConentBox,
@@ -46,7 +46,7 @@ export default function InfographicsTool() {
               gap={8}
             >
               <GridItem rowSpan={5} colSpan={1}>
-                <IInfographics {...formik.values} />
+                <InfographicsContent {...formik.values} />
               </GridItem>
               <GridItem rowSpan={5} colSpan={1}>
                 <Stack>
