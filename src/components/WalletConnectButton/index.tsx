@@ -5,8 +5,8 @@ import { Button as RebassButton } from 'rebass/styled-components';
 import styled from 'styled-components';
 // import CoinbaseWalletIcon from '../../../assets/images/coinbaseWalletIcon.svg';
 // import FortmaticIcon from '../../../assets/images/fortmaticIcon.png';
-import CJPYLogo from '../../assets/images/cjpy_mono_logo.png';
 import WalletConnectIcon from '../../assets/images/walletConnectIcon.svg';
+import CJPYLogo from '../../components/svgs/CjpyLogo';
 import { NETWORK_LABELS } from '../../constants/chains';
 import { NETWORK_CONTEXT_NAME } from '../../constants/web3';
 import useENSName from '../../hooks/useENSName';
@@ -42,12 +42,14 @@ const IconWrapper = styled.div<{ size?: number }>`
 
 const WalletButton = styled(RebassButton)`
   color: ${({ theme }) => theme.text1};
+  padding: 0;
 `;
 
 export const WalletText = styled(Text)`
   font-weight: bold;
   font-size: 1.6rem;
   line-height: 1.8rem;
+  color: #5bad92;
 `;
 
 const FlexText = styled(WalletText)`
@@ -62,7 +64,7 @@ const FlexText = styled(WalletText)`
   font-weight: bold;
   font-size: 1.6rem;
   line-height: 1.8rem;
-  color: ${({ theme }) => theme.text1};
+  color: ${({ theme }) => theme.text3};
 `;
 
 const NetworkIcon = styled(Activity)`
@@ -152,7 +154,7 @@ function Web3StatusInner() {
                 {ENSName || shortenAddress(account)}
               </FlexText>
             )}
-            <img src={CJPYLogo} width="35px" />
+            <CJPYLogo width="35px" />
             <FlexText
               style={{
                 fontSize: '3rem',

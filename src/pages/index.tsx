@@ -1,93 +1,43 @@
 import { Box, Grid, GridItem } from '@chakra-ui/react';
 import { Helmet } from 'react-helmet';
-import { Link } from 'react-router-dom';
-import BackgroundImage from '../assets/images/background_main.png';
 import Dashboad from '../components/Dashboad';
-import Footer from '../components/Footer';
 import Infographics from '../components/Infographics';
+import Layout from '../components/Layout';
 import Pledge from '../components/Pledge';
 import Redemption from '../components/Redemption';
-import Web3Status from '../components/WalletConnectButton';
 import World from '../components/World';
-import SvgYamatoLogWithTitle from '../components/svgs/YamatoLogoWithTitle';
 
 export default function Index() {
   return (
-    <>
+    <Layout>
       <Helmet title="Yamato Interface" />
 
-      <Box p={4} style={{ backgroundColor: '#FCFAF2' }}>
-        <Grid
-          templateRows="repeat(1, 1fr)"
-          templateColumns="repeat(4, 1fr)"
-          gap={4}
-        >
-          <GridItem rowSpan={1} colSpan={2}>
-            <Link to="/">
-              <SvgYamatoLogWithTitle width={422} height={50} />
-            </Link>
-          </GridItem>
-
-          <GridItem
-            rowSpan={1}
-            colSpan={2}
-            style={{
-              textAlign: 'right',
-            }}
-          >
-            <Web3Status />
-            <Link
-              to="/tools/"
-              style={{
-                fontSize: '1.6rem',
-                fontWeight: 'bold',
-                color: '#818181',
-                verticalAlign: 'middle',
-              }}
-            >
-              ツール
-            </Link>
-          </GridItem>
-        </Grid>
-      </Box>
-
-      <Box
-        style={{
-          padding: '20px',
-          backgroundImage: `url(${BackgroundImage})`,
-        }}
+      <Grid
+        templateRows="repeat(8, 1fr)"
+        templateColumns="repeat(4, 1fr)"
+        gap={8}
+        style={{ maxWidth: '1280px', margin: 'auto' }}
       >
-        <Grid
-          templateRows="repeat(8, 1fr)"
-          templateColumns="repeat(4, 1fr)"
-          gap={8}
-          style={{ maxWidth: '1280px', margin: 'auto' }}
-        >
-          <GridItem rowSpan={2} colSpan={3}>
-            <Dashboad />
-          </GridItem>
+        <GridItem rowSpan={2} colSpan={3}>
+          <Dashboad />
+        </GridItem>
 
-          <GridItem rowSpan={3} colSpan={1}>
-            <World />
-          </GridItem>
+        <GridItem rowSpan={3} colSpan={1}>
+          <World />
+        </GridItem>
 
-          <GridItem rowSpan={6} colSpan={3} mt={-14}>
-            <Pledge />
+        <GridItem rowSpan={6} colSpan={3} mt={-14}>
+          <Pledge />
 
-            <Box className="divider" mt={'20px'} />
+          <Box className="divider" mt={'20px'} />
 
-            <Redemption />
-          </GridItem>
+          <Redemption />
+        </GridItem>
 
-          <GridItem rowSpan={5} colSpan={1}>
-            <Infographics />
-          </GridItem>
-        </Grid>
-      </Box>
-
-      <Box style={{ backgroundColor: '#FCFAF2' }}>
-        <Footer />
-      </Box>
-    </>
+        <GridItem rowSpan={5} colSpan={1}>
+          <Infographics />
+        </GridItem>
+      </Grid>
+    </Layout>
   );
 }

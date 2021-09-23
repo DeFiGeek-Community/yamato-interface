@@ -1,4 +1,4 @@
-import { Box, Grid, GridItem } from '@chakra-ui/react';
+import { Box, Grid, GridItem, HStack } from '@chakra-ui/react';
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
@@ -15,10 +15,10 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <Box p={4} style={{ backgroundColor: '#FCFAF2' }}>
         <Grid
           templateRows="repeat(1, 1fr)"
-          templateColumns="repeat(4, 1fr)"
+          templateColumns="repeat(2, 1fr)"
           gap={4}
         >
-          <GridItem rowSpan={1} colSpan={2}>
+          <GridItem rowSpan={1} colSpan={1}>
             <Link to="/">
               <SvgYamatoLogWithTitle width={422} height={50} />
             </Link>
@@ -26,23 +26,25 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
           <GridItem
             rowSpan={1}
-            colSpan={2}
+            colEnd={4}
             style={{
-              textAlign: 'right',
+              marginRight: 'auto',
             }}
           >
-            <Web3Status />
-            <Link
-              to="/tools/"
-              style={{
-                fontSize: '1.6rem',
-                fontWeight: 'bold',
-                color: '#818181',
-                verticalAlign: 'middle',
-              }}
-            >
-              ツール
-            </Link>
+            <HStack>
+              <Web3Status />
+              <Link
+                to="/tools/"
+                style={{
+                  fontSize: '1.6rem',
+                  fontWeight: 'bold',
+                  color: '#5BAD92',
+                  verticalAlign: 'middle',
+                }}
+              >
+                ツール
+              </Link>
+            </HStack>
           </GridItem>
         </Grid>
       </Box>

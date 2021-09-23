@@ -6,6 +6,7 @@ export function colors(): Colors {
     text0: '#000000',
     text1: '#818181',
     text2: '#FCFAF2',
+    text3: '#5BAD92',
 
     // backgrounds
     bg0: '#FCFAF2',
