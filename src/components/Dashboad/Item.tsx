@@ -9,7 +9,7 @@ interface Props {
 export default function DashboadItem(props: Props) {
   return (
     <HStack align="start">
-      <ItemTitleForPledge width="200px">{props.title}</ItemTitleForPledge>
+      <ItemTitleForPledge width="150px">{props.title}</ItemTitleForPledge>
       <ItemTitleValue width="200px">{props.stat}</ItemTitleValue>
     </HStack>
   );

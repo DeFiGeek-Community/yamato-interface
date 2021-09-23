@@ -61,6 +61,7 @@ export default function Index() {
           templateRows="repeat(8, 1fr)"
           templateColumns="repeat(4, 1fr)"
           gap={8}
+          style={{ maxWidth: '1280px', margin: 'auto' }}
         >
           <GridItem rowSpan={2} colSpan={3}>
             <Dashboad />

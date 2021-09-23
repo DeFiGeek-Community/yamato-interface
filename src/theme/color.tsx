@@ -7,7 +7,7 @@ export function colors(): Colors {
     text1: '#818181',
     text2: '#FCFAF2',
 
-    // backgrounds / greys
+    // backgrounds
     bg0: '#FCFAF2',
     bg1: '#5BAD92',
     bg2: '#F9AEA5',
