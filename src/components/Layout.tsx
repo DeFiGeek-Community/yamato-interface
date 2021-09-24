@@ -7,10 +7,16 @@ import Footer from '../components/Footer';
 import Web3Status from '../components/WalletConnectButton';
 import SvgYamatoLogWithTitle from '../components/svgs/YamatoLogoWithTitle';
 
-export default function Layout({ children }: { children: React.ReactNode }) {
+export default function Layout({
+  title,
+  children,
+}: {
+  title?: string;
+  children: React.ReactNode;
+}) {
   return (
     <>
-      <Helmet title="Yamato Interface" />
+      <Helmet title={title ?? 'Yamato Interface'} />
 
       <Box p={4} style={{ backgroundColor: '#FCFAF2' }}>
         <Grid

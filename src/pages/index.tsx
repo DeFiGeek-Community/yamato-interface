@@ -1,5 +1,4 @@
 import { Box, Grid, GridItem } from '@chakra-ui/react';
-import { Helmet } from 'react-helmet';
 import Dashboad from '../components/Dashboad';
 import Infographics from '../components/Infographics';
 import Layout from '../components/Layout';
@@ -9,9 +8,7 @@ import World from '../components/World';
 
 export default function Index() {
   return (
-    <Layout>
-      <Helmet title="Yamato Interface" />
-
+    <Layout title="Yamato Interface">
       <Grid
         templateRows="repeat(8, 1fr)"
         templateColumns="repeat(4, 1fr)"
