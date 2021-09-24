@@ -63,14 +63,14 @@ export default function Dashboad() {
           <GridItem colSpan={1}>
             <VStack align="start">
               {/* v1.5 feature
-            <DashboadItem title={'veYMT数'} stat={'（工事中）'} />
+            <DashboadItem title={'veYMT量'} stat={'（工事中）'} />
             <DashboadItem title={'総ファーミングスコア'} stat={'（工事中）'} /> */}
               <DashboadItem
                 title={'ETHプライス'}
                 stat={`¥${formatPrice(rateOfEthJpy, 'jpy').value}`}
               />
               <DashboadItem
-                title={'CJPY総発行数'}
+                title={'CJPY総発行量'}
                 stat={`${formatPrice(totalSupplyOfCjpy, 'jpy').value} ${
                   YAMATO_SYMBOL.YEN
                 }`}

@@ -65,7 +65,7 @@ export default function RepayInput(props: Props) {
                     }
                     style={{ maxWidth: '200px' }}
                   >
-                    <CustomFormLabel htmlFor="repayment" text="返済額入力" />
+                    <CustomFormLabel htmlFor="repayment" text="返済量入力" />
                     <CustomInput
                       {...field}
                       id="repayment"

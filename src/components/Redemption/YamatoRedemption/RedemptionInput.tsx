@@ -51,7 +51,7 @@ export default function RedemptionInput(props: Props) {
           <Grid templateColumns="repeat(4, 1fr)" gap={4}>
             <GridItem colSpan={1}>
               <VStack align="start">
-                <CustomFormLabel text={'プール総額'} />
+                <CustomFormLabel text={'プール総量'} />
                 <Text>
                   {formatPrice(redemptionReserve, 'jpy').value}
                   {YAMATO_SYMBOL.YEN}
@@ -61,7 +61,7 @@ export default function RedemptionInput(props: Props) {
 
             <GridItem colSpan={1}>
               <VStack align="start">
-                <CustomFormLabel text={'償還候補総額'} />
+                <CustomFormLabel text={'償還候補総量'} />
                 <Text>
                   {formatPrice(redeemableCandidate.eth, 'eth').value}
                   {YAMATO_SYMBOL.COLLATERAL}

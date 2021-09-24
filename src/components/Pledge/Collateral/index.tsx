@@ -18,7 +18,7 @@ export default function Collateral() {
   return (
     <Grid templateColumns="repeat(8, 1fr)" gap={4} mb={4}>
       <GridItem colSpan={1}>
-        <ItemTitleForPledge marginTop={26}>担保数</ItemTitleForPledge>
+        <ItemTitleForPledge marginTop={26}>担保量</ItemTitleForPledge>
       </GridItem>
 
       <GridItem colSpan={1}>

@@ -45,7 +45,7 @@ export default function SweepInput(props: Props) {
           <Grid templateColumns="repeat(4, 1fr)" gap={4}>
             <GridItem colSpan={1}>
               <VStack align="start">
-                <CustomFormLabel text={'プール総額'} />
+                <CustomFormLabel text={'プール総量'} />
                 <Text>
                   {formatPrice(sweepReserve, 'jpy').value}
                   {YAMATO_SYMBOL.YEN}
@@ -55,7 +55,7 @@ export default function SweepInput(props: Props) {
 
             <GridItem colSpan={1}>
               <VStack align="start">
-                <CustomFormLabel text={'弁済候補総額'} />
+                <CustomFormLabel text={'弁済候補総量'} />
                 <Text>
                   {formatPrice(sweepableCandiate, 'jpy').value}
                   {YAMATO_SYMBOL.YEN}

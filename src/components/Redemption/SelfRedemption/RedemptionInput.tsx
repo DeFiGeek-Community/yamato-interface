@@ -91,7 +91,7 @@ export default function RedemptionInput(props: Props) {
                   >
                     <CustomFormLabel
                       htmlFor="redemption"
-                      text="償還実行額入力"
+                      text="償還実行量入力"
                     />
                     <CustomInput
                       {...field}
@@ -107,7 +107,7 @@ export default function RedemptionInput(props: Props) {
               </Field>
               {redemption > 0 && (
                 <VStack align="start" mt={4}>
-                  <CustomFormLabel text="予想担保獲得数" />
+                  <CustomFormLabel text="予想担保獲得量" />
                   <Text>
                     {
                       formatPrice(
@@ -126,7 +126,7 @@ export default function RedemptionInput(props: Props) {
 
             <GridItem colSpan={2}>
               <VStack align="start">
-                <CustomFormLabel text="償還候補総額" />
+                <CustomFormLabel text="償還候補総量" />
                 <Text>
                   {formatPrice(redeemableCandidate.eth, 'eth').value}
                   {YAMATO_SYMBOL.COLLATERAL}

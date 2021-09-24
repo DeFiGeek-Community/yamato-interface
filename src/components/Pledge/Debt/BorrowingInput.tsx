@@ -68,7 +68,7 @@ export default function BorrowingInput(props: Props) {
                     }
                     style={{ maxWidth: '200px' }}
                   >
-                    <CustomFormLabel htmlFor="borrowing" text="借入額入力" />
+                    <CustomFormLabel htmlFor="borrowing" text="借入量入力" />
                     <CustomInput
                       {...field}
                       id="borrowing"
