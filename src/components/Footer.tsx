@@ -1,8 +1,8 @@
 import { Box, HStack, VStack } from '@chakra-ui/layout';
 import styled from 'styled-components';
-import CommunityLogo from '../assets/images/communitylogo.png';
 import { Organizer, ReferenceList } from '../constants/about';
 import { Text } from './CommonItem';
+import CommunityLogoBlack from './svgs/CommunityLogoBlack';
 
 const FooterItem = styled.div`
   display: flex;
@@ -13,11 +13,11 @@ const FooterItem = styled.div`
 
 export default function Footer() {
   return (
-    <HStack justify="center">
+    <HStack justify="center" style={{ padding: '8px' }}>
       <Box alignItems="center">
-        <img src={CommunityLogo} width="30px" height="30px" />
+        <CommunityLogoBlack width="5rem" height="5rem" />
       </Box>
-      <VStack p={4}>
+      <VStack p={4} style={{ margin: '0', padding: '0' }}>
         <Text>© {Organizer}</Text>
         <FooterItem>
           <a
