@@ -10,20 +10,15 @@ export default function Index() {
   return (
     <Layout title="Yamato Interface">
       <Grid
-        templateRows="repeat(8, 1fr)"
         templateColumns="repeat(4, 1fr)"
         gap={8}
         style={{ maxWidth: '1280px', margin: 'auto' }}
       >
-        <GridItem rowSpan={2} colSpan={3}>
+        <GridItem colSpan={3}>
           <Dashboad />
-        </GridItem>
 
-        <GridItem rowSpan={3} colSpan={1}>
-          <World />
-        </GridItem>
+          <Box className="divider" mt={'20px'} />
 
-        <GridItem rowSpan={6} colSpan={3} mt={-14}>
           <Pledge />
 
           <Box className="divider" mt={'20px'} />
@@ -31,7 +26,11 @@ export default function Index() {
           <Redemption />
         </GridItem>
 
-        <GridItem rowSpan={5} colSpan={1}>
+        <GridItem colSpan={1}>
+          <World />
+
+          <Box className="divider" mt={'20px'} />
+
           <Infographics />
         </GridItem>
       </Grid>

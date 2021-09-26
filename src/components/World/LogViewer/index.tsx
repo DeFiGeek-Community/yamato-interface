@@ -100,7 +100,7 @@ export default function LogViewer() {
   }
 
   return (
-    <div style={{ height: '250px', overflowY: 'scroll' }}>
+    <div style={{ height: '300px', overflowY: 'scroll' }}>
       <TransitionGroup>{renderLogEvents()}</TransitionGroup>
       {renderLogEvents()}
     </div>
