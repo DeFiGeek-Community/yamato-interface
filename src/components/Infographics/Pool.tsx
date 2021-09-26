@@ -1,4 +1,5 @@
 import { Box } from '@chakra-ui/react';
+import styled from 'styled-components';
 import { ItemTitleForInfographics } from '../CommonItem';
 import {
   Battery10Charge,
@@ -23,6 +24,17 @@ import {
   Battery9Discharge,
 } from '../svgs/battery';
 
+const BatteryContainer = styled.div`
+  margin: auto;
+  height: 4.1rem;
+  display: table;
+`;
+const BatterySvgWrapper = styled.div`
+  display: table-cell;
+  text-align: center;
+  vertical-align: middle;
+`;
+
 interface Props {
   chargeRankOfRedemption: number;
   isIncreaseForRedemptionReserve: boolean;
@@ -31,29 +43,71 @@ interface Props {
 }
 
 function renderBattery(chargeRank: number, isIncrease: boolean) {
+  const svgProps = { viewBox: '10 -3 40 40' };
+  const svgProps2 = { height: '4rem', viewBox: '22 0 50 50' };
   switch (chargeRank) {
     case 1:
-      return isIncrease ? <Battery1Charge /> : <Battery1Discharge />;
+      return isIncrease ? (
+        <Battery1Charge {...svgProps} />
+      ) : (
+        <Battery1Discharge {...svgProps2} />
+      );
     case 2:
-      return isIncrease ? <Battery2Charge /> : <Battery2Discharge />;
+      return isIncrease ? (
+        <Battery2Charge {...svgProps} />
+      ) : (
+        <Battery2Discharge {...svgProps2} />
+      );
     case 3:
-      return isIncrease ? <Battery3Charge /> : <Battery3Discharge />;
+      return isIncrease ? (
+        <Battery3Charge {...svgProps} />
+      ) : (
+        <Battery3Discharge {...svgProps2} />
+      );
     case 4:
-      return isIncrease ? <Battery4Charge /> : <Battery4Discharge />;
+      return isIncrease ? (
+        <Battery4Charge {...svgProps} />
+      ) : (
+        <Battery4Discharge {...svgProps2} />
+      );
     case 5:
-      return isIncrease ? <Battery5Charge /> : <Battery5Discharge />;
+      return isIncrease ? (
+        <Battery5Charge {...svgProps} />
+      ) : (
+        <Battery5Discharge {...svgProps2} />
+      );
     case 6:
-      return isIncrease ? <Battery6Charge /> : <Battery6Discharge />;
+      return isIncrease ? (
+        <Battery6Charge {...svgProps} />
+      ) : (
+        <Battery6Discharge {...svgProps2} />
+      );
     case 7:
-      return isIncrease ? <Battery7Charge /> : <Battery7Discharge />;
+      return isIncrease ? (
+        <Battery7Charge {...svgProps} />
+      ) : (
+        <Battery7Discharge {...svgProps2} />
+      );
     case 8:
-      return isIncrease ? <Battery8Charge /> : <Battery8Discharge />;
+      return isIncrease ? (
+        <Battery8Charge {...svgProps} />
+      ) : (
+        <Battery8Discharge {...svgProps2} />
+      );
     case 9:
-      return isIncrease ? <Battery9Charge /> : <Battery9Discharge />;
+      return isIncrease ? (
+        <Battery9Charge {...svgProps} />
+      ) : (
+        <Battery9Discharge {...svgProps2} />
+      );
     case 10:
-      return isIncrease ? <Battery10Charge /> : <Battery10Discharge />;
+      return isIncrease ? (
+        <Battery10Charge {...svgProps} />
+      ) : (
+        <Battery10Discharge {...svgProps2} />
+      );
     default:
-      return <Battery1Charge />;
+      return <Battery1Charge {...svgProps} />;
   }
 }
 
@@ -75,14 +129,14 @@ export default function Pool(props: Props) {
       >
         <ItemTitleForInfographics>償還プール</ItemTitleForInfographics>
       </Box>
-      <div style={{ textAlign: 'center' }}>
-        <div style={{ display: 'inline-block' }}>
+      <BatteryContainer>
+        <BatterySvgWrapper>
           {renderBattery(
             chargeRankOfRedemption,
             isIncreaseForRedemptionReserve
           )}
-        </div>
-      </div>
+        </BatterySvgWrapper>
+      </BatteryContainer>
       <Box
         display="flex"
         alignItems="center"
@@ -91,11 +145,11 @@ export default function Pool(props: Props) {
       >
         <ItemTitleForInfographics>弁済プール</ItemTitleForInfographics>
       </Box>
-      <div style={{ textAlign: 'center' }}>
-        <div style={{ display: 'inline-block' }}>
+      <BatteryContainer>
+        <BatterySvgWrapper>
           {renderBattery(chargeRankOfSweep, isIncreaseForSweepReserve)}
-        </div>
-      </div>
+        </BatterySvgWrapper>
+      </BatteryContainer>
     </Box>
   );
 }

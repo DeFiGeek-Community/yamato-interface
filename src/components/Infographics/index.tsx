@@ -1,6 +1,7 @@
 import { Grid, GridItem } from '@chakra-ui/react';
 import { useMarketState } from '../../state/market/hooks';
 import { useYamatoStateForInfographics } from '../../state/yamato-entirety/hooks';
+import { getEthChangePercent } from '../../utils/prices';
 import {
   CategoryTitle,
   ConentBox,
@@ -62,8 +63,10 @@ export function InfographicsContent(props: Partial<InfographicsProps>) {
       ? (100 * mixedValues.totalCollateral * mixedValues.rateOfEthJpy) /
         mixedValues.totalDebt
       : mixedValues.tcr;
-  const ethChangePercent =
-    mixedValues.rateOfEthJpy / mixedValues.prevRateOfEthJpy;
+  const ethChangePercent = getEthChangePercent(
+    mixedValues.rateOfEthJpy,
+    mixedValues.prevRateOfEthJpy
+  );
   const isIncreaseForRedemptionReserve =
     mixedValues.redemptionReserve > mixedValues.prevRedemptionReserve;
   const isIncreaseForSweepReserve =
@@ -104,25 +107,19 @@ export function InfographicsContent(props: Partial<InfographicsProps>) {
       <div style={{ minHeight: '16px', marginBottom: '10px' }}>
         {renderSignalMessages()}
       </div>
-      <Grid
-        templateRows="repeat(5, 1fr)"
-        templateColumns="repeat(2, 1fr)"
-        gap={4}
-      >
-        <GridItem colSpan={1} rowSpan={5}>
+      <Grid templateColumns="repeat(2, 1fr)" gap={4}>
+        <GridItem colSpan={1}>
           <CjpyPrice
             cjpyPriceRank={cjpyPriceRank}
             ethPriceRank={ethPriceRank}
             colorCodePerTcr={colorCodePerTcr}
           />
         </GridItem>
-        <GridItem colSpan={1} rowSpan={1}>
+        <GridItem colSpan={1}>
           <EthPrice ethPrice={rateOfEthJpy} ethPriceRank={ethPriceRank} />
-        </GridItem>
-        <GridItem colSpan={1} rowSpan={2}>
-          <Tcr tcr={tcr} />
-        </GridItem>
-        <GridItem colSpan={1} rowSpan={2}>
+          <div style={{ margin: '0.4rem 0' }}>
+            <Tcr tcr={tcr} />
+          </div>
           <Pool
             chargeRankOfRedemption={chargeRankOfRedemption}
             isIncreaseForRedemptionReserve={isIncreaseForRedemptionReserve}

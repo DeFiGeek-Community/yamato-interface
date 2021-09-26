@@ -14,12 +14,30 @@ interface Props {
 function renderArrow(ethPriceRank: number) {
   const brightness = getBrightnessPerEth(ethPriceRank);
   const style = { margin: 'auto' };
+  const svgProps = { width: 55, height: 22, viewBox: '0 0 55 55' };
   if (ethPriceRank > 0) {
-    return <ArrowUp color={`hsl(360, 100%, ${brightness}%)`} style={style} />;
+    return (
+      <ArrowUp
+        color={`hsl(360, 100%, ${brightness}%)`}
+        style={style}
+        {...svgProps}
+      />
+    );
   } else if (ethPriceRank < 0) {
-    return <ArrowDown color={`hsl(236, 100%, ${brightness}%)`} style={style} />;
+    return (
+      <ArrowDown
+        color={`hsl(236, 100%, ${brightness}%)`}
+        style={style}
+        {...svgProps}
+      />
+    );
   } else {
-    return <img src={ArrowZero} style={{ ...style, height: '50px' }} />;
+    return (
+      <img
+        src={ArrowZero}
+        style={{ ...style, height: '22px', paddingBottom: '2px' }}
+      />
+    );
   }
 }
 

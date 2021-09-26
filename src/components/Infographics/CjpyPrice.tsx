@@ -1,4 +1,4 @@
-import { Box, Grid, GridItem } from '@chakra-ui/react';
+import { Box, HStack } from '@chakra-ui/react';
 import Arrow from '../svgs/ArrowYen';
 import {
   Spring0,
@@ -101,14 +101,14 @@ export default function CjpyPrice(props: Props) {
         background: switchBackgroundColor(ethPriceRank),
       }}
     >
-      <Grid templateColumns="repeat(2, 1fr)">
-        <GridItem colSpan={1} style={{ display: 'flex', alignItems: 'center' }}>
+      <HStack>
+        <div style={{ margin: 'auto 0.5rem auto auto' }}>
           <Arrow />
-        </GridItem>
-        <GridItem colSpan={1}>
+        </div>
+        <div style={{ margin: 'auto auto auto 0' }}>
           {switchSpring(cjpyPriceRank, colorCodePerTcr)}
-        </GridItem>
-      </Grid>
+        </div>
+      </HStack>
     </Box>
   );
 }
