@@ -55,7 +55,7 @@ export default function Updater(): null {
         id: '1',
         date: 10,
         address: 'aaaaaaaa',
-        category: 'deposit' as LogEventType,
+        category: 'governance_withdrawal' as LogEventType,
         value: '10',
       },
       {
@@ -66,14 +66,14 @@ export default function Updater(): null {
         value: '5',
       },
       {
-        id: `${Math.floor(Math.random() * 10)}`,
+        id: `${Math.floor(Math.random() * 100)}`,
         date: now + 1,
         address: `${Math.random().toString(32).substring(2)}`,
         category: 'borrowing' as LogEventType,
         value: `${Math.floor(Math.random() * 1000)}`,
       },
       {
-        id: `${Math.floor(Math.random() * 10)}`,
+        id: `${Math.floor(Math.random() * 100)}`,
         date: now + 2,
         address: `${Math.random().toString(32).substring(2)}`,
         category: 'repay' as LogEventType,
@@ -87,7 +87,7 @@ export default function Updater(): null {
         value: `${Math.floor(Math.random() * 10)}`,
       },
       {
-        id: '1',
+        id: `${Math.floor(Math.random() * 100)}`,
         date: now + 4,
         address: `${Math.random().toString(32).substring(2)}`,
         category: 'deposit' as LogEventType,
