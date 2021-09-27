@@ -1,7 +1,6 @@
 import { Grid, GridItem, VStack } from '@chakra-ui/react';
 import { Formik, Form, FormikHelpers } from 'formik';
 import { YAMATO_SYMBOL } from '../../../constants/yamato';
-import { useActiveWeb3React } from '../../../hooks/web3';
 import { formatPrice } from '../../../utils/prices';
 import { Text, CustomButton, CustomFormLabel } from '../../CommonItem';
 
@@ -13,8 +12,6 @@ type Props = {
 
 export default function SweepInput(props: Props) {
   const { sweepReserve, sweepableCandiate } = props;
-
-  const { account, library } = useActiveWeb3React();
 
   function getExpectedReward() {
     const amount =

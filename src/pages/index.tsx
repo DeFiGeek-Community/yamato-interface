@@ -1,4 +1,5 @@
 import { Box, Grid, GridItem } from '@chakra-ui/react';
+import { useWeb3React } from '@web3-react/core';
 import Dashboad from '../components/Dashboad';
 import Infographics from '../components/Infographics';
 import Layout from '../components/Layout';
@@ -7,33 +8,62 @@ import Redemption from '../components/Redemption';
 import World from '../components/World';
 
 export default function Index() {
+  const { account } = useWeb3React();
+
   return (
     <Layout title="Yamato Interface">
-      <Grid
-        templateColumns="repeat(4, 1fr)"
-        gap={8}
-        style={{ maxWidth: '1280px', margin: 'auto' }}
-      >
-        <GridItem colSpan={3}>
-          <Dashboad />
+      {!!account ? (
+        <Grid
+          templateColumns="repeat(4, 1fr)"
+          gap={8}
+          style={{ maxWidth: '1280px', margin: 'auto' }}
+        >
+          <GridItem colSpan={3}>
+            <Dashboad />
 
-          <Box className="divider" mt={'20px'} />
+            <Box className="divider" mt={'20px'} />
 
-          <Pledge />
+            <Pledge />
 
-          <Box className="divider" mt={'20px'} />
+            <Box className="divider" mt={'20px'} />
 
-          <Redemption />
-        </GridItem>
+            <Redemption />
+          </GridItem>
 
-        <GridItem colSpan={1}>
-          <World />
+          <GridItem colSpan={1}>
+            <World />
 
-          <Box className="divider" mt={'20px'} />
+            <Box className="divider" mt={'20px'} />
 
-          <Infographics />
-        </GridItem>
-      </Grid>
+            <Infographics />
+          </GridItem>
+        </Grid>
+      ) : (
+        <Grid
+          templateColumns="repeat(3, 1fr)"
+          templateRows="repeat(4, 1fr)"
+          gap={8}
+          style={{
+            maxWidth: '960px',
+            margin: 'auto',
+            height: 'calc(100vh - 4rem - 7rem - 6.6rem )',
+          }}
+        >
+          <GridItem rowSpan={1} colSpan={3}>
+            <Box className="divider" mt={'20px'} />
+
+            <Dashboad />
+          </GridItem>
+
+          <GridItem rowSpan={1} colSpan={2}>
+            <World />
+          </GridItem>
+
+          <GridItem rowSpan={1} colSpan={1}>
+            <Infographics />
+          </GridItem>
+        </Grid>
+      )}
     </Layout>
   );
 }

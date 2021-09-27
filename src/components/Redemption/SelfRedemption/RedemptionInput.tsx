@@ -8,7 +8,6 @@ import {
 import { Formik, Form, Field, FieldProps, FormikHelpers } from 'formik';
 import { useState } from 'react';
 import { YAMATO_SYMBOL } from '../../../constants/yamato';
-import { useActiveWeb3React } from '../../../hooks/web3';
 import { useWalletState } from '../../../state/wallet/hooks';
 import { formatPrice } from '../../../utils/prices';
 import {
@@ -32,7 +31,6 @@ type Props = {
 export default function RedemptionInput(props: Props) {
   const { totalCollateral, totalDebt, tcr, rateOfEthJpy } = props;
 
-  const { account, library } = useActiveWeb3React();
   const { cjpy } = useWalletState();
 
   const [redemption, setRedemption] = useState(0);

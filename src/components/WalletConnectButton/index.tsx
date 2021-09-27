@@ -182,9 +182,6 @@ function Web3StatusInner() {
         id="connect-wallet"
         onClick={toggleWalletModal}
         // faded={!account}
-        style={{
-          verticalAlign: 'middle',
-        }}
       >
         <WalletText
           style={{

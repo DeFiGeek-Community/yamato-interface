@@ -1,6 +1,5 @@
 import { Grid, GridItem } from '@chakra-ui/react';
 import { MCR, YAMATO_SYMBOL } from '../../../constants/yamato';
-import { useActiveWeb3React } from '../../../hooks/web3';
 import { usePledgeData } from '../../../state/pledge/hooks';
 import { useYamatoStateForPledge } from '../../../state/yamato-entirety/hooks';
 import {
@@ -27,8 +26,6 @@ function getBorrowableAmount(
 }
 
 export default function Debt() {
-  const { account, library } = useActiveWeb3React();
-
   const { rateOfEthJpy } = useYamatoStateForPledge();
   const { collateral, debt } = usePledgeData();
 

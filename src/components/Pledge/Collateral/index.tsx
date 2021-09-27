@@ -1,6 +1,5 @@
 import { Grid, GridItem } from '@chakra-ui/react';
 import { YAMATO_SYMBOL } from '../../../constants/yamato';
-import { useActiveWeb3React } from '../../../hooks/web3';
 import { usePledgeData } from '../../../state/pledge/hooks';
 import { useYamatoStateForPledge } from '../../../state/yamato-entirety/hooks';
 import { multiplyToNum } from '../../../utils/bignumber';
@@ -10,8 +9,6 @@ import DepositInput from './DepositInput';
 import WithdrawalInput from './WithdrawalInput';
 
 export default function Collateral() {
-  const { account, library } = useActiveWeb3React();
-
   const { rateOfEthJpy } = useYamatoStateForPledge();
   const { collateral, debt, withdrawalLockDate } = usePledgeData();
 
