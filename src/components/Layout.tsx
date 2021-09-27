@@ -34,7 +34,7 @@ export default function Layout({
             rowSpan={1}
             colEnd={4}
             style={{
-              marginRight: 'auto',
+              margin: 'auto',
             }}
           >
             <HStack>

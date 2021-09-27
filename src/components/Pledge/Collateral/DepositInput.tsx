@@ -7,7 +7,6 @@ import {
 import { Formik, Form, Field, FormikHelpers, FieldProps } from 'formik';
 import { useState } from 'react';
 import { YAMATO_SYMBOL } from '../../../constants/yamato';
-import { useActiveWeb3React } from '../../../hooks/web3';
 import { useDepositCollateral } from '../../../state/pledge/hooks';
 import { useWalletState } from '../../../state/wallet/hooks';
 import { addToNum } from '../../../utils/bignumber';
@@ -22,7 +21,6 @@ type Props = { collateral: number; debt: number; rateOfEthJpy: number };
 export default function DepositInput(props: Props) {
   const { collateral, debt, rateOfEthJpy } = props;
 
-  const { account, library } = useActiveWeb3React();
   const depositCollateral = useDepositCollateral();
   const { eth } = useWalletState();
 

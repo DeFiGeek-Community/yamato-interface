@@ -1,7 +1,6 @@
 import { Grid, GridItem, VStack } from '@chakra-ui/react';
 import { Formik, Form, FormikHelpers } from 'formik';
 import { YAMATO_SYMBOL } from '../../../constants/yamato';
-import { useActiveWeb3React } from '../../../hooks/web3';
 import { formatPrice } from '../../../utils/prices';
 import { Text, CustomButton, CustomFormLabel } from '../../CommonItem';
 import {
@@ -20,8 +19,6 @@ type Props = {
 export default function RedemptionInput(props: Props) {
   const { totalCollateral, totalDebt, tcr, rateOfEthJpy, redemptionReserve } =
     props;
-
-  const { account, library } = useActiveWeb3React();
 
   const redeemableCandidate = getRedeemableCandidate(
     totalCollateral,

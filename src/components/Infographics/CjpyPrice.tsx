@@ -35,49 +35,49 @@ function switchSpring(cjpyPriceRank: number, colorCode: number) {
   const springColor = `hsl(${colorCode},100%,76%)`;
   switch (cjpyPriceRank) {
     case -10:
-      return <SpringMinus10 springColor={springColor} />;
+      return <SpringMinus10 springcolor={springColor} />;
     case -9:
-      return <SpringMinus9 springColor={springColor} />;
+      return <SpringMinus9 springcolor={springColor} />;
     case -8:
-      return <SpringMinus8 springColor={springColor} />;
+      return <SpringMinus8 springcolor={springColor} />;
     case -7:
-      return <SpringMinus7 springColor={springColor} />;
+      return <SpringMinus7 springcolor={springColor} />;
     case -6:
-      return <SpringMinus6 springColor={springColor} />;
+      return <SpringMinus6 springcolor={springColor} />;
     case -5:
-      return <SpringMinus5 springColor={springColor} />;
+      return <SpringMinus5 springcolor={springColor} />;
     case -4:
-      return <SpringMinus4 springColor={springColor} />;
+      return <SpringMinus4 springcolor={springColor} />;
     case -3:
-      return <SpringMinus3 springColor={springColor} />;
+      return <SpringMinus3 springcolor={springColor} />;
     case -2:
-      return <SpringMinus2 springColor={springColor} />;
+      return <SpringMinus2 springcolor={springColor} />;
     case -1:
-      return <SpringMinus1 springColor={springColor} />;
+      return <SpringMinus1 springcolor={springColor} />;
     case 0:
-      return <Spring0 springColor={springColor} />;
+      return <Spring0 springcolor={springColor} />;
     case 1:
-      return <SpringPlus1 springColor={springColor} />;
+      return <SpringPlus1 springcolor={springColor} />;
     case 2:
-      return <SpringPlus2 springColor={springColor} />;
+      return <SpringPlus2 springcolor={springColor} />;
     case 3:
-      return <SpringPlus3 springColor={springColor} />;
+      return <SpringPlus3 springcolor={springColor} />;
     case 4:
-      return <SpringPlus4 springColor={springColor} />;
+      return <SpringPlus4 springcolor={springColor} />;
     case 5:
-      return <SpringPlus5 springColor={springColor} />;
+      return <SpringPlus5 springcolor={springColor} />;
     case 6:
-      return <SpringPlus6 springColor={springColor} />;
+      return <SpringPlus6 springcolor={springColor} />;
     case 7:
-      return <SpringPlus7 springColor={springColor} />;
+      return <SpringPlus7 springcolor={springColor} />;
     case 8:
-      return <SpringPlus8 springColor={springColor} />;
+      return <SpringPlus8 springcolor={springColor} />;
     case 9:
-      return <SpringPlus9 springColor={springColor} />;
+      return <SpringPlus9 springcolor={springColor} />;
     case 10:
-      return <SpringPlus10 springColor={springColor} />;
+      return <SpringPlus10 springcolor={springColor} />;
     default:
-      return <Spring0 springColor={springColor} />;
+      return <Spring0 springcolor={springColor} />;
   }
 }
 

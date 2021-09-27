@@ -1,3 +1,4 @@
+import { useWeb3React } from '@web3-react/core';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import styled from 'styled-components';
 import { useYamatoStateForWorld } from '../../../state/yamato-entirety/hooks';
@@ -86,6 +87,7 @@ const Animation = styled.div`
 `;
 
 export default function LogViewer() {
+  const { account } = useWeb3React();
   const { events } = useYamatoStateForWorld();
   const diplayedEvents = events.slice(0, 20);
 
@@ -114,7 +116,9 @@ export default function LogViewer() {
   }
 
   return (
-    <div style={{ height: '300px', overflowY: 'scroll' }}>
+    <div
+      style={{ height: !!account ? '30rem' : '34.5rem', overflowY: 'scroll' }}
+    >
       <TransitionGroup>{renderLogEvents()}</TransitionGroup>
       {renderLogEvents()}
     </div>
