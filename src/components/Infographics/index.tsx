@@ -1,6 +1,7 @@
 import {
   Grid,
   GridItem,
+  HStack,
   Button,
   Popover,
   PopoverTrigger,
@@ -57,6 +58,29 @@ export interface InfographicsProps {
   prevRedemptionReserve: number; // state.yamatoEntirety.pool.prevRedemptionReserve
   sweepReserve: number; // state.yamatoEntirety.pool.sweepReserve
   prevSweepReserve: number; // state.yamatoEntirety.pool.prevSweepReserve
+}
+
+export function InfographicsHelp() {
+  return (
+    <Popover>
+      <PopoverTrigger>
+        <Button>?</Button>
+      </PopoverTrigger>
+      <PopoverContent>
+        <PopoverArrow />
+        <PopoverCloseButton />
+        <PopoverHeader>用語解説</PopoverHeader>
+        <PopoverBody>
+          <div>
+            <ul>
+              <li>TCR: 総担保比率(Total Collateral Ratio)</li>
+              <li>MCR: 最低担保比率(Minimum Collateral Ratio)</li>
+            </ul>
+          </div>
+        </PopoverBody>
+      </PopoverContent>
+    </Popover>
+  );
 }
 
 export function InfographicsContent(props: Partial<InfographicsProps>) {
@@ -139,24 +163,6 @@ export function InfographicsContent(props: Partial<InfographicsProps>) {
           />
         </GridItem>
       </Grid>
-      <Popover>
-        <PopoverTrigger>
-          <Button>?</Button>
-        </PopoverTrigger>
-        <PopoverContent>
-          <PopoverArrow />
-          <PopoverCloseButton />
-          <PopoverHeader>用語解説</PopoverHeader>
-          <PopoverBody>
-            <div>
-              <ul>
-                <li>TCR: 総担保比率(Total Collateral Ratio)</li>
-                <li>MCR: 最低担保比率(Minimum Collateral Ratio)</li>
-              </ul>
-            </div>
-          </PopoverBody>
-        </PopoverContent>
-      </Popover>
     </>
   );
 }
@@ -165,7 +171,10 @@ export default function Infographics(props: Partial<InfographicsProps>) {
   return (
     <>
       <HeaderBox1>
-        <CategoryTitle>CJPY Now</CategoryTitle>
+        <HStack>
+          <CategoryTitle>CJPY Now</CategoryTitle>
+          <InfographicsHelp />
+        </HStack>
       </HeaderBox1>
       <ConentBox>
         <InfographicsContent {...props} />
