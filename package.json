@@ -4,16 +4,16 @@
   "license": "GPL-3.0-or-later",
   "private": true,
   "scripts": {
-    "start": "yarn compile-external-abi-types && react-scripts start",
-    "build": "yarn compile-external-abi-types && react-scripts build",
-    "test": "yarn compile-external-abi-types && react-scripts test",
+    "start": "yarn contracts:compile && react-scripts start",
+    "build": "yarn contracts:compile && react-scripts build",
+    "test": "yarn contracts:compile && react-scripts test",
     "lint": "eslint . --ext .ts,.tsx ./src",
     "lint:fix": "yarn lint --fix",
     "format": "prettier --config .prettierrc.json --write 'src/**/*.{js,jsx,ts,tsx}'",
     "diff-check": "git diff --exit-code -- .",
     "ci:format": "yarn lint:fix && yarn format && yarn diff-check",
     "svg:gen": "svgr ./src/assets/sources --out-dir ./src/components/svgs && yarn format",
-    "compile-external-abi-types": "typechain --target ethers-v5 --out-dir src/infrastructures/abis/types './src/infrastructures/abis/**/*.json'",
+    "contracts:compile": "typechain --target ethers-v5 --out-dir src/infrastructures/abis/types './src/infrastructures/abis/**/*.json' './node_modules/@uniswap/?(v3-core|v3-periphery)/artifacts/contracts/**/*.json'",
     "eject": "react-scripts eject"
   },
   "dependencies": {
@@ -66,6 +66,7 @@
     "@types/styled-components": "^5.1.11",
     "@typescript-eslint/eslint-plugin": "^4.28.4",
     "@typescript-eslint/parser": "^4.28.4",
+    "@uniswap/v3-periphery": "^1.2.1",
     "eslint": "^7.31.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.23.4",
