@@ -43,6 +43,7 @@ const IconWrapper = styled.div<{ size?: number }>`
 const WalletButton = styled(RebassButton)`
   color: ${({ theme }) => theme.text1};
   padding: 0;
+  margin-right: 1rem;
 `;
 
 export const WalletText = styled(Text)`
@@ -189,7 +190,7 @@ function Web3StatusInner() {
             lineHeight: '2.3rem',
           }}
         >
-          Connect Wallet →
+          Connect Wallet
         </WalletText>
       </WalletButton>
     );

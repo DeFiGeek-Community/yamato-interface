@@ -1,8 +1,8 @@
 import { Box, HStack, VStack } from '@chakra-ui/layout';
 import styled from 'styled-components';
-import { Organizer, ReferenceList } from '../constants/about';
-import { Text } from './CommonItem';
-import CommunityLogoBlack from './svgs/CommunityLogoBlack';
+import { Organizer, ReferenceList } from '../../constants/about';
+import { Text } from '../CommonItem';
+import CommunityLogoBlack from '../svgs/CommunityLogoBlack';
 
 const FooterItem = styled.div`
   display: flex;
