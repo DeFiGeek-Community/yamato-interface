@@ -1,4 +1,16 @@
-import { Grid, GridItem } from '@chakra-ui/react';
+import {
+  Grid,
+  GridItem,
+  Button,
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+  PopoverHeader,
+  PopoverBody,
+  PopoverFooter,
+  PopoverArrow,
+  PopoverCloseButton,
+} from '@chakra-ui/react';
 import { useMarketState } from '../../state/market/hooks';
 import { useYamatoStateForInfographics } from '../../state/yamato-entirety/hooks';
 import { getEthChangePercent } from '../../utils/prices';
@@ -128,6 +140,24 @@ export function InfographicsContent(props: Partial<InfographicsProps>) {
           />
         </GridItem>
       </Grid>
+      <Popover>
+        <PopoverTrigger>
+          <Button>?</Button>
+        </PopoverTrigger>
+        <PopoverContent>
+          <PopoverArrow />
+          <PopoverCloseButton />
+          <PopoverHeader>用語解説</PopoverHeader>
+          <PopoverBody>
+            <div>
+              <ul>
+                <li>TCR: 総担保比率(Total Collateral Ratio)</li>
+                <li>MCR: 最低担保比率(Minimum Collateral Ratio)</li>
+              </ul>
+            </div>
+          </PopoverBody>
+        </PopoverContent>
+      </Popover>
     </>
   );
 }
