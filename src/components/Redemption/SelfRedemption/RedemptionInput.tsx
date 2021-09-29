@@ -137,9 +137,18 @@ export default function RedemptionInput(props: Props) {
             </GridItem>
 
             <GridItem colSpan={1}>
-              <CustomButton isLoading={formikProps.isSubmitting} type="submit">
-                償還実行
-              </CustomButton>
+              <div
+                style={{
+                  marginTop: '1.5rem',
+                }}
+              >
+                <CustomButton
+                  isLoading={formikProps.isSubmitting}
+                  type="submit"
+                >
+                  償還実行
+                </CustomButton>
+              </div>
             </GridItem>
           </Grid>
         </Form>

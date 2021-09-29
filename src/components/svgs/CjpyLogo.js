@@ -69,7 +69,7 @@ function SvgCjpyLogo(props) {
             InkscapeFontSpecification: "'Gadugi, Bold'",
             InkscapeStroke: 'none',
           }}
-          d="M6.615 10.641h.788V8.747h1.645V8.02H7.394v-.727h1.654v-.727H7.826l1.93-3.403h-1.73L6.615 6.01m0 4.631h-.79V8.747H4.182V8.02h1.654v-.727H4.181v-.727h1.222l-1.93-3.403h1.73L6.615 6.01"
+          d="M7.403 10.641V8.747h1.645V8.02H7.394v-.727h1.654v-.727H7.826l1.93-3.403h-1.73L6.615 6.01 5.203 3.163h-1.73l1.93 3.403H4.18v.727h1.654v.727H4.181v.727h1.645v1.894z"
           color="#000"
           aria-label="\uFFE5"
           fontSize={273.862}
