@@ -1,4 +1,16 @@
-import { Grid, GridItem, VStack } from '@chakra-ui/react';
+import {
+  Grid,
+  GridItem,
+  VStack,
+  Button,
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+  PopoverHeader,
+  PopoverBody,
+  PopoverArrow,
+  PopoverCloseButton,
+} from '@chakra-ui/react';
 import { YAMATO_SYMBOL } from '../../constants/yamato';
 import { useMarketState } from '../../state/market/hooks';
 import { useYamatoStateForDashboard } from '../../state/yamato-entirety/hooks';
@@ -75,6 +87,24 @@ export default function Dashboad() {
                   YAMATO_SYMBOL.YEN
                 }`}
               />
+              <Popover>
+                <PopoverTrigger>
+                  <Button>?</Button>
+                </PopoverTrigger>
+                <PopoverContent>
+                  <PopoverArrow />
+                  <PopoverCloseButton />
+                  <PopoverHeader>用語解説</PopoverHeader>
+                  <PopoverBody>
+                    <div>
+                      <ul>
+                        <li>TVL: 総預入額(Total Value Locked)</li>
+                        <li>TCR: 総担保比率(Total Collateral Ratio)</li>
+                      </ul>
+                    </div>
+                  </PopoverBody>
+                </PopoverContent>
+              </Popover>
             </VStack>
           </GridItem>
         </Grid>
