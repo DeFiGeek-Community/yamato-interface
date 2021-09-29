@@ -1,6 +1,7 @@
 import {
   Grid,
   GridItem,
+  HStack,
   VStack,
   Button,
   Popover,
@@ -38,7 +39,27 @@ export default function Dashboad() {
   return (
     <>
       <HeaderBox1>
-        <CategoryTitle>Yamato Statistics</CategoryTitle>
+        <HStack>
+          <CategoryTitle>Yamato Statistics</CategoryTitle>
+          <Popover>
+            <PopoverTrigger>
+              <Button>?</Button>
+            </PopoverTrigger>
+            <PopoverContent>
+              <PopoverArrow />
+              <PopoverCloseButton />
+              <PopoverHeader>用語解説</PopoverHeader>
+              <PopoverBody>
+                <div>
+                  <ul>
+                    <li>TVL: 総預入額(Total Value Locked)</li>
+                    <li>TCR: 総担保比率(Total Collateral Ratio)</li>
+                  </ul>
+                </div>
+              </PopoverBody>
+            </PopoverContent>
+          </Popover>
+        </HStack>
       </HeaderBox1>
       <ConentBox>
         <Grid templateColumns="repeat(2, 1fr)" gap={4}>
@@ -87,24 +108,6 @@ export default function Dashboad() {
                   YAMATO_SYMBOL.YEN
                 }`}
               />
-              <Popover>
-                <PopoverTrigger>
-                  <Button>?</Button>
-                </PopoverTrigger>
-                <PopoverContent>
-                  <PopoverArrow />
-                  <PopoverCloseButton />
-                  <PopoverHeader>用語解説</PopoverHeader>
-                  <PopoverBody>
-                    <div>
-                      <ul>
-                        <li>TVL: 総預入額(Total Value Locked)</li>
-                        <li>TCR: 総担保比率(Total Collateral Ratio)</li>
-                      </ul>
-                    </div>
-                  </PopoverBody>
-                </PopoverContent>
-              </Popover>
             </VStack>
           </GridItem>
         </Grid>
