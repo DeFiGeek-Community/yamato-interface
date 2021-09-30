@@ -9,7 +9,7 @@ note: If the above does not apply, you can use [this standard Creat-React-App me
 
 ## Steps
 
-1. Set the source SVG files in `src/assets/sources`.
+1. Put the source SVG files in `src/assets/svg/sources`.
 2. `$ yarn svg:gen`
 3. You will see the converted ReactComponents in `src/components/svgs`.
 
