@@ -3,7 +3,12 @@ import { YAMATO_SYMBOL } from '../../constants/yamato';
 import { useMarketState } from '../../state/market/hooks';
 import { useYamatoStateForDashboard } from '../../state/yamato-entirety/hooks';
 import { formatPrice } from '../../utils/prices';
-import { CategoryTitle, ConentBox, HeaderBox1 } from '../CommonItem';
+import {
+  CategoryTitle,
+  ConentBox,
+  HeaderBox1,
+  ItemTitleValue,
+} from '../CommonItem';
 import TerminologyPopover from '../TerminologyPopover';
 import DashboadItem from './Item';
 
@@ -31,10 +36,10 @@ export default function Dashboad() {
           <CategoryTitle>Yamato Statistics</CategoryTitle>
           <TerminologyPopover>
             <div>
-              <ul>
-                <li>TVL: 総預入額(Total Value Locked)</li>
-                <li>TCR: 総担保比率(Total Collateral Ratio)</li>
-              </ul>
+              <ItemTitleValue>TVL: 総預入額(Total Value Locked)</ItemTitleValue>
+              <ItemTitleValue>
+                TCR: 総担保比率(Total Collateral Ratio)
+              </ItemTitleValue>
             </div>
           </TerminologyPopover>
         </HStack>

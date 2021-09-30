@@ -53,10 +53,10 @@ export function InfographicsHelp() {
   return (
     <TerminologyPopover>
       <div>
-        <ul>
-          <li>TCR: 総担保比率(Total Collateral Ratio)</li>
-          <li>MCR: 最低担保比率(Minimum Collateral Ratio)</li>
-        </ul>
+        <ItemTitleValue>TCR: 総担保比率(Total Collateral Ratio)</ItemTitleValue>
+        <ItemTitleValue>
+          MCR: 最低担保比率(Minimum Collateral Ratio)
+        </ItemTitleValue>
       </div>
     </TerminologyPopover>
   );
