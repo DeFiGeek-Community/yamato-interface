@@ -10,7 +10,7 @@ import {
 import React from 'react';
 import {
   ButtonInHeaderBox1,
-  headerBox1Color,
+  popoverBorderColor,
   ItemTitleForPledge,
 } from '../CommonItem';
 
@@ -27,19 +27,17 @@ export default function TerminologyPopover({
         <ButtonInHeaderBox1>?</ButtonInHeaderBox1>
       </PopoverTrigger>
       <PopoverContent>
-        <PopoverArrow bgColor={headerBox1Color} />
-        <PopoverCloseButton textColor={headerBox1Color} />
+        <PopoverArrow bgColor={popoverBorderColor} />
+        <PopoverCloseButton textColor={popoverBorderColor} />
         <PopoverHeader
-          borderColor={headerBox1Color}
+          borderColor={popoverBorderColor}
           borderWidth={'0.4em 0.4em 0.2em 0.4em'}
-          borderRadius={'10px 10px 0 0'}
         >
           <ItemTitleForPledge>{title ?? '用語解説'}</ItemTitleForPledge>
         </PopoverHeader>
         <PopoverBody
-          borderColor={headerBox1Color}
+          borderColor={popoverBorderColor}
           borderWidth={'0.2em 0.4em 0.4em 0.4em'}
-          borderRadius={'0 0 10px 10px'}
         >
           {children}
         </PopoverBody>
