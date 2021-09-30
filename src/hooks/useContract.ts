@@ -1,10 +1,9 @@
 import { Contract } from '@ethersproject/contracts';
 // import ARGENT_WALLET_DETECTOR_ABI from 'abis/argent-wallet-detector.json';
 // import EIP_2612 from 'abis/eip_2612.json';
+import { abi as MulticallABI } from '@uniswap/v3-periphery/artifacts/contracts/lens/UniswapInterfaceMulticall.sol/UniswapInterfaceMulticall.json';
 import { useMemo } from 'react';
-import { SupportedChainId } from '../constants/chains';
 import {
-  MULTICALL2_ADDRESSES,
   ENS_REGISTRAR_ADDRESSES,
   YAMATO_MAIN_ADDRESSES,
   YAMATO_POOL_ADDRESSES,
@@ -12,10 +11,10 @@ import {
   CJPY_ADDRESSES,
   YMT_ADDRESSES,
   VEYMT_ADDRESSES,
+  MULTICALL_ADDRESS,
 } from '../constants/contracts';
-import ENS_PUBLIC_RESOLVER_ABI from '../infrastructures/abis/external-abis/ens-public-resolver.json';
-import ENS_ABI from '../infrastructures/abis/external-abis/ens-registrar.json';
-import MULTICALL_ABI from '../infrastructures/abis/external-abis/multicall2.json';
+import ENS_PUBLIC_RESOLVER_ABI from '../infrastructures/abis/external/ens-public-resolver.json';
+import ENS_ABI from '../infrastructures/abis/external/ens-registrar.json';
 import {
   // ArgentWalletDetector,
   Yamato,
@@ -25,23 +24,21 @@ import {
   VeYMT,
   EnsPublicResolver,
   EnsRegistrar,
-  Multicall2,
   CJPY,
+  UniswapInterfaceMulticall,
 } from '../infrastructures/abis/types';
-import CJPY_ABI from '../infrastructures/abis/yamato-abis/CJPY.json';
-import YAMATO_POOL_ABI from '../infrastructures/abis/yamato-abis/Pool.json';
-import YAMATO_PRICE_FEED_ABI from '../infrastructures/abis/yamato-abis/PriceFeed.json';
-import YMT_ABI from '../infrastructures/abis/yamato-abis/YMT.json';
-import YAMATO_MAIN_ABI from '../infrastructures/abis/yamato-abis/Yamato.json';
-import VEYMT_ABI from '../infrastructures/abis/yamato-abis/veYMT.json';
-import { getContract, useActiveWeb3React } from './web3';
+import CJPY_ABI from '../infrastructures/abis/yamato/CJPY.json';
+import YAMATO_POOL_ABI from '../infrastructures/abis/yamato/Pool.json';
+import YAMATO_PRICE_FEED_ABI from '../infrastructures/abis/yamato/PriceFeed.json';
+import YMT_ABI from '../infrastructures/abis/yamato/YMT.json';
+import YAMATO_MAIN_ABI from '../infrastructures/abis/yamato/Yamato.json';
+import VEYMT_ABI from '../infrastructures/abis/yamato/veYMT.json';
+import { getContract } from '../utils/web3';
+import { useActiveWeb3React } from './web3';
 
-// // returns null on errors
+// returns null on errors
 export function useContract<T extends Contract = Contract>(
-  addressOrAddressMap:
-    | string
-    | { [chainId in SupportedChainId]?: string }
-    | undefined,
+  addressOrAddressMap: string | { [chainId: number]: string } | undefined,
   ABI: any,
   withSignerIfPossible = true
 ): T | null {
@@ -137,9 +134,9 @@ export function useENSResolverContract(
 // }
 
 export function useMulticall2Contract() {
-  return useContract<Multicall2>(
-    MULTICALL2_ADDRESSES,
-    MULTICALL_ABI,
+  return useContract<UniswapInterfaceMulticall>(
+    MULTICALL_ADDRESS,
+    MulticallABI,
     false
-  ) as Multicall2;
+  ) as UniswapInterfaceMulticall;
 }

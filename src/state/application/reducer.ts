@@ -1,14 +1,16 @@
 import { createReducer, nanoid } from '@reduxjs/toolkit';
+import { DEFAULT_TXN_DISMISS_MS } from '../../constants/misc';
+
 import {
   addPopup,
+  ApplicationModal,
   PopupContent,
   removePopup,
-  updateBlockNumber,
-  ApplicationModal,
+  setChainConnectivityWarning,
+  setImplements3085,
   setOpenModal,
-  startTx,
-  endTx,
-  setHash,
+  updateBlockNumber,
+  updateChainId,
 } from './actions';
 
 type PopupList = Array<{
@@ -20,22 +22,28 @@ type PopupList = Array<{
 
 export interface ApplicationState {
   readonly blockNumber: { readonly [chainId: number]: number };
-  readonly popupList: PopupList;
+  readonly chainConnectivityWarning: boolean;
+  readonly chainId: number | null;
+  readonly implements3085: boolean;
   readonly openModal: ApplicationModal | null;
-  readonly pendingTxs: Array<{ hash: string; type: 'donate' | 'claim' }>;
-  readonly txCount: number;
+  readonly popupList: PopupList;
 }
 
 const initialState: ApplicationState = {
   blockNumber: {},
-  popupList: [],
+  chainConnectivityWarning: false,
+  chainId: null,
+  implements3085: false,
   openModal: null,
-  pendingTxs: [],
-  txCount: 0,
+  popupList: [],
 };
 
 export default createReducer(initialState, (builder) =>
   builder
+    .addCase(updateChainId, (state, action) => {
+      const { chainId } = action.payload;
+      state.chainId = chainId;
+    })
     .addCase(updateBlockNumber, (state, action) => {
       const { chainId, blockNumber } = action.payload;
       if (typeof state.blockNumber[chainId] !== 'number') {
@@ -52,7 +60,10 @@ export default createReducer(initialState, (builder) =>
     })
     .addCase(
       addPopup,
-      (state, { payload: { content, key, removeAfterMs = 25000 } }) => {
+      (
+        state,
+        { payload: { content, key, removeAfterMs = DEFAULT_TXN_DISMISS_MS } }
+      ) => {
         state.popupList = (
           key
             ? state.popupList.filter((popup) => popup.key !== key)
@@ -74,18 +85,10 @@ export default createReducer(initialState, (builder) =>
         }
       });
     })
-    .addCase(startTx, (state) => {
-      state.txCount++;
+    .addCase(setImplements3085, (state, { payload: { implements3085 } }) => {
+      state.implements3085 = implements3085;
     })
-    .addCase(setHash, (state, { payload: { hash, type } }) => {
-      state.pendingTxs.push({ hash, type });
-    })
-    .addCase(endTx, (state, { payload: { hash } }) => {
-      state.txCount--;
-      if (hash) {
-        state.pendingTxs = state.pendingTxs.filter(
-          (pendingTx) => pendingTx.hash !== hash
-        );
-      }
+    .addCase(setChainConnectivityWarning, (state, { payload: { warn } }) => {
+      state.chainConnectivityWarning = warn;
     })
 );

@@ -1,26 +1,29 @@
 import { AbstractConnector } from '@web3-react/abstract-connector';
 import { UnsupportedChainIdError, useWeb3React } from '@web3-react/core';
+import { useMemo } from 'react';
 import { Activity } from 'react-feather';
 import { Button as RebassButton } from 'rebass/styled-components';
 import styled from 'styled-components';
 // import CoinbaseWalletIcon from '../../../assets/images/coinbaseWalletIcon.svg';
 // import FortmaticIcon from '../../../assets/images/fortmaticIcon.png';
-import WalletConnectIcon from '../../assets/images/walletConnectIcon.svg';
+// import WalletConnectIcon from '../../assets/images/walletConnectIcon.svg';
 import CJPYLogo from '../../components/svgs/CjpyLogo';
-import { NETWORK_LABELS } from '../../constants/chains';
+import { CHAIN_INFO } from '../../constants/chains';
 import { NETWORK_CONTEXT_NAME } from '../../constants/web3';
-import useENSName from '../../hooks/useENSName';
+import useENSName from '../../hooks/ens/useENSName';
 import {
   // fortmatic,
   injected,
   // portis,
-  walletconnect,
+  // walletconnect,
   // walletlink,
 } from '../../infrastructures/connectors';
+import { useWalletModalToggle } from '../../state/application/hooks';
 import {
-  usePendingTxCount,
-  useWalletModalToggle,
-} from '../../state/application/hooks';
+  isTransactionRecent,
+  useAllTransactions,
+} from '../../state/transactions/hooks';
+import { TransactionDetails } from '../../state/transactions/reducer';
 import { useWalletState } from '../../state/wallet/hooks';
 import { shortenAddress } from '../../utils/web3';
 // import PortisIcon from '../../..assets/images/portisIcon.png';
@@ -75,16 +78,21 @@ const NetworkIcon = styled(Activity)`
   height: 16px;
 `;
 
+// we want the latest one to come first, so return negative if a is after b
+function newTransactionsFirst(a: TransactionDetails, b: TransactionDetails) {
+  return b.addedTime - a.addedTime;
+}
+
 // eslint-disable-next-line react/prop-types
 function StatusIcon({ connector }: { connector: AbstractConnector }) {
   if (connector === injected) {
     return <Identicon />;
-  } else if (connector === walletconnect) {
-    return (
-      <IconWrapper size={16}>
-        <img src={WalletConnectIcon} alt={''} />
-      </IconWrapper>
-    );
+    // } else if (connector === walletconnect) {
+    //   return (
+    //     <IconWrapper size={16}>
+    //       <img src={WalletConnectIcon} alt={''} />
+    //     </IconWrapper>
+    //   );
     // } else if (connector === walletlink) {
     //   return (
     //     <IconWrapper size={16}>
@@ -114,8 +122,15 @@ function Web3StatusInner() {
   const { cjpy } = useWalletState();
 
   const toggleWalletModal = useWalletModalToggle();
-  const txCount = usePendingTxCount();
-  const hasPendingTransactions = txCount > 0;
+  const allTransactions = useAllTransactions();
+  const sortedRecentTransactions = useMemo(() => {
+    const txs = Object.values(allTransactions);
+    return txs.filter(isTransactionRecent).sort(newTransactionsFirst);
+  }, [allTransactions]);
+  const pending = sortedRecentTransactions
+    .filter((tx) => !tx.receipt)
+    .map((tx) => tx.hash);
+  const hasPendingTransactions = !!pending.length;
 
   if (account) {
     return (
@@ -127,7 +142,7 @@ function Web3StatusInner() {
               marginRight: '1rem',
             }}
           >
-            {NETWORK_LABELS[chainId]}
+            {CHAIN_INFO[chainId].label}
           </WalletText>
         )}
         <WalletButton id="web3-status-connected" onClick={toggleWalletModal}>
@@ -144,7 +159,7 @@ function Web3StatusInner() {
             {hasPendingTransactions ? (
               <Row>
                 <FlexText style={{ fontSize: '1.8rem', lineHeight: '2.1rem' }}>
-                  {txCount} Pending...
+                  {pending?.length} Pending...
                 </FlexText>{' '}
                 <Loader />
               </Row>
