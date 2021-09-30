@@ -24,6 +24,18 @@ export const CategoryTitle = styled.h2`
   line-height: 2.1rem;
 `;
 
+export const ButtonInHeaderBox1 = styled.button`
+  color: #5bad92;
+  background-color: ${({ theme }) => theme.text2};
+  font-style: normal;
+  font-weight: bold;
+  font-size: 1.6rem;
+  line-height: 2.1rem;
+  border-radius: 30%;
+  padding: 0 0.3em 0 0.3em;
+  box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.25);
+`;
+
 /**
  * ItemTitle
  */
