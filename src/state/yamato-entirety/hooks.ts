@@ -1,4 +1,4 @@
-import { useCallback, useMemo } from 'react';
+import { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getEthChangePercent } from '../../utils/prices';
 import { AppDispatch, AppState } from '../index';
@@ -36,6 +36,8 @@ export function useYamatoStateForPledge() {
     redemptionReserve: state.yamatoEntirety.pool.redemptionReserve,
     sweepReserve: state.yamatoEntirety.pool.sweepReserve,
     sweepableCandiate: state.yamatoEntirety.pool.sweepableCandiate,
+    MCR: state.yamatoEntirety.parameter.MCR,
+    GRR: state.yamatoEntirety.parameter.GRR,
   }));
 }
 export function useYamatoStateForWorld() {
@@ -55,6 +57,7 @@ export function useYamatoStateForInfographics() {
     prevRedemptionReserve: state.yamatoEntirety.pool.prevRedemptionReserve,
     sweepReserve: state.yamatoEntirety.pool.sweepReserve,
     prevSweepReserve: state.yamatoEntirety.pool.prevSweepReserve,
+    MCR: state.yamatoEntirety.parameter.MCR,
   }));
 }
 
@@ -64,26 +67,25 @@ export function useYamatoStateForInfographics() {
 export function useFetchYamatoState() {
   const dispatch = useDispatch<AppDispatch>();
   return useCallback(
-    (
-      totalCollateral: number,
-      totalDebt: number,
-      tvl: number,
-      tcr: number,
-      redemptionReserve: number,
-      sweepReserve: number,
-      sweepableCandiate: number
-    ) =>
-      dispatch(
-        fetchYamatoState({
-          totalCollateral,
-          totalDebt,
-          tvl,
-          tcr,
-          redemptionReserve,
-          sweepReserve,
-          sweepableCandiate,
-        })
-      ),
+    (args: {
+      lending: {
+        totalCollateral: number;
+        totalDebt: number;
+        tvl: number;
+        tcr: number;
+      };
+      pool: {
+        redemptionReserve: number;
+        sweepReserve: number;
+        sweepableCandiate: number;
+      };
+      parameter: {
+        MCR: number;
+        RRR: number;
+        SRR: number;
+        GRR: number;
+      };
+    }) => dispatch(fetchYamatoState(args)),
     [dispatch]
   );
 }

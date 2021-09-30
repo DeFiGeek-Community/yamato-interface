@@ -4,7 +4,15 @@ import { ItemTitleForPledge } from '../../CommonItem';
 import RedemptionInput from './RedemptionInput';
 
 export default function YamatoRedemption() {
-  const yamato = useYamatoStateForPledge();
+  const {
+    totalCollateral,
+    totalDebt,
+    tcr,
+    rateOfEthJpy,
+    redemptionReserve,
+    MCR,
+    GRR,
+  } = useYamatoStateForPledge();
 
   return (
     <Grid templateColumns="repeat(6, 1fr)" gap={4} mb={12}>
@@ -16,11 +24,13 @@ export default function YamatoRedemption() {
 
       <GridItem colSpan={5}>
         <RedemptionInput
-          totalCollateral={yamato.totalCollateral}
-          totalDebt={yamato.totalDebt}
-          tcr={yamato.tcr}
-          rateOfEthJpy={yamato.rateOfEthJpy}
-          redemptionReserve={yamato.redemptionReserve}
+          totalCollateral={totalCollateral}
+          totalDebt={totalDebt}
+          tcr={tcr}
+          rateOfEthJpy={rateOfEthJpy}
+          redemptionReserve={redemptionReserve}
+          MCR={MCR}
+          GRR={GRR}
         />
       </GridItem>
     </Grid>

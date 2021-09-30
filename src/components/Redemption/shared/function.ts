@@ -1,8 +1,7 @@
-import { GRR, MCR } from '../../../constants/yamato';
-
 export function getExpectedCollateral(
   redemption: number,
-  redeemableCandidate: number
+  redeemableCandidate: number,
+  GRR: number
 ) {
   const redeemableAmount =
     redemption > redeemableCandidate ? redeemableCandidate : redemption;
@@ -15,7 +14,8 @@ export function getRedeemableCandidate(
   totalCollateral: number,
   totalDebt: number,
   tcr: number,
-  rateOfEthJpy: number
+  rateOfEthJpy: number,
+  MCR: number
 ): { eth: number; cjpy: number } {
   if (tcr >= MCR) {
     return { eth: 0, cjpy: 0 };

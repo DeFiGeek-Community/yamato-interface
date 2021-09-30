@@ -14,17 +14,27 @@ type Props = {
   tcr: number;
   rateOfEthJpy: number;
   redemptionReserve: number;
+  MCR: number;
+  GRR: number;
 };
 
 export default function RedemptionInput(props: Props) {
-  const { totalCollateral, totalDebt, tcr, rateOfEthJpy, redemptionReserve } =
-    props;
+  const {
+    totalCollateral,
+    totalDebt,
+    tcr,
+    rateOfEthJpy,
+    redemptionReserve,
+    MCR,
+    GRR,
+  } = props;
 
   const redeemableCandidate = getRedeemableCandidate(
     totalCollateral,
     totalDebt,
     tcr,
-    rateOfEthJpy
+    rateOfEthJpy,
+    MCR
   );
 
   function submitRedemption(
@@ -78,7 +88,8 @@ export default function RedemptionInput(props: Props) {
                     formatPrice(
                       getExpectedCollateral(
                         redeemableCandidate.eth + 1, // dummy
-                        redeemableCandidate.eth
+                        redeemableCandidate.eth,
+                        GRR
                       ),
                       'eth'
                     ).value

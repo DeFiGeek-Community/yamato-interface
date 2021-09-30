@@ -53,7 +53,7 @@ export function InfographicsContent(props: Partial<InfographicsProps>) {
   const yamatoState = useYamatoStateForInfographics();
   const mixedValues = { ...marketState, ...yamatoState, ...props };
 
-  const { rateOfCjpyJpy, rateOfEthJpy, redemptionReserve, sweepReserve } =
+  const { rateOfCjpyJpy, rateOfEthJpy, redemptionReserve, sweepReserve, MCR } =
     mixedValues;
 
   const tcr =
@@ -83,7 +83,7 @@ export function InfographicsContent(props: Partial<InfographicsProps>) {
   /**
    * All 125 ranks. Min 236 - Mid 298 - Max 360
    */
-  const colorCodePerTcr = getColorCodePerTcr(tcr);
+  const colorCodePerTcr = getColorCodePerTcr(tcr, MCR);
   /**
    * Rank up per 5000,000
    */

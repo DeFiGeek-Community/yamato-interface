@@ -1,5 +1,4 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { MCR } from '../../constants/yamato';
 import {
   fetchEvents,
   fetchRateOfEthJpy,
@@ -59,11 +58,17 @@ export interface YamatoEntiretyState {
   };
   rateOfEthJpy: number; // the market price of ETH/JPY
   prevRateOfEthJpy: number; // the previous market price of ETH/JPY
+  parameter: {
+    MCR: number; // MinimumCollateralizationRatio
+    RRR: number; // RedemptionReserveRate
+    SRR: number; // SweepReserveRate
+    GRR: number; // GasReserveRate
+  };
   events: Array<LogEvent>; // the Ethereum events the users wallet has been recieved.
 }
 
 export const initialState: YamatoEntiretyState = {
-  lending: { totalCollateral: 0, totalDebt: 0, tvl: 0, tcr: MCR },
+  lending: { totalCollateral: 0, totalDebt: 0, tvl: 0, tcr: 0 },
   pool: {
     redemptionReserve: 0,
     prevRedemptionReserve: 0,
@@ -78,6 +83,12 @@ export const initialState: YamatoEntiretyState = {
   },
   rateOfEthJpy: 0,
   prevRateOfEthJpy: 0,
+  parameter: {
+    MCR: 110,
+    RRR: 80,
+    SRR: 20,
+    GRR: 1,
+  },
   events: [],
 };
 
@@ -85,28 +96,14 @@ export default createReducer(initialState, (builder) =>
   builder
     .addCase(
       fetchYamatoState,
-      (
-        state,
-        {
-          payload: {
-            totalCollateral,
-            totalDebt,
-            tvl,
-            tcr,
-            redemptionReserve,
-            sweepReserve,
-            sweepableCandiate,
-          },
-        }
-      ) => {
-        state.lending = { totalCollateral, totalDebt, tvl, tcr };
+      (state, { payload: { lending, pool, parameter } }) => {
+        state.lending = lending;
         state.pool = {
-          redemptionReserve,
+          ...pool,
           prevRedemptionReserve: state.pool.redemptionReserve,
-          sweepReserve,
           prevSweepReserve: state.pool.sweepReserve,
-          sweepableCandiate,
         };
+        state.parameter = parameter;
       }
     )
     .addCase(fetchTokenState, (state, { payload: { cjpy, ymt, veYmt } }) => {

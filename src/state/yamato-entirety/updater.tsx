@@ -22,18 +22,33 @@ export default function Updater(): null {
       sweepReserve: Math.random() * 10000000,
       sweepableCandiate: Math.random() * 1000,
       rateOfEthJpy: 300000 + Math.random() * 1000,
+      MCR: 110,
+      RRR: 80,
+      SRR: 20,
+      GRR: 1,
     };
-    fetchYamatoState(
-      mockState.totalCollateral, // totalColl in Yamato.sol
-      mockState.totalDebt, // totalDebt in Yamato.sol
-      mockState.totalCollateral + 1, // lockedCollateral in Pool.sol
-      ((mockState.totalCollateral * mockState.rateOfEthJpy) /
-        mockState.totalDebt) *
-        100,
-      mockState.redemptionReserve, // redemptionReserve in Pool.sol
-      mockState.sweepReserve, // sweepReserve in Pool.sol
-      mockState.sweepableCandiate // FIXME: ISSUE #27
-    );
+    fetchYamatoState({
+      lending: {
+        totalCollateral: mockState.totalCollateral, // totalColl in Yamato.sol
+        totalDebt: mockState.totalDebt, // totalDebt in Yamato.sol
+        tcr:
+          ((mockState.totalCollateral * mockState.rateOfEthJpy) /
+            mockState.totalDebt) *
+          100,
+        tvl: mockState.totalCollateral + 1, // lockedCollateral in Pool.sol
+      },
+      pool: {
+        redemptionReserve: mockState.redemptionReserve, // redemptionReserve in Pool.sol
+        sweepReserve: mockState.sweepReserve, // sweepReserve in Pool.sol
+        sweepableCandiate: mockState.sweepableCandiate, // FIXME: ISSUE #27
+      },
+      parameter: {
+        MCR: 110,
+        RRR: 80,
+        SRR: 20,
+        GRR: 1,
+      },
+    });
     fetchRateOfEthJpy(mockState.rateOfEthJpy);
   }, 5000);
 
