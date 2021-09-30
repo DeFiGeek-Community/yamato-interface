@@ -24,8 +24,10 @@ export const CategoryTitle = styled.h2`
   line-height: 2.1rem;
 `;
 
+export const headerBox1Color = '#5bad92';
+
 export const ButtonInHeaderBox1 = styled.button`
-  color: #5bad92;
+  color: ${headerBox1Color};
   background-color: ${({ theme }) => theme.text2};
   font-style: normal;
   font-weight: bold;
