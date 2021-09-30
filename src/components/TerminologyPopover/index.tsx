@@ -8,6 +8,7 @@ import {
   PopoverCloseButton,
   PopoverHeader,
 } from '@chakra-ui/react';
+import { ButtonInHeaderBox1, ItemTitleForPledge } from '../CommonItem';
 
 export default function TerminologyPopover({
   title,
@@ -19,12 +20,14 @@ export default function TerminologyPopover({
   return (
     <Popover>
       <PopoverTrigger>
-        <Button>?</Button>
+        <ButtonInHeaderBox1>?</ButtonInHeaderBox1>
       </PopoverTrigger>
       <PopoverContent>
         <PopoverArrow />
         <PopoverCloseButton />
-        <PopoverHeader>{title ?? '用語解説'}</PopoverHeader>
+        <PopoverHeader>
+          <ItemTitleForPledge>{title ?? '用語解説'}</ItemTitleForPledge>
+        </PopoverHeader>
         <PopoverBody>{children}</PopoverBody>
       </PopoverContent>
     </Popover>
