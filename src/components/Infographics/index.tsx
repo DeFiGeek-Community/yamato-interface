@@ -1,16 +1,4 @@
-import {
-  Grid,
-  GridItem,
-  HStack,
-  Button,
-  Popover,
-  PopoverTrigger,
-  PopoverContent,
-  PopoverHeader,
-  PopoverBody,
-  PopoverArrow,
-  PopoverCloseButton,
-} from '@chakra-ui/react';
+import { Grid, GridItem, HStack } from '@chakra-ui/react';
 import { useMarketState } from '../../state/market/hooks';
 import { useYamatoStateForInfographics } from '../../state/yamato-entirety/hooks';
 import { getEthChangePercent } from '../../utils/prices';
@@ -20,6 +8,7 @@ import {
   HeaderBox1,
   ItemTitleValue,
 } from '../CommonItem';
+import TerminologyPopover from '../TerminologyPopover';
 import CjpyPrice from './CjpyPrice';
 import EthPrice from './EthPrice';
 import Pool from './Pool';
@@ -62,24 +51,14 @@ export interface InfographicsProps {
 
 export function InfographicsHelp() {
   return (
-    <Popover>
-      <PopoverTrigger>
-        <Button>?</Button>
-      </PopoverTrigger>
-      <PopoverContent>
-        <PopoverArrow />
-        <PopoverCloseButton />
-        <PopoverHeader>用語解説</PopoverHeader>
-        <PopoverBody>
-          <div>
-            <ul>
-              <li>TCR: 総担保比率(Total Collateral Ratio)</li>
-              <li>MCR: 最低担保比率(Minimum Collateral Ratio)</li>
-            </ul>
-          </div>
-        </PopoverBody>
-      </PopoverContent>
-    </Popover>
+    <TerminologyPopover>
+      <div>
+        <ul>
+          <li>TCR: 総担保比率(Total Collateral Ratio)</li>
+          <li>MCR: 最低担保比率(Minimum Collateral Ratio)</li>
+        </ul>
+      </div>
+    </TerminologyPopover>
   );
 }
 
