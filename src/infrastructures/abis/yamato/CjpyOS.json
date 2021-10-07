@@ -41,31 +41,9 @@
   {
     "inputs": [
       {
-        "components": [
-          {
-            "internalType": "address",
-            "name": "yamatoAddr",
-            "type": "address"
-          },
-          {
-            "internalType": "uint256",
-            "name": "rewardAllocation",
-            "type": "uint256"
-          },
-          {
-            "internalType": "bool",
-            "name": "isL2",
-            "type": "bool"
-          },
-          {
-            "internalType": "bool",
-            "name": "isFilled",
-            "type": "bool"
-          }
-        ],
-        "internalType": "struct CurrencyOS.YamatoConf",
-        "name": "_conf",
-        "type": "tuple"
+        "internalType": "address",
+        "name": "_yamatoAddr",
+        "type": "address"
       }
     ],
     "name": "addYamato",
@@ -118,19 +96,6 @@
     "type": "function"
   },
   {
-    "inputs": [],
-    "name": "governance",
-    "outputs": [
-      {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
     "inputs": [
       {
         "internalType": "address",
@@ -144,6 +109,19 @@
       }
     ],
     "name": "mintCJPY",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_ymtOSProxyAddr",
+        "type": "address"
+      }
+    ],
+    "name": "setYmtOSProxy",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -169,46 +147,12 @@
         "type": "uint256"
       }
     ],
-    "name": "yamatoIndice",
-    "outputs": [
-      {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
-      }
-    ],
     "name": "yamatoes",
     "outputs": [
       {
         "internalType": "address",
-        "name": "yamatoAddr",
+        "name": "",
         "type": "address"
-      },
-      {
-        "internalType": "uint256",
-        "name": "rewardAllocation",
-        "type": "uint256"
-      },
-      {
-        "internalType": "bool",
-        "name": "isL2",
-        "type": "bool"
-      },
-      {
-        "internalType": "bool",
-        "name": "isFilled",
-        "type": "bool"
       }
     ],
     "stateMutability": "view",
