@@ -1,5 +1,5 @@
 import { Grid, GridItem } from '@chakra-ui/react';
-import { MCR, YAMATO_SYMBOL } from '../../../constants/yamato';
+import { YAMATO_SYMBOL } from '../../../constants/yamato';
 import { usePledgeData } from '../../../state/pledge/hooks';
 import { useYamatoStateForPledge } from '../../../state/yamato-entirety/hooks';
 import {
@@ -13,7 +13,8 @@ import RepayInput from './RepayInput';
 function getBorrowableAmount(
   collateral: number,
   debt: number,
-  rateOfEthJpy: number
+  rateOfEthJpy: number,
+  MCR: number
 ) {
   const collateralBasedJpy = collateral * rateOfEthJpy;
   const ICR = collateralBasedJpy / debt;
@@ -26,7 +27,7 @@ function getBorrowableAmount(
 }
 
 export default function Debt() {
-  const { rateOfEthJpy } = useYamatoStateForPledge();
+  const { rateOfEthJpy, MCR } = useYamatoStateForPledge();
   const { collateral, debt } = usePledgeData();
 
   return (
@@ -50,6 +51,7 @@ export default function Debt() {
           collateral={collateral}
           debt={debt}
           rateOfEthJpy={rateOfEthJpy}
+          MCR={MCR}
         />
       </GridItem>
 
@@ -75,7 +77,7 @@ export default function Debt() {
             最大借入可能量...
             {
               formatPrice(
-                getBorrowableAmount(collateral, debt, rateOfEthJpy),
+                getBorrowableAmount(collateral, debt, rateOfEthJpy, MCR),
                 'jpy'
               ).value
             }

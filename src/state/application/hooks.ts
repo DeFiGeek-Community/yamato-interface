@@ -1,28 +1,27 @@
 import { useCallback, useMemo } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { DEFAULT_TXN_DISMISS_MS } from '../../constants/misc';
 import { useActiveWeb3React } from '../../hooks/web3';
-import { AppDispatch, AppState } from '../index';
+import { useAppDispatch, useAppSelector } from '../hooks';
+
+import { AppState } from '../index';
 import {
   addPopup,
   ApplicationModal,
-  endTx,
   PopupContent,
   removePopup,
-  setHash,
   setOpenModal,
-  startTx,
 } from './actions';
 
 export function useBlockNumber(): number | undefined {
   const { chainId } = useActiveWeb3React();
 
-  return useSelector(
+  return useAppSelector(
     (state: AppState) => state.application.blockNumber[chainId ?? -1]
   );
 }
 
 export function useModalOpen(modal: ApplicationModal): boolean {
-  const openModal = useSelector(
+  const openModal = useAppSelector(
     (state: AppState) => state.application.openModal
   );
   return openModal === modal;
@@ -30,21 +29,11 @@ export function useModalOpen(modal: ApplicationModal): boolean {
 
 export function useToggleModal(modal: ApplicationModal): () => void {
   const open = useModalOpen(modal);
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useAppDispatch();
   return useCallback(
     () => dispatch(setOpenModal(open ? null : modal)),
     [dispatch, modal, open]
   );
-}
-
-export function useOpenModal(modal: ApplicationModal): () => void {
-  const dispatch = useDispatch<AppDispatch>();
-  return useCallback(() => dispatch(setOpenModal(modal)), [dispatch, modal]);
-}
-
-export function useCloseModals(): () => void {
-  const dispatch = useDispatch<AppDispatch>();
-  return useCallback(() => dispatch(setOpenModal(null)), [dispatch]);
 }
 
 export function useWalletModalToggle(): () => void {
@@ -76,12 +65,22 @@ export function useToggleSettingsMenu(): () => void {
 // }
 
 // returns a function that allows adding a popup
-export function useAddPopup(): (content: PopupContent, key?: string) => void {
-  const dispatch = useDispatch();
+export function useAddPopup(): (
+  content: PopupContent,
+  key?: string,
+  removeAfterMs?: number
+) => void {
+  const dispatch = useAppDispatch();
 
   return useCallback(
-    (content: PopupContent, key?: string) => {
-      dispatch(addPopup({ content, key }));
+    (content: PopupContent, key?: string, removeAfterMs?: number) => {
+      dispatch(
+        addPopup({
+          content,
+          key,
+          removeAfterMs: removeAfterMs ?? DEFAULT_TXN_DISMISS_MS,
+        })
+      );
     },
     [dispatch]
   );
@@ -89,7 +88,7 @@ export function useAddPopup(): (content: PopupContent, key?: string) => void {
 
 // returns a function that allows removing a popup via its key
 export function useRemovePopup(): (key: string) => void {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   return useCallback(
     (key: string) => {
       dispatch(removePopup({ key }));
@@ -100,40 +99,6 @@ export function useRemovePopup(): (key: string) => void {
 
 // get the list of active popups
 export function useActivePopups(): AppState['application']['popupList'] {
-  const list = useSelector((state: AppState) => state.application.popupList);
+  const list = useAppSelector((state: AppState) => state.application.popupList);
   return useMemo(() => list.filter((item) => item.show), [list]);
-}
-
-export function usePendingTxs(): {
-  hash: string;
-  type: 'donate' | 'claim';
-}[] {
-  const pendingTxs = useSelector(
-    (state: AppState) => state.application.pendingTxs
-  );
-  return pendingTxs;
-}
-
-export function usePendingTxCount(): number {
-  const txCount = useSelector((state: AppState) => state.application.txCount);
-  return txCount;
-}
-
-export function useStartTx(): () => void {
-  const dispatch = useDispatch<AppDispatch>();
-  return useCallback(() => dispatch(startTx()), [dispatch]);
-}
-
-export function useSetHash(): (hash: string, type: 'donate' | 'claim') => void {
-  const dispatch = useDispatch<AppDispatch>();
-  return useCallback(
-    (hash: string, type: 'donate' | 'claim') =>
-      dispatch(setHash({ hash, type })),
-    [dispatch]
-  );
-}
-
-export function useEndTx(): (hash?: string) => void {
-  const dispatch = useDispatch<AppDispatch>();
-  return useCallback((hash?: string) => dispatch(endTx({ hash })), [dispatch]);
 }

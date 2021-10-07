@@ -2,13 +2,23 @@ import { createAction } from '@reduxjs/toolkit';
 import { LogEvent } from './reducer';
 
 export const fetchYamatoState = createAction<{
-  totalCollateral: number;
-  totalDebt: number;
-  tvl: number;
-  tcr: number;
-  redemptionReserve: number;
-  sweepReserve: number;
-  sweepableCandiate: number;
+  lending: {
+    totalCollateral: number;
+    totalDebt: number;
+    tvl: number;
+    tcr: number;
+  };
+  pool: {
+    redemptionReserve: number;
+    sweepReserve: number;
+    sweepableCandiate: number;
+  };
+  parameter: {
+    MCR: number;
+    RRR: number;
+    SRR: number;
+    GRR: number;
+  };
 }>('yamato-entirety/fetchYamatoState');
 
 export const fetchTokenState = createAction<{

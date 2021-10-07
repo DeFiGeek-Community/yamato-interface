@@ -6,6 +6,7 @@ import { updateVersion } from './global/actions';
 import market from './market/reducer';
 import multicall from './multicall/reducer';
 import pledge from './pledge/reducer';
+import transactions from './transactions/reducer';
 import wallet from './wallet/reducer';
 import yamatoEntirety from './yamato-entirety/reducer';
 
@@ -13,8 +14,9 @@ const PERSISTED_KEYS: string[] = ['application'];
 
 const store = configureStore({
   reducer: {
-    application,
-    multicall,
+    application, // from uniswap
+    multicall, // from uniswap
+    transactions, // from uniswap
     wallet,
     market,
     yamatoEntirety,

@@ -102,7 +102,7 @@ jobs:
       - name: test
         run: yarn test
         env:
-          REACT_APP_NETWORK_URL: ${{ secrets.REACT_APP_NETWORK_URL }}
+          REACT_APP_INFURA_KEY: ${{ secrets.REACT_APP_INFURA_KEY }}
 
       - name: discord notification（if failure）
         uses: sarisia/actions-status-discord@v1

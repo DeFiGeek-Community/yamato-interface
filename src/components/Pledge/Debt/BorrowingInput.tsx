@@ -6,7 +6,7 @@ import {
 } from '@chakra-ui/react';
 import { Formik, Form, Field, FormikHelpers, FieldProps } from 'formik';
 import { useState } from 'react';
-import { MCR, YAMATO_SYMBOL } from '../../../constants/yamato';
+import { YAMATO_SYMBOL } from '../../../constants/yamato';
 import { useBorrowDebt } from '../../../state/pledge/hooks';
 import { addToNum } from '../../../utils/bignumber';
 import {
@@ -15,10 +15,15 @@ import {
 } from '../../../utils/prices';
 import { CustomButton, CustomFormLabel, CustomInput } from '../../CommonItem';
 
-type Props = { collateral: number; debt: number; rateOfEthJpy: number };
+type Props = {
+  collateral: number;
+  debt: number;
+  rateOfEthJpy: number;
+  MCR: number;
+};
 
 export default function BorrowingInput(props: Props) {
-  const { collateral, debt, rateOfEthJpy } = props;
+  const { collateral, debt, rateOfEthJpy, MCR } = props;
 
   const borrowDebt = useBorrowDebt();
 

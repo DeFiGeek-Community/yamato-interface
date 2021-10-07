@@ -26,10 +26,12 @@ type Props = {
   totalDebt: number;
   tcr: number;
   rateOfEthJpy: number;
+  MCR: number;
+  GRR: number;
 };
 
 export default function RedemptionInput(props: Props) {
-  const { totalCollateral, totalDebt, tcr, rateOfEthJpy } = props;
+  const { totalCollateral, totalDebt, tcr, rateOfEthJpy, MCR, GRR } = props;
 
   const { cjpy } = useWalletState();
 
@@ -38,7 +40,8 @@ export default function RedemptionInput(props: Props) {
     totalCollateral,
     totalDebt,
     tcr,
-    rateOfEthJpy
+    rateOfEthJpy,
+    MCR
   );
 
   async function validateRedemption(value: number) {
@@ -111,7 +114,8 @@ export default function RedemptionInput(props: Props) {
                       formatPrice(
                         getExpectedCollateral(
                           redemption,
-                          redeemableCandidate.eth
+                          redeemableCandidate.eth,
+                          GRR
                         ),
                         'eth'
                       ).value

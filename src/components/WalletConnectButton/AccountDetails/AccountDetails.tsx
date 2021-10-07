@@ -3,13 +3,13 @@ import { ExternalLink as LinkIcon } from 'react-feather';
 import { useDispatch } from 'react-redux';
 import { Button } from 'rebass/styled-components';
 import styled, { ThemeContext } from 'styled-components';
-import WalletConnectIcon from '../../../assets/images/walletConnectIcon.svg';
-import { ReactComponent as Close } from '../../../assets/images/x.svg';
+// import WalletConnectIcon from '../../../assets/svg/walletConnectIcon.svg';
+import { ReactComponent as Close } from '../../../assets/svg/x.svg';
 import { SUPPORTED_WALLETS } from '../../../constants/web3';
 import { useActiveWeb3React } from '../../../hooks/web3';
 import {
   injected,
-  walletconnect,
+  // walletconnect,
   // walletlink,
   // fortmatic,
   // portis,
@@ -19,7 +19,7 @@ import { getEtherscanLink } from '../../../utils/externalLink';
 import { shortenAddress } from '../../../utils/web3';
 import { CategoryTitle } from '../../CommonItem';
 import { ExternalLink } from '../../ExternalLink';
-// import CoinbaseWalletIcon from '../../assets/images/coinbaseWalletIcon.svg';
+// import CoinbaseWalletIcon from '../../assets/svg/coinbaseWalletIcon.svg';
 // import FortmaticIcon from '../../assets/images/fortmaticIcon.png';
 // import PortisIcon from '../../assets/images/portisIcon.png';
 import Identicon from '../Identicon';
@@ -227,12 +227,12 @@ export default function AccountDetails({
           <Identicon />
         </IconWrapper>
       );
-    } else if (connector === walletconnect) {
-      return (
-        <IconWrapper size={16}>
-          <img src={WalletConnectIcon} alt={'wallet connect logo'} />
-        </IconWrapper>
-      );
+      // } else if (connector === walletconnect) {
+      //   return (
+      //     <IconWrapper size={16}>
+      //       <img src={WalletConnectIcon} alt={'wallet connect logo'} />
+      //     </IconWrapper>
+      //   );
       // } else if (connector === walletlink) {
       //   return (
       //     <IconWrapper size={16}>
@@ -330,14 +330,11 @@ export default function AccountDetails({
                       <AddressLink
                         hasENS={!!ENSName}
                         isENS={true}
-                        href={
-                          chainId &&
-                          getEtherscanLink(
-                            chainId,
-                            ENSName ?? account,
-                            'address'
-                          )
-                        }
+                        href={getEtherscanLink(
+                          chainId,
+                          ENSName ?? account,
+                          'address'
+                        )}
                       >
                         <LinkIcon size={16} />
                         <p style={{ marginLeft: '4px' }}>View on Etherscan</p>
