@@ -1,4 +1,16 @@
+import {
+  useCjpyContract,
+  useVeYmtContract,
+  useYamatoMainContract,
+  useYamatoPoolContract,
+  useYamatoPriceFeedContract,
+  useYmtContract,
+} from '../../hooks/useContract';
 import useInterval from '../../hooks/useInterval';
+import {
+  fetchTotalSupply,
+  fetchYamatoEntiretyStateFromContract,
+} from '../../utils/fetchState';
 import {
   useFetchEvents,
   useFetchRateOfEthJpy,
@@ -7,59 +19,91 @@ import {
 } from './hooks';
 import { LogEventType } from './reducer';
 
+const isUseMock = !!process.env.REACT_APP_USE_MOCK;
+
 export default function Updater(): null {
+  const yamatoMainContract = useYamatoMainContract();
+  const yamatoPoolContract = useYamatoPoolContract();
+  const yamatoPriceFeedContract = useYamatoPriceFeedContract();
+  const cjpyContract = useCjpyContract();
+  const ymtContract = useYmtContract();
+  const veYmtContract = useVeYmtContract();
+
   const fetchYamatoState = useFetchYamatoState();
   const fetchTokenState = useFetchTokenState();
   const fetchRateOfEthJpy = useFetchRateOfEthJpy();
   const fetchEvents = useFetchEvents();
 
-  useInterval(() => {
-    // TODO: replace me.
-    const mockState = {
-      totalCollateral: 2.5 + Math.random() * 10,
-      totalDebt: 1200000 + Math.random() * 100000,
-      redemptionReserve: Math.random() * 100000000,
-      sweepReserve: Math.random() * 10000000,
-      sweepableCandiate: Math.random() * 1000,
-      rateOfEthJpy: 300000 + Math.random() * 1000,
-      MCR: 110,
-      RRR: 80,
-      SRR: 20,
-      GRR: 1,
-    };
-    fetchYamatoState({
-      lending: {
-        totalCollateral: mockState.totalCollateral, // totalColl in Yamato.sol
-        totalDebt: mockState.totalDebt, // totalDebt in Yamato.sol
-        tcr:
-          ((mockState.totalCollateral * mockState.rateOfEthJpy) /
-            mockState.totalDebt) *
-          100,
-        tvl: mockState.totalCollateral + 1, // lockedCollateral in Pool.sol
-      },
-      pool: {
-        redemptionReserve: mockState.redemptionReserve, // redemptionReserve in Pool.sol
-        sweepReserve: mockState.sweepReserve, // sweepReserve in Pool.sol
-        sweepableCandiate: mockState.sweepableCandiate, // FIXME: ISSUE #27
-      },
-      parameter: {
+  useInterval(async () => {
+    let yamatoParams;
+    let rateOfEthJpy: number;
+    if (isUseMock) {
+      const mockState = {
+        totalCollateral: 2.5 + Math.random() * 10,
+        totalDebt: 1200000 + Math.random() * 100000,
+        redemptionReserve: Math.random() * 100000000,
+        sweepReserve: Math.random() * 10000000,
+        sweepableCandiate: Math.random() * 1000,
+        rateOfEthJpy: 300000 + Math.random() * 1000,
         MCR: 110,
         RRR: 80,
         SRR: 20,
         GRR: 1,
-      },
-    });
-    fetchRateOfEthJpy(mockState.rateOfEthJpy);
+      };
+      yamatoParams = {
+        lending: {
+          totalCollateral: mockState.totalCollateral, // totalColl in Yamato.sol
+          totalDebt: mockState.totalDebt, // totalDebt in Yamato.sol
+          tcr:
+            mockState.totalDebt > 0
+              ? ((mockState.totalCollateral * mockState.rateOfEthJpy) /
+                  mockState.totalDebt) *
+                100
+              : 0,
+          tvl: mockState.totalCollateral + 1, // lockedCollateral in Pool.sol
+        },
+        pool: {
+          redemptionReserve: mockState.redemptionReserve, // redemptionReserve in Pool.sol
+          sweepReserve: mockState.sweepReserve, // sweepReserve in Pool.sol
+          sweepableCandiate: mockState.sweepableCandiate, // FIXME: ISSUE #27
+        },
+        parameter: {
+          MCR: 110,
+          RRR: 80,
+          SRR: 20,
+          GRR: 1,
+        },
+      };
+      rateOfEthJpy = mockState.rateOfEthJpy;
+    } else {
+      yamatoParams = await fetchYamatoEntiretyStateFromContract({
+        yamatoMainContract,
+        yamatoPoolContract,
+        yamatoPriceFeedContract,
+      });
+      rateOfEthJpy = yamatoParams.rateOfEthJpy;
+    }
+
+    fetchYamatoState(yamatoParams);
+    fetchRateOfEthJpy(rateOfEthJpy);
   }, 5000);
 
-  useInterval(() => {
-    // TODO: replace me.
-    const mockState = {
-      cjpy: { totalSupply: 1000 },
-      ymt: { totalSupply: 100 },
-      veYmt: { totalSupply: 10, boostRate: 1.5 },
-    };
-    fetchTokenState(mockState);
+  useInterval(async () => {
+    let tokenParams;
+    if (isUseMock) {
+      tokenParams = {
+        cjpy: { totalSupply: 1000 },
+        ymt: { totalSupply: 100 },
+        veYmt: { totalSupply: 10, boostRate: 1.5 },
+      };
+    } else {
+      tokenParams = await fetchTotalSupply({
+        cjpyContract,
+        ymtContract,
+        veYmtContract,
+      });
+    }
+    fetchTokenState(tokenParams);
   }, 5000);
 
   useInterval(() => {

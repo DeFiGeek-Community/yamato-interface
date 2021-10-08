@@ -16,6 +16,9 @@ function getBorrowableAmount(
   rateOfEthJpy: number,
   MCR: number
 ) {
+  if (debt <= 0) {
+    return 0;
+  }
   const collateralBasedJpy = collateral * rateOfEthJpy;
   const ICR = collateralBasedJpy / debt;
   if (ICR - MCR <= 0) {

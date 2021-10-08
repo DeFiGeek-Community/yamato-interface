@@ -67,6 +67,14 @@ export function formatEther(wei: ethers.BigNumberish) {
   return ethers.utils.formatEther(wei);
 }
 
+export function formatYen(value: ethers.BigNumberish) {
+  return ethers.utils.formatEther(value);
+}
+
+export function formatCjpy(value: ethers.BigNumberish) {
+  return ethers.utils.formatEther(value);
+}
+
 export async function getEthBalance(
   account: string | null | undefined,
   library: Web3Provider | undefined

@@ -35,6 +35,9 @@ export default function BorrowingInput(props: Props) {
     }
 
     const sum = debt + value;
+    if (sum <= 0) {
+      return '数値で入力してください。';
+    }
     const collateralRatio = ((collateral * rateOfEthJpy) / sum) * 100;
     if (MCR > collateralRatio) {
       return `担保率は最低${MCR}%が必要です。`;

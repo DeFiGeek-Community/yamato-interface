@@ -1,27 +1,40 @@
-import { useEffect } from 'react';
+import { useYamatoMainContract } from '../../hooks/useContract';
+import useInterval from '../../hooks/useInterval';
 import { useActiveWeb3React } from '../../hooks/web3';
+import { fetchPledgeStateFromContract } from '../../utils/fetchState';
 import { useFetchMyPledge } from './hooks';
+
+const isUseMock = !!process.env.REACT_APP_USE_MOCK;
 
 export default function Updater(): null {
   const { account } = useActiveWeb3React();
+  const yamatoMainContract = useYamatoMainContract();
 
   const fetchMyPledge = useFetchMyPledge();
 
   // FIXME: Detect not only the account change but also the network change.
-  useEffect(() => {
-    // TODO: replace me.
-    const mockState = {
-      collateral: 3.5,
-      debt: 800000,
-      withdrawalLockDate: Date.now() / 1000 + 1000,
-    };
+  useInterval(async () => {
+    let params;
+    if (isUseMock) {
+      params = {
+        account: account ?? '',
+        collateral: 3.5,
+        debt: 800000,
+        withdrawalLockDate: Date.now() / 1000 + 1000,
+      };
+    } else {
+      params = await fetchPledgeStateFromContract(account, {
+        yamatoMainContract,
+      });
+    }
+
     fetchMyPledge(
-      account ?? '',
-      mockState.collateral,
-      mockState.debt,
-      mockState.withdrawalLockDate
+      params.account,
+      params.collateral,
+      params.debt,
+      params.withdrawalLockDate
     );
-  }, [account, fetchMyPledge]);
+  }, 5000);
 
   return null;
 }
