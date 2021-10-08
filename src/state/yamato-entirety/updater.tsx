@@ -113,42 +113,42 @@ export default function Updater(): null {
       {
         id: '1',
         date: 10,
-        address: 'aaaaaaaa',
+        address: mockAddress(),
         category: 'governance_withdrawal' as LogEventType,
         value: '10',
       },
       {
         id: '2',
         date: 11,
-        address: '0xteatwo',
+        address: mockAddress(),
         category: 'yamato_redemption' as LogEventType,
         value: '5',
       },
       {
         id: `${Math.floor(Math.random() * 100)}`,
         date: now + 1,
-        address: `${Math.random().toString(32).substring(2)}`,
+        address: mockAddress(),
         category: 'borrowing' as LogEventType,
         value: `${Math.floor(Math.random() * 1000)}`,
       },
       {
         id: `${Math.floor(Math.random() * 100)}`,
         date: now + 2,
-        address: `${Math.random().toString(32).substring(2)}`,
+        address: mockAddress(),
         category: 'repay' as LogEventType,
         value: `${Math.floor(Math.random() * 100)}`,
       },
       {
         id: `${Math.floor(Math.random() * 100)}`,
         date: now + 3,
-        address: `${Math.random().toString(32).substring(2)}`,
+        address: mockAddress(),
         category: 'withdrawal' as LogEventType,
         value: `${Math.floor(Math.random() * 10)}`,
       },
       {
         id: `${Math.floor(Math.random() * 100)}`,
         date: now + 4,
-        address: `${Math.random().toString(32).substring(2)}`,
+        address: mockAddress(),
         category: 'deposit' as LogEventType,
         value: `${Math.floor(Math.random() * 10)}`,
       },
@@ -157,4 +157,12 @@ export default function Updater(): null {
   }, 5000);
 
   return null;
+}
+
+function mockAddress() {
+  const S = 'abcdef0123456789';
+  const N = 40;
+  return [...Array(N)]
+    .map(() => S[Math.floor(Math.random() * S.length)])
+    .join('');
 }

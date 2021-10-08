@@ -1,8 +1,10 @@
 import { useWeb3React } from '@web3-react/core';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import styled from 'styled-components';
+import useENSName from '../../../hooks/ens/useENSName';
 import { useYamatoStateForWorld } from '../../../state/yamato-entirety/hooks';
 import { LogEvent, LogEventType } from '../../../state/yamato-entirety/reducer';
+import { shortenAddress } from '../../../utils/web3';
 import { Text } from '../../CommonItem';
 
 const LOG_EVENT_NAME: {
@@ -89,6 +91,7 @@ const Animation = styled.div`
 export default function LogViewer() {
   const { account } = useWeb3React();
   const { events } = useYamatoStateForWorld();
+  const { ENSName } = useENSName(account ?? undefined);
   const diplayedEvents = events.slice(0, 20);
 
   function renderLogEvents() {
@@ -106,7 +109,7 @@ export default function LogViewer() {
               }}
             >
               <span style={{ color, fontWeight: 'bold' }}>{title}</span>
-              <span>: {event.address}が</span>
+              <span>: {ENSName ?? shortenAddress(event.address)}が</span>
               <span>{descriptor}</span>
             </Text>
           </Animation>
