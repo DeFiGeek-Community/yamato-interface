@@ -6,7 +6,7 @@ import {
   Input,
   InputProps,
 } from '@chakra-ui/react';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 export const Text = styled.span`
   font-style: normal;
@@ -74,15 +74,6 @@ const boxStyle = (color: string) => ({
   boxSizing: 'border-box',
   boxShadow: '3px 3px 0px rgba(0, 0, 0, 0.25)',
 });
-
-const boxStyle2 = (color: string) => css`
-  background-color: ${color};
-  border: 1px solid ${color};
-  box-sizing: border-box;
-  box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.25);
-`;
-
-console.log(boxStyle2('red'));
 
 export function HeaderBox1(props: any) {
   return (
@@ -156,11 +147,10 @@ export function CustomInput(
   return (
     <Input
       {...props}
-      variant="unstyled"
       borderRadius="unset"
       style={{
         fontSize: '1.4rem',
-        textAlign: 'center',
+        textAlign: 'right',
         background: '#FCFAF2',
         border: '1px solid #F9AEA5',
         boxSizing: 'border-box',
@@ -180,7 +170,6 @@ export function CustomButton(
   return (
     <Button
       {...props}
-      variant="unstyled"
       border="unset"
       borderRadius="unset"
       style={{

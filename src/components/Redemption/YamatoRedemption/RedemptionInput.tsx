@@ -43,7 +43,7 @@ export default function RedemptionInput(props: Props) {
       redemption: number;
     }>
   ) {
-    console.log('submit redemption', values);
+    console.debug('submit redemption', values);
     // TODO: 償還実行。storeを使わずにabiを直接叩く。
     values.redemption;
 

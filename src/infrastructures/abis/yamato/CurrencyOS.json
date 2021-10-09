@@ -41,52 +41,12 @@
   {
     "inputs": [
       {
-        "components": [
-          {
-            "internalType": "address",
-            "name": "yamatoAddr",
-            "type": "address"
-          },
-          {
-            "internalType": "uint256",
-            "name": "rewardAllocation",
-            "type": "uint256"
-          },
-          {
-            "internalType": "bool",
-            "name": "isL2",
-            "type": "bool"
-          },
-          {
-            "internalType": "bool",
-            "name": "isFilled",
-            "type": "bool"
-          }
-        ],
-        "internalType": "struct CurrencyOS.YamatoConf",
-        "name": "_conf",
-        "type": "tuple"
+        "internalType": "address",
+        "name": "_yamatoAddr",
+        "type": "address"
       }
     ],
     "name": "addYamato",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "to",
-        "type": "address"
-      },
-      {
-        "internalType": "uint256",
-        "name": "amount",
-        "type": "uint256"
-      }
-    ],
-    "name": "burnCJPY",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -105,45 +65,14 @@
     "type": "function"
   },
   {
-    "inputs": [],
-    "name": "feed",
-    "outputs": [
-      {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "governance",
-    "outputs": [
-      {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
     "inputs": [
       {
         "internalType": "address",
-        "name": "to",
+        "name": "_ymtOSProxyAddr",
         "type": "address"
-      },
-      {
-        "internalType": "uint256",
-        "name": "amount",
-        "type": "uint256"
       }
     ],
-    "name": "mintCJPY",
+    "name": "setYmtOSProxy",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -169,46 +98,12 @@
         "type": "uint256"
       }
     ],
-    "name": "yamatoIndice",
-    "outputs": [
-      {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
-      }
-    ],
     "name": "yamatoes",
     "outputs": [
       {
         "internalType": "address",
-        "name": "yamatoAddr",
+        "name": "",
         "type": "address"
-      },
-      {
-        "internalType": "uint256",
-        "name": "rewardAllocation",
-        "type": "uint256"
-      },
-      {
-        "internalType": "bool",
-        "name": "isL2",
-        "type": "bool"
-      },
-      {
-        "internalType": "bool",
-        "name": "isFilled",
-        "type": "bool"
       }
     ],
     "stateMutability": "view",

@@ -10,15 +10,15 @@ type AddressMap = { [chainId: number]: string };
 export type YamatoContractSort = 'main' | 'pool' | 'pricefeed';
 export const YAMATO_MAIN_ADDRESSES: AddressMap = {
   [SupportedChainId.MAINNET]: '0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e',
-  [SupportedChainId.RINKEBY]: '0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e',
+  [SupportedChainId.RINKEBY]: '0x142984cEbE19b79fDdBAEFe7a6d8bc4C0204086D',
 };
 export const YAMATO_POOL_ADDRESSES: AddressMap = {
   [SupportedChainId.MAINNET]: '0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e',
-  [SupportedChainId.RINKEBY]: '0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e',
+  [SupportedChainId.RINKEBY]: '0x72D939E9d36AF8dFB5aCc6EB2bb13259D816598B',
 };
 export const YAMATO_PRICE_FEED_ADDRESSES: AddressMap = {
   [SupportedChainId.MAINNET]: '0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e',
-  [SupportedChainId.RINKEBY]: '0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e',
+  [SupportedChainId.RINKEBY]: '0xf513e1Aef21dE30696436fd3D9D8f196d0415B3d',
 };
 
 /**
@@ -26,7 +26,7 @@ export const YAMATO_PRICE_FEED_ADDRESSES: AddressMap = {
  */
 export const CJPY_ADDRESSES: AddressMap = {
   [SupportedChainId.MAINNET]: '0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e',
-  [SupportedChainId.RINKEBY]: '0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e',
+  [SupportedChainId.RINKEBY]: '0xd41b46F6F1De4341cb02B318c9dF3d9755F59177',
 };
 export const YMT_ADDRESSES: AddressMap = {
   [SupportedChainId.MAINNET]: '0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e',

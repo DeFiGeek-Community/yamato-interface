@@ -12,7 +12,7 @@ import {
   YMT_ADDRESSES,
   VEYMT_ADDRESSES,
   MULTICALL_ADDRESS,
-} from '../constants/contracts';
+} from '../constants/addresses';
 import ENS_PUBLIC_RESOLVER_ABI from '../infrastructures/abis/external/ens-public-resolver.json';
 import ENS_ABI from '../infrastructures/abis/external/ens-registrar.json';
 import {

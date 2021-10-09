@@ -3,6 +3,7 @@ import { Grid, GridItem } from '@chakra-ui/react';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { useActiveWeb3React } from '../../hooks/web3';
 import { useBlockNumber } from '../../state/application/hooks';
 import Web3Status from '../WalletConnectButton';
 import SvgYamatoLogWithTitle from '../svgs/YamatoLogoWithTitle';
@@ -17,6 +18,8 @@ const StyledPollingNumber = styled.div<{
 `;
 
 export default function Header() {
+  const { active, account } = useActiveWeb3React();
+
   const blockNumber = useBlockNumber();
   const [isMounting, setIsMounting] = useState(false);
 
@@ -57,7 +60,7 @@ export default function Header() {
           <Web3Status />
           <VStack>
             <StyledPollingNumber breathe={isMounting}>
-              block:{blockNumber}
+              {active && account && `block:${blockNumber}`}
             </StyledPollingNumber>
             <Link
               to="/tools/"

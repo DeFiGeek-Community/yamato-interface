@@ -7,8 +7,10 @@ import {
 import { Formik, Form, Field, FormikHelpers, FieldProps } from 'formik';
 import { useState } from 'react';
 import { YAMATO_SYMBOL } from '../../../constants/yamato';
-import { useRepayDebt } from '../../../state/pledge/hooks';
+import { useActiveWeb3React } from '../../../hooks/web3';
+import { useRepayCallback } from '../../../hooks/yamato/useRepayCallback';
 import { subtractToNum } from '../../../utils/bignumber';
+import { errorToast } from '../../../utils/errorToast';
 import {
   formatCollateralizationRatio,
   formatPrice,
@@ -20,11 +22,16 @@ type Props = { collateral: number; debt: number; rateOfEthJpy: number };
 export default function RepayInput(props: Props) {
   const { collateral, debt, rateOfEthJpy } = props;
 
-  const repayDebt = useRepayDebt();
+  const { account } = useActiveWeb3React();
+  const { callback } = useRepayCallback();
 
   const [repayment, setRepayment] = useState(0);
 
   function validateRepayment(value: number) {
+    if (!account || !callback) {
+      return `ウォレットを接続してください。`;
+    }
+
     if (value == null || typeof value !== 'number') {
       return '数値で入力してください。';
     }
@@ -37,14 +44,20 @@ export default function RepayInput(props: Props) {
     return undefined;
   }
 
-  function submitRepayment(
+  async function submitRepayment(
     values: { repayment: number },
     formikHelpers: FormikHelpers<{
       repayment: number;
     }>
   ) {
-    console.log('submit repayment', values);
-    repayDebt(values.repayment);
+    console.debug('submit repayment', values);
+
+    try {
+      const res = await callback!(values.repayment);
+      console.debug('repayment done', res);
+    } catch (error) {
+      errorToast(error);
+    }
 
     // reset
     setRepayment(0);
@@ -56,12 +69,15 @@ export default function RepayInput(props: Props) {
       {(formikProps) => (
         <Form>
           <VStack spacing={4} align="start">
-            <HStack spacing={4} align={formikProps.dirty ? 'center' : 'end'}>
+            <HStack
+              spacing={4}
+              align={formikProps.errors.repayment ? 'center' : 'end'}
+            >
               <Field name="repayment" validate={validateRepayment}>
                 {({ field, form }: FieldProps) => (
                   <FormControl
                     isInvalid={
-                      !!form.errors.repayment && !!form.touched.repayment
+                      !!formikProps.errors.repayment && !!form.touched.repayment
                     }
                     style={{ maxWidth: '200px' }}
                   >
@@ -73,7 +89,9 @@ export default function RepayInput(props: Props) {
                       placeholder={YAMATO_SYMBOL.YEN}
                       data-testid="borrowing-data-repayAmount"
                     />
-                    <FormErrorMessage>{form.errors.repayment}</FormErrorMessage>
+                    <FormErrorMessage>
+                      {formikProps.errors.repayment}
+                    </FormErrorMessage>
                   </FormControl>
                 )}
               </Field>

@@ -17,7 +17,7 @@ export function getRedeemableCandidate(
   rateOfEthJpy: number,
   MCR: number
 ): { eth: number; cjpy: number } {
-  if (tcr >= MCR) {
+  if (tcr >= MCR || !rateOfEthJpy) {
     return { eth: 0, cjpy: 0 };
   }
 
@@ -28,7 +28,7 @@ export function getRedeemableCandidate(
 }
 
 export function getEthFromCjpy(value: number, rateOfEthJpy: number) {
-  if (rateOfEthJpy === 0) {
+  if (!rateOfEthJpy) {
     return 0;
   }
   const converted = value / rateOfEthJpy;
