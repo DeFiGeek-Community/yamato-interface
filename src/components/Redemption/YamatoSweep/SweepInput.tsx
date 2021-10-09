@@ -27,7 +27,7 @@ export default function SweepInput(props: Props) {
       sweep: number;
     }>
   ) {
-    console.log('submit Sweep', values);
+    console.debug('submit Sweep', values);
     // TODO: 弁済実行。storeを使わずにabiを直接叩く。
     values.sweep;
 

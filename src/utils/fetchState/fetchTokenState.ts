@@ -38,7 +38,7 @@ export async function fetchTotalSupply(contracts: {
 }
 
 export async function fetchTokenBalance(
-  account: string,
+  account: string | null | undefined,
   contracts: {
     cjpyContract: CJPY | null;
     ymtContract: YMT | null;
@@ -49,6 +49,14 @@ export async function fetchTokenBalance(
   ymt: { totalSupply: number };
   veYmt: { totalSupply: number; boostRate: number };
 }> {
+  if (!account) {
+    return {
+      cjpy: { totalSupply: 0 },
+      ymt: { totalSupply: 0 },
+      veYmt: { totalSupply: 0, boostRate: 0 },
+    };
+  }
+
   return {
     cjpy: {
       totalSupply: contracts.cjpyContract

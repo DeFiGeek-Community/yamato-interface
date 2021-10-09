@@ -1,14 +1,10 @@
 import { useCallback, useEffect, useMemo } from 'react';
 
 import { L2_CHAIN_IDS, SupportedChainId } from '../../constants/chains';
-import {
-  DEFAULT_TXN_DISMISS_MS,
-  L2_TXN_DISMISS_MS,
-} from '../../constants/misc';
 import { useActiveWeb3React } from '../../hooks/web3';
 import { retry, RetryableError, RetryOptions } from '../../utils/retry';
 import { updateBlockNumber } from '../application/actions';
-import { useAddPopup, useBlockNumber } from '../application/hooks';
+import { useBlockNumber } from '../application/hooks';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { checkedTransaction, finalizeTransaction } from './actions';
 
@@ -56,9 +52,6 @@ export default function Updater(): null {
     () => (chainId ? state[chainId] ?? {} : {}),
     [chainId, state]
   );
-
-  // show popup on confirm
-  const addPopup = useAddPopup();
 
   // speed up popup dismisall time if on L2
   const isL2 = Boolean(chainId && L2_CHAIN_IDS.includes(chainId));
@@ -110,16 +103,6 @@ export default function Updater(): null {
                 })
               );
 
-              addPopup(
-                {
-                  txn: {
-                    hash,
-                  },
-                },
-                hash,
-                isL2 ? L2_TXN_DISMISS_MS : DEFAULT_TXN_DISMISS_MS
-              );
-
               // the receipt was fetched before the block, fast forward to that block to trigger balance updates
               if (receipt.blockNumber > lastBlockNumber) {
                 dispatch(
@@ -156,7 +139,6 @@ export default function Updater(): null {
     transactions,
     lastBlockNumber,
     dispatch,
-    addPopup,
     getReceipt,
     isL2,
   ]);

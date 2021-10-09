@@ -85,5 +85,3 @@ export const SUPPORTED_WALLETS: { [key: string]: WalletInfo } = {
   //   mobile: true,
   // },
 };
-
-export const NETWORK_CONTEXT_NAME = 'NETWORK';

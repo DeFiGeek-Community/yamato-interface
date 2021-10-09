@@ -7,8 +7,10 @@ import {
 import { Formik, Form, Field, FormikHelpers, FieldProps } from 'formik';
 import { useState } from 'react';
 import { YAMATO_SYMBOL } from '../../../constants/yamato';
-import { useBorrowDebt } from '../../../state/pledge/hooks';
+import { useActiveWeb3React } from '../../../hooks/web3';
+import { useBorrowCallback } from '../../../hooks/yamato/useBorrowCallback';
 import { addToNum } from '../../../utils/bignumber';
+import { errorToast } from '../../../utils/errorToast';
 import {
   formatCollateralizationRatio,
   formatPrice,
@@ -25,11 +27,16 @@ type Props = {
 export default function BorrowingInput(props: Props) {
   const { collateral, debt, rateOfEthJpy, MCR } = props;
 
-  const borrowDebt = useBorrowDebt();
+  const { account } = useActiveWeb3React();
+  const { callback } = useBorrowCallback();
 
   const [borrowing, setBorrowing] = useState(0);
 
   async function validateBorrowing(value: number) {
+    if (!account || !callback) {
+      return `ウォレットを接続してください。`;
+    }
+
     if (value == null || typeof value !== 'number') {
       return '数値で入力してください。';
     }
@@ -48,14 +55,20 @@ export default function BorrowingInput(props: Props) {
     return undefined;
   }
 
-  function submitBorrowing(
+  async function submitBorrowing(
     values: { borrowing: number },
     formikHelpers: FormikHelpers<{
       borrowing: number;
     }>
   ) {
-    console.log('submit borrowing', values);
-    borrowDebt(values.borrowing);
+    console.debug('submit borrowing', values);
+
+    try {
+      const res = await callback!(values.borrowing);
+      console.debug('borrowing done', res);
+    } catch (error) {
+      errorToast(error);
+    }
 
     // reset
     setBorrowing(0);
@@ -67,12 +80,15 @@ export default function BorrowingInput(props: Props) {
       {(formikProps) => (
         <Form>
           <VStack spacing={4} align="start">
-            <HStack spacing={4} align={formikProps.dirty ? 'center' : 'end'}>
+            <HStack
+              spacing={4}
+              align={formikProps.errors.borrowing ? 'center' : 'end'}
+            >
               <Field name="borrowing" validate={validateBorrowing}>
                 {({ field, form }: FieldProps) => (
                   <FormControl
                     isInvalid={
-                      !!form.errors.borrowing && !!form.touched.borrowing
+                      !!formikProps.errors.borrowing && !!form.touched.borrowing
                     }
                     style={{ maxWidth: '200px' }}
                   >
@@ -84,7 +100,9 @@ export default function BorrowingInput(props: Props) {
                       placeholder={YAMATO_SYMBOL.YEN}
                       data-testid="borrowing-data-borrowAmount"
                     />
-                    <FormErrorMessage>{form.errors.borrowing}</FormErrorMessage>
+                    <FormErrorMessage>
+                      {formikProps.errors.borrowing}
+                    </FormErrorMessage>
                   </FormControl>
                 )}
               </Field>

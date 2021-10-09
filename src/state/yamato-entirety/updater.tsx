@@ -20,7 +20,9 @@ import {
 } from './hooks';
 import { LogEventType } from './reducer';
 
-const isUseMock = !!process.env.REACT_APP_USE_MOCK;
+const isUseMock = process.env.REACT_APP_USE_MOCK
+  ? JSON.parse(process.env.REACT_APP_USE_MOCK)
+  : false;
 
 export default function Updater(): null {
   const { active, account } = useActiveWeb3React();

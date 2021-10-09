@@ -9,7 +9,7 @@ import styled from 'styled-components';
 // import WalletConnectIcon from '../../assets/svg/walletConnectIcon.svg';
 import CJPYLogo from '../../components/svgs/CjpyLogo';
 import { CHAIN_INFO } from '../../constants/chains';
-import { NETWORK_CONTEXT_NAME } from '../../constants/web3';
+import { NetworkContextName } from '../../constants/misc';
 import useENSName from '../../hooks/ens/useENSName';
 import {
   // fortmatic,
@@ -25,6 +25,7 @@ import {
 } from '../../state/transactions/hooks';
 import { TransactionDetails } from '../../state/transactions/reducer';
 import { useWalletState } from '../../state/wallet/hooks';
+import { formatPrice } from '../../utils/prices';
 import { shortenAddress } from '../../utils/web3';
 // import PortisIcon from '../../..assets/images/portisIcon.png';
 import { Text } from '../CommonItem';
@@ -53,7 +54,7 @@ export const WalletText = styled(Text)`
   font-weight: bold;
   font-size: 1.6rem;
   line-height: 1.8rem;
-  color: #5bad92;
+  color: ${({ theme }) => theme.text3};
 `;
 
 const FlexText = styled(WalletText)`
@@ -157,12 +158,14 @@ function Web3StatusInner() {
               <StatusIcon connector={connector} />
             )} */}
             {hasPendingTransactions ? (
-              <Row>
-                <FlexText style={{ fontSize: '1.8rem', lineHeight: '2.1rem' }}>
-                  {pending?.length} Pending...
-                </FlexText>{' '}
-                <Loader />
-              </Row>
+              <FlexText style={{ fontSize: '1.8rem', lineHeight: '2.1rem' }}>
+                <Row>
+                  <span>{pending?.length} Pending...</span>
+                  <div style={{ marginTop: '0.2rem', marginLeft: '0.2rem' }}>
+                    <Loader stroke="#5BAD92" />
+                  </div>
+                </Row>
+              </FlexText>
             ) : (
               <FlexText style={{ fontSize: '1.8rem', lineHeight: '2.1rem' }}>
                 Connected As
@@ -177,7 +180,7 @@ function Web3StatusInner() {
                 lineHeight: '3.5rem',
               }}
             >
-              CJPY {cjpy}
+              CJPY {formatPrice(cjpy, 'jpy').value}
             </FlexText>
           </span>
         </WalletButton>
@@ -214,18 +217,34 @@ function Web3StatusInner() {
 
 export default function Web3Status() {
   const { active, account } = useWeb3React();
-  const contextNetwork = useWeb3React(NETWORK_CONTEXT_NAME);
+  const contextNetwork = useWeb3React(NetworkContextName);
 
   const { ENSName } = useENSName(account ?? undefined);
 
-  if (!contextNetwork.active && !active) {
-    return null;
-  }
+  const allTransactions = useAllTransactions();
+
+  const sortedRecentTransactions = useMemo(() => {
+    const txs = Object.values(allTransactions);
+    return txs.filter(isTransactionRecent).sort(newTransactionsFirst);
+  }, [allTransactions]);
+
+  const pending = sortedRecentTransactions
+    .filter((tx) => !tx.receipt)
+    .map((tx) => tx.hash);
+  const confirmed = sortedRecentTransactions
+    .filter((tx) => tx.receipt)
+    .map((tx) => tx.hash);
 
   return (
     <>
       <Web3StatusInner />
-      <WalletModal ENSName={ENSName ?? undefined} />
+      {(contextNetwork.active || active) && (
+        <WalletModal
+          ENSName={ENSName ?? undefined}
+          pendingTransactions={pending}
+          confirmedTransactions={confirmed}
+        />
+      )}
     </>
   );
 }

@@ -4,7 +4,9 @@ import { useActiveWeb3React } from '../../hooks/web3';
 import { fetchPledgeStateFromContract } from '../../utils/fetchState';
 import { useFetchMyPledge } from './hooks';
 
-const isUseMock = !!process.env.REACT_APP_USE_MOCK;
+const isUseMock = process.env.REACT_APP_USE_MOCK
+  ? JSON.parse(process.env.REACT_APP_USE_MOCK)
+  : false;
 
 export default function Updater(): null {
   const { active, account } = useActiveWeb3React();

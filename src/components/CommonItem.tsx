@@ -147,11 +147,10 @@ export function CustomInput(
   return (
     <Input
       {...props}
-      variant="unstyled"
       borderRadius="unset"
       style={{
         fontSize: '1.4rem',
-        textAlign: 'center',
+        textAlign: 'right',
         background: '#FCFAF2',
         border: '1px solid #F9AEA5',
         boxSizing: 'border-box',
@@ -171,7 +170,6 @@ export function CustomButton(
   return (
     <Button
       {...props}
-      variant="unstyled"
       border="unset"
       borderRadius="unset"
       style={{

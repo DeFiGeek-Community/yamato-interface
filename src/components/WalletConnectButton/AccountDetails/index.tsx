@@ -1,10 +1,9 @@
-import { useContext } from 'react';
+import { useCallback, useContext } from 'react';
 import { ExternalLink as LinkIcon } from 'react-feather';
 import { useDispatch } from 'react-redux';
 import { Button } from 'rebass/styled-components';
 import styled, { ThemeContext } from 'styled-components';
 // import WalletConnectIcon from '../../../assets/svg/walletConnectIcon.svg';
-import { ReactComponent as Close } from '../../../assets/svg/x.svg';
 import { SUPPORTED_WALLETS } from '../../../constants/web3';
 import { useActiveWeb3React } from '../../../hooks/web3';
 import {
@@ -15,6 +14,7 @@ import {
   // portis,
 } from '../../../infrastructures/connectors';
 import { AppDispatch } from '../../../state';
+import { clearAllTransactions } from '../../../state/transactions/actions';
 import { getEtherscanLink } from '../../../utils/externalLink';
 import { shortenAddress } from '../../../utils/web3';
 import { CategoryTitle } from '../../CommonItem';
@@ -23,7 +23,9 @@ import { ExternalLink } from '../../ExternalLink';
 // import FortmaticIcon from '../../assets/images/fortmaticIcon.png';
 // import PortisIcon from '../../assets/images/portisIcon.png';
 import Identicon from '../Identicon';
+import { RowBetween } from '../Row';
 import Copy from './Copy';
+import Transaction from './Transaction';
 
 const HeaderRow = styled.div`
   ${({ theme }) => theme.flexRowNoWrap};
@@ -136,19 +138,18 @@ const AddressLink = styled(ExternalLink)<{ hasENS: boolean; isENS: boolean }>`
   }
 `;
 
-const CloseIcon = styled.div`
-  position: absolute;
-  right: 1rem;
-  top: 14px;
+const ClearButton = styled.div`
+  border-radius: 12px;
+  font-size: 1rem;
+  color: ${({ theme }) => theme.text1};
+  background-color: ${({ theme }) => theme.bg0};
+  padding: 0.3rem;
+  font-weight: 600;
+  user-select: none;
   &:hover {
     cursor: pointer;
-    opacity: 0.6;
-  }
-`;
-
-const CloseColor = styled(Close)`
-  path {
-    stroke: ${({ theme }) => theme.text1};
+    border: 1px solid;
+    border-color: ${({ theme }) => theme.text0};
   }
 `;
 
@@ -190,16 +191,26 @@ const WalletAction = styled(Button)`
   }
 `;
 
-const MainWalletAction = styled(WalletAction)`
-  color: ${({ theme }) => theme.text1};
-`;
+function renderTransactions(transactions: string[]) {
+  return (
+    <TransactionListWrapper>
+      {transactions.map((hash, i) => {
+        return <Transaction key={i} hash={hash} />;
+      })}
+    </TransactionListWrapper>
+  );
+}
 
 interface AccountDetailsProps {
+  pendingTransactions: string[];
+  confirmedTransactions: string[];
   ENSName?: string;
   openOptions: () => void;
 }
 
 export default function AccountDetails({
+  pendingTransactions,
+  confirmedTransactions,
   ENSName,
   openOptions,
 }: AccountDetailsProps) {
@@ -263,6 +274,10 @@ export default function AccountDetails({
     }
     return null;
   }
+
+  const clearAllTransactionsCallback = useCallback(() => {
+    if (chainId) dispatch(clearAllTransactions({ chainId }));
+  }, [dispatch, chainId]);
 
   return (
     <>
@@ -347,6 +362,22 @@ export default function AccountDetails({
           </YourAccount>
         </AccountSection>
       </UpperSection>
+      {!!pendingTransactions.length || !!confirmedTransactions.length ? (
+        <LowerSection>
+          <RowBetween padding="1rem 0">
+            <CategoryTitle>Recent Transactions</CategoryTitle>
+            <ClearButton onClick={clearAllTransactionsCallback}>
+              clear all
+            </ClearButton>
+          </RowBetween>
+          {renderTransactions(pendingTransactions)}
+          {renderTransactions(confirmedTransactions)}
+        </LowerSection>
+      ) : (
+        <LowerSection>
+          <CategoryTitle>Your transactions will appear here...</CategoryTitle>
+        </LowerSection>
+      )}
     </>
   );
 }
