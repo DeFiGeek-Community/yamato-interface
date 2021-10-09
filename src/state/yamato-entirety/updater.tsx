@@ -7,6 +7,7 @@ import {
   useYmtContract,
 } from '../../hooks/useContract';
 import useInterval from '../../hooks/useInterval';
+import { useActiveWeb3React } from '../../hooks/web3';
 import {
   fetchTotalSupply,
   fetchYamatoEntiretyStateFromContract,
@@ -22,6 +23,8 @@ import { LogEventType } from './reducer';
 const isUseMock = !!process.env.REACT_APP_USE_MOCK;
 
 export default function Updater(): null {
+  const { active, account } = useActiveWeb3React();
+
   const yamatoMainContract = useYamatoMainContract();
   const yamatoPoolContract = useYamatoPoolContract();
   const yamatoPriceFeedContract = useYamatoPriceFeedContract();
@@ -35,6 +38,11 @@ export default function Updater(): null {
   const fetchEvents = useFetchEvents();
 
   useInterval(async () => {
+    // TODO: If implementing subgraph, remove. You will execute this alltime without wallet.
+    if (!active || !account) {
+      return;
+    }
+
     let yamatoParams;
     let rateOfEthJpy: number;
     if (isUseMock) {
@@ -89,6 +97,11 @@ export default function Updater(): null {
   }, 5000);
 
   useInterval(async () => {
+    // TODO: If implementing subgraph, remove. You will execute this alltime without wallet.
+    if (!active || !account) {
+      return;
+    }
+
     let tokenParams;
     if (isUseMock) {
       tokenParams = {

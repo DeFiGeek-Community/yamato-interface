@@ -7,13 +7,17 @@ import { useFetchMyPledge } from './hooks';
 const isUseMock = !!process.env.REACT_APP_USE_MOCK;
 
 export default function Updater(): null {
-  const { account } = useActiveWeb3React();
+  const { active, account } = useActiveWeb3React();
   const yamatoMainContract = useYamatoMainContract();
 
   const fetchMyPledge = useFetchMyPledge();
 
   // FIXME: Detect not only the account change but also the network change.
   useInterval(async () => {
+    if (!active || !account) {
+      return;
+    }
+
     let params;
     if (isUseMock) {
       params = {
