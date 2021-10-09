@@ -16,16 +16,18 @@ function getBorrowableAmount(
   rateOfEthJpy: number,
   MCR: number
 ) {
-  if (debt <= 0) {
+  if (debt <= 0 || MCR <= 0) {
     return 0;
   }
   const collateralBasedJpy = collateral * rateOfEthJpy;
+  const MCR2 = MCR / 100;
   const ICR = collateralBasedJpy / debt;
-  if (ICR - MCR <= 0) {
+  if (ICR - MCR2 <= 0) {
     return 0;
   }
 
-  const borrowableAmount = collateralBasedJpy / (debt * (MCR / 100));
+  // coll / (debt + x) = MCR  ->  x = (coll - debt * MCR) / MCR
+  const borrowableAmount = (collateralBasedJpy - debt * MCR2) / MCR2;
   return borrowableAmount;
 }
 
