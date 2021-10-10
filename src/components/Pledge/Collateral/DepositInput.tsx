@@ -77,7 +77,11 @@ export default function DepositInput(props: Props) {
           <VStack spacing={4} align="start">
             <HStack
               spacing={4}
-              align={formikProps.errors.deposit ? 'center' : 'end'}
+              align={
+                formikProps.errors.deposit && formikProps.touched.deposit
+                  ? 'center'
+                  : 'end'
+              }
             >
               <Field name="deposit" validate={validateDeposit}>
                 {({ field, form }: FieldProps) => (

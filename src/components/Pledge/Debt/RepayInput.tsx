@@ -71,7 +71,11 @@ export default function RepayInput(props: Props) {
           <VStack spacing={4} align="start">
             <HStack
               spacing={4}
-              align={formikProps.errors.repayment ? 'center' : 'end'}
+              align={
+                formikProps.errors.repayment && formikProps.touched.repayment
+                  ? 'center'
+                  : 'end'
+              }
             >
               <Field name="repayment" validate={validateRepayment}>
                 {({ field, form }: FieldProps) => (

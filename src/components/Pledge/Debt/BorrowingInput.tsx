@@ -82,7 +82,11 @@ export default function BorrowingInput(props: Props) {
           <VStack spacing={4} align="start">
             <HStack
               spacing={4}
-              align={formikProps.errors.borrowing ? 'center' : 'end'}
+              align={
+                formikProps.errors.borrowing && formikProps.touched.borrowing
+                  ? 'center'
+                  : 'end'
+              }
             >
               <Field name="borrowing" validate={validateBorrowing}>
                 {({ field, form }: FieldProps) => (

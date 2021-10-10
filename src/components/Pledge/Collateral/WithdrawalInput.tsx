@@ -88,7 +88,11 @@ export default function WithdrawalInput(props: Props) {
           <VStack spacing={4} align="start">
             <HStack
               spacing={4}
-              align={formikProps.errors.withdrawal ? 'center' : 'end'}
+              align={
+                formikProps.errors.withdrawal && formikProps.touched.withdrawal
+                  ? 'center'
+                  : 'end'
+              }
             >
               <Field name="withdrawal" validate={validateWithdrawal}>
                 {({ field, form }: FieldProps) => (
