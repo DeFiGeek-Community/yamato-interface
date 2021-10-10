@@ -7,6 +7,7 @@ import useInterval from '../../hooks/useInterval';
 import { useActiveWeb3React } from '../../hooks/web3';
 import { fetchTokenBalance } from '../../utils/fetchState';
 import { getEthBalance } from '../../utils/web3';
+import { mockWalletBalance } from '../mockData';
 import { useFetchWallet } from './hooks';
 
 const isUseMock = process.env.REACT_APP_USE_MOCK
@@ -28,9 +29,7 @@ export default function Updater(): null {
     }
 
     let walletParams;
-    if (isUseMock) {
-      walletParams = { eth: 10, cjpy: 1000 };
-    } else {
+    if (!isUseMock) {
       const wallet = await fetchTokenBalance(account, {
         cjpyContract,
         ymtContract,
@@ -40,6 +39,8 @@ export default function Updater(): null {
         eth: await getEthBalance(account, library),
         cjpy: wallet.cjpy.totalSupply,
       };
+    } else {
+      walletParams = mockWalletBalance;
     }
     fetchWallet(walletParams.cjpy, walletParams.eth);
   }, 5000);

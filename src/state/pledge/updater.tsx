@@ -2,6 +2,7 @@ import { useYamatoMainContract } from '../../hooks/useContract';
 import useInterval from '../../hooks/useInterval';
 import { useActiveWeb3React } from '../../hooks/web3';
 import { fetchPledgeStateFromContract } from '../../utils/fetchState';
+import { mockPledge } from '../mockData';
 import { useFetchMyPledge } from './hooks';
 
 const isUseMock = process.env.REACT_APP_USE_MOCK
@@ -21,17 +22,12 @@ export default function Updater(): null {
     }
 
     let params;
-    if (isUseMock) {
-      params = {
-        account: account ?? '',
-        collateral: 3.5,
-        debt: 800000,
-        withdrawalLockDate: Date.now() / 1000 + 1000,
-      };
-    } else {
+    if (!isUseMock) {
       params = await fetchPledgeStateFromContract(account, {
         yamatoMainContract,
       });
+    } else {
+      params = mockPledge(account);
     }
 
     fetchMyPledge(
