@@ -131,7 +131,7 @@ export default function Updater(): null {
     return () => {
       library.removeListener('block', blockNumberCallback);
     };
-  }, [dispatch, chainId, library, blockNumberCallback, windowVisible]);
+  }, [dispatch, account, chainId, library, blockNumberCallback, windowVisible]);
 
   const debouncedState = useDebounce(state, 100);
 
