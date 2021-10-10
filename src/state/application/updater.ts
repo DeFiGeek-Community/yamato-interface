@@ -113,7 +113,7 @@ export default function Updater(): null {
 
   // attach/detach listeners
   useEffect(() => {
-    if (!library || !chainId || !windowVisible) return undefined;
+    if (!account || !library || !chainId || !windowVisible) return undefined;
 
     setState({ chainId, blockNumber: null });
 

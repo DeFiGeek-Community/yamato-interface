@@ -60,7 +60,7 @@ export function InfographicsContent(props: Partial<InfographicsProps>) {
     props.hasOwnProperty('totalCollateral') ||
     props.hasOwnProperty('totalDebt') ||
     props.hasOwnProperty('rateOfEthJpy') ||
-    !mixedValues.totalDebt
+    mixedValues.totalDebt
       ? (100 * mixedValues.totalCollateral * mixedValues.rateOfEthJpy) /
         mixedValues.totalDebt
       : mixedValues.tcr;
