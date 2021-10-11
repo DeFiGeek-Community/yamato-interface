@@ -28,3 +28,5 @@ memo
 
 # generated contract types
 /src/infrastructures/abis/types
+/cypress/videos
+/cypress/screenshots
