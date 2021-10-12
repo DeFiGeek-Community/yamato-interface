@@ -22,11 +22,11 @@ export default function TerminologyPopover({
   children: React.ReactNode;
 }) {
   return (
-    <Popover isLazy closeOnEsc placement={"bottom-start"}>
+    <Popover isLazy closeOnEsc placement={'bottom-start'}>
       <PopoverTrigger>
         <ButtonInHeaderBox1>?</ButtonInHeaderBox1>
       </PopoverTrigger>
-      <PopoverContent>
+      <PopoverContent width={'100%'}>
         <PopoverArrow bgColor={popoverBorderColor} />
         <PopoverCloseButton textColor={popoverBorderColor} />
         <PopoverHeader
