@@ -1,7 +1,7 @@
 import { AbstractConnector } from '@web3-react/abstract-connector';
-import INJECTED_ICON_URL from '../assets/images/arrow-right.svg';
 import METAMASK_ICON_URL from '../assets/images/metamask.png';
-// import WALLETCONNECT_ICON_URL from '../assets/images/walletConnectIcon.svg';
+import INJECTED_ICON_URL from '../assets/svg/arrow-right.svg';
+// import WALLETCONNECT_ICON_URL from '../assets/svg/walletConnectIcon.svg';
 import {
   // fortmatic,
   injected,
@@ -85,5 +85,3 @@ export const SUPPORTED_WALLETS: { [key: string]: WalletInfo } = {
   //   mobile: true,
   // },
 };
-
-export const NETWORK_CONTEXT_NAME = 'NETWORK';

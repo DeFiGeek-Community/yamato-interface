@@ -9,8 +9,10 @@ import { Formik, Form, Field, FormikHelpers, FieldProps } from 'formik';
 import { useState } from 'react';
 import { YAMATO_SYMBOL } from '../../../constants/yamato';
 import useInterval from '../../../hooks/useInterval';
-import { useWithdrawCollateral } from '../../../state/pledge/hooks';
+import { useActiveWeb3React } from '../../../hooks/web3';
+import { useWithdrawCallback } from '../../../hooks/yamato/useWithdrawCallback';
 import { subtractToNum } from '../../../utils/bignumber';
+import { errorToast } from '../../../utils/errorToast';
 import {
   formatCollateralizationRatio,
   formatPrice,
@@ -27,7 +29,8 @@ type Props = {
 export default function WithdrawalInput(props: Props) {
   const { collateral, debt, rateOfEthJpy, withdrawalLockDate } = props;
 
-  const withdrawCollateral = useWithdrawCollateral();
+  const { account } = useActiveWeb3React();
+  const { callback } = useWithdrawCallback();
 
   const [withdrawal, setWithdrawal] = useState(0);
   const [remainLockTime, setRemainLockTime] = useState(-1);
@@ -41,6 +44,10 @@ export default function WithdrawalInput(props: Props) {
   }, 500);
 
   function validateWithdrawal(value: number) {
+    if (!account || !callback) {
+      return `ウォレットを接続してください。`;
+    }
+
     // FIXME: ロックタイム中
     if (value == null || typeof value !== 'number') {
       return '数値で入力してください。';
@@ -54,14 +61,20 @@ export default function WithdrawalInput(props: Props) {
     return undefined;
   }
 
-  function submitWithdrawal(
+  async function submitWithdrawal(
     values: { withdrawal: number },
     formikHelpers: FormikHelpers<{
       withdrawal: number;
     }>
   ) {
-    console.log('submit withdrawal', values);
-    withdrawCollateral(values.withdrawal);
+    console.debug('submit withdrawal', values);
+
+    try {
+      const res = await callback!(values.withdrawal);
+      console.debug('withdrawal done', res);
+    } catch (error) {
+      errorToast(error);
+    }
 
     // reset
     setWithdrawal(0);
@@ -73,12 +86,20 @@ export default function WithdrawalInput(props: Props) {
       {(formikProps) => (
         <Form>
           <VStack spacing={4} align="start">
-            <HStack spacing={4} align={formikProps.dirty ? 'center' : 'end'}>
+            <HStack
+              spacing={4}
+              align={
+                formikProps.errors.withdrawal && formikProps.touched.withdrawal
+                  ? 'center'
+                  : 'end'
+              }
+            >
               <Field name="withdrawal" validate={validateWithdrawal}>
                 {({ field, form }: FieldProps) => (
                   <FormControl
                     isInvalid={
-                      !!form.errors.withdrawal && !!form.touched.withdrawal
+                      !!formikProps.errors.withdrawal &&
+                      !!form.touched.withdrawal
                     }
                     style={{ maxWidth: '200px' }}
                   >
@@ -91,7 +112,7 @@ export default function WithdrawalInput(props: Props) {
                       data-testid="collateral-data-withdrawalAmount"
                     />
                     <FormErrorMessage>
-                      {form.errors.withdrawal}
+                      {formikProps.errors.withdrawal}
                     </FormErrorMessage>
                   </FormControl>
                 )}

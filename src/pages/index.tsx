@@ -2,10 +2,10 @@ import { Box, Grid, GridItem } from '@chakra-ui/react';
 import { useWeb3React } from '@web3-react/core';
 import Dashboad from '../components/Dashboad';
 import Infographics from '../components/Infographics';
-import Layout from '../components/Layout';
 import Pledge from '../components/Pledge';
 import Redemption from '../components/Redemption';
 import World from '../components/World';
+import Layout from '../components/layout';
 
 export default function Index() {
   const { account } = useWeb3React();

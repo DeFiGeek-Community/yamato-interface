@@ -1,6 +1,6 @@
 import { Grid, GridItem } from '@chakra-ui/react';
-import InfographicsTool from '../components/InfographicsTool';
-import Layout from '../components/Layout';
+import Layout from '../components/layout';
+import InfographicsTool from '../components/tools/InfographicsTool';
 
 export default function Tools() {
   return (

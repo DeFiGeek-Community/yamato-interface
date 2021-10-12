@@ -5,13 +5,13 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { HashRouter } from 'react-router-dom';
 import App from './App';
-import { NETWORK_CONTEXT_NAME } from './constants/web3';
+import { NetworkContextName } from './constants/misc';
 import reportWebVitals from './reportWebVitals';
 import store from './state';
 import ThemeProvider, { ThemedGlobalStyle } from './theme';
 import getLibrary from './utils/getLibrary';
 
-const Web3ProviderNetwork = createWeb3ReactRoot(NETWORK_CONTEXT_NAME);
+const Web3ProviderNetwork = createWeb3ReactRoot(NetworkContextName);
 
 const { ethereum } = window;
 if (!!ethereum) {

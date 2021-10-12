@@ -1,6 +1,7 @@
 import useInterval from '../../hooks/useInterval';
 import { useFetchRateOfCjpyJpy } from './hooks';
 
+// Data except Ethereum
 export default function Updater(): null {
   const fetchRateOfCjpyJpy = useFetchRateOfCjpyJpy();
 

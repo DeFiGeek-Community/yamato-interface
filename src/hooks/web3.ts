@@ -1,51 +1,65 @@
-import { getAddress } from '@ethersproject/address';
-import { AddressZero } from '@ethersproject/constants';
-import { Contract } from '@ethersproject/contracts';
-import { Web3Provider, JsonRpcSigner } from '@ethersproject/providers';
-import { useWeb3React as useWeb3ReactCore } from '@web3-react/core';
-import { Web3ReactContextInterface } from '@web3-react/core/dist/types';
-import { InjectedConnector } from '@web3-react/injected-connector';
+import { Web3Provider } from '@ethersproject/providers';
+import { useWeb3React } from '@web3-react/core';
 import { useEffect, useState } from 'react';
-import { isMobile } from 'react-device-detect';
-import { SupportedChainId } from '../constants/chains';
-import { NETWORK_CONTEXT_NAME } from '../constants/web3';
-import { add, BigNumberValueType, divide, multiply } from '../utils/bignumber';
 
-export const injected = new InjectedConnector({
-  supportedChainIds: [1, 4],
-});
+import { IS_IN_IFRAME, NetworkContextName } from '../constants/misc';
+import {
+  //gnosisSafe,
+  injected,
+} from '../infrastructures/connectors';
+import { isMobile } from '../utils/userAgent';
 
-export function useActiveWeb3React(): Web3ReactContextInterface<Web3Provider> & {
-  chainId?: SupportedChainId;
-} {
-  const context = useWeb3ReactCore<Web3Provider>();
-  const contextNetwork = useWeb3ReactCore<Web3Provider>(NETWORK_CONTEXT_NAME);
+export function useActiveWeb3React() {
+  const context = useWeb3React<Web3Provider>();
+  const contextNetwork = useWeb3React<Web3Provider>(NetworkContextName);
   return context.active ? context : contextNetwork;
 }
 
 export function useEagerConnect() {
-  const { activate, active } = useWeb3ReactCore(); // specifically using useWeb3ReactCore because of what this hook does
+  const { activate, active } = useWeb3React();
   const [tried, setTried] = useState(false);
 
+  // gnosisSafe.isSafeApp() races a timeout against postMessage, so it delays pageload if we are not in a safe app;
+  // if we are not embedded in an iframe, it is not worth checking
+  const [triedSafe, setTriedSafe] = useState(!IS_IN_IFRAME);
+
+  // first, try connecting to a gnosis safe
+  // useEffect(() => {
+  //   if (!triedSafe) {
+  //     gnosisSafe.isSafeApp().then((loadedInSafe) => {
+  //       if (loadedInSafe) {
+  //         activate(gnosisSafe, undefined, true).catch(() => {
+  //           setTriedSafe(true);
+  //         });
+  //       } else {
+  //         setTriedSafe(true);
+  //       }
+  //     });
+  //   }
+  // }, [activate, setTriedSafe, triedSafe]);
+
+  // then, if that fails, try connecting to an injected connector
   useEffect(() => {
-    injected.isAuthorized().then((isAuthorized) => {
-      if (isAuthorized) {
-        activate(injected, undefined, true).catch(() => {
-          setTried(true);
-        });
-      } else {
-        if (isMobile && (window as any).ethereum) {
+    if (!active && triedSafe) {
+      injected.isAuthorized().then((isAuthorized) => {
+        if (isAuthorized) {
           activate(injected, undefined, true).catch(() => {
             setTried(true);
           });
         } else {
-          setTried(true);
+          if (isMobile && window.ethereum) {
+            activate(injected, undefined, true).catch(() => {
+              setTried(true);
+            });
+          } else {
+            setTried(true);
+          }
         }
-      }
-    });
-  }, [activate]); // intentionally only running on mount (make sure it's only mounted once :))
+      });
+    }
+  }, [activate, active, triedSafe]);
 
-  // if the connection worked, wait until we get confirmation of that to flip the flag
+  // wait until we get confirmation of a connection to flip the flag
   useEffect(() => {
     if (active) {
       setTried(true);
@@ -60,7 +74,7 @@ export function useEagerConnect() {
  * and out after checking what network theyre on
  */
 export function useInactiveListener(suppress = false) {
-  const { active, error, activate } = useWeb3ReactCore(); // specifically using useWeb3React because of what this hook does
+  const { active, error, activate } = useWeb3React();
 
   useEffect(() => {
     const { ethereum } = window;
@@ -94,52 +108,4 @@ export function useInactiveListener(suppress = false) {
     }
     return undefined;
   }, [active, error, suppress, activate]);
-}
-
-// returns the checksummed address if the address is valid, otherwise returns false
-export function isAddress(value: any): string | false {
-  try {
-    return getAddress(value);
-  } catch {
-    return false;
-  }
-}
-
-// account is not optional
-export function getSigner(
-  library: Web3Provider,
-  account: string
-): JsonRpcSigner {
-  return library.getSigner(account).connectUnchecked();
-}
-
-// account is optional
-export function getProviderOrSigner(
-  library: Web3Provider,
-  account?: string
-): Web3Provider | JsonRpcSigner {
-  return account ? getSigner(library, account) : library;
-}
-
-// account is optional
-export function getContract(
-  address: string,
-  ABI: any,
-  library: Web3Provider,
-  account?: string
-): Contract {
-  if (!isAddress(address) || address === AddressZero) {
-    throw Error(`Invalid 'address' parameter '${address}'.`);
-  }
-
-  return new Contract(
-    address,
-    ABI,
-    getProviderOrSigner(library, account) as any
-  );
-}
-
-// add 10%
-export function calculateGasMargin(value: BigNumberValueType) {
-  return divide(add(multiply(value, 10000), 1000), 10000);
 }

@@ -1,5 +1,3 @@
-import { MCR } from '../../constants/yamato';
-
 export function getCjpyPriceRank(cjpyPrice: number): number {
   const fixedPrice = Number(cjpyPrice.toFixed(2));
   const base = Math.floor(((fixedPrice - 1) / 2) * 100); // rank up per 0.02 YEN
@@ -23,7 +21,7 @@ export function getEthPriceRank(changePercent: number): number {
   return base;
 }
 
-export function getColorCodePerTcr(tcr: number): number {
+export function getColorCodePerTcr(tcr: number, MCR: number): number {
   const base = Math.floor(tcr - MCR) * (124 / 190); // Min 236 - Mid 298 - Max 360
   // 125 ranks
   if (base > 124) {

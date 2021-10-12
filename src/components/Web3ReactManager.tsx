@@ -1,8 +1,7 @@
 import { useWeb3React } from '@web3-react/core';
 import { useState, useEffect } from 'react';
 import styled from 'styled-components/macro';
-
-import { NETWORK_CONTEXT_NAME } from '../constants/web3';
+import { NetworkContextName } from '../constants/misc';
 import { useEagerConnect, useInactiveListener } from '../hooks/web3';
 import { network } from '../infrastructures/connectors';
 import Loader from './Loader';
@@ -28,7 +27,7 @@ export default function Web3ReactManager({
     active: networkActive,
     error: networkError,
     activate: activateNetwork,
-  } = useWeb3React(NETWORK_CONTEXT_NAME);
+  } = useWeb3React(NetworkContextName);
 
   // try to eagerly connect to an injected provider, if it exists and has granted access already
   const triedEager = useEagerConnect();

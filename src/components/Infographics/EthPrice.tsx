@@ -1,5 +1,5 @@
 import { Box } from '@chakra-ui/react';
-import ArrowZero from '../../assets/sources/eth-change-arrow/eth-change-arrow-zero.svg';
+import ArrowZero from '../../assets/svg/sources/eth-change-arrow/eth-change-arrow-zero.svg';
 import { formatPrice } from '../../utils/prices';
 import { ItemTitleForInfographics } from '../CommonItem';
 import ArrowDown from '../svgs/eth-change-arrow-adjusted/EthChangeArrowDown.js';

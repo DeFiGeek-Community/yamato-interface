@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import { isMobile } from 'react-device-detect';
 import styled from 'styled-components';
 import MetamaskIcon from '../../../assets/images/metamask.png';
-import { ReactComponent as Close } from '../../../assets/images/x.svg';
+import { ReactComponent as Close } from '../../../assets/svg/x.svg';
 // import { OVERLAY_READY } from '../../connectors/Fortmatic';
 import { SUPPORTED_WALLETS } from '../../../constants/web3';
 import usePrevious from '../../../hooks/usePrevious';
@@ -17,7 +17,7 @@ import {
   useWalletModalToggle,
 } from '../../../state/application/hooks';
 import { CategoryTitle, Text } from '../../CommonItem';
-import AccountDetails from '../AccountDetails/AccountDetails';
+import AccountDetails from '../AccountDetails';
 import { AutoRow } from '../Row';
 import Option from './Option';
 import PendingView from './PendingView';
@@ -108,7 +108,15 @@ const WALLET_VIEWS = {
   PENDING: 'pending',
 };
 
-export default function WalletModal({ ENSName }: { ENSName?: string }) {
+export default function WalletModal({
+  pendingTransactions,
+  confirmedTransactions,
+  ENSName,
+}: {
+  pendingTransactions: string[]; // hashes of pending
+  confirmedTransactions: string[]; // hashes of confirmeds
+  ENSName?: string;
+}) {
   // important that these are destructed from the account-specific web3-react context
   const { active, account, connector, activate, error } = useWeb3React();
 
@@ -308,6 +316,8 @@ export default function WalletModal({ ENSName }: { ENSName?: string }) {
     if (account && walletView === WALLET_VIEWS.ACCOUNT) {
       return (
         <AccountDetails
+          pendingTransactions={pendingTransactions}
+          confirmedTransactions={confirmedTransactions}
           ENSName={ENSName}
           openOptions={() => setWalletView(WALLET_VIEWS.OPTIONS)}
         />

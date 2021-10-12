@@ -1,12 +1,13 @@
 import { createReducer } from '@reduxjs/toolkit';
+
 import {
   addMulticallListeners,
   errorFetchingMulticallResults,
   fetchingMulticallResults,
   removeMulticallListeners,
-  toCallKey,
   updateMulticallResults,
 } from './actions';
+import { toCallKey } from './utils';
 
 export interface MulticallState {
   callListeners?: {
@@ -41,7 +42,13 @@ export default createReducer(initialState, (builder) =>
       addMulticallListeners,
       (
         state,
-        { payload: { calls, chainId, options: { blocksPerFetch = 1 } = {} } }
+        {
+          payload: {
+            calls,
+            chainId,
+            options: { blocksPerFetch },
+          },
+        }
       ) => {
         const listeners: MulticallState['callListeners'] = state.callListeners
           ? state.callListeners
@@ -59,7 +66,13 @@ export default createReducer(initialState, (builder) =>
       removeMulticallListeners,
       (
         state,
-        { payload: { chainId, calls, options: { blocksPerFetch = 1 } = {} } }
+        {
+          payload: {
+            chainId,
+            calls,
+            options: { blocksPerFetch },
+          },
+        }
       ) => {
         const listeners: MulticallState['callListeners'] = state.callListeners
           ? state.callListeners

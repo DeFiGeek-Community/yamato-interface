@@ -1,5 +1,4 @@
 import { Store, createStore } from '@reduxjs/toolkit';
-import Pool from '../../components/Infographics/Pool';
 import {
   fetchEvents,
   fetchRateOfEthJpy,
@@ -32,11 +31,15 @@ describe('yamato-entirety reducer', () => {
           sweepReserve: 1,
           sweepableCandiate: 0.5,
         },
+        parameter: {
+          MCR: 110,
+          RRR: 80,
+          SRR: 20,
+          GRR: 1,
+        },
       };
 
-      store.dispatch(
-        fetchYamatoState({ ...newState.lending, ...newState.pool })
-      );
+      store.dispatch(fetchYamatoState(newState));
       expect(store.getState()).toEqual({
         ...initialState,
         ...newState,
