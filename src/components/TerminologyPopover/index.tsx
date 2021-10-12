@@ -22,7 +22,7 @@ export default function TerminologyPopover({
   children: React.ReactNode;
 }) {
   return (
-    <Popover matchWidth={true}>
+    <Popover isLazy closeOnEsc placement={"bottom-start"}>
       <PopoverTrigger>
         <ButtonInHeaderBox1>?</ButtonInHeaderBox1>
       </PopoverTrigger>
