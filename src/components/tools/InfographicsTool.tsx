@@ -1,6 +1,5 @@
 import { Grid, GridItem, HStack, Stack, FormControl } from '@chakra-ui/react';
 import { Formik, Form } from 'formik';
-import { InfographicsContent, InfographicsHelp } from '../Infographics';
 import {
   CategoryTitle,
   ConentBox,
@@ -8,6 +7,7 @@ import {
   CustomFormLabel,
   CustomInput,
 } from '../CommonItem';
+import { InfographicsContent, InfographicsHelp } from '../Infographics';
 
 function InputField(props: {
   name: string;
