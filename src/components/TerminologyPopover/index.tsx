@@ -16,9 +16,11 @@ import {
 
 export default function TerminologyPopover({
   title,
+  width,
   children,
 }: {
   title?: string;
+  width?: string;
   children: React.ReactNode;
 }) {
   return (
@@ -26,7 +28,7 @@ export default function TerminologyPopover({
       <PopoverTrigger>
         <ButtonInHeaderBox1>?</ButtonInHeaderBox1>
       </PopoverTrigger>
-      <PopoverContent width={'100%'}>
+      <PopoverContent width={width ?? '360px'}>
         <PopoverArrow bgColor={popoverBorderColor} />
         <PopoverCloseButton textColor={popoverBorderColor} />
         <PopoverHeader
