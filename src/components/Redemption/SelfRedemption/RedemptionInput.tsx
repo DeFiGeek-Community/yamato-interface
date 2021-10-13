@@ -8,7 +8,10 @@ import {
 import { Formik, Form, Field, FieldProps, FormikHelpers } from 'formik';
 import { useState } from 'react';
 import { YAMATO_SYMBOL } from '../../../constants/yamato';
+import { useActiveWeb3React } from '../../../hooks/web3';
+import { useSelfRedeemCallback } from '../../../hooks/yamato/useSelfRedemption';
 import { useWalletState } from '../../../state/wallet/hooks';
+import { errorToast } from '../../../utils/errorToast';
 import { formatPrice } from '../../../utils/prices';
 import {
   Text,
@@ -33,6 +36,8 @@ type Props = {
 export default function RedemptionInput(props: Props) {
   const { totalCollateral, totalDebt, tcr, rateOfEthJpy, MCR, GRR } = props;
 
+  const { account } = useActiveWeb3React();
+  const { callback } = useSelfRedeemCallback();
   const { cjpy } = useWalletState();
 
   const [redemption, setRedemption] = useState(0);
@@ -45,6 +50,10 @@ export default function RedemptionInput(props: Props) {
   );
 
   async function validateRedemption(value: number) {
+    if (!account || !callback) {
+      return `ウォレットを接続してください。またはネットワークを切り替えてください。`;
+    }
+
     if (value == null || typeof value !== 'number') {
       return '数値で入力してください。';
     }
@@ -61,15 +70,20 @@ export default function RedemptionInput(props: Props) {
     return undefined;
   }
 
-  function submitRedemption(
+  async function submitRedemption(
     values: { redemption: number },
     formikHelpers: FormikHelpers<{
       redemption: number;
     }>
   ) {
-    console.debug('submit redemption', values);
-    // TODO: 償還実行。storeを使わずにabiを直接叩く。
-    values.redemption;
+    console.debug('submit self redemption', values);
+
+    try {
+      const res = await callback!(values.redemption, redeemableCandidate.eth);
+      console.debug('self redemption done', res);
+    } catch (error) {
+      errorToast(error);
+    }
 
     // reset
     setRedemption(0);

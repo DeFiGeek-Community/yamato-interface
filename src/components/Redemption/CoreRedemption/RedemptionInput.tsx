@@ -1,6 +1,9 @@
 import { Grid, GridItem, VStack } from '@chakra-ui/react';
 import { Formik, Form, FormikHelpers } from 'formik';
 import { YAMATO_SYMBOL } from '../../../constants/yamato';
+import { useActiveWeb3React } from '../../../hooks/web3';
+import { useCoreRedeemCallback } from '../../../hooks/yamato/useCoreRedemption';
+import { errorToast } from '../../../utils/errorToast';
 import { formatPrice } from '../../../utils/prices';
 import { Text, CustomButton, CustomFormLabel } from '../../CommonItem';
 import {
@@ -29,6 +32,9 @@ export default function RedemptionInput(props: Props) {
     GRR,
   } = props;
 
+  const { account } = useActiveWeb3React();
+  const { callback } = useCoreRedeemCallback();
+
   const redeemableCandidate = getRedeemableCandidate(
     totalCollateral,
     totalDebt,
@@ -37,15 +43,24 @@ export default function RedemptionInput(props: Props) {
     MCR
   );
 
-  function submitRedemption(
+  async function submitRedemption(
     values: { redemption: number },
     formikHelpers: FormikHelpers<{
       redemption: number;
     }>
   ) {
-    console.debug('submit redemption', values);
-    // TODO: 償還実行。storeを使わずにabiを直接叩く。
-    values.redemption;
+    if (!account || !callback) {
+      return `ウォレットを接続してください。またはネットワークを切り替えてください。`;
+    }
+
+    console.debug('submit core redemption', values);
+
+    try {
+      const res = await callback!(redeemableCandidate.eth);
+      console.debug('core redemption done', res);
+    } catch (error) {
+      errorToast(error);
+    }
 
     // reset
     formikHelpers.resetForm();

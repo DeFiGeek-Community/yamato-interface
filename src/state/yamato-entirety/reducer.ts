@@ -15,8 +15,8 @@ export type LogEventType =
   | 'governance_extension'
   | 'governance_withdrawal'
   | 'self_redemption'
-  | 'yamato_redemption'
-  | 'yamato_sweep';
+  | 'core_redemption'
+  | 'sweep';
 export type LogEvent = {
   id: string;
   date: number;

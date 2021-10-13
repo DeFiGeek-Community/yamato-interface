@@ -45,7 +45,7 @@ export default function WithdrawalInput(props: Props) {
 
   function validateWithdrawal(value: number) {
     if (!account || !callback) {
-      return `ウォレットを接続してください。`;
+      return `ウォレットを接続してください。またはネットワークを切り替えてください。`;
     }
 
     // FIXME: ロックタイム中

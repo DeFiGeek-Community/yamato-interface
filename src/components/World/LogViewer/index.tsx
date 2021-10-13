@@ -20,9 +20,9 @@ function getDescriptor(event: LogEvent) {
       return `${event.value}CJPYを返済しました！`;
     case 'self_redemption':
       return `${event.value}CJPYを償還しました！`;
-    case 'yamato_redemption':
+    case 'core_redemption':
       return `トリガーしました！`;
-    case 'yamato_sweep':
+    case 'sweep':
       return `トリガーしました！`;
     default:
       return `${event.value}を行いました！`;
@@ -41,9 +41,9 @@ function getColor(category: LogEventType) {
       return `green`;
     case 'self_redemption':
       return `blue`;
-    case 'yamato_redemption':
+    case 'core_redemption':
       return `blue`;
-    case 'yamato_sweep':
+    case 'sweep':
       return `blue`;
     default:
       return `black`;

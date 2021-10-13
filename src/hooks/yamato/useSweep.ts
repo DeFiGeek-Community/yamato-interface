@@ -12,10 +12,10 @@ import {
   InvalidCallback,
 } from './helper';
 
-export function useBorrowCallback(): {
+export function useSweepCallback(): {
   // signatureData: SignatureData | undefined | null  FIXME: EIP-2612
   state: CallbackState;
-  callback: null | ((cjpy: number) => Promise<string>);
+  callback: null | ((expected: number) => Promise<string>);
   error: string | null;
 } {
   const { account, chainId, library } = useActiveWeb3React();
@@ -30,9 +30,8 @@ export function useBorrowCallback(): {
 
     return {
       state: CallbackState.VALID,
-      callback: async function onBorrow(cjpy: number): Promise<string> {
+      callback: async function onSweep(expected: number): Promise<string> {
         // payload
-        const value = parseEther(cjpy.toString());
         const option = {
           from: account,
         };
@@ -40,7 +39,12 @@ export function useBorrowCallback(): {
         const signer = yamatoMainContract.connect(library.getSigner());
 
         // estimate gas
-        const call = await estimateGas('borrow', value, option, signer);
+        const call = await estimateGas(
+          'sweep',
+          parseEther('0'),
+          option,
+          signer
+        );
         if ('error' in call) {
           throw new Error(call.error);
         }
@@ -48,17 +52,17 @@ export function useBorrowCallback(): {
         try {
           // send tx
           const params = { ...option, gasLimit: call.gasEstimate };
-          const response = await signer.borrow(value, params);
+          const response = await signer.sweep(params);
 
           // regist pending tx
           addTransaction(response, {
-            type: TransactionType.BORROW,
-            value: cjpy,
+            type: TransactionType.SWEEP,
+            expected,
           });
 
           return response.hash;
         } catch (error: any) {
-          throw new Error(getErrorMessage('borrow', error));
+          throw new Error(getErrorMessage('sweep', error));
         }
       },
       error: null,
