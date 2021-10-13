@@ -9,15 +9,15 @@ type AddressMap = { [chainId: number]: string };
  */
 export type YamatoContractSort = 'main' | 'pool' | 'pricefeed';
 export const YAMATO_MAIN_ADDRESSES: AddressMap = {
-  [SupportedChainId.MAINNET]: '0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e',
+  [SupportedChainId.MAINNET]: '0x00000000000A1E074eC69A0dFb2997BA6C7d2e1e',
   [SupportedChainId.RINKEBY]: '0xf24067cfe4aF6aa3f8DD47f27Df53a99F617D702',
 };
 export const YAMATO_POOL_ADDRESSES: AddressMap = {
-  [SupportedChainId.MAINNET]: '0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e',
+  [SupportedChainId.MAINNET]: '0x00000000000B1E074eC69A0dFb2997BA6C7d2e1e',
   [SupportedChainId.RINKEBY]: '0xb07e852C31Cfd5Fde97861D70a7FEB11a6252dD2',
 };
 export const YAMATO_PRICE_FEED_ADDRESSES: AddressMap = {
-  [SupportedChainId.MAINNET]: '0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e',
+  [SupportedChainId.MAINNET]: '0x00000000000C1E074eC69A0dFb2997BA6C7d2e1e',
   [SupportedChainId.RINKEBY]: '0x5dBF987fB335510620C3dEe6F55Dcb8712796a3f',
 };
 
@@ -25,16 +25,16 @@ export const YAMATO_PRICE_FEED_ADDRESSES: AddressMap = {
  * Token
  */
 export const CJPY_ADDRESSES: AddressMap = {
-  [SupportedChainId.MAINNET]: '0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e',
+  [SupportedChainId.MAINNET]: '0x00000000000D1E074eC69A0dFb2997BA6C7d2e1e',
   [SupportedChainId.RINKEBY]: '0xE5487D987cc65e971cf5B7820716783c465a192c',
 };
 export const YMT_ADDRESSES: AddressMap = {
-  [SupportedChainId.MAINNET]: '0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e',
-  [SupportedChainId.RINKEBY]: '0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e',
+  [SupportedChainId.MAINNET]: '0x00000000000E1E074eC69A0dFb2997BA6C7d2e1e',
+  [SupportedChainId.RINKEBY]: '0x00000000000E1E074eC69A0dFb2997BA6C7d2e1e',
 };
 export const VEYMT_ADDRESSES: AddressMap = {
-  [SupportedChainId.MAINNET]: '0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e',
-  [SupportedChainId.RINKEBY]: '0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e',
+  [SupportedChainId.MAINNET]: '0x00000000000F1E074eC69A0dFb2997BA6C7d2e1e',
+  [SupportedChainId.RINKEBY]: '0x00000000000F1E074eC69A0dFb2997BA6C7d2e1e',
 };
 
 /**
