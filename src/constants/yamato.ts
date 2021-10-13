@@ -39,6 +39,9 @@ export const REVERT_REASON_DESCRIPTION = {
   zeroFee: '手数料が0になっています。',
   insufficientBorrowing: '手数料が借入量より上回っています。',
   insufficientPaybackGas: '変換するためのガス代が不足しています。',
+  // authority
+  notGoverner: 'あなたはガバナーではありません。',
+  notTester: 'あなたはテスターではありません。',
   // others
   justReverted:
     '不明なエラーが発生しました。またはネットワークを切り替えてください。',

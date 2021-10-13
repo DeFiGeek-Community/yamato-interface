@@ -63,8 +63,10 @@ function swapErrorToUserReadableMessage(error: any): string {
       return REVERT_REASON_DESCRIPTION.underMCR;
     case 'fee must be more than zero.':
       return REVERT_REASON_DESCRIPTION.zeroFee;
-    case '"(borrow - fee) must be more than zero."':
+    case '(borrow - fee) must be more than zero.':
       return REVERT_REASON_DESCRIPTION.insufficientBorrowing;
+    case 'ICR too low to get fee data.':
+      return REVERT_REASON_DESCRIPTION.underMCR;
     // repay
     case 'You are repaying no CJPY':
       return REVERT_REASON_DESCRIPTION.zeroRepay;
@@ -79,8 +81,15 @@ function swapErrorToUserReadableMessage(error: any): string {
       return REVERT_REASON_DESCRIPTION.noSweepablePledge;
     case 'Gas payback has been failed.':
       return REVERT_REASON_DESCRIPTION.insufficientPaybackGas;
+    case "Can't expense zero pledge.":
+      return REVERT_REASON_DESCRIPTION.depositShortage;
+    // authority
+    case 'You are not the governer.':
+      return REVERT_REASON_DESCRIPTION.notGoverner;
+    case 'You are not the tester.':
+      return REVERT_REASON_DESCRIPTION.notTester;
     // others
-    case 'execution reverted': // incorrect ABIs, etc.
+    case 'execution reverted': // incorrect contract address, incorrect ABIs, etc.
       return REVERT_REASON_DESCRIPTION.justReverted;
     default:
       return `不明なエラーが発生しました${reason ? `: "${reason}"` : ''}. `;
