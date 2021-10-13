@@ -13,8 +13,8 @@ import EthPrice from './EthPrice';
 import Pool from './Pool';
 import Tcr from './Tcr';
 import {
-  getChargeRankOfRedemption,
-  getChargeRankOfSweep,
+  getReserveRankOfRedemption,
+  getReserveRankOfSweep,
   getCjpyPriceRank,
   getColorCodePerTcr,
   getEthPriceRank,
@@ -88,11 +88,11 @@ export function InfographicsContent(props: Partial<InfographicsProps>) {
   /**
    * Rank up per 5000,000
    */
-  const chargeRankOfRedemption = getChargeRankOfRedemption(redemptionReserve);
+  const reserveRankOfRedemption = getReserveRankOfRedemption(redemptionReserve);
   /**
    * Rank up per 1000,000
    */
-  const chargeRankOfSweep = getChargeRankOfSweep(sweepReserve);
+  const reserveRankOfSweep = getReserveRankOfSweep(sweepReserve);
 
   function renderSignalMessages() {
     const messages = getSignalMessages(cjpyPriceRank, ethPriceRank);
@@ -122,9 +122,9 @@ export function InfographicsContent(props: Partial<InfographicsProps>) {
             <Tcr tcr={tcr} />
           </div>
           <Pool
-            chargeRankOfRedemption={chargeRankOfRedemption}
+            reserveRankOfRedemption={reserveRankOfRedemption}
             isIncreaseForRedemptionReserve={isIncreaseForRedemptionReserve}
-            chargeRankOfSweep={chargeRankOfSweep}
+            reserveRankOfSweep={reserveRankOfSweep}
             isIncreaseForSweepReserve={isIncreaseForSweepReserve}
           />
         </GridItem>
