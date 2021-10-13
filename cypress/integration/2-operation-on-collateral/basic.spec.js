@@ -1,6 +1,7 @@
 /// <reference types="cypress" />
 
 const paramChangeStep = 1;
+const waitMillisec = 5000;
 
 describe(
   'Basic operations on collateral',
@@ -9,6 +10,11 @@ describe(
     viewportWidth: 2560,
   },
   () => {
+    let step1Amount;
+    let step2Amount;
+    let step3Amount;
+    let step4Amount;
+
     beforeEach(() => {
       cy.visit('/');
     });
@@ -20,20 +26,21 @@ describe(
         '[data-testid=collateral-data-depositAmount]';
       const actionTriggerSelector = '[data-testid=collateral-act-deposit]';
 
+      cy.wait(waitMillisec);
       cy.get(currentAmountSelector)
         .invoke('text')
         .then((before) => {
+          step1Amount = parseFloat(before.replace(/[^0-9]/g, ''));
           cy.get(actionAmountSelector)
             .invoke('val', paramChangeStep.toString())
             .trigger('change');
           cy.get(actionTriggerSelector).click();
-          // cy.wait(1111);
+          cy.wait(waitMillisec);
           cy.get(currentAmountSelector)
             .invoke('text')
             .then((after) => {
-              expect(parseFloat(after)).eq(
-                parseFloat(before) + paramChangeStep
-              );
+              step2Amount = parseFloat(after.replace(/[^0-9]/g, ''));
+              expect(step2Amount).eq(step1Amount + paramChangeStep);
             });
         });
     });
@@ -45,20 +52,22 @@ describe(
         '[data-testid=collateral-data-withdrawalAmount]';
       const actionTriggerSelector = '[data-testid=collateral-act-withdraw]';
 
+      cy.wait(waitMillisec);
       cy.get(currentAmountSelector)
         .invoke('text')
         .then((before) => {
+          step3Amount = parseFloat(before.replace(/[^0-9]/g, ''));
+          // expect(step3Amount).eq(step2Amount);
           cy.get(actionAmountSelector)
             .invoke('val', paramChangeStep.toString())
             .trigger('change');
           cy.get(actionTriggerSelector).click();
-          // cy.wait(1111);
+          cy.wait(waitMillisec);
           cy.get(currentAmountSelector)
             .invoke('text')
             .then((after) => {
-              expect(parseFloat(after)).eq(
-                parseFloat(before) - paramChangeStep
-              );
+              step4Amount = parseFloat(after.replace(/[^0-9]/g, ''));
+              expect(step4Amount).eq(step3Amount - paramChangeStep);
             });
         });
     });

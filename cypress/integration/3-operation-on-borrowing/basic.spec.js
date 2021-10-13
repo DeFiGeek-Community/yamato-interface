@@ -1,6 +1,7 @@
 /// <reference types="cypress" />
 
 const paramChangeStep = 1;
+const waitMillisec = 5000;
 
 describe(
   'Basic operations on borrowing',
@@ -9,6 +10,11 @@ describe(
     viewportWidth: 2560,
   },
   () => {
+    let step1Amount;
+    let step2Amount;
+    let step3Amount;
+    let step4Amount;
+
     beforeEach(() => {
       cy.visit('/');
     });
@@ -19,20 +25,21 @@ describe(
       const actionAmountSelector = '[data-testid=borrowing-data-borrowAmount]';
       const actionTriggerSelector = '[data-testid=borrowing-act-borrow]';
 
+      cy.wait(waitMillisec);
       cy.get(currentAmountSelector)
         .invoke('text')
         .then((before) => {
+          step1Amount = parseFloat(before.replace(/[^0-9]/g, ''));
           cy.get(actionAmountSelector)
             .invoke('val', paramChangeStep.toString())
             .trigger('change');
           cy.get(actionTriggerSelector).click();
-          // cy.wait(1111);
+          cy.wait(waitMillisec);
           cy.get(currentAmountSelector)
             .invoke('text')
             .then((after) => {
-              expect(parseFloat(after)).eq(
-                parseFloat(before) + paramChangeStep
-              );
+              step2Amount = parseFloat(after.replace(/[^0-9]/g, ''));
+              expect(step2Amount).eq(step1Amount + paramChangeStep);
             });
         });
     });
@@ -43,20 +50,22 @@ describe(
       const actionAmountSelector = '[data-testid=borrowing-data-repayAmount]';
       const actionTriggerSelector = '[data-testid=borrowing-act-repay]';
 
+      cy.wait(waitMillisec);
       cy.get(currentAmountSelector)
         .invoke('text')
         .then((before) => {
+          step3Amount = parseFloat(before.replace(/[^0-9]/g, ''));
+          // expect(step3Amount).eq(step2Amount);
           cy.get(actionAmountSelector)
             .invoke('val', paramChangeStep.toString())
             .trigger('change');
           cy.get(actionTriggerSelector).click();
-          // cy.wait(1111);
+          cy.wait(waitMillisec);
           cy.get(currentAmountSelector)
             .invoke('text')
             .then((after) => {
-              expect(parseFloat(after)).eq(
-                parseFloat(before) - paramChangeStep
-              );
+              step4Amount = parseFloat(after.replace(/[^0-9]/g, ''));
+              expect(step4Amount).eq(step3Amount - paramChangeStep);
             });
         });
     });
