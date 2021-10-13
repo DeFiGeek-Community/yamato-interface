@@ -32,7 +32,7 @@ describe(
         .then((before) => {
           step1Amount = parseFloat(before.replace(/[^0-9]/g, ''));
           cy.get(actionAmountSelector)
-            .invoke('val', paramChangeStep.toString())
+            .invoke('val', paramChangeStep)
             .trigger('change');
           cy.get(actionTriggerSelector).click();
           cy.wait(waitMillisec);
@@ -59,7 +59,7 @@ describe(
           step3Amount = parseFloat(before.replace(/[^0-9]/g, ''));
           // expect(step3Amount).eq(step2Amount);
           cy.get(actionAmountSelector)
-            .invoke('val', paramChangeStep.toString())
+            .invoke('val', paramChangeStep)
             .trigger('change');
           cy.get(actionTriggerSelector).click();
           cy.wait(waitMillisec);
