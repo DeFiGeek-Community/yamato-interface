@@ -4,6 +4,7 @@
   "license": "GPL-3.0-or-later",
   "private": true,
   "scripts": {
+    "postinstall": "patch -Np0 < patch/dirtyfix.patch || :",
     "start": "yarn contracts:compile && react-scripts start",
     "build": "yarn contracts:compile && react-scripts build",
     "test": "yarn contracts:compile && react-scripts test",
