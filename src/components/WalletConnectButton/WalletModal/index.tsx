@@ -51,7 +51,7 @@ const HeaderRow = styled.div`
   ${({ theme }) => theme.flexRowNoWrap};
   padding: 1rem 1rem;
   font-weight: 500;
-  color: ${({ theme }) => theme.text1};
+  color: ${({ theme }) => theme.text2};
   ${({ theme }) => theme.mediaWidth.upToMedium`
     padding: 1rem;
   `};
@@ -304,7 +304,10 @@ export default function WalletModal({
           </HeaderRow>
           <ContentWrapper>
             {error instanceof UnsupportedChainIdError ? (
-              <h5>Please connect to the appropriate Ethereum network.</h5>
+              <h5>
+                サポートしているEthereum
+                networkに切り替えてください。現在はmainnetとrinkebyに対応しています。
+              </h5>
             ) : (
               'Error connecting. Try refreshing the page.'
             )}

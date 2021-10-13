@@ -72,13 +72,6 @@ const FlexText = styled(WalletText)`
   color: ${({ theme }) => theme.text3};
 `;
 
-const NetworkIcon = styled(Activity)`
-  margin-left: 0.25rem;
-  margin-right: 0.5rem;
-  width: 16px;
-  height: 16px;
-`;
-
 // we want the latest one to come first, so return negative if a is after b
 function newTransactionsFirst(a: TransactionDetails, b: TransactionDetails) {
   return b.addedTime - a.addedTime;
@@ -189,7 +182,6 @@ function Web3StatusInner() {
   } else if (error) {
     return (
       <WalletButton onClick={toggleWalletModal}>
-        <NetworkIcon />
         <FlexText>
           {error instanceof UnsupportedChainIdError ? 'Wrong Network' : 'Error'}
         </FlexText>
