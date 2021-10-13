@@ -1,7 +1,7 @@
 [
   {
     "inputs": [],
-    "name": "currentLICRpertenk",
+    "name": "LICR",
     "outputs": [
       {
         "internalType": "uint256",
@@ -25,7 +25,7 @@
         "type": "uint256"
       }
     ],
-    "name": "levelIndice",
+    "name": "getLevelIndice",
     "outputs": [
       {
         "internalType": "address",
@@ -64,7 +64,7 @@
           },
           {
             "internalType": "uint256",
-            "name": "lastUpsertedTimeICRpertenk",
+            "name": "priority",
             "type": "uint256"
           }
         ],
@@ -104,7 +104,7 @@
           },
           {
             "internalType": "uint256",
-            "name": "lastUpsertedTimeICRpertenk",
+            "name": "priority",
             "type": "uint256"
           }
         ],
@@ -157,7 +157,7 @@
           },
           {
             "internalType": "uint256",
-            "name": "lastUpsertedTimeICRpertenk",
+            "name": "priority",
             "type": "uint256"
           }
         ],
@@ -197,7 +197,7 @@
           },
           {
             "internalType": "uint256",
-            "name": "lastUpsertedTimeICRpertenk",
+            "name": "priority",
             "type": "uint256"
           }
         ],
@@ -235,7 +235,7 @@
           },
           {
             "internalType": "uint256",
-            "name": "lastUpsertedTimeICRpertenk",
+            "name": "priority",
             "type": "uint256"
           }
         ],
@@ -275,7 +275,7 @@
           },
           {
             "internalType": "uint256",
-            "name": "lastUpsertedTimeICRpertenk",
+            "name": "priority",
             "type": "uint256"
           }
         ],

@@ -11,6 +11,19 @@
     "type": "constructor"
   },
   {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "ICRAfter",
+        "type": "uint256"
+      }
+    ],
+    "name": "Borrowed",
+    "type": "event"
+  },
+  {
     "inputs": [
       {
         "internalType": "uint256",
@@ -147,7 +160,7 @@
           },
           {
             "internalType": "uint256",
-            "name": "lastUpsertedTimeICRpertenk",
+            "name": "priority",
             "type": "uint256"
           }
         ],
@@ -187,7 +200,7 @@
           },
           {
             "internalType": "uint256",
-            "name": "lastUpsertedTimeICRpertenk",
+            "name": "priority",
             "type": "uint256"
           }
         ],
@@ -209,27 +222,8 @@
     "type": "function"
   },
   {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "name": "depositAndBorrowLocks",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
     "inputs": [],
-    "name": "getFeed",
+    "name": "feed",
     "outputs": [
       {
         "internalType": "address",
@@ -337,7 +331,7 @@
           },
           {
             "internalType": "uint256",
-            "name": "lastUpsertedTimeICRpertenk",
+            "name": "priority",
             "type": "uint256"
           }
         ],
@@ -398,25 +392,6 @@
       }
     ],
     "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "name": "pledgesIndices",
-    "outputs": [
-      {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "stateMutability": "view",
     "type": "function"
   },
   {
@@ -512,32 +487,6 @@
   },
   {
     "inputs": [],
-    "name": "totalColl",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "totalDebt",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
     "name": "updateTCR",
     "outputs": [],
     "stateMutability": "nonpayable",
@@ -554,25 +503,6 @@
     "name": "withdraw",
     "outputs": [],
     "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "name": "withdrawLocks",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
     "type": "function"
   }
 ]

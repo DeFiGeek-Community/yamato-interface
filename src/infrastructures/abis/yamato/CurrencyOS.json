@@ -8,17 +8,12 @@
       },
       {
         "internalType": "address",
-        "name": "ymtAddr",
-        "type": "address"
-      },
-      {
-        "internalType": "address",
-        "name": "veYmtAddr",
-        "type": "address"
-      },
-      {
-        "internalType": "address",
         "name": "feedAddr",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "feePoolProxy",
         "type": "address"
       }
     ],
@@ -30,7 +25,7 @@
     "name": "YMT",
     "outputs": [
       {
-        "internalType": "contract IERC20MintableBurnable",
+        "internalType": "contract IYMT",
         "name": "",
         "type": "address"
       }
@@ -56,12 +51,30 @@
     "name": "currency",
     "outputs": [
       {
-        "internalType": "contract IERC20MintableBurnable",
+        "internalType": "contract ICurrency",
         "name": "",
         "type": "address"
       }
     ],
     "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_ymtAddr",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "_veYmtAddr",
+        "type": "address"
+      }
+    ],
+    "name": "setGovernanceTokens",
+    "outputs": [],
+    "stateMutability": "nonpayable",
     "type": "function"
   },
   {
@@ -82,7 +95,7 @@
     "name": "veYMT",
     "outputs": [
       {
-        "internalType": "contract IERC20MintableBurnable",
+        "internalType": "contract IveYMT",
         "name": "",
         "type": "address"
       }
