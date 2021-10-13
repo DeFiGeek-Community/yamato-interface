@@ -3,7 +3,14 @@ import { PopulatedTransaction } from '@ethersproject/contracts';
 import { REVERT_REASON_DESCRIPTION } from '../../constants/yamato';
 import { Yamato } from '../../infrastructures/abis/types';
 
-type MethodName = 'deposit' | 'withdraw' | 'borrow' | 'repay';
+type MethodName =
+  | 'deposit'
+  | 'withdraw'
+  | 'borrow'
+  | 'repay'
+  | 'selfRedeem'
+  | 'coreRedeem'
+  | 'sweep';
 
 export enum CallbackState {
   INVALID,
@@ -63,6 +70,15 @@ function swapErrorToUserReadableMessage(error: any): string {
       return REVERT_REASON_DESCRIPTION.zeroRepay;
     case 'You are repaying more than you are owing.':
       return REVERT_REASON_DESCRIPTION.surplusRepay;
+    // redeem/sweep
+    case 'No pledges are redeemed.':
+      return REVERT_REASON_DESCRIPTION.noRedeemablePledge;
+    case 'Sweep failure: sweep reserve is empty.':
+      return REVERT_REASON_DESCRIPTION.noSweepReserve;
+    case 'At least a pledge should be swept.':
+      return REVERT_REASON_DESCRIPTION.noSweepablePledge;
+    case 'Gas payback has been failed.':
+      return REVERT_REASON_DESCRIPTION.insufficientPaybackGas;
     default:
       return `不明なエラーが発生しました${reason ? `: "${reason}"` : ''}. `;
   }
@@ -82,6 +98,9 @@ export function getErrorMessage(methodName: MethodName, error: any) {
   }
 }
 
+/**
+ * @param value Set 0, if nothing.
+ */
 export function estimateGas(
   methodName: MethodName,
   value: BigNumber,
@@ -101,6 +120,15 @@ export function estimateGas(
       break;
     case 'repay':
       method = signer.estimateGas.repay(value, option);
+      break;
+    case 'selfRedeem':
+      method = signer.estimateGas.redeem(value, false, option);
+      break;
+    case 'coreRedeem':
+      method = signer.estimateGas.redeem(value, true, option);
+      break;
+    case 'sweep':
+      method = signer.estimateGas.sweep(option);
       break;
   }
   if (!method) {

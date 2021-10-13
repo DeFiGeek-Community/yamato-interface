@@ -1,6 +1,9 @@
 import { Grid, GridItem, VStack } from '@chakra-ui/react';
 import { Formik, Form, FormikHelpers } from 'formik';
 import { YAMATO_SYMBOL } from '../../../constants/yamato';
+import { useActiveWeb3React } from '../../../hooks/web3';
+import { useSweepCallback } from '../../../hooks/yamato/useSweep';
+import { errorToast } from '../../../utils/errorToast';
 import { formatPrice } from '../../../utils/prices';
 import { Text, CustomButton, CustomFormLabel } from '../../CommonItem';
 
@@ -13,6 +16,9 @@ type Props = {
 export default function SweepInput(props: Props) {
   const { sweepReserve, sweepableCandiate } = props;
 
+  const { account } = useActiveWeb3React();
+  const { callback } = useSweepCallback();
+
   function getExpectedReward() {
     const amount =
       sweepReserve > sweepableCandiate ? sweepableCandiate : sweepReserve;
@@ -21,15 +27,24 @@ export default function SweepInput(props: Props) {
     return reward;
   }
 
-  function submitSweep(
+  async function submitSweep(
     values: { sweep: number },
     formikHelpers: FormikHelpers<{
       sweep: number;
     }>
   ) {
-    console.debug('submit Sweep', values);
-    // TODO: 弁済実行。storeを使わずにabiを直接叩く。
-    values.sweep;
+    if (!account || !callback) {
+      return `ウォレットを接続してください。またはネットワークを切り替えてください。`;
+    }
+
+    console.debug('submit sweep', values);
+
+    try {
+      const res = await callback!(getExpectedReward());
+      console.debug('sweep done', res);
+    } catch (error) {
+      errorToast(error);
+    }
 
     // reset
     formikHelpers.resetForm();

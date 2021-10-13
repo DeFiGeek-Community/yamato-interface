@@ -19,8 +19,8 @@ export const LOG_EVENT_NAME: {
   governance_extension: 'YMT延長',
   governance_withdrawal: 'YMT引出',
   self_redemption: '自己償還',
-  yamato_redemption: 'Yamato償還',
-  yamato_sweep: 'Yamato代位弁済',
+  core_redemption: 'Yamato償還',
+  sweep: 'Yamato代位弁済',
 };
 
 export const REVERT_REASON_DESCRIPTION = {
@@ -30,10 +30,14 @@ export const REVERT_REASON_DESCRIPTION = {
   withdrawLock: '引き出しがロックされています。',
   notFlashLoan: '借入は預入と同じブロックではできません。',
   nonPledge: 'まだpledgeが作られていません。',
+  noSweepReserve: '弁済プールが空です。',
+  noRedeemablePledge: '償還できるpledgeがありません。',
+  noSweepablePledge: '弁済できるpledgeがありません。',
   zeroRepay: '返済量が0です。',
   surplusRepay: '返済量が借入量より上回っています。',
   zeroFee: '手数料が0になっています。',
   insufficientBorrowing: '手数料が借入量より上回っています。',
+  insufficientPaybackGas: '変換するためのガス代が不足しています。',
 };
 
 export const ErrorToastConfig: UseToastOptions = {

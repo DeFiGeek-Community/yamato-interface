@@ -15,7 +15,7 @@ import {
 export function useRepayCallback(): {
   // signatureData: SignatureData | undefined | null  FIXME: EIP-2612
   state: CallbackState;
-  callback: null | ((eth: number) => Promise<string>);
+  callback: null | ((cjpy: number) => Promise<string>);
   error: string | null;
 } {
   const { account, chainId, library } = useActiveWeb3React();
