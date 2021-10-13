@@ -31,7 +31,7 @@ export default function DepositInput(props: Props) {
 
   async function validateDeposit(value: number) {
     if (!account || !callback) {
-      return `ウォレットを接続してください。`;
+      return `ウォレットを接続してください。またはネットワークを切り替えてください。`;
     }
 
     if (value == null || typeof value !== 'number') {
