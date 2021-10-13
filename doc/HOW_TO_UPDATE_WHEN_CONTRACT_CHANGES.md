@@ -14,10 +14,12 @@ A procedure of [yamato-interface](https://github.com/DeFiGeek-Community/yamato-i
 
 3. Deploy
 
-### Dev Environment([dev-app.yamato.fi](https://dev-app.yamato.fi/))
+- Dev Environment([dev-app.yamato.fi](https://dev-app.yamato.fi/))
 
-- `git commit`
-- `git push origin main`
+```bash
+$ git commit
+$ git push origin main
+```
 
 ## Optional
 
