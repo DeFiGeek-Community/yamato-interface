@@ -24,6 +24,7 @@ export const LOG_EVENT_NAME: {
 };
 
 export const REVERT_REASON_DESCRIPTION = {
+  // yamato
   depositShortage: '担保が不足しています。',
   transferFailure: 'コントラクトで転送に失敗しました。',
   underMCR: '最低担保率を下回ります。',
@@ -38,6 +39,10 @@ export const REVERT_REASON_DESCRIPTION = {
   zeroFee: '手数料が0になっています。',
   insufficientBorrowing: '手数料が借入量より上回っています。',
   insufficientPaybackGas: '変換するためのガス代が不足しています。',
+  // others
+  justReverted:
+    '不明なエラーが発生しました。またはネットワークを切り替えてください。',
+  walletRejected: '送信を取り止めました。',
 };
 
 export const ErrorToastConfig: UseToastOptions = {

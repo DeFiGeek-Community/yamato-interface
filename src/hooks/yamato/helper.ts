@@ -79,6 +79,9 @@ function swapErrorToUserReadableMessage(error: any): string {
       return REVERT_REASON_DESCRIPTION.noSweepablePledge;
     case 'Gas payback has been failed.':
       return REVERT_REASON_DESCRIPTION.insufficientPaybackGas;
+    // others
+    case 'execution reverted': // incorrect ABIs, etc.
+      return REVERT_REASON_DESCRIPTION.justReverted;
     default:
       return `不明なエラーが発生しました${reason ? `: "${reason}"` : ''}. `;
   }
@@ -87,7 +90,7 @@ function swapErrorToUserReadableMessage(error: any): string {
 export function getErrorMessage(methodName: MethodName, error: any) {
   // if the user rejected the tx, pass this along
   if (error?.code === 4001) {
-    return 'Transaction rejected.';
+    return REVERT_REASON_DESCRIPTION.walletRejected;
   } else {
     // otherwise, the error was unexpected and we need to convey that
     console.error(`Yamato.${methodName} failed: `, error);
