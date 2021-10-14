@@ -1,26 +1,17 @@
-import { useCallback, useMemo } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch, AppState } from '../index';
-import { fetchRateOfCjpyJpy } from './actions';
+import { useCallback } from 'react';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '../index';
+import { fetchRateOfCjpyEth } from './actions';
 import { PriceSource } from './reducer';
-
-/**
- * selector
- */
-export function useMarketState() {
-  return useSelector((state: AppState) => ({
-    rateOfCjpyJpy: state.market.rateOfCjpyJpy,
-  }));
-}
 
 /**
  * dispatcher
  */
-export function useFetchRateOfCjpyJpy() {
+export function useFetchRateOfCjpyEth() {
   const dispatch = useDispatch<AppDispatch>();
   return useCallback(
-    (source: PriceSource, rateOfCjpyJpy: number) =>
-      dispatch(fetchRateOfCjpyJpy({ source, rateOfCjpyJpy })),
+    (source: PriceSource, rateOfCjpyEth: number) =>
+      dispatch(fetchRateOfCjpyEth({ source, rateOfCjpyEth })),
     [dispatch]
   );
 }

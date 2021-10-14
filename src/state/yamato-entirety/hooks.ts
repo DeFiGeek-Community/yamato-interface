@@ -20,6 +20,10 @@ export function useYamatoStateForDashboard() {
       tvl: state.yamatoEntirety.lending.tvl,
       tcr: state.yamatoEntirety.lending.tcr,
       rateOfEthJpy: state.yamatoEntirety.rateOfEthJpy,
+      rateOfCjpyJpy: createRateOfCjpyJpy(
+        state.market.rateOfCjpyEth,
+        state.yamatoEntirety.rateOfEthJpy
+      ),
       ethChangePercent: getEthChangePercent(
         state.yamatoEntirety.rateOfEthJpy,
         state.yamatoEntirety.prevRateOfEthJpy
@@ -46,19 +50,24 @@ export function useYamatoStateForWorld() {
   }));
 }
 export function useYamatoStateForInfographics() {
-  return useSelector((state: AppState) => ({
-    rateOfCjpyJpy: state.market.rateOfCjpyJpy,
-    totalCollateral: state.yamatoEntirety.lending.totalCollateral,
-    totalDebt: state.yamatoEntirety.lending.totalDebt,
-    tcr: state.yamatoEntirety.lending.tcr,
-    rateOfEthJpy: state.yamatoEntirety.rateOfEthJpy,
-    prevRateOfEthJpy: state.yamatoEntirety.prevRateOfEthJpy,
-    redemptionReserve: state.yamatoEntirety.pool.redemptionReserve,
-    prevRedemptionReserve: state.yamatoEntirety.pool.prevRedemptionReserve,
-    sweepReserve: state.yamatoEntirety.pool.sweepReserve,
-    prevSweepReserve: state.yamatoEntirety.pool.prevSweepReserve,
-    MCR: state.yamatoEntirety.parameter.MCR,
-  }));
+  return useSelector((state: AppState) => {
+    return {
+      rateOfCjpyJpy: createRateOfCjpyJpy(
+        state.market.rateOfCjpyEth,
+        state.yamatoEntirety.rateOfEthJpy
+      ),
+      totalCollateral: state.yamatoEntirety.lending.totalCollateral,
+      totalDebt: state.yamatoEntirety.lending.totalDebt,
+      tcr: state.yamatoEntirety.lending.tcr,
+      rateOfEthJpy: state.yamatoEntirety.rateOfEthJpy,
+      prevRateOfEthJpy: state.yamatoEntirety.prevRateOfEthJpy,
+      redemptionReserve: state.yamatoEntirety.pool.redemptionReserve,
+      prevRedemptionReserve: state.yamatoEntirety.pool.prevRedemptionReserve,
+      sweepReserve: state.yamatoEntirety.pool.sweepReserve,
+      prevSweepReserve: state.yamatoEntirety.pool.prevSweepReserve,
+      MCR: state.yamatoEntirety.parameter.MCR,
+    };
+  });
 }
 
 /**
@@ -115,4 +124,20 @@ export function useFetchEvents() {
     (events: LogEvent[]) => dispatch(fetchEvents({ events })),
     [dispatch]
   );
+}
+
+/**
+ * utils
+ */
+
+function createRateOfCjpyJpy(
+  rateOfCjpyEth: { [source: string]: number },
+  rateOfEthJpy: number
+) {
+  return Object.entries(rateOfCjpyEth)
+    .sort((a, b) => (a[1] > b[1] ? -1 : 1))
+    .map((data) => {
+      data[1] = rateOfEthJpy ? data[1] / rateOfEthJpy : 0;
+      return data;
+    });
 }

@@ -1,5 +1,5 @@
 import { Store, createStore } from '@reduxjs/toolkit';
-import { fetchRateOfCjpyJpy } from './actions';
+import { fetchRateOfCjpyEth } from './actions';
 import reducer, { initialState, MarketState } from './reducer';
 
 describe('market reducer', () => {
@@ -13,15 +13,15 @@ describe('market reducer', () => {
     expect(store.getState()).toEqual(initialState);
   });
 
-  describe('fetchRateOfCjpyJpy', () => {
-    it('fetch Rate Of CjpyJpy', () => {
-      const source = 'uniswap';
-      const rateOfCjpyJpy = 10;
+  describe('fetchRateOfCjpyEth', () => {
+    it('fetch Rate Of CjpyEth', () => {
+      const source = 'uniswap(v3)';
+      const rateOfCjpyEth = 10;
 
-      store.dispatch(fetchRateOfCjpyJpy({ source, rateOfCjpyJpy }));
+      store.dispatch(fetchRateOfCjpyEth({ source, rateOfCjpyEth }));
       expect(store.getState()).toEqual({
         ...initialState,
-        rateOfCjpyJpy: { [source]: rateOfCjpyJpy },
+        rateOfCjpyEth: { [source]: rateOfCjpyEth },
       });
     });
   });

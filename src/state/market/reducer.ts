@@ -1,24 +1,24 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { fetchRateOfCjpyJpy } from './actions';
+import { fetchRateOfCjpyEth } from './actions';
 
-export type PriceSource = 'uniswap' | 'balancer';
+export type PriceSource = 'uniswap(v3)' | 'uniswap(v2)';
 
 /**
  * State gotten from External Markets such as DEX and statistical sites.
  */
 export interface MarketState {
-  rateOfCjpyJpy: { [source: string]: number }; // CJPY/JPY per source.
+  rateOfCjpyEth: { [source: string]: number }; // CJPY/JPY per source.
 }
 
 export const initialState: MarketState = {
-  rateOfCjpyJpy: {},
+  rateOfCjpyEth: {},
 };
 
 export default createReducer(initialState, (builder) =>
   builder.addCase(
-    fetchRateOfCjpyJpy,
-    (state, { payload: { source, rateOfCjpyJpy } }) => {
-      state.rateOfCjpyJpy[source] = rateOfCjpyJpy;
+    fetchRateOfCjpyEth,
+    (state, { payload: { source, rateOfCjpyEth } }) => {
+      state.rateOfCjpyEth[source] = rateOfCjpyEth;
     }
   )
 );

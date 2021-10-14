@@ -1,4 +1,3 @@
-import { api } from './slice';
 export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = {
   [K in keyof T]: T[K];
@@ -4203,28 +4202,3 @@ export const FeeTierDistributionDocument = `
   }
 }
     `;
-
-const injectedRtkApi = api.injectEndpoints({
-  endpoints: (build) => ({
-    allV3Ticks: build.query<AllV3TicksQuery, AllV3TicksQueryVariables>({
-      query: (variables) => ({ document: AllV3TicksDocument, variables }),
-    }),
-    feeTierDistribution: build.query<
-      FeeTierDistributionQuery,
-      FeeTierDistributionQueryVariables
-    >({
-      query: (variables) => ({
-        document: FeeTierDistributionDocument,
-        variables,
-      }),
-    }),
-  }),
-});
-
-export { injectedRtkApi as api };
-export const {
-  useAllV3TicksQuery,
-  useLazyAllV3TicksQuery,
-  useFeeTierDistributionQuery,
-  useLazyFeeTierDistributionQuery,
-} = injectedRtkApi;

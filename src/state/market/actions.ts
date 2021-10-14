@@ -1,7 +1,7 @@
 import { createAction } from '@reduxjs/toolkit';
 import { PriceSource } from './reducer';
 
-export const fetchRateOfCjpyJpy = createAction<{
+export const fetchRateOfCjpyEth = createAction<{
   source: PriceSource;
-  rateOfCjpyJpy: number;
-}>('market/fetchRateOfCjpyJpy');
+  rateOfCjpyEth: number;
+}>('market/fetchRateOfCjpyEth');
