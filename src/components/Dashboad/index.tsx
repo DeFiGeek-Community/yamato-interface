@@ -14,7 +14,7 @@ function getRateOfCjpyJpy(rateOfCjpyJpy: [string, number][]) {
 }
 
 function getMarketRateOfCjpyJpy(rateOfCjpyJpy: [string, number]) {
-  if (!rateOfCjpyJpy) {
+  if (!rateOfCjpyJpy || !rateOfCjpyJpy[1]) {
     return ``;
   }
 
