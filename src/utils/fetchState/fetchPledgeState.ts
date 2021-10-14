@@ -12,7 +12,7 @@ export async function fetchPledgeStateFromContract(
 ) {
   if (!account || !contracts.yamatoMainContract) {
     return {
-      account: '',
+      account: account ?? '',
       collateral: 0,
       debt: 0,
       withdrawalLockDate: 0,
