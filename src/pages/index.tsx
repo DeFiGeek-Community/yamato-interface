@@ -11,7 +11,7 @@ export default function Index() {
   const { account } = useWeb3React();
 
   return (
-    <Layout title="Yamato Interface">
+    <Layout>
       {!!account ? (
         <Grid
           templateColumns="repeat(4, 1fr)"
