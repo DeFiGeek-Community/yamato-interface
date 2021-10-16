@@ -1,6 +1,6 @@
 import { Box } from '@chakra-ui/react';
 import { Helmet } from 'react-helmet';
-import BackgroundImage from '../../assets/images/background_main.png';
+import BackgroundImage from '../../assets/images/background_main.webp';
 import Footer from './Footer';
 import Header from './Header';
 
