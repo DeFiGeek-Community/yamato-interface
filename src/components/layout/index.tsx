@@ -13,7 +13,7 @@ export default function Layout({
 }) {
   return (
     <>
-      <Helmet title={title ?? 'Yamato Interface'} />
+      <Helmet title={title ?? 'Yamato Protocol Interface'} />
 
       <Box p={4} style={{ backgroundColor: '#FCFAF2' }}>
         <Header />
