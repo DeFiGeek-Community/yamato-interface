@@ -3,7 +3,6 @@ import { ExternalLink as LinkIcon } from 'react-feather';
 import { useDispatch } from 'react-redux';
 import { Button } from 'rebass/styled-components';
 import styled, { ThemeContext } from 'styled-components';
-// import WalletConnectIcon from '../../../assets/svg/walletConnectIcon.svg';
 import { SUPPORTED_WALLETS } from '../../../constants/web3';
 import { useActiveWeb3React } from '../../../hooks/web3';
 import {
@@ -19,10 +18,6 @@ import { getEtherscanLink } from '../../../utils/externalLink';
 import { shortenAddress } from '../../../utils/web3';
 import { CategoryTitle } from '../../CommonItem';
 import { ExternalLink } from '../../ExternalLink';
-// import CoinbaseWalletIcon from '../../assets/svg/coinbaseWalletIcon.svg';
-// import FortmaticIcon from '../../assets/images/fortmaticIcon.png';
-// import PortisIcon from '../../assets/images/portisIcon.png';
-import Identicon from '../Identicon';
 import { RowBetween } from '../Row';
 import Copy from './Copy';
 import Transaction from './Transaction';
@@ -231,50 +226,6 @@ export default function AccountDetails({
     return <WalletName>Connected with {name}</WalletName>;
   }
 
-  function getStatusIcon() {
-    if (connector === injected) {
-      return (
-        <IconWrapper size={16}>
-          <Identicon />
-        </IconWrapper>
-      );
-      // } else if (connector === walletconnect) {
-      //   return (
-      //     <IconWrapper size={16}>
-      //       <img src={WalletConnectIcon} alt={'wallet connect logo'} />
-      //     </IconWrapper>
-      //   );
-      // } else if (connector === walletlink) {
-      //   return (
-      //     <IconWrapper size={16}>
-      //       <img src={CoinbaseWalletIcon} alt={'coinbase wallet logo'} />
-      //     </IconWrapper>
-      //   );
-      // } else if (connector === fortmatic) {
-      //   return (
-      //     <IconWrapper size={16}>
-      //       <img src={FortmaticIcon} alt={'fortmatic logo'} />
-      //     </IconWrapper>
-      //   );
-      // } else if (connector === portis) {
-      //   return (
-      //     <>
-      //       <IconWrapper size={16}>
-      //         <img src={PortisIcon} alt={'portis logo'} />
-      //         <MainWalletAction
-      //           onClick={() => {
-      //             portis.portis.showPortis();
-      //           }}
-      //         >
-      //           Show Portis
-      //         </MainWalletAction>
-      //       </IconWrapper>
-      //     </>
-      //   );
-    }
-    return null;
-  }
-
   const clearAllTransactionsCallback = useCallback(() => {
     if (chainId) dispatch(clearAllTransactions({ chainId }));
   }, [dispatch, chainId]);
@@ -319,14 +270,12 @@ export default function AccountDetails({
                   {ENSName ? (
                     <>
                       <div>
-                        {getStatusIcon()}
-                        <p> {ENSName}</p>
+                        <p>{ENSName}</p>
                       </div>
                     </>
                   ) : (
                     <>
                       <div>
-                        {getStatusIcon()}
                         <p> {account && shortenAddress(account)}</p>
                       </div>
                     </>

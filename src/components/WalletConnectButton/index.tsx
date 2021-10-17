@@ -1,23 +1,11 @@
-import { AbstractConnector } from '@web3-react/abstract-connector';
 import { UnsupportedChainIdError, useWeb3React } from '@web3-react/core';
 import { useMemo } from 'react';
-import { Activity } from 'react-feather';
 import { Button as RebassButton } from 'rebass/styled-components';
 import styled from 'styled-components';
-// import CoinbaseWalletIcon from '../../../assets/svg/coinbaseWalletIcon.svg';
-// import FortmaticIcon from '../../../assets/images/fortmaticIcon.png';
-// import WalletConnectIcon from '../../assets/svg/walletConnectIcon.svg';
 import CJPYLogo from '../../components/svgs/CjpyLogo';
-import { CHAIN_INFO } from '../../constants/chains';
+import { ALL_SUPPORTED_CHAIN_IDS, CHAIN_INFO } from '../../constants/chains';
 import { NetworkContextName } from '../../constants/misc';
 import useENSName from '../../hooks/ens/useENSName';
-import {
-  // fortmatic,
-  injected,
-  // portis,
-  // walletconnect,
-  // walletlink,
-} from '../../infrastructures/connectors';
 import { useWalletModalToggle } from '../../state/application/hooks';
 import {
   isTransactionRecent,
@@ -27,22 +15,10 @@ import { TransactionDetails } from '../../state/transactions/reducer';
 import { useWalletState } from '../../state/wallet/hooks';
 import { formatPrice } from '../../utils/prices';
 import { shortenAddress } from '../../utils/web3';
-// import PortisIcon from '../../..assets/images/portisIcon.png';
 import { Text } from '../CommonItem';
 import Loader from '../Loader';
-import Identicon from './Identicon';
 import Row from './Row';
 import WalletModal from './WalletModal';
-
-const IconWrapper = styled.div<{ size?: number }>`
-  ${({ theme }) => theme.flexColumnNoWrap};
-  align-items: center;
-  justify-content: center;
-  & > * {
-    height: ${({ size }) => (size ? size + 'px' : '32px')};
-    width: ${({ size }) => (size ? size + 'px' : '32px')};
-  }
-`;
 
 const WalletButton = styled(RebassButton)`
   color: ${({ theme }) => theme.text1};
@@ -77,40 +53,8 @@ function newTransactionsFirst(a: TransactionDetails, b: TransactionDetails) {
   return b.addedTime - a.addedTime;
 }
 
-// eslint-disable-next-line react/prop-types
-function StatusIcon({ connector }: { connector: AbstractConnector }) {
-  if (connector === injected) {
-    return <Identicon />;
-    // } else if (connector === walletconnect) {
-    //   return (
-    //     <IconWrapper size={16}>
-    //       <img src={WalletConnectIcon} alt={''} />
-    //     </IconWrapper>
-    //   );
-    // } else if (connector === walletlink) {
-    //   return (
-    //     <IconWrapper size={16}>
-    //       <img src={CoinbaseWalletIcon} alt={''} />
-    //     </IconWrapper>
-    //   );
-    // } else if (connector === fortmatic) {
-    //   return (
-    //     <IconWrapper size={16}>
-    //       <img src={FortmaticIcon} alt={''} />
-    //     </IconWrapper>
-    //   );
-    // } else if (connector === portis) {
-    //   return (
-    //     <IconWrapper size={16}>
-    //       <img src={PortisIcon} alt={''} />
-    //     </IconWrapper>
-    //   );
-  }
-  return null;
-}
-
 function Web3StatusInner() {
-  const { account, connector, chainId, error } = useWeb3React();
+  const { account, chainId, error } = useWeb3React();
 
   const { ENSName } = useENSName(account ?? undefined);
   const { cjpy } = useWalletState();
@@ -147,9 +91,6 @@ function Web3StatusInner() {
               alignItems: 'center',
             }}
           >
-            {/* {!hasPendingTransactions && connector && (
-              <StatusIcon connector={connector} />
-            )} */}
             {hasPendingTransactions ? (
               <FlexText style={{ fontSize: '1.8rem', lineHeight: '2.1rem' }}>
                 <Row>
