@@ -1,6 +1,6 @@
 import { Box } from '@chakra-ui/react';
 import { Helmet } from 'react-helmet';
-import BackgroundImage from '../../assets/images/background_main.png';
+import BackgroundImage from '../../assets/images/background_main.webp';
 import Footer from './Footer';
 import Header from './Header';
 
@@ -13,7 +13,7 @@ export default function Layout({
 }) {
   return (
     <>
-      <Helmet title={title ?? 'Yamato Interface'} />
+      <Helmet title={title ?? 'Yamato Protocol Interface'} />
 
       <Box p={4} style={{ backgroundColor: '#FCFAF2' }}>
         <Header />

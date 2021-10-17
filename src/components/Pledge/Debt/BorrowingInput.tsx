@@ -34,7 +34,7 @@ export default function BorrowingInput(props: Props) {
 
   async function validateBorrowing(value: number) {
     if (!account || !callback) {
-      return `ウォレットを接続してください。`;
+      return `ウォレットを接続してください。またはネットワークを切り替えてください。`;
     }
 
     if (value == null || typeof value !== 'number') {

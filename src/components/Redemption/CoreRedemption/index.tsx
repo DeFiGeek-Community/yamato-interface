@@ -3,7 +3,7 @@ import { useYamatoStateForPledge } from '../../../state/yamato-entirety/hooks';
 import { ItemTitleForPledge } from '../../CommonItem';
 import RedemptionInput from './RedemptionInput';
 
-export default function YamatoRedemption() {
+export default function CoreRedemption() {
   const {
     totalCollateral,
     totalDebt,

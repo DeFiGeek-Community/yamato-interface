@@ -36,16 +36,16 @@ export function getBrightnessPerEth(ethPriceRank: number): number {
   return 95 - Math.abs(ethPriceRank); // Max95% - Min50%
 }
 
-export function getChargeRankOfRedemption(chargeAmount: number): number {
-  return getRank(chargeAmount, 500 * 10000) + 1; // rank up per 5000,000
+export function getReserveRankOfRedemption(reserveAmount: number): number {
+  return getReserveRank(reserveAmount, 500 * 10000); // rank up per 5000,000
 }
 
-export function getChargeRankOfSweep(chargeAmount: number): number {
-  return getRank(chargeAmount, 100 * 10000); // rank up per 1000,000
+export function getReserveRankOfSweep(reserveAmount: number): number {
+  return getReserveRank(reserveAmount, 100 * 10000); // rank up per 1000,000
 }
 
-function getRank(chargeAmount: number, baseNumber: number): number {
-  const base = Math.ceil(Math.ceil(chargeAmount) / baseNumber) + 1;
+function getReserveRank(reserveAmount: number, baseNumber: number): number {
+  const base = Math.floor(reserveAmount / baseNumber);
   // 10 ranks
   if (base === 0) {
     return 1;

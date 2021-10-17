@@ -4,7 +4,7 @@ import {
   HStack,
   VStack,
 } from '@chakra-ui/react';
-import { format } from 'date-fns';
+import { intervalToDuration } from 'date-fns';
 import { Formik, Form, Field, FormikHelpers, FieldProps } from 'formik';
 import { useState } from 'react';
 import { YAMATO_SYMBOL } from '../../../constants/yamato';
@@ -33,19 +33,31 @@ export default function WithdrawalInput(props: Props) {
   const { callback } = useWithdrawCallback();
 
   const [withdrawal, setWithdrawal] = useState(0);
-  const [remainLockTime, setRemainLockTime] = useState(-1);
+  const [isRemainLockTime, setIsRemainLockTime] = useState(false);
+  const [remainLockTime, setRemainLockTime] = useState('');
 
   useInterval(() => {
-    if (!withdrawalLockDate || !remainLockTime) {
+    if (!withdrawalLockDate) {
       return;
     }
-    const now = Math.floor(Date.now() / 1000);
-    setRemainLockTime(withdrawalLockDate - now);
+
+    const now = Date.now();
+    const lockDate = withdrawalLockDate * 1000;
+    const remain = intervalToDuration({
+      start: now,
+      end: lockDate,
+    });
+    const hours = (remain.days ?? 0) * 24 + (remain.hours ?? 0);
+
+    setIsRemainLockTime(lockDate - now > 0);
+    setRemainLockTime(
+      `あと${hours}時間${remain.minutes ?? 0}分${remain.seconds ?? 0}秒`
+    );
   }, 500);
 
   function validateWithdrawal(value: number) {
     if (!account || !callback) {
-      return `ウォレットを接続してください。`;
+      return `ウォレットを接続してください。またはネットワークを切り替えてください。`;
     }
 
     // FIXME: ロックタイム中
@@ -121,7 +133,7 @@ export default function WithdrawalInput(props: Props) {
                 isLoading={formikProps.isSubmitting}
                 type="submit"
                 data-testid="collateral-act-withdraw"
-                disabled={remainLockTime > 0}
+                disabled={isRemainLockTime}
               >
                 引出実行
               </CustomButton>
@@ -141,13 +153,10 @@ export default function WithdrawalInput(props: Props) {
                 />
               </HStack>
             )}
-            {remainLockTime > 0 && (
+            {isRemainLockTime && (
               <HStack spacing={4} align="flex-end">
                 <CustomFormLabel
-                  text={`ロックタイムカウントダウン...${format(
-                    remainLockTime * 1000,
-                    'あとdd日HH時mm分ss秒'
-                  )}`}
+                  text={`ロックタイムカウントダウン...${remainLockTime}`}
                 />
               </HStack>
             )}

@@ -1,7 +1,7 @@
 import { CategoryTitle, ConentBox, HeaderBox2 } from '../CommonItem';
+import CoreRedemption from './CoreRedemption';
 import SelfRedemption from './SelfRedemption';
-import YamatoRedemption from './YamatoRedemption';
-import YamatoSubrogation from './YamatoSweep';
+import Sweep from './Sweep';
 
 export default function Redemption() {
   return (
@@ -11,8 +11,8 @@ export default function Redemption() {
       </HeaderBox2>
       <ConentBox>
         <SelfRedemption />
-        <YamatoRedemption />
-        <YamatoSubrogation />
+        <CoreRedemption />
+        <Sweep />
       </ConentBox>
     </>
   );

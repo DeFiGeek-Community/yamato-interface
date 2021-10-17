@@ -6,7 +6,6 @@ import { useEffect, useState } from 'react';
 import { isMobile } from 'react-device-detect';
 import styled from 'styled-components';
 import MetamaskIcon from '../../../assets/images/metamask.png';
-import { ReactComponent as Close } from '../../../assets/svg/x.svg';
 // import { OVERLAY_READY } from '../../connectors/Fortmatic';
 import { SUPPORTED_WALLETS } from '../../../constants/web3';
 import usePrevious from '../../../hooks/usePrevious';
@@ -22,22 +21,6 @@ import { AutoRow } from '../Row';
 import Option from './Option';
 import PendingView from './PendingView';
 
-const CloseIcon = styled.div`
-  position: absolute;
-  right: 1rem;
-  top: 14px;
-  &:hover {
-    cursor: pointer;
-    opacity: 0.6;
-  }
-`;
-
-const CloseColor = styled(Close)`
-  path {
-    stroke: ${({ theme }) => theme.text1};
-  }
-`;
-
 const Wrapper = styled.div`
   ${({ theme }) => theme.flexColumnNoWrap}
   margin: 0;
@@ -51,7 +34,7 @@ const HeaderRow = styled.div`
   ${({ theme }) => theme.flexRowNoWrap};
   padding: 1rem 1rem;
   font-weight: 500;
-  color: ${({ theme }) => theme.text1};
+  color: ${({ theme }) => theme.text2};
   ${({ theme }) => theme.mediaWidth.upToMedium`
     padding: 1rem;
   `};
@@ -304,7 +287,10 @@ export default function WalletModal({
           </HeaderRow>
           <ContentWrapper>
             {error instanceof UnsupportedChainIdError ? (
-              <h5>Please connect to the appropriate Ethereum network.</h5>
+              <h5>
+                サポートしているEthereum
+                networkに切り替えてください。現在はmainnetとrinkebyに対応しています。
+              </h5>
             ) : (
               'Error connecting. Try refreshing the page.'
             )}
