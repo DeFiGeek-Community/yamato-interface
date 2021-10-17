@@ -6,6 +6,7 @@
   "scripts": {
     "postinstall": "patch -Np0 < patch/dirtyfix.patch || :",
     "contract:fetch": "ls -d tmp/yamato && { pushd tmp/yamato && git pull ; } || git clone https://github.com/DeFiGeek-Community/yamato.git tmp/yamato",
+    "contract:install": "cd tmp/yamato && npm install",
     "contract:clean": "rm -rf tmp/yamato",
     "start": "yarn contracts:compile && react-scripts start",
     "build": "yarn contracts:compile && react-scripts build",
