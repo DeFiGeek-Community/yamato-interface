@@ -30,3 +30,6 @@ memo
 /src/infrastructures/abis/types
 /cypress/videos
 /cypress/screenshots
+
+# misc
+/tmp
