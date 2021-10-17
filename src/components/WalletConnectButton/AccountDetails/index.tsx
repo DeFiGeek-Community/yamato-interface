@@ -1,8 +1,8 @@
-import { useCallback, useContext } from 'react';
+import { useCallback } from 'react';
 import { ExternalLink as LinkIcon } from 'react-feather';
 import { useDispatch } from 'react-redux';
 import { Button } from 'rebass/styled-components';
-import styled, { ThemeContext } from 'styled-components';
+import styled from 'styled-components';
 import { SUPPORTED_WALLETS } from '../../../constants/web3';
 import { useActiveWeb3React } from '../../../hooks/web3';
 import {
@@ -14,7 +14,10 @@ import {
 } from '../../../infrastructures/connectors';
 import { AppDispatch } from '../../../state';
 import { clearAllTransactions } from '../../../state/transactions/actions';
-import { getEtherscanLink } from '../../../utils/externalLink';
+import {
+  ExplorerDataType,
+  getExplorerLink,
+} from '../../../utils/getExplorerLink';
 import { shortenAddress } from '../../../utils/web3';
 import { CategoryTitle } from '../../CommonItem';
 import { ExternalLink } from '../../ExternalLink';
@@ -155,21 +158,6 @@ const WalletName = styled.div`
   color: ${({ theme }) => theme.text1};
 `;
 
-const IconWrapper = styled.div<{ size?: number }>`
-  ${({ theme }) => theme.flexColumnNoWrap};
-  align-items: center;
-  justify-content: center;
-  margin-right: 8px;
-  & > img,
-  span {
-    height: ${({ size }) => (size ? size + 'px' : '32px')};
-    width: ${({ size }) => (size ? size + 'px' : '32px')};
-  }
-  ${({ theme }) => theme.mediaWidth.upToMedium`
-    align-items: flex-end;
-  `};
-`;
-
 const TransactionListWrapper = styled.div`
   ${({ theme }) => theme.flexColumnNoWrap};
 `;
@@ -210,7 +198,6 @@ export default function AccountDetails({
   openOptions,
 }: AccountDetailsProps) {
   const { chainId, account, connector } = useActiveWeb3React();
-  const theme = useContext(ThemeContext);
   const dispatch = useDispatch<AppDispatch>();
 
   function formatConnectorName() {
@@ -294,10 +281,10 @@ export default function AccountDetails({
                       <AddressLink
                         hasENS={!!ENSName}
                         isENS={true}
-                        href={getEtherscanLink(
+                        href={getExplorerLink(
                           chainId,
                           ENSName ?? account,
-                          'address'
+                          ExplorerDataType.ADDRESS
                         )}
                       >
                         <LinkIcon size={16} />
