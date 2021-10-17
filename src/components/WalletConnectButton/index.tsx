@@ -3,7 +3,7 @@ import { useMemo } from 'react';
 import { Button as RebassButton } from 'rebass/styled-components';
 import styled from 'styled-components';
 import CJPYLogo from '../../components/svgs/CjpyLogo';
-import { ALL_SUPPORTED_CHAIN_IDS, CHAIN_INFO } from '../../constants/chains';
+import { CHAIN_INFO } from '../../constants/chains';
 import { NetworkContextName } from '../../constants/misc';
 import useENSName from '../../hooks/ens/useENSName';
 import { useWalletModalToggle } from '../../state/application/hooks';
@@ -70,8 +70,6 @@ function Web3StatusInner() {
     .map((tx) => tx.hash);
   const hasPendingTransactions = !!pending.length;
 
-  const isSupportedChain = chainId ? ALL_SUPPORTED_CHAIN_IDS[chainId] : false;
-
   if (account) {
     return (
       <>
@@ -122,13 +120,11 @@ function Web3StatusInner() {
         </WalletButton>
       </>
     );
-  } else if (error || !isSupportedChain) {
+  } else if (error) {
     return (
       <WalletButton onClick={toggleWalletModal}>
         <FlexText>
-          {error instanceof UnsupportedChainIdError || !isSupportedChain
-            ? 'Wrong Network'
-            : 'Error'}
+          {error instanceof UnsupportedChainIdError ? 'Wrong Network' : 'Error'}
         </FlexText>
       </WalletButton>
     );

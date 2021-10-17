@@ -14,6 +14,11 @@ const isUseMock = process.env.REACT_APP_USE_MOCK
   ? JSON.parse(process.env.REACT_APP_USE_MOCK)
   : false;
 
+const initialWalletParams = {
+  eth: 0,
+  cjpy: 0,
+};
+
 export default function Updater(): null {
   const { active, account, library } = useActiveWeb3React();
 
@@ -25,20 +30,26 @@ export default function Updater(): null {
 
   useInterval(async () => {
     if (!active || !account) {
+      fetchWallet(initialWalletParams.cjpy, initialWalletParams.eth);
       return;
     }
 
     let walletParams;
     if (!isUseMock) {
-      const wallet = await fetchTokenBalance(account, {
-        cjpyContract,
-        ymtContract,
-        veYmtContract,
-      });
-      walletParams = {
-        eth: await getEthBalance(account, library),
-        cjpy: wallet.cjpy.totalSupply,
-      };
+      try {
+        const wallet = await fetchTokenBalance(account, {
+          cjpyContract,
+          ymtContract,
+          veYmtContract,
+        });
+        walletParams = {
+          eth: await getEthBalance(account, library),
+          cjpy: wallet.cjpy.totalSupply,
+        };
+      } catch (error) {
+        console.error(error);
+        walletParams = initialWalletParams;
+      }
     } else {
       walletParams = mockWalletBalance;
     }
