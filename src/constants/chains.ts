@@ -14,6 +14,8 @@ export enum SupportedChainId {
   ARBITRUM_RINKEBY = 421611,
   OPTIMISM = 10,
   OPTIMISTIC_KOVAN = 69,
+
+  HARDHAT = 31337,
 }
 
 export const ALL_SUPPORTED_CHAIN_IDS: SupportedChainId[] = [
@@ -27,6 +29,8 @@ export const ALL_SUPPORTED_CHAIN_IDS: SupportedChainId[] = [
   SupportedChainId.ARBITRUM_RINKEBY,
   SupportedChainId.OPTIMISM,
   SupportedChainId.OPTIMISTIC_KOVAN,
+
+  SupportedChainId.HARDHAT,
 ];
 
 export const L1_CHAIN_IDS = [
@@ -35,6 +39,8 @@ export const L1_CHAIN_IDS = [
   SupportedChainId.RINKEBY,
   SupportedChainId.GOERLI,
   SupportedChainId.KOVAN,
+
+  SupportedChainId.HARDHAT,
 ] as const;
 
 export type SupportedL1ChainId = typeof L1_CHAIN_IDS[number];
@@ -165,6 +171,16 @@ export const CHAIN_INFO: ChainInfo = {
       decimals: 18,
     },
     statusPage: 'https://optimism.io/status',
+  },
+  [SupportedChainId.HARDHAT]: {
+    // blockWaitMsBeforeWarning?: number;
+    docs: 'https://hardhat.org/hardhat-network/',
+    explorer: 'https://example.com/',
+    infoLink: 'https://example.com/',
+    label: 'Hardhat local test network',
+    // logoUrl?: string;
+    rpcUrls: ['http://127.0.0.1:8545/'],
+    nativeCurrency: { name: 'ETH', symbol: 'ETH', decimals: 18 },
   },
 };
 
