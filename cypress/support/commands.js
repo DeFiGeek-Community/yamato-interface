@@ -95,10 +95,7 @@ Cypress.Commands.overwrite('visit', (original, url, options) => {
       onBeforeLoad(win) {
         options && options.onBeforeLoad && options.onBeforeLoad(win);
         win.localStorage.clear();
-        const provider = new JsonRpcProvider(
-          `https://rinkeby.infura.io/v3/${INFURA_KEY}`,
-          4
-        );
+        const provider = new JsonRpcProvider('http://127.0.0.1:8545/', 31337);
         const signer = new Wallet(TEST_PRIVATE_KEY, provider);
         win.ethereum = new CustomizedBridge(signer, provider);
       },
