@@ -34,6 +34,7 @@ const NETWORK_URLS: { [key in SupportedChainId]: string } = {
   [SupportedChainId.OPTIMISTIC_KOVAN]: `https://optimism-kovan.infura.io/v3/${INFURA_KEY}`,
   [SupportedChainId.ARBITRUM_ONE]: `https://arbitrum-mainnet.infura.io/v3/${INFURA_KEY}`,
   [SupportedChainId.ARBITRUM_RINKEBY]: `https://arbitrum-rinkeby.infura.io/v3/${INFURA_KEY}`,
+  [SupportedChainId.HARDHAT]: 'http://127.0.0.1:8545/',
 };
 
 export const network = new NetworkConnector({
