@@ -5,8 +5,11 @@
   "private": true,
   "scripts": {
     "postinstall": "patch -Np0 < patch/dirtyfix.patch || :",
-    "contract:fetch": "git clone https://github.com/DeFiGeek-Community/yamato.git tmp/yamato || { cd tmp/yamato && [ '\"@defigeek/yamato\"' = `jq .name package.json` ] && git pull; }",
-    "contract:install": "cd tmp/yamato && npm install",
+    "contract:setup": "{ yarn run contract:fetch:new || yarn run contract:fetch:update ; } && yarn run contract:install",
+    "contract:fetch:new": "git clone https://github.com/DeFiGeek-Community/yamato.git tmp/yamato && cd tmp/yamato && git switch -c {,origin/}feat/deploy-on-hardhat-network",
+    "contract:fetch:update": "cd tmp/yamato && [ '\"@defigeek/yamato\"' = $(jq .name package.json) ] && git pull",
+    "contract:install": "cd tmp/yamato && npm install && cp ../../patch/yamato.hardhat.env .env",
+    "contract:run": "cd tmp/yamato && npx hardhat node --network hardhat",
     "contract:clean": "rm -rf tmp/yamato",
     "start": "yarn contracts:compile && react-scripts start",
     "build": "yarn contracts:compile && react-scripts build",
