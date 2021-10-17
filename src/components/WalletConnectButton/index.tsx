@@ -70,6 +70,8 @@ function Web3StatusInner() {
     .map((tx) => tx.hash);
   const hasPendingTransactions = !!pending.length;
 
+  const isSupportedChain = chainId ? ALL_SUPPORTED_CHAIN_IDS[chainId] : false;
+
   if (account) {
     return (
       <>
@@ -120,11 +122,13 @@ function Web3StatusInner() {
         </WalletButton>
       </>
     );
-  } else if (error) {
+  } else if (error || !isSupportedChain) {
     return (
       <WalletButton onClick={toggleWalletModal}>
         <FlexText>
-          {error instanceof UnsupportedChainIdError ? 'Wrong Network' : 'Error'}
+          {error instanceof UnsupportedChainIdError || !isSupportedChain
+            ? 'Wrong Network'
+            : 'Error'}
         </FlexText>
       </WalletButton>
     );
