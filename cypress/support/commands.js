@@ -22,16 +22,14 @@ if (typeof INFURA_KEY === 'undefined') {
 
 const TEST_PRIVATE_KEY = Cypress.env('WALLET_PRIVATE_KEY');
 
+const rpcUrl = 'http://127.0.0.1:8545/';
+const targetChainId = 31337;
+
 // address of the above key
 export const TEST_ADDRESS_NEVER_USE = new Wallet(TEST_PRIVATE_KEY).address;
 
-export const TEST_ADDRESS_NEVER_USE_SHORTENED = `${TEST_ADDRESS_NEVER_USE.substr(
-  0,
-  6
-)}...${TEST_ADDRESS_NEVER_USE.substr(-4, 4)}`;
-
 class CustomizedBridge extends Eip1193Bridge {
-  chainId = 4;
+  chainId = targetChainId;
 
   async sendAsync(...args) {
     console.debug('sendAsync called', ...args);
@@ -95,7 +93,7 @@ Cypress.Commands.overwrite('visit', (original, url, options) => {
       onBeforeLoad(win) {
         options && options.onBeforeLoad && options.onBeforeLoad(win);
         win.localStorage.clear();
-        const provider = new JsonRpcProvider('http://127.0.0.1:8545/', 31337);
+        const provider = new JsonRpcProvider(rpcUrl, targetChainId);
         const signer = new Wallet(TEST_PRIVATE_KEY, provider);
         win.ethereum = new CustomizedBridge(signer, provider);
       },
