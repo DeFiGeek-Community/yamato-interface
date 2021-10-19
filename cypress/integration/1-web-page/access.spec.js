@@ -6,6 +6,6 @@ describe('visit interface pages', () => {
   });
 
   it('visit top page and check title', () => {
-    cy.title().should('equal', 'Yamato Interface');
+    cy.title().should('equal', 'Yamato Protocol Interface');
   });
 });
