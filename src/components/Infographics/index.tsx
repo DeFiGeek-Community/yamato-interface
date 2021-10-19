@@ -1,5 +1,4 @@
 import { Grid, GridItem } from '@chakra-ui/react';
-import { useMarketState } from '../../state/market/hooks';
 import { useYamatoStateForInfographics } from '../../state/yamato-entirety/hooks';
 import { getEthChangePercent } from '../../utils/prices';
 import {
@@ -13,28 +12,26 @@ import EthPrice from './EthPrice';
 import Pool from './Pool';
 import Tcr from './Tcr';
 import {
-  getChargeRankOfRedemption,
-  getChargeRankOfSweep,
+  getReserveRankOfRedemption,
+  getReserveRankOfSweep,
   getCjpyPriceRank,
   getColorCodePerTcr,
   getEthPriceRank,
   getSignalMessages,
 } from './functions';
 
-function getCjpyRank(rateOfCjpyJpy: { [source: string]: number }) {
-  const marketRate = rateOfCjpyJpy;
-  const rawPrice = Object.values(marketRate)[0];
-  if (rawPrice == null) {
+function getCjpyRank(rateOfCjpyJpy: [string, number]) {
+  if (!rateOfCjpyJpy || !rateOfCjpyJpy[1]) {
     return 0;
   }
+
+  const rawPrice = rateOfCjpyJpy[1];
   return getCjpyPriceRank(rawPrice);
 }
 
 export interface InfographicsProps {
   // state.market
-  rateOfCjpyJpy: {
-    [source: string]: number;
-  };
+  rateOfCjpyJpy: [string, number][];
 
   // state.yamatoEntirety
   totalCollateral: number; // state.yamatoEntirety.lending.totalCollateral
@@ -49,9 +46,8 @@ export interface InfographicsProps {
 }
 
 export function InfographicsContent(props: Partial<InfographicsProps>) {
-  const marketState = useMarketState();
   const yamatoState = useYamatoStateForInfographics();
-  const mixedValues = { ...marketState, ...yamatoState, ...props };
+  const mixedValues = { ...yamatoState, ...props };
 
   const { rateOfCjpyJpy, rateOfEthJpy, redemptionReserve, sweepReserve, MCR } =
     mixedValues;
@@ -76,7 +72,7 @@ export function InfographicsContent(props: Partial<InfographicsProps>) {
   /**
    * All 21 Ranks(-10 ~ +10)
    */
-  const cjpyPriceRank = getCjpyRank(rateOfCjpyJpy);
+  const cjpyPriceRank = getCjpyRank(rateOfCjpyJpy[0]);
   /**
    * All 91 Ranks(-45 ~ +45)
    */
@@ -88,11 +84,11 @@ export function InfographicsContent(props: Partial<InfographicsProps>) {
   /**
    * Rank up per 5000,000
    */
-  const chargeRankOfRedemption = getChargeRankOfRedemption(redemptionReserve);
+  const reserveRankOfRedemption = getReserveRankOfRedemption(redemptionReserve);
   /**
    * Rank up per 1000,000
    */
-  const chargeRankOfSweep = getChargeRankOfSweep(sweepReserve);
+  const reserveRankOfSweep = getReserveRankOfSweep(sweepReserve);
 
   function renderSignalMessages() {
     const messages = getSignalMessages(cjpyPriceRank, ethPriceRank);
@@ -122,9 +118,9 @@ export function InfographicsContent(props: Partial<InfographicsProps>) {
             <Tcr tcr={tcr} />
           </div>
           <Pool
-            chargeRankOfRedemption={chargeRankOfRedemption}
+            reserveRankOfRedemption={reserveRankOfRedemption}
             isIncreaseForRedemptionReserve={isIncreaseForRedemptionReserve}
-            chargeRankOfSweep={chargeRankOfSweep}
+            reserveRankOfSweep={reserveRankOfSweep}
             isIncreaseForSweepReserve={isIncreaseForSweepReserve}
           />
         </GridItem>

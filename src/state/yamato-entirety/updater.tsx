@@ -28,6 +28,39 @@ const isUseMock = process.env.REACT_APP_USE_MOCK
   ? JSON.parse(process.env.REACT_APP_USE_MOCK)
   : false;
 
+const initialYamatoParams = {
+  lending: {
+    totalCollateral: 0,
+    totalDebt: 0,
+    tcr: 0,
+    tvl: 0,
+  },
+  pool: {
+    redemptionReserve: 0,
+    sweepReserve: 0,
+    sweepableCandiate: 0,
+  },
+  parameter: {
+    MCR: 0,
+    RRR: 0,
+    SRR: 0,
+    GRR: 0,
+  },
+  rateOfEthJpy: 0,
+};
+const initialTokenParams = {
+  cjpy: {
+    totalSupply: 0,
+  },
+  ymt: {
+    totalSupply: 0,
+  },
+  veYmt: {
+    totalSupply: 0,
+    boostRate: 0,
+  },
+};
+
 export default function Updater(): null {
   const { active, account } = useActiveWeb3React();
 
@@ -46,43 +79,42 @@ export default function Updater(): null {
   useInterval(async () => {
     // TODO: If implementing subgraph, remove. You will execute this alltime without wallet.
     if (!active || !account) {
+      fetchYamatoState(initialYamatoParams);
+      fetchRateOfEthJpy(initialYamatoParams.rateOfEthJpy);
+      fetchTokenState(initialTokenParams);
       return;
     }
 
     let yamatoParams;
     let rateOfEthJpy: number;
+    let tokenParams;
     if (!isUseMock) {
-      yamatoParams = await fetchYamatoEntiretyStateFromContract({
-        yamatoMainContract,
-        yamatoPoolContract,
-        yamatoPriceFeedContract,
-      });
-      rateOfEthJpy = yamatoParams.rateOfEthJpy;
+      try {
+        yamatoParams = await fetchYamatoEntiretyStateFromContract({
+          yamatoMainContract,
+          yamatoPoolContract,
+          yamatoPriceFeedContract,
+        });
+        rateOfEthJpy = yamatoParams.rateOfEthJpy;
+        tokenParams = await fetchTotalSupply({
+          cjpyContract,
+          ymtContract,
+          veYmtContract,
+        });
+      } catch (error) {
+        console.error(error);
+        yamatoParams = initialYamatoParams;
+        rateOfEthJpy = initialYamatoParams.rateOfEthJpy;
+        tokenParams = initialTokenParams;
+      }
     } else {
       yamatoParams = mockYamatoEntirety.yamatoParams;
       rateOfEthJpy = mockYamatoEntirety.rateOfEthJpy;
+      tokenParams = mockTokenTotalSupply;
     }
 
     fetchYamatoState(yamatoParams);
     fetchRateOfEthJpy(rateOfEthJpy);
-  }, 5000);
-
-  useInterval(async () => {
-    // TODO: If implementing subgraph, remove. You will execute this alltime without wallet.
-    if (!active || !account) {
-      return;
-    }
-
-    let tokenParams;
-    if (!isUseMock) {
-      tokenParams = await fetchTotalSupply({
-        cjpyContract,
-        ymtContract,
-        veYmtContract,
-      });
-    } else {
-      tokenParams = mockTokenTotalSupply;
-    }
     fetchTokenState(tokenParams);
   }, 5000);
 

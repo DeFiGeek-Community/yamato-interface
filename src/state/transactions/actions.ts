@@ -21,6 +21,9 @@ export enum TransactionType {
   WITHDRAW = 2,
   BORROW = 3,
   REPAY = 4,
+  SELF_REDEEM = 5,
+  CORE_REDEEM = 6,
+  SWEEP = 7,
 }
 
 export interface BaseTransactionInfo {
@@ -47,6 +50,22 @@ export interface RepayTransactionInfo extends BaseTransactionInfo {
   value: number;
 }
 
+export interface SelfRedeemTransactionInfo extends BaseTransactionInfo {
+  type: TransactionType.SELF_REDEEM;
+  value: number;
+  expected: number;
+}
+
+export interface CoreRedeemTransactionInfo extends BaseTransactionInfo {
+  type: TransactionType.CORE_REDEEM;
+  expected: number;
+}
+
+export interface SweepTransactionInfo extends BaseTransactionInfo {
+  type: TransactionType.SWEEP;
+  expected: number;
+}
+
 export interface ApproveTransactionInfo extends BaseTransactionInfo {
   type: TransactionType.APPROVAL;
   tokenAddress: string;
@@ -58,6 +77,9 @@ export type TransactionInfo =
   | WithdrawTransactionInfo
   | BorrowTransactionInfo
   | RepayTransactionInfo
+  | SelfRedeemTransactionInfo
+  | CoreRedeemTransactionInfo
+  | SweepTransactionInfo
   | ApproveTransactionInfo;
 
 export const addTransaction = createAction<{

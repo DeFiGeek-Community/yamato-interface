@@ -3,7 +3,14 @@ import { PopulatedTransaction } from '@ethersproject/contracts';
 import { REVERT_REASON_DESCRIPTION } from '../../constants/yamato';
 import { Yamato } from '../../infrastructures/abis/types';
 
-type MethodName = 'deposit' | 'withdraw' | 'borrow' | 'repay';
+type MethodName =
+  | 'deposit'
+  | 'withdraw'
+  | 'borrow'
+  | 'repay'
+  | 'selfRedeem'
+  | 'coreRedeem'
+  | 'sweep';
 
 export enum CallbackState {
   INVALID,
@@ -56,13 +63,34 @@ function swapErrorToUserReadableMessage(error: any): string {
       return REVERT_REASON_DESCRIPTION.underMCR;
     case 'fee must be more than zero.':
       return REVERT_REASON_DESCRIPTION.zeroFee;
-    case '"(borrow - fee) must be more than zero."':
+    case '(borrow - fee) must be more than zero.':
       return REVERT_REASON_DESCRIPTION.insufficientBorrowing;
+    case 'ICR too low to get fee data.':
+      return REVERT_REASON_DESCRIPTION.underMCR;
     // repay
     case 'You are repaying no CJPY':
       return REVERT_REASON_DESCRIPTION.zeroRepay;
     case 'You are repaying more than you are owing.':
       return REVERT_REASON_DESCRIPTION.surplusRepay;
+    // redeem/sweep
+    case 'No pledges are redeemed.':
+      return REVERT_REASON_DESCRIPTION.noRedeemablePledge;
+    case 'Sweep failure: sweep reserve is empty.':
+      return REVERT_REASON_DESCRIPTION.noSweepReserve;
+    case 'At least a pledge should be swept.':
+      return REVERT_REASON_DESCRIPTION.noSweepablePledge;
+    case 'Gas payback has been failed.':
+      return REVERT_REASON_DESCRIPTION.insufficientPaybackGas;
+    case "Can't expense zero pledge.":
+      return REVERT_REASON_DESCRIPTION.depositShortage;
+    // authority
+    case 'You are not the governer.':
+      return REVERT_REASON_DESCRIPTION.notGoverner;
+    case 'You are not the tester.':
+      return REVERT_REASON_DESCRIPTION.notTester;
+    // others
+    case 'execution reverted': // incorrect contract address, incorrect ABIs, etc.
+      return REVERT_REASON_DESCRIPTION.justReverted;
     default:
       return `不明なエラーが発生しました${reason ? `: "${reason}"` : ''}. `;
   }
@@ -71,7 +99,7 @@ function swapErrorToUserReadableMessage(error: any): string {
 export function getErrorMessage(methodName: MethodName, error: any) {
   // if the user rejected the tx, pass this along
   if (error?.code === 4001) {
-    return 'Transaction rejected.';
+    return REVERT_REASON_DESCRIPTION.walletRejected;
   } else {
     // otherwise, the error was unexpected and we need to convey that
     console.error(`Yamato.${methodName} failed: `, error);
@@ -82,6 +110,9 @@ export function getErrorMessage(methodName: MethodName, error: any) {
   }
 }
 
+/**
+ * @param value Set 0, if nothing.
+ */
 export function estimateGas(
   methodName: MethodName,
   value: BigNumber,
@@ -101,6 +132,15 @@ export function estimateGas(
       break;
     case 'repay':
       method = signer.estimateGas.repay(value, option);
+      break;
+    case 'selfRedeem':
+      method = signer.estimateGas.redeem(value, false, option);
+      break;
+    case 'coreRedeem':
+      method = signer.estimateGas.redeem(value, true, option);
+      break;
+    case 'sweep':
+      method = signer.estimateGas.sweep(option);
       break;
   }
   if (!method) {

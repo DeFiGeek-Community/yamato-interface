@@ -1,26 +1,28 @@
 import { Grid, GridItem, VStack } from '@chakra-ui/react';
 import { YAMATO_SYMBOL } from '../../constants/yamato';
-import { useMarketState } from '../../state/market/hooks';
 import { useYamatoStateForDashboard } from '../../state/yamato-entirety/hooks';
 import { formatPrice } from '../../utils/prices';
 import { CategoryTitle, ConentBox, HeaderBox1 } from '../CommonItem';
 import DashboadItem from './Item';
 
-function getRateOfCjpyJpy(rateOfCjpyJpy: { [source: string]: number }) {
-  const value = Object.values(rateOfCjpyJpy)[0];
+function getRateOfCjpyJpy(rateOfCjpyJpy: [string, number][]) {
+  if (!rateOfCjpyJpy[0]) {
+    return 0;
+  }
+  const value = rateOfCjpyJpy[0][1];
   return value ?? 0;
 }
 
 function getMarketRateOfCjpyJpy(rateOfCjpyJpy: [string, number]) {
-  if (!rateOfCjpyJpy) {
+  if (!rateOfCjpyJpy || !rateOfCjpyJpy[1]) {
     return ``;
   }
+
   return `${rateOfCjpyJpy[0]}:¥${formatPrice(rateOfCjpyJpy[1], 'jpy').value}\n`;
 }
 
 export default function Dashboad() {
-  const { rateOfCjpyJpy } = useMarketState();
-  const { tvl, tcr, rateOfEthJpy, totalSupplyOfCjpy } =
+  const { tvl, tcr, rateOfEthJpy, totalSupplyOfCjpy, rateOfCjpyJpy } =
     useYamatoStateForDashboard();
 
   return (
@@ -47,15 +49,15 @@ export default function Dashboad() {
               />
               <DashboadItem
                 title={'市場間価格差異'}
-                stat={getMarketRateOfCjpyJpy(Object.entries(rateOfCjpyJpy)[0])}
+                stat={getMarketRateOfCjpyJpy(rateOfCjpyJpy[0])}
               />
               <DashboadItem
                 title={''}
-                stat={getMarketRateOfCjpyJpy(Object.entries(rateOfCjpyJpy)[1])}
+                stat={getMarketRateOfCjpyJpy(rateOfCjpyJpy[1])}
               />
               <DashboadItem
                 title={''}
-                stat={getMarketRateOfCjpyJpy(Object.entries(rateOfCjpyJpy)[2])}
+                stat={getMarketRateOfCjpyJpy(rateOfCjpyJpy[2])}
               />
             </VStack>
           </GridItem>

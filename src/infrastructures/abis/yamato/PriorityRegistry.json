@@ -12,7 +12,7 @@
   },
   {
     "inputs": [],
-    "name": "currentLICRpertenk",
+    "name": "LICR",
     "outputs": [
       {
         "internalType": "uint256",
@@ -27,16 +27,16 @@
     "inputs": [
       {
         "internalType": "uint256",
-        "name": "",
+        "name": "icr",
         "type": "uint256"
       },
       {
         "internalType": "uint256",
-        "name": "",
+        "name": "i",
         "type": "uint256"
       }
     ],
-    "name": "levelIndice",
+    "name": "getLevelIndice",
     "outputs": [
       {
         "internalType": "address",
@@ -75,7 +75,7 @@
           },
           {
             "internalType": "uint256",
-            "name": "lastUpsertedTimeICRpertenk",
+            "name": "priority",
             "type": "uint256"
           }
         ],
@@ -115,7 +115,7 @@
           },
           {
             "internalType": "uint256",
-            "name": "lastUpsertedTimeICRpertenk",
+            "name": "priority",
             "type": "uint256"
           }
         ],
@@ -168,7 +168,7 @@
           },
           {
             "internalType": "uint256",
-            "name": "lastUpsertedTimeICRpertenk",
+            "name": "priority",
             "type": "uint256"
           }
         ],
@@ -208,7 +208,7 @@
           },
           {
             "internalType": "uint256",
-            "name": "lastUpsertedTimeICRpertenk",
+            "name": "priority",
             "type": "uint256"
           }
         ],
@@ -246,7 +246,7 @@
           },
           {
             "internalType": "uint256",
-            "name": "lastUpsertedTimeICRpertenk",
+            "name": "priority",
             "type": "uint256"
           }
         ],
@@ -286,7 +286,7 @@
           },
           {
             "internalType": "uint256",
-            "name": "lastUpsertedTimeICRpertenk",
+            "name": "priority",
             "type": "uint256"
           }
         ],
@@ -299,7 +299,7 @@
     "outputs": [
       {
         "internalType": "uint256",
-        "name": "_newICRpertenk",
+        "name": "_newICRpercent",
         "type": "uint256"
       }
     ],

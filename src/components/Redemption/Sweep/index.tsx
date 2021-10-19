@@ -3,7 +3,7 @@ import { useYamatoStateForPledge } from '../../../state/yamato-entirety/hooks';
 import { ItemTitleForPledge } from '../../CommonItem';
 import SweepInput from './SweepInput';
 
-export default function YamatoSubrogation() {
+export default function Sweep() {
   const { rateOfEthJpy, sweepReserve, sweepableCandiate } =
     useYamatoStateForPledge();
 
