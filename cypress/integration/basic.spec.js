@@ -57,7 +57,6 @@ describe(
     it('borrow CJPY', () => {
       const actionAmountSelector = '[data-testid=borrowing-data-borrowAmount]';
       const actionTriggerSelector = '[data-testid=borrowing-act-borrow]';
-      const paramCjpyDelta = paramCjpyDelta;
 
       cy.wait(visitWaitMillisec);
       cy.get(currentBorrowingAmountSelector)
@@ -108,23 +107,25 @@ describe(
       cy.visit('/');
       cy.wait(visitWaitMillisec);
 
-      cy.get(actionAmountSelector).click().should('be.disabled');
-
-      cy.get(currentCollateralAmountSelector)
-        .invoke('text')
-        .then((before) => {
-          step7Amount = parseFloat(before.replace(/[^0-9]/g, ''));
-          cy.get(actionAmountSelector).clear();
-          cy.get(actionAmountSelector).type(paramEthDelta.toString());
-          cy.get(actionTriggerSelector).click();
-          cy.wait(txWaitMilliSec);
-          cy.get(currentCollateralAmountSelector)
-            .invoke('text')
-            .then((after) => {
-              step8Amount = parseFloat(after.replace(/[^0-9]/g, ''));
-              expect(step8Amount).eq(step7Amount - paramEthDelta);
-            });
-        });
+      if (cy.get(actionTriggerSelector).should('be.disabled')) {
+        return;
+      } else {
+        cy.get(currentCollateralAmountSelector)
+          .invoke('text')
+          .then((before) => {
+            step7Amount = parseFloat(before.replace(/[^0-9]/g, ''));
+            cy.get(actionAmountSelector).clear();
+            cy.get(actionAmountSelector).type(paramEthDelta.toString());
+            cy.get(actionTriggerSelector).click();
+            cy.wait(txWaitMilliSec);
+            cy.get(currentCollateralAmountSelector)
+              .invoke('text')
+              .then((after) => {
+                step8Amount = parseFloat(after.replace(/[^0-9]/g, ''));
+                expect(step8Amount).eq(step7Amount - paramEthDelta);
+              });
+          });
+      }
     });
   }
 );
