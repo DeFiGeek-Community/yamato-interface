@@ -1,8 +1,8 @@
 /// <reference types="cypress" />
 
 const paramChangeStep = 1;
-const visitWaitMillisec = 5000;
-const txWaitMilliSec = 20000;
+const visitWaitMillisec = 10000;
+const txWaitMilliSec = 50000;
 
 describe(
   'Basic operations on collateral',
@@ -65,28 +65,6 @@ describe(
               expect(step4Amount).eq(step3Amount - paramChangeStep);
             });
         });
-
-      /*
-      cy.wait(waitMillisec);
-      cy.get(currentAmountSelector)
-        .invoke('text')
-        .then((before) => {
-          step3Amount = parseFloat(before.replace(/[^0-9]/g, ''));
-          // expect(step3Amount).eq(step2Amount);
-          cy.get(actionAmountSelector)
-            .invoke('val', paramChangeStep)
-            .trigger('change');
-          cy.wait(waitMillisec);
-          cy.get(actionTriggerSelector).click();
-          cy.wait(waitMillisec);
-          cy.get(currentAmountSelector)
-            .invoke('text')
-            .then((after) => {
-              step4Amount = parseFloat(after.replace(/[^0-9]/g, ''));
-              expect(step4Amount).eq(step3Amount - paramChangeStep);
-            });
-        });
-      */
     });
   }
 );
