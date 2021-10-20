@@ -3,8 +3,6 @@
 const paramEthDelta = 1;
 const paramCjpyDelta = 1000;
 const feeRatio = 0.001;
-const visitWaitMillisec = 10000;
-const txWaitMilliSec = 50000;
 
 describe(
   'Walk through',
@@ -34,6 +32,8 @@ describe(
       const actionAmountSelector =
         '[data-testid=collateral-data-depositAmount]';
       const actionTriggerSelector = '[data-testid=collateral-act-deposit]';
+      const visitWaitMillisec = 10000;
+      const txWaitMilliSec = 50000;
 
       cy.visit('/');
       cy.wait(visitWaitMillisec);
@@ -57,6 +57,8 @@ describe(
     it('borrow CJPY', () => {
       const actionAmountSelector = '[data-testid=borrowing-data-borrowAmount]';
       const actionTriggerSelector = '[data-testid=borrowing-act-borrow]';
+      const visitWaitMillisec = 10000;
+      const txWaitMilliSec = 20000;
 
       cy.wait(visitWaitMillisec);
       cy.get(currentBorrowingAmountSelector)
@@ -80,6 +82,8 @@ describe(
       const actionAmountSelector = '[data-testid=borrowing-data-repayAmount]';
       const actionTriggerSelector = '[data-testid=borrowing-act-repay]';
       const repayCjpyDelta = paramCjpyDelta * (1 - feeRatio);
+      const visitWaitMillisec = 10000;
+      const txWaitMilliSec = 20000;
 
       cy.wait(visitWaitMillisec);
       cy.get(currentBorrowingAmountSelector)
@@ -103,6 +107,8 @@ describe(
       const actionAmountSelector =
         '[data-testid=collateral-data-withdrawalAmount]';
       const actionTriggerSelector = '[data-testid=collateral-act-withdraw]';
+      const visitWaitMillisec = 10000;
+      const txWaitMilliSec = 50000;
 
       cy.visit('/');
       cy.wait(visitWaitMillisec);
@@ -110,6 +116,7 @@ describe(
       if (cy.get(actionTriggerSelector).should('be.disabled')) {
         return;
       } else {
+        // This code block is unreachable, but is left as a documentation.
         cy.get(currentCollateralAmountSelector)
           .invoke('text')
           .then((before) => {
