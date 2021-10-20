@@ -1,15 +1,17 @@
 /// <reference types="cypress" />
 
 const paramChangeStep = 1;
-const waitMillisec = 5000;
+const visitWaitMillisec = 5000;
+const txWaitMilliSec = 20000;
 
 describe(
   'Basic operations on collateral',
   {
-    viewportHeight: 1600,
-    viewportWidth: 2560,
+    viewportHeight: 936,
+    viewportWidth: 1024,
   },
   () => {
+    const currentAmountSelector = '[data-testid=collateral-data-currentAmount]';
     let step1Amount;
     let step2Amount;
     let step3Amount;
@@ -20,22 +22,19 @@ describe(
     });
 
     it('deposit collateral', () => {
-      const currentAmountSelector =
-        '[data-testid=collateral-data-currentAmount]';
       const actionAmountSelector =
         '[data-testid=collateral-data-depositAmount]';
       const actionTriggerSelector = '[data-testid=collateral-act-deposit]';
 
-      cy.wait(waitMillisec);
+      cy.wait(visitWaitMillisec);
       cy.get(currentAmountSelector)
         .invoke('text')
         .then((before) => {
           step1Amount = parseFloat(before.replace(/[^0-9]/g, ''));
-          cy.get(actionAmountSelector)
-            .invoke('val', paramChangeStep)
-            .trigger('change');
+          cy.get(actionAmountSelector).clear();
+          cy.get(actionAmountSelector).type(paramChangeStep.toString());
           cy.get(actionTriggerSelector).click();
-          cy.wait(waitMillisec);
+          cy.wait(txWaitMilliSec);
           cy.get(currentAmountSelector)
             .invoke('text')
             .then((after) => {
@@ -46,12 +45,28 @@ describe(
     });
 
     it('withdraw collateral', () => {
-      const currentAmountSelector =
-        '[data-testid=collateral-data-currentAmount]';
       const actionAmountSelector =
         '[data-testid=collateral-data-withdrawalAmount]';
       const actionTriggerSelector = '[data-testid=collateral-act-withdraw]';
 
+      cy.wait(visitWaitMillisec);
+      cy.get(currentAmountSelector)
+        .invoke('text')
+        .then((before) => {
+          step3Amount = parseFloat(before.replace(/[^0-9]/g, ''));
+          cy.get(actionAmountSelector).clear();
+          cy.get(actionAmountSelector).type(paramChangeStep.toString());
+          cy.get(actionTriggerSelector).click();
+          cy.wait(txWaitMilliSec);
+          cy.get(currentAmountSelector)
+            .invoke('text')
+            .then((after) => {
+              step4Amount = parseFloat(after.replace(/[^0-9]/g, ''));
+              expect(step4Amount).eq(step3Amount - paramChangeStep);
+            });
+        });
+
+      /*
       cy.wait(waitMillisec);
       cy.get(currentAmountSelector)
         .invoke('text')
@@ -61,6 +76,7 @@ describe(
           cy.get(actionAmountSelector)
             .invoke('val', paramChangeStep)
             .trigger('change');
+          cy.wait(waitMillisec);
           cy.get(actionTriggerSelector).click();
           cy.wait(waitMillisec);
           cy.get(currentAmountSelector)
@@ -70,6 +86,7 @@ describe(
               expect(step4Amount).eq(step3Amount - paramChangeStep);
             });
         });
+      */
     });
   }
 );
