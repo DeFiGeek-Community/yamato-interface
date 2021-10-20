@@ -1,40 +1,45 @@
 /// <reference types="cypress" />
 
-const paramChangeStep = 1;
-const waitMillisec = 5000;
+const paramChangeStep = 1000;
+const visitWaitMillisec = 10000;
+const txWaitMilliSec = 50000;
 
 describe(
   'Basic operations on borrowing',
   {
-    viewportHeight: 1600,
-    viewportWidth: 2560,
+    viewportHeight: 936,
+    viewportWidth: 1024,
   },
   () => {
+    const currentAmountSelector = '[data-testid=borrowing-data-currentAmount]';
     let step1Amount;
     let step2Amount;
     let step3Amount;
     let step4Amount;
+    let step5Amount;
+    let step6Amount;
+    let step7Amount;
+    let step8Amount;
 
-    beforeEach(() => {
-      cy.visit('/');
-    });
-
-    it('borrow CJPY', () => {
+    before(() => {
+      // deposit
       const currentAmountSelector =
-        '[data-testid=borrowing-data-currentAmount]';
-      const actionAmountSelector = '[data-testid=borrowing-data-borrowAmount]';
-      const actionTriggerSelector = '[data-testid=borrowing-act-borrow]';
+        '[data-testid=collateral-data-currentAmount]';
+      const actionAmountSelector =
+        '[data-testid=collateral-data-depositAmount]';
+      const actionTriggerSelector = '[data-testid=collateral-act-deposit]';
+      const paramChangeStep = 1;
 
-      cy.wait(waitMillisec);
+      cy.visit('/');
+      cy.wait(visitWaitMillisec);
       cy.get(currentAmountSelector)
         .invoke('text')
         .then((before) => {
           step1Amount = parseFloat(before.replace(/[^0-9]/g, ''));
-          cy.get(actionAmountSelector)
-            .invoke('val', paramChangeStep)
-            .trigger('change');
+          cy.get(actionAmountSelector).clear();
+          cy.get(actionAmountSelector).type(paramChangeStep.toString());
           cy.get(actionTriggerSelector).click();
-          cy.wait(waitMillisec);
+          cy.wait(txWaitMilliSec);
           cy.get(currentAmountSelector)
             .invoke('text')
             .then((after) => {
@@ -44,28 +49,78 @@ describe(
         });
     });
 
-    it('repayment CJPY', () => {
-      const currentAmountSelector =
-        '[data-testid=borrowing-data-currentAmount]';
-      const actionAmountSelector = '[data-testid=borrowing-data-repayAmount]';
-      const actionTriggerSelector = '[data-testid=borrowing-act-repay]';
+    beforeEach(() => {
+      cy.visit('/');
+    });
 
-      cy.wait(waitMillisec);
+    it('borrow CJPY', () => {
+      const actionAmountSelector = '[data-testid=borrowing-data-borrowAmount]';
+      const actionTriggerSelector = '[data-testid=borrowing-act-borrow]';
+
+      cy.wait(visitWaitMillisec);
       cy.get(currentAmountSelector)
         .invoke('text')
         .then((before) => {
           step3Amount = parseFloat(before.replace(/[^0-9]/g, ''));
-          // expect(step3Amount).eq(step2Amount);
-          cy.get(actionAmountSelector)
-            .invoke('val', paramChangeStep)
-            .trigger('change');
+          cy.get(actionAmountSelector).clear();
+          cy.get(actionAmountSelector).type(paramChangeStep.toString());
           cy.get(actionTriggerSelector).click();
-          cy.wait(waitMillisec);
+          cy.wait(txWaitMilliSec);
           cy.get(currentAmountSelector)
             .invoke('text')
             .then((after) => {
               step4Amount = parseFloat(after.replace(/[^0-9]/g, ''));
-              expect(step4Amount).eq(step3Amount - paramChangeStep);
+              expect(step4Amount).eq(step3Amount + paramChangeStep);
+            });
+        });
+    });
+
+    it('repayment CJPY', () => {
+      const actionAmountSelector = '[data-testid=borrowing-data-repayAmount]';
+      const actionTriggerSelector = '[data-testid=borrowing-act-repay]';
+
+      cy.wait(visitWaitMillisec);
+      cy.get(currentAmountSelector)
+        .invoke('text')
+        .then((before) => {
+          step5Amount = parseFloat(before.replace(/[^0-9]/g, ''));
+          cy.get(actionAmountSelector).clear();
+          cy.get(actionAmountSelector).type(paramChangeStep.toString());
+          cy.get(actionTriggerSelector).click();
+          cy.wait(txWaitMilliSec);
+          cy.get(currentAmountSelector)
+            .invoke('text')
+            .then((after) => {
+              step6Amount = parseFloat(after.replace(/[^0-9]/g, ''));
+              expect(step6Amount).eq(step5Amount - paramChangeStep * 0.99);
+            });
+        });
+    });
+
+    after(() => {
+      // deposit
+      const currentAmountSelector =
+        '[data-testid=collateral-data-currentAmount]';
+      const actionAmountSelector =
+        '[data-testid=collateral-data-withdrawalAmount]';
+      const actionTriggerSelector = '[data-testid=collateral-act-withdraw]';
+      const paramChangeStep = 1;
+
+      cy.visit('/');
+      cy.wait(visitWaitMillisec);
+      cy.get(currentAmountSelector)
+        .invoke('text')
+        .then((before) => {
+          step7Amount = parseFloat(before.replace(/[^0-9]/g, ''));
+          cy.get(actionAmountSelector).clear();
+          cy.get(actionAmountSelector).type(paramChangeStep.toString());
+          cy.get(actionTriggerSelector).click();
+          cy.wait(txWaitMilliSec);
+          cy.get(currentAmountSelector)
+            .invoke('text')
+            .then((after) => {
+              step8Amount = parseFloat(after.replace(/[^0-9]/g, ''));
+              expect(step8Amount).eq(step7Amount - paramChangeStep);
             });
         });
     });
