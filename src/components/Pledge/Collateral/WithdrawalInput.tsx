@@ -156,6 +156,7 @@ export default function WithdrawalInput(props: Props) {
             {isRemainLockTime && (
               <HStack spacing={4} align="flex-end">
                 <CustomFormLabel
+                  data-testid="collateral-data-withdrawalLabel"
                   text={`ロックタイムカウントダウン...${remainLockTime}`}
                 />
               </HStack>
