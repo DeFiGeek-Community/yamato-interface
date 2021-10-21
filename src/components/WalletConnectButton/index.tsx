@@ -101,7 +101,10 @@ function Web3StatusInner() {
                 </Row>
               </FlexText>
             ) : (
-              <FlexText style={{ fontSize: '1.8rem', lineHeight: '2.1rem' }}>
+              <FlexText
+                style={{ fontSize: '1.8rem', lineHeight: '2.1rem' }}
+                data-testid="wallet-data-connectedAs"
+              >
                 Connected As
                 <br />
                 {ENSName || shortenAddress(account)}
