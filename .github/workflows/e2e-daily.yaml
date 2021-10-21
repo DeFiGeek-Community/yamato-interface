@@ -1,12 +1,9 @@
 name: Cypress Tests using Cypress Docker Image
 
 on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
+  schedule:
+    # * is a special character in YAML so you have to quote this string
+    - cron:  '0 5 * * *'
 
 jobs:
   cypress-run:
@@ -21,6 +18,7 @@ jobs:
       - name: Cypress run
         uses: cypress-io/github-action@v2
         with:
+          spec: cypress/integration/1-connect-wallet/main.spec.js
           start: yarn start
           wait-on: 'http://localhost:3000'
           wait-on-timeout: 120
