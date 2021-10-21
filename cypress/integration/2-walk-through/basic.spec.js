@@ -58,7 +58,7 @@ describe(
       const actionAmountSelector = '[data-testid=borrowing-data-borrowAmount]';
       const actionTriggerSelector = '[data-testid=borrowing-act-borrow]';
       const visitWaitMillisec = 10000;
-      const txWaitMilliSec = 20000;
+      const txWaitMilliSec = 30000;
 
       cy.wait(visitWaitMillisec);
       cy.get(currentBorrowingAmountSelector)
@@ -83,7 +83,7 @@ describe(
       const actionTriggerSelector = '[data-testid=borrowing-act-repay]';
       const repayCjpyDelta = paramCjpyDelta * (1 - feeRatio);
       const visitWaitMillisec = 10000;
-      const txWaitMilliSec = 20000;
+      const txWaitMilliSec = 30000;
 
       cy.wait(visitWaitMillisec);
       cy.get(currentBorrowingAmountSelector)
@@ -107,14 +107,16 @@ describe(
       const actionAmountSelector =
         '[data-testid=collateral-data-withdrawalAmount]';
       const actionTriggerSelector = '[data-testid=collateral-act-withdraw]';
+      const stateLabelSelector =
+        '[data-testid=collateral-data-withdrawalLabel]';
       const visitWaitMillisec = 10000;
       const txWaitMilliSec = 50000;
 
       cy.visit('/');
       cy.wait(visitWaitMillisec);
 
-      if (cy.get(actionTriggerSelector).should('be.disabled')) {
-        return;
+      if (cy.get(stateLabelSelector).contains('ロックタイムカウントダウン')) {
+        cy.get(actionTriggerSelector).should('be.disabled');
       } else {
         // This code block is unreachable, but is left as a documentation.
         cy.get(currentCollateralAmountSelector)
