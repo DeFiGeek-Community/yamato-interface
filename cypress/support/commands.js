@@ -85,23 +85,25 @@ class CustomizedBridge extends Eip1193Bridge {
 }
 
 // sets up the injected provider to be a mock ethereum provider with the given mnemonic/index
-Cypress.Commands.overwrite('visit', (original, url, options) => {
-  return original(
-    url.startsWith('/') && url.length > 2 && !url.startsWith('/#')
-      ? `/#${url}`
-      : url,
-    {
-      ...options,
-      onBeforeLoad(win) {
-        options && options.onBeforeLoad && options.onBeforeLoad(win);
-        win.localStorage.clear();
-        const provider = new JsonRpcProvider(
-          `https://rinkeby.infura.io/v3/${INFURA_KEY}`,
-          4
-        );
-        const signer = new Wallet(TEST_PRIVATE_KEY, provider);
-        win.ethereum = new CustomizedBridge(signer, provider);
-      },
-    }
-  );
-});
+export function connectWallet() {
+  Cypress.Commands.overwrite('visit', (original, url, options) => {
+    return original(
+      url.startsWith('/') && url.length > 2 && !url.startsWith('/#')
+        ? `/#${url}`
+        : url,
+      {
+        ...options,
+        onBeforeLoad(win) {
+          options && options.onBeforeLoad && options.onBeforeLoad(win);
+          win.localStorage.clear();
+          const provider = new JsonRpcProvider(
+            `https://rinkeby.infura.io/v3/${INFURA_KEY}`,
+            4
+          );
+          const signer = new Wallet(TEST_PRIVATE_KEY, provider);
+          win.ethereum = new CustomizedBridge(signer, provider);
+        },
+      }
+    );
+  });
+}

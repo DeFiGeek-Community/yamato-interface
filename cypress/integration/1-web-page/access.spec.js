@@ -1,5 +1,9 @@
 /// <reference types="cypress" />
 
+import { connectWallet } from '../../support/commands';
+
+connectWallet();
+
 describe('visit interface pages', () => {
   beforeEach(() => {
     cy.visit('/');

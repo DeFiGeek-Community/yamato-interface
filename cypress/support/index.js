@@ -13,5 +13,5 @@
 // https://on.cypress.io/configuration
 // ***********************************************************
 
-// Import commands.js using ES2015 syntax:
-import './commands';
+// test spec load and call connectWallet function to switch wallet connect or not.
+// import { connectWallet } from './commands';

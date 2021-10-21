@@ -1,8 +1,12 @@
 /// <reference types="cypress" />
 
+import { connectWallet } from '../../support/commands';
+
 const paramEthDelta = 1;
 const paramCjpyDelta = 1000;
 const feeRatio = 0.001;
+
+connectWallet();
 
 describe(
   'Walk through',
