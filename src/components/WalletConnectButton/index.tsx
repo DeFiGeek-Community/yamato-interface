@@ -139,6 +139,7 @@ function Web3StatusInner() {
         // faded={!account}
       >
         <WalletText
+          data-testid="wallet-data-connectWallet"
           style={{
             fontSize: '2rem',
             lineHeight: '2.3rem',
