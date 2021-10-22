@@ -1,4 +1,4 @@
-name: Cypress Tests using Cypress Docker Image
+name: E2E walk through test.
 
 on:
   schedule:
