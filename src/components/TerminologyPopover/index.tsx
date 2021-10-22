@@ -6,7 +6,10 @@ import {
   PopoverBody,
   PopoverCloseButton,
   PopoverHeader,
+  Box,
+  HStack,
 } from '@chakra-ui/react';
+import { red } from 'bn.js';
 import React from 'react';
 import {
   ButtonInHeaderBox1,
@@ -30,16 +33,27 @@ export default function TerminologyPopover({
       </PopoverTrigger>
       <PopoverContent width={width ?? '360px'}>
         <PopoverArrow bgColor={popoverBorderColor} />
-        <PopoverCloseButton textColor={popoverBorderColor} />
         <PopoverHeader
           borderColor={popoverBorderColor}
-          borderWidth={'0.4em 0.4em 0.2em 0.4em'}
+          borderWidth={'0.4em 0.4em 0 0.4em'}
         >
           <ItemTitleForPledge>{title ?? '用語解説'}</ItemTitleForPledge>
+          <PopoverCloseButton textColor={popoverBorderColor} />
         </PopoverHeader>
+        <HStack
+          borderColor={popoverBorderColor}
+          borderWidth={'0 0.4em 0 0.4em'}
+          padding={'0.2em'}
+        >
+          <Box
+            borderColor={popoverBorderColor}
+            borderWidth={'0 0.4em 0.4em 0.4em'}
+            width={width ?? '360px'}
+          />
+        </HStack>
         <PopoverBody
           borderColor={popoverBorderColor}
-          borderWidth={'0.2em 0.4em 0.4em 0.4em'}
+          borderWidth={'0 0.4em 0.4em 0.4em'}
         >
           {children}
         </PopoverBody>
