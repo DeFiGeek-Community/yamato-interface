@@ -3,7 +3,7 @@ name: E2E walk through test.
 on:
   schedule:
     # * is a special character in YAML so you have to quote this string
-    - cron:  '40 3 * * *'
+    - cron:  '0 11 * * *'
 
 jobs:
   cypress-run:
