@@ -2,8 +2,8 @@
 
 import { connectWallet } from '../../support/commands';
 
-const paramEthDelta = 1;
-const paramCjpyDelta = 1000;
+const paramEthDelta = 0.0001;
+const paramCjpyDelta = 0.1;
 const feeRatio = 0.001;
 
 connectWallet();
