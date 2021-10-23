@@ -40,7 +40,12 @@ export default function Dashboad() {
                   YAMATO_SYMBOL.COLLATERAL
                 }`}
               />
-              <DashboadItem title={'TCR'} stat={`${tcr.toFixed(2)}%`} />
+              <DashboadItem
+                title={'TCR'}
+                stat={`${tcr.toLocaleString(undefined, {
+                  maximumFractionDigits: 2,
+                })}%`}
+              />
               <DashboadItem
                 title={'CJPYプライス'}
                 stat={`¥${

@@ -19,7 +19,12 @@ export default function Tcr(props: Props) {
         p={1}
       >
         <ItemTitleForInfographics>TCR</ItemTitleForInfographics>
-        <ItemTitleForInfographics>{tcr.toFixed(2)}%</ItemTitleForInfographics>
+        <ItemTitleForInfographics>
+          {tcr.toLocaleString(undefined, {
+            maximumFractionDigits: 2,
+          })}
+          %
+        </ItemTitleForInfographics>
       </Box>
       <div style={{ textAlign: 'center' }}>
         <Thermometer

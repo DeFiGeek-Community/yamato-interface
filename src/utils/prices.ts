@@ -80,7 +80,9 @@ export function formatCollateralizationRatio(
   if (debt === 0) {
     return '0.00';
   }
-  return (divideToNum(collateral, debt) * 100).toFixed(2);
+  return (divideToNum(collateral, debt) * 100).toLocaleString(undefined, {
+    maximumFractionDigits: 2,
+  });
 }
 
 export function getEthChangePercent(current: number, previous: number): number {
