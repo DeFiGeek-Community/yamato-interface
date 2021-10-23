@@ -26,7 +26,6 @@ jobs:
         env:
           REACT_APP_INFURA_KEY: ${{ secrets.REACT_APP_INFURA_KEY }}
           CYPRESS_BASE_URL: http://localhost:3000/#/
-          ## !TODO! parameter took from Uniswap project and must be replaced.
           CYPRESS_WALLET_PRIVATE_KEY: ${{ secrets.CYPRESS_WALLET_PRIVATE_KEY }}
 
       - name: discord notification（if failure）
