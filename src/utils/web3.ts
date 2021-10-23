@@ -1,4 +1,5 @@
 import { getAddress } from '@ethersproject/address';
+import { BigNumber } from '@ethersproject/bignumber';
 import { AddressZero } from '@ethersproject/constants';
 import { Contract } from '@ethersproject/contracts';
 import { JsonRpcSigner, Web3Provider } from '@ethersproject/providers';
@@ -60,6 +61,25 @@ export function getContract(
  */
 
 export function parseEther(ether: string) {
+  if (ether.includes('e')) {
+    // Parse
+    const integerPart = ether.match(/^([0-9])+e/);
+    const isNegative = ether.includes('-');
+    const exponentialPart = ether.match(/^[0-9]+e-?([0-9]+)/);
+    if (
+      !integerPart ||
+      !integerPart[1] ||
+      !exponentialPart ||
+      !exponentialPart[1]
+    ) {
+      return BigNumber.from(0);
+    }
+
+    const pow = !isNegative
+      ? 18 + Number(exponentialPart[1])
+      : 18 / Number(exponentialPart[1]);
+    return BigNumber.from(integerPart[1]).pow(pow);
+  }
   return ethers.utils.parseEther(ether);
 }
 

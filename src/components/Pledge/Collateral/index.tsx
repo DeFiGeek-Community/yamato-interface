@@ -23,7 +23,7 @@ export default function Collateral() {
           marginTop={26}
           data-testid="collateral-data-currentAmount"
         >
-          {collateral}
+          {formatPrice(collateral, 'eth').value}
           {YAMATO_SYMBOL.COLLATERAL}
         </ItemTitleValue>
       </GridItem>
