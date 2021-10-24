@@ -101,7 +101,10 @@ function Web3StatusInner() {
                 </Row>
               </FlexText>
             ) : (
-              <FlexText style={{ fontSize: '1.8rem', lineHeight: '2.1rem' }}>
+              <FlexText
+                style={{ fontSize: '1.8rem', lineHeight: '2.1rem' }}
+                data-testid="wallet-data-connectedAs"
+              >
                 Connected As
                 <br />
                 {ENSName || shortenAddress(account)}
@@ -136,6 +139,7 @@ function Web3StatusInner() {
         // faded={!account}
       >
         <WalletText
+          data-testid="wallet-data-connectWallet"
           style={{
             fontSize: '2rem',
             lineHeight: '2.3rem',
