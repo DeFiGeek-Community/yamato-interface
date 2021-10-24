@@ -107,7 +107,7 @@ function renderBattery(reserveRank: number, isIncrease: boolean) {
         <Battery10Discharge {...svgProps2} />
       );
     default:
-      return <Battery1Charge {...svgProps} />;
+      return <Battery1Discharge {...svgProps} />;
   }
 }
 
