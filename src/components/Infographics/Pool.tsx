@@ -37,71 +37,71 @@ const BatterySvgWrapper = styled.div`
 
 interface Props {
   reserveRankOfRedemption: number;
-  isIncreaseForRedemptionReserve: boolean;
+  isDecreaseForRedemptionReserve: boolean;
   reserveRankOfSweep: number;
-  isIncreaseForSweepReserve: boolean;
+  isDecreaseForSweepReserve: boolean;
 }
 
-function renderBattery(reserveRank: number, isIncrease: boolean) {
+function renderBattery(reserveRank: number, isDecrease: boolean) {
   const svgProps = { viewBox: '10 -3 40 40' };
   const svgProps2 = { height: '4rem', viewBox: '22 0 50 50' };
   switch (reserveRank) {
     case 1:
-      return isIncrease ? (
+      return !isDecrease ? (
         <Battery1Charge {...svgProps} />
       ) : (
         <Battery1Discharge {...svgProps2} />
       );
     case 2:
-      return isIncrease ? (
+      return !isDecrease ? (
         <Battery2Charge {...svgProps} />
       ) : (
         <Battery2Discharge {...svgProps2} />
       );
     case 3:
-      return isIncrease ? (
+      return !isDecrease ? (
         <Battery3Charge {...svgProps} />
       ) : (
         <Battery3Discharge {...svgProps2} />
       );
     case 4:
-      return isIncrease ? (
+      return !isDecrease ? (
         <Battery4Charge {...svgProps} />
       ) : (
         <Battery4Discharge {...svgProps2} />
       );
     case 5:
-      return isIncrease ? (
+      return !isDecrease ? (
         <Battery5Charge {...svgProps} />
       ) : (
         <Battery5Discharge {...svgProps2} />
       );
     case 6:
-      return isIncrease ? (
+      return !isDecrease ? (
         <Battery6Charge {...svgProps} />
       ) : (
         <Battery6Discharge {...svgProps2} />
       );
     case 7:
-      return isIncrease ? (
+      return !isDecrease ? (
         <Battery7Charge {...svgProps} />
       ) : (
         <Battery7Discharge {...svgProps2} />
       );
     case 8:
-      return isIncrease ? (
+      return !isDecrease ? (
         <Battery8Charge {...svgProps} />
       ) : (
         <Battery8Discharge {...svgProps2} />
       );
     case 9:
-      return isIncrease ? (
+      return !isDecrease ? (
         <Battery9Charge {...svgProps} />
       ) : (
         <Battery9Discharge {...svgProps2} />
       );
     case 10:
-      return isIncrease ? (
+      return !isDecrease ? (
         <Battery10Charge {...svgProps} />
       ) : (
         <Battery10Discharge {...svgProps2} />
@@ -114,9 +114,9 @@ function renderBattery(reserveRank: number, isIncrease: boolean) {
 export default function Pool(props: Props) {
   const {
     reserveRankOfRedemption,
-    isIncreaseForRedemptionReserve,
+    isDecreaseForRedemptionReserve,
     reserveRankOfSweep,
-    isIncreaseForSweepReserve,
+    isDecreaseForSweepReserve,
   } = props;
 
   return (
@@ -133,7 +133,7 @@ export default function Pool(props: Props) {
         <BatterySvgWrapper>
           {renderBattery(
             reserveRankOfRedemption,
-            isIncreaseForRedemptionReserve
+            isDecreaseForRedemptionReserve
           )}
         </BatterySvgWrapper>
       </BatteryContainer>
@@ -147,7 +147,7 @@ export default function Pool(props: Props) {
       </Box>
       <BatteryContainer>
         <BatterySvgWrapper>
-          {renderBattery(reserveRankOfSweep, isIncreaseForSweepReserve)}
+          {renderBattery(reserveRankOfSweep, isDecreaseForSweepReserve)}
         </BatterySvgWrapper>
       </BatteryContainer>
     </Box>

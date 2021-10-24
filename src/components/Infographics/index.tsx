@@ -78,10 +78,10 @@ export function InfographicsContent(props: Partial<InfographicsProps>) {
     mixedValues.rateOfEthJpy,
     mixedValues.prevRateOfEthJpy
   );
-  const isIncreaseForRedemptionReserve =
-    mixedValues.redemptionReserve > mixedValues.prevRedemptionReserve;
-  const isIncreaseForSweepReserve =
-    mixedValues.sweepReserve > mixedValues.prevSweepReserve;
+  const isDecreaseForRedemptionReserve =
+    mixedValues.redemptionReserve < mixedValues.prevRedemptionReserve;
+  const isDecreaseForSweepReserve =
+    mixedValues.sweepReserve < mixedValues.prevSweepReserve;
 
   /**
    * All 21 Ranks(-10 ~ +10)
@@ -133,9 +133,9 @@ export function InfographicsContent(props: Partial<InfographicsProps>) {
           </div>
           <Pool
             reserveRankOfRedemption={reserveRankOfRedemption}
-            isIncreaseForRedemptionReserve={isIncreaseForRedemptionReserve}
+            isDecreaseForRedemptionReserve={isDecreaseForRedemptionReserve}
             reserveRankOfSweep={reserveRankOfSweep}
-            isIncreaseForSweepReserve={isIncreaseForSweepReserve}
+            isDecreaseForSweepReserve={isDecreaseForSweepReserve}
           />
         </GridItem>
       </Grid>
