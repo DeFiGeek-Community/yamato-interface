@@ -1,4 +1,4 @@
-import { Grid, GridItem, Stack, FormControl } from '@chakra-ui/react';
+import { Grid, GridItem, HStack, Stack, FormControl } from '@chakra-ui/react';
 import { Formik, Form } from 'formik';
 import {
   CategoryTitle,
@@ -7,7 +7,7 @@ import {
   CustomFormLabel,
   CustomInput,
 } from '../CommonItem';
-import { InfographicsContent } from '../Infographics';
+import { InfographicsContent, InfographicsHelp } from '../Infographics';
 
 function InputField(props: {
   name: string;
@@ -37,7 +37,10 @@ export default function InfographicsTool() {
       {(formik) => (
         <Form>
           <HeaderBox1>
-            <CategoryTitle>Infographics Simulator</CategoryTitle>
+            <HStack>
+              <CategoryTitle>Infographics Simulator</CategoryTitle>
+              <InfographicsHelp />
+            </HStack>
           </HeaderBox1>
           <ConentBox>
             <Grid

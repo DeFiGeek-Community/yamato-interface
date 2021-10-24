@@ -1,8 +1,14 @@
-import { Grid, GridItem, VStack } from '@chakra-ui/react';
+import { Grid, GridItem, HStack, VStack } from '@chakra-ui/react';
 import { YAMATO_SYMBOL } from '../../constants/yamato';
 import { useYamatoStateForDashboard } from '../../state/yamato-entirety/hooks';
 import { formatPrice } from '../../utils/prices';
-import { CategoryTitle, ConentBox, HeaderBox1 } from '../CommonItem';
+import {
+  CategoryTitle,
+  ConentBox,
+  HeaderBox1,
+  ItemTitleValue,
+} from '../CommonItem';
+import TerminologyPopover from '../TerminologyPopover';
 import DashboadItem from './Item';
 
 function getRateOfCjpyJpy(rateOfCjpyJpy: [string, number][]) {
@@ -28,7 +34,17 @@ export default function Dashboad() {
   return (
     <>
       <HeaderBox1>
-        <CategoryTitle>Yamato Statistics</CategoryTitle>
+        <HStack>
+          <CategoryTitle>Yamato Statistics</CategoryTitle>
+          <TerminologyPopover>
+            <div>
+              <ItemTitleValue>TVL: 総預入額(Total Value Locked)</ItemTitleValue>
+              <ItemTitleValue>
+                TCR: 総担保比率(Total Collateral Ratio)
+              </ItemTitleValue>
+            </div>
+          </TerminologyPopover>
+        </HStack>
       </HeaderBox1>
       <ConentBox>
         <Grid templateColumns="repeat(2, 1fr)" gap={4}>

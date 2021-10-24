@@ -1,4 +1,4 @@
-import { Grid, GridItem } from '@chakra-ui/react';
+import { Grid, GridItem, HStack } from '@chakra-ui/react';
 import { useYamatoStateForInfographics } from '../../state/yamato-entirety/hooks';
 import { getEthChangePercent } from '../../utils/prices';
 import {
@@ -7,6 +7,7 @@ import {
   HeaderBox1,
   ItemTitleValue,
 } from '../CommonItem';
+import TerminologyPopover from '../TerminologyPopover';
 import CjpyPrice from './CjpyPrice';
 import EthPrice from './EthPrice';
 import Pool from './Pool';
@@ -43,6 +44,19 @@ export interface InfographicsProps {
   prevRedemptionReserve: number; // state.yamatoEntirety.pool.prevRedemptionReserve
   sweepReserve: number; // state.yamatoEntirety.pool.sweepReserve
   prevSweepReserve: number; // state.yamatoEntirety.pool.prevSweepReserve
+}
+
+export function InfographicsHelp() {
+  return (
+    <TerminologyPopover>
+      <div>
+        <ItemTitleValue>TCR: 総担保比率(Total Collateral Ratio)</ItemTitleValue>
+        <ItemTitleValue>
+          MCR: 最低担保比率(Minimum Collateral Ratio)
+        </ItemTitleValue>
+      </div>
+    </TerminologyPopover>
+  );
 }
 
 export function InfographicsContent(props: Partial<InfographicsProps>) {
@@ -133,7 +147,10 @@ export default function Infographics(props: Partial<InfographicsProps>) {
   return (
     <>
       <HeaderBox1>
-        <CategoryTitle>CJPY Now</CategoryTitle>
+        <HStack>
+          <CategoryTitle>CJPY Now</CategoryTitle>
+          <InfographicsHelp />
+        </HStack>
       </HeaderBox1>
       <ConentBox>
         <InfographicsContent {...props} />
