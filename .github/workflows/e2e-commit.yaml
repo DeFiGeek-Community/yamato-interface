@@ -25,6 +25,15 @@ jobs:
           CYPRESS_BASE_URL: http://localhost:3000/#/
           CYPRESS_WALLET_PRIVATE_KEY: ${{ secrets.CYPRESS_WALLET_PRIVATE_KEY }}
 
+      - name: Archive test recordings
+        uses: actions/upload-artifact@v2
+        with:
+          retention-days: 1
+          name: test-recordings
+          path: |
+            cypress/screenshots
+            cypress/videos
+
       - name: discord notification（if failure）
         uses: sarisia/actions-status-discord@v1
         if: ${{ failure() }}
