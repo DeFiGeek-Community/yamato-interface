@@ -16,6 +16,8 @@ jobs:
         uses: cypress-io/github-action@v2
         with:
           spec: cypress/integration/1-connect-wallet/main.spec.js
+          record: false
+          config-file: cypress/config/noVideo.json
           start: yarn start
           wait-on: 'http://localhost:3000'
           wait-on-timeout: 120
@@ -28,7 +30,7 @@ jobs:
       - name: Archive test recordings
         uses: actions/upload-artifact@v2
         with:
-          retention-days: 1
+          retention-days: 7
           name: test-recordings
           path: |
             cypress/screenshots
