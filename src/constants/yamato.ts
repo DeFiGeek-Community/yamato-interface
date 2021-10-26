@@ -18,7 +18,7 @@ export const LOG_EVENT_NAME: {
   governance_lock: 'YMTロック',
   governance_extension: 'YMT延長',
   governance_withdrawal: 'YMT引出',
-  self_redemption: '自己償還',
+  self_redemption: '償還',
   core_redemption: 'Yamato償還',
   sweep: 'Yamato代位弁済',
 };

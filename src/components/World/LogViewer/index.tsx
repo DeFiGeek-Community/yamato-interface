@@ -5,21 +5,22 @@ import { LOG_EVENT_NAME } from '../../../constants/yamato';
 import useENSName from '../../../hooks/ens/useENSName';
 import { useYamatoStateForWorld } from '../../../state/yamato-entirety/hooks';
 import { LogEvent, LogEventType } from '../../../state/yamato-entirety/reducer';
+import { formatPrice } from '../../../utils/prices';
 import { shortenAddress } from '../../../utils/web3';
 import { Text } from '../../CommonItem';
 
 function getDescriptor(event: LogEvent) {
   switch (event.category as LogEventType) {
     case 'deposit':
-      return `${event.value}ETHを預けました！`;
+      return `${formatPrice(event.value, 'eth').value}ETHを預けました！`;
     case 'withdrawal':
-      return `${event.value}ETHを引き出しました！`;
+      return `${formatPrice(event.value, 'eth').value}ETHを引き出しました！`;
     case 'borrowing':
-      return `${event.value}CJPYを借り入れました！`;
+      return `${formatPrice(event.value, 'jpy').value}CJPYを借り入れました！`;
     case 'repay':
-      return `${event.value}CJPYを返済しました！`;
+      return `${formatPrice(event.value, 'jpy').value}CJPYを返済しました！`;
     case 'self_redemption':
-      return `${event.value}CJPYを償還しました！`;
+      return `トリガーしました！`;
     case 'core_redemption':
       return `トリガーしました！`;
     case 'sweep':
@@ -108,8 +109,11 @@ export default function LogViewer() {
     <div
       style={{ height: !!account ? '30rem' : '34.5rem', overflowY: 'scroll' }}
     >
-      <TransitionGroup>{renderLogEvents()}</TransitionGroup>
-      {renderLogEvents()}
+      {diplayedEvents.length > 0 ? (
+        <TransitionGroup>{renderLogEvents()}</TransitionGroup>
+      ) : (
+        <Text>ログがありません。</Text>
+      )}
     </div>
   );
 }

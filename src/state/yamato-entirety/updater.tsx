@@ -12,6 +12,8 @@ import {
   fetchTotalSupply,
   fetchYamatoEntiretyStateFromContract,
 } from '../../utils/fetchState';
+import { fetchEventLogs } from '../../utils/fetchState/fetchEventLogs';
+import { useBlockNumber } from '../application/hooks';
 import {
   mockLogs,
   mockTokenTotalSupply,
@@ -62,7 +64,7 @@ const initialTokenParams = {
 };
 
 export default function Updater(): null {
-  const { active, account } = useActiveWeb3React();
+  const { active, account, library } = useActiveWeb3React();
 
   const yamatoMainContract = useYamatoMainContract();
   const yamatoPoolContract = useYamatoPoolContract();
@@ -75,6 +77,7 @@ export default function Updater(): null {
   const fetchTokenState = useFetchTokenState();
   const fetchRateOfEthJpy = useFetchRateOfEthJpy();
   const fetchEvents = useFetchEvents();
+  const blockNumber = useBlockNumber();
 
   useInterval(async () => {
     // TODO: If implementing subgraph, remove. You will execute this alltime without wallet.
@@ -118,11 +121,19 @@ export default function Updater(): null {
     fetchTokenState(tokenParams);
   }, 5000);
 
-  useInterval(() => {
-    // TODO: replace me.
-    const now = Date.now();
-    const mockState = mockLogs(now);
-    fetchEvents(mockState);
+  useInterval(async () => {
+    let params;
+    if (!isUseMock) {
+      if (!blockNumber || !library || !yamatoMainContract) {
+        fetchEvents([]);
+        return;
+      }
+      params = await fetchEventLogs(blockNumber, library, yamatoMainContract);
+    } else {
+      params = mockLogs();
+    }
+
+    fetchEvents(params);
   }, 5000);
 
   return null;

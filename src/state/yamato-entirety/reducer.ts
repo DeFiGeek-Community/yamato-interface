@@ -18,8 +18,7 @@ export type LogEventType =
   | 'core_redemption'
   | 'sweep';
 export type LogEvent = {
-  id: string;
-  date: number;
+  id: number;
   address: string;
   category: LogEventType;
   value: any;
@@ -120,9 +119,9 @@ export default createReducer(initialState, (builder) =>
         return !state.events.some((event) => event.id === newEvent.id);
       });
       const newState = state.events.concat(additionals).sort((a, b) => {
-        if (a.date > b.date) {
+        if (a.id > b.id) {
           return -1;
-        } else if (a.date < b.date) {
+        } else if (a.id < b.id) {
           return 1;
         }
         return 0;

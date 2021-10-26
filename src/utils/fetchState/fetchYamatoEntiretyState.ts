@@ -21,6 +21,7 @@ export async function fetchYamatoEntiretyStateFromContract(contracts: {
   yamatoPoolContract: Pool | null;
   yamatoPriceFeedContract: PriceFeed | null;
 }) {
+  // Yamato.sol
   const yamatoMainResults: [
     BigNumber,
     BigNumber,
@@ -31,6 +32,7 @@ export async function fetchYamatoEntiretyStateFromContract(contracts: {
   ] = contracts.yamatoMainContract
     ? await contracts.yamatoMainContract.getStates() // totalColl, totalDebt, MCR, RRR, SRR, GRR
     : [BigNumber.from(0), BigNumber.from(0), 110, 80, 20, 1];
+  // Pool.sol
   const yamatoPoolResults: [BigNumber, BigNumber, BigNumber, BigNumber] =
     contracts.yamatoPoolContract
       ? await contracts.yamatoPoolContract.getStates() // redemptionReserve, sweepReserve, dividendReserve, lockedCollateral
@@ -40,6 +42,7 @@ export async function fetchYamatoEntiretyStateFromContract(contracts: {
           BigNumber.from(0),
           BigNumber.from(0),
         ];
+  // PriceFeed.sol
   const yamatoPriceFeedResults = contracts.yamatoPriceFeedContract
     ? {
         rateOfEthJpy: Number(
