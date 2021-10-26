@@ -64,7 +64,7 @@ export function parseEther(ether: string) {
   if (ether.includes('e')) {
     // Parse
     const integerPart = ether.match(/^([0-9])+e/);
-    const isNegative = ether.includes('-');
+    const isNegative = ether.includes('e-');
     const exponentialPart = ether.match(/^[0-9]+e-?([0-9]+)/);
     if (
       !integerPart ||
@@ -75,9 +75,10 @@ export function parseEther(ether: string) {
       return BigNumber.from(0);
     }
 
+    // resolve exponential number
     const pow = !isNegative
       ? 18 + Number(exponentialPart[1])
-      : 18 / Number(exponentialPart[1]);
+      : 18 - Number(exponentialPart[1]);
     return BigNumber.from(integerPart[1]).pow(pow);
   }
   return ethers.utils.parseEther(ether);

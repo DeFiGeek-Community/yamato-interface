@@ -1,4 +1,3 @@
-import { Web3Provider } from '@ethersproject/providers';
 import { Interface } from 'ethers/lib/utils';
 import { Yamato } from '../../infrastructures/abis/types';
 import YAMATO_MAIN_ABI from '../../infrastructures/abis/yamato/Yamato.json';
@@ -7,7 +6,6 @@ import { formatCjpy, formatEther } from '../web3';
 
 export async function fetchEventLogs(
   blockNumber: number,
-  library: Web3Provider,
   yamatoMainContract: Yamato
 ): Promise<LogEvent[]> {
   // event filter

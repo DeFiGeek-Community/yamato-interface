@@ -37,7 +37,7 @@ const initialYamatoParams = initialState;
 const initialTokenParams = initialState.token;
 
 export default function Updater(): null {
-  const { active, account, library } = useActiveWeb3React();
+  const { active, account } = useActiveWeb3React();
 
   const yamatoMainContract = useYamatoMainContract();
   const yamatoPoolContract = useYamatoPoolContract();
@@ -100,11 +100,11 @@ export default function Updater(): null {
   useInterval(async () => {
     let params;
     if (!isUseMock) {
-      if (!blockNumber || !library || !yamatoMainContract) {
+      if (!blockNumber || !yamatoMainContract) {
         resetEvents();
         return;
       }
-      params = await fetchEventLogs(blockNumber, library, yamatoMainContract);
+      params = await fetchEventLogs(blockNumber, yamatoMainContract);
     } else {
       params = mockLogs();
     }
