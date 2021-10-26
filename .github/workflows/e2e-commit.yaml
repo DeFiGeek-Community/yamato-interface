@@ -16,6 +16,8 @@ jobs:
         uses: cypress-io/github-action@v2
         with:
           spec: cypress/integration/1-connect-wallet/main.spec.js
+          record: false
+          config-file: cypress/config/noVideo.json
           start: yarn start
           wait-on: 'http://localhost:3000'
           wait-on-timeout: 120
@@ -24,6 +26,15 @@ jobs:
           REACT_APP_INFURA_KEY: ${{ secrets.REACT_APP_INFURA_KEY }}
           CYPRESS_BASE_URL: http://localhost:3000/#/
           CYPRESS_WALLET_PRIVATE_KEY: ${{ secrets.CYPRESS_WALLET_PRIVATE_KEY }}
+
+      - name: Archive test recordings
+        uses: actions/upload-artifact@v2
+        with:
+          retention-days: 7
+          name: test-recordings
+          path: |
+            cypress/screenshots
+            cypress/videos
 
       - name: discord notification（if failure）
         uses: sarisia/actions-status-discord@v1
