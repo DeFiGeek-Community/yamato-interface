@@ -4,6 +4,7 @@ import {
   fetchRateOfEthJpy,
   fetchTokenState,
   fetchYamatoState,
+  resetEvents,
 } from './actions';
 
 export type LogEventType =
@@ -63,6 +64,7 @@ export interface YamatoEntiretyState {
     SRR: number; // SweepReserveRate
     GRR: number; // GasReserveRate
   };
+  isRedeemablePledge: boolean;
   events: Array<LogEvent>; // the Ethereum events the users wallet has been recieved.
 }
 
@@ -88,6 +90,7 @@ export const initialState: YamatoEntiretyState = {
     SRR: 20,
     GRR: 1,
   },
+  isRedeemablePledge: false,
   events: [],
 };
 
@@ -95,7 +98,10 @@ export default createReducer(initialState, (builder) =>
   builder
     .addCase(
       fetchYamatoState,
-      (state, { payload: { lending, pool, parameter } }) => {
+      (
+        state,
+        { payload: { lending, pool, parameter, isRedeemablePledge } }
+      ) => {
         state.lending = lending;
         state.pool = {
           ...pool,
@@ -103,6 +109,7 @@ export default createReducer(initialState, (builder) =>
           prevSweepReserve: state.pool.sweepReserve,
         };
         state.parameter = parameter;
+        state.isRedeemablePledge = isRedeemablePledge;
       }
     )
     .addCase(fetchTokenState, (state, { payload: { cjpy, ymt, veYmt } }) => {
@@ -127,5 +134,8 @@ export default createReducer(initialState, (builder) =>
         return 0;
       });
       state.events = newState;
+    })
+    .addCase(resetEvents, (state) => {
+      state.events = [];
     })
 );

@@ -38,6 +38,7 @@ export const mockYamatoEntirety = {
       SRR: 20,
       GRR: 1,
     },
+    isRedeemablePledge: false,
   },
   rateOfEthJpy: mockState.rateOfEthJpy,
 };

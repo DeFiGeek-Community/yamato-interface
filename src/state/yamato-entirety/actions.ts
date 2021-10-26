@@ -19,6 +19,7 @@ export const fetchYamatoState = createAction<{
     SRR: number;
     GRR: number;
   };
+  isRedeemablePledge: boolean;
 }>('yamato-entirety/fetchYamatoState');
 
 export const fetchTokenState = createAction<{
@@ -34,3 +35,5 @@ export const fetchRateOfEthJpy = createAction<{
 export const fetchEvents = createAction<{
   events: LogEvent[];
 }>('yamato-entirety/fetchEvents');
+
+export const resetEvents = createAction('yamato-entirety/resetEvents');

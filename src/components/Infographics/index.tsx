@@ -63,8 +63,14 @@ export function InfographicsContent(props: Partial<InfographicsProps>) {
   const yamatoState = useYamatoStateForInfographics();
   const mixedValues = { ...yamatoState, ...props };
 
-  const { rateOfCjpyJpy, rateOfEthJpy, redemptionReserve, sweepReserve, MCR } =
-    mixedValues;
+  const {
+    rateOfCjpyJpy,
+    rateOfEthJpy,
+    redemptionReserve,
+    sweepReserve,
+    MCR,
+    isRedeemablePledge,
+  } = mixedValues;
 
   const tcr =
     props.hasOwnProperty('totalCollateral') ||
@@ -105,7 +111,11 @@ export function InfographicsContent(props: Partial<InfographicsProps>) {
   const reserveRankOfSweep = getReserveRankOfSweep(sweepReserve);
 
   function renderSignalMessages() {
-    const messages = getSignalMessages(cjpyPriceRank, ethPriceRank);
+    const messages = getSignalMessages(
+      cjpyPriceRank,
+      ethPriceRank,
+      isRedeemablePledge
+    );
     return messages.map((message, index) => (
       <ItemTitleValue key={index} style={{ display: 'block' }}>
         {message}

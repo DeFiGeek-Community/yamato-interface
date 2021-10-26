@@ -7,6 +7,7 @@ import {
   fetchRateOfEthJpy,
   fetchTokenState,
   fetchYamatoState,
+  resetEvents,
 } from './actions';
 import { LogEvent } from './reducer';
 
@@ -66,6 +67,7 @@ export function useYamatoStateForInfographics() {
       sweepReserve: state.yamatoEntirety.pool.sweepReserve,
       prevSweepReserve: state.yamatoEntirety.pool.prevSweepReserve,
       MCR: state.yamatoEntirety.parameter.MCR,
+      isRedeemablePledge: state.yamatoEntirety.isRedeemablePledge,
     };
   });
 }
@@ -94,6 +96,7 @@ export function useFetchYamatoState() {
         SRR: number;
         GRR: number;
       };
+      isRedeemablePledge: boolean;
     }) => dispatch(fetchYamatoState(args)),
     [dispatch]
   );
@@ -124,6 +127,10 @@ export function useFetchEvents() {
     (events: LogEvent[]) => dispatch(fetchEvents({ events })),
     [dispatch]
   );
+}
+export function useResetEvents() {
+  const dispatch = useDispatch<AppDispatch>();
+  return useCallback(() => dispatch(resetEvents()), [dispatch]);
 }
 
 /**

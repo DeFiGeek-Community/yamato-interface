@@ -1,10 +1,16 @@
+import { AddressZero } from '@ethersproject/constants';
 import { BigNumber } from 'ethers';
 import {
   useYamatoMainContract,
   useYamatoPoolContract,
   useYamatoPriceFeedContract,
 } from '../../hooks/useContract';
-import { Pool, PriceFeed, Yamato } from '../../infrastructures/abis/types';
+import {
+  Pool,
+  PriceFeed,
+  PriorityRegistry,
+  Yamato,
+} from '../../infrastructures/abis/types';
 import { formatCjpy, formatEther, formatYen } from '../web3';
 
 export function useFetchYamatoEntiretyState() {
@@ -20,6 +26,7 @@ export async function fetchYamatoEntiretyStateFromContract(contracts: {
   yamatoMainContract: Yamato | null;
   yamatoPoolContract: Pool | null;
   yamatoPriceFeedContract: PriceFeed | null;
+  yamatoPriorityRegistryContract: PriorityRegistry | null;
 }) {
   // Yamato.sol
   const yamatoMainResults: [
@@ -51,6 +58,17 @@ export async function fetchYamatoEntiretyStateFromContract(contracts: {
       }
     : {
         rateOfEthJpy: 0,
+      };
+  // PriorityRegistry.sol
+  const yamatoPriorityRegistryResults = contracts.yamatoPriorityRegistryContract
+    ? {
+        isRedeemablePledge:
+          (
+            await contracts.yamatoPriorityRegistryContract.nextRedeemable()
+          )[3] !== AddressZero,
+      }
+    : {
+        isRedeemablePledge: false,
       };
 
   // Create response
@@ -84,5 +102,6 @@ export async function fetchYamatoEntiretyStateFromContract(contracts: {
     pool,
     parameter,
     rateOfEthJpy: yamatoPriceFeedResults.rateOfEthJpy,
+    isRedeemablePledge: yamatoPriorityRegistryResults.isRedeemablePledge,
   };
 }

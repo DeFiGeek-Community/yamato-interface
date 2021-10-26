@@ -4,6 +4,7 @@ import {
   useYamatoMainContract,
   useYamatoPoolContract,
   useYamatoPriceFeedContract,
+  useYamatoPriorityRegistryContract,
   useYmtContract,
 } from '../../hooks/useContract';
 import useInterval from '../../hooks/useInterval';
@@ -24,44 +25,16 @@ import {
   useFetchRateOfEthJpy,
   useFetchTokenState,
   useFetchYamatoState,
+  useResetEvents,
 } from './hooks';
+import { initialState } from './reducer';
 
 const isUseMock = process.env.REACT_APP_USE_MOCK
   ? JSON.parse(process.env.REACT_APP_USE_MOCK)
   : false;
 
-const initialYamatoParams = {
-  lending: {
-    totalCollateral: 0,
-    totalDebt: 0,
-    tcr: 0,
-    tvl: 0,
-  },
-  pool: {
-    redemptionReserve: 0,
-    sweepReserve: 0,
-    sweepableCandiate: 0,
-  },
-  parameter: {
-    MCR: 0,
-    RRR: 0,
-    SRR: 0,
-    GRR: 0,
-  },
-  rateOfEthJpy: 0,
-};
-const initialTokenParams = {
-  cjpy: {
-    totalSupply: 0,
-  },
-  ymt: {
-    totalSupply: 0,
-  },
-  veYmt: {
-    totalSupply: 0,
-    boostRate: 0,
-  },
-};
+const initialYamatoParams = initialState;
+const initialTokenParams = initialState.token;
 
 export default function Updater(): null {
   const { active, account, library } = useActiveWeb3React();
@@ -69,6 +42,7 @@ export default function Updater(): null {
   const yamatoMainContract = useYamatoMainContract();
   const yamatoPoolContract = useYamatoPoolContract();
   const yamatoPriceFeedContract = useYamatoPriceFeedContract();
+  const yamatoPriorityRegistryContract = useYamatoPriorityRegistryContract();
   const cjpyContract = useCjpyContract();
   const ymtContract = useYmtContract();
   const veYmtContract = useVeYmtContract();
@@ -77,6 +51,7 @@ export default function Updater(): null {
   const fetchTokenState = useFetchTokenState();
   const fetchRateOfEthJpy = useFetchRateOfEthJpy();
   const fetchEvents = useFetchEvents();
+  const resetEvents = useResetEvents();
   const blockNumber = useBlockNumber();
 
   useInterval(async () => {
@@ -97,6 +72,7 @@ export default function Updater(): null {
           yamatoMainContract,
           yamatoPoolContract,
           yamatoPriceFeedContract,
+          yamatoPriorityRegistryContract,
         });
         rateOfEthJpy = yamatoParams.rateOfEthJpy;
         tokenParams = await fetchTotalSupply({
@@ -125,7 +101,7 @@ export default function Updater(): null {
     let params;
     if (!isUseMock) {
       if (!blockNumber || !library || !yamatoMainContract) {
-        fetchEvents([]);
+        resetEvents();
         return;
       }
       params = await fetchEventLogs(blockNumber, library, yamatoMainContract);
