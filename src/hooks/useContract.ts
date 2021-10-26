@@ -12,6 +12,7 @@ import {
   YMT_ADDRESSES,
   VEYMT_ADDRESSES,
   MULTICALL_ADDRESS,
+  YAMATO_PRIORITY_REGISTRY_ADDRESSES,
 } from '../constants/addresses';
 import ENS_PUBLIC_RESOLVER_ABI from '../infrastructures/abis/external/ens-public-resolver.json';
 import ENS_ABI from '../infrastructures/abis/external/ens-registrar.json';
@@ -26,10 +27,12 @@ import {
   EnsRegistrar,
   CJPY,
   UniswapInterfaceMulticall,
+  PriorityRegistry,
 } from '../infrastructures/abis/types';
 import CJPY_ABI from '../infrastructures/abis/yamato/CJPY.json';
 import YAMATO_POOL_ABI from '../infrastructures/abis/yamato/Pool.json';
 import YAMATO_PRICE_FEED_ABI from '../infrastructures/abis/yamato/PriceFeed.json';
+import YAMATO_PRIORITY_REGISTRY_ABI from '../infrastructures/abis/yamato/PriorityRegistry.json';
 import YMT_ABI from '../infrastructures/abis/yamato/YMT.json';
 import YAMATO_MAIN_ABI from '../infrastructures/abis/yamato/Yamato.json';
 import VEYMT_ABI from '../infrastructures/abis/yamato/veYMT.json';
@@ -84,6 +87,12 @@ export function useYamatoPriceFeedContract() {
   return useContract<PriceFeed>(
     YAMATO_PRICE_FEED_ADDRESSES,
     YAMATO_PRICE_FEED_ABI
+  );
+}
+export function useYamatoPriorityRegistryContract() {
+  return useContract<PriorityRegistry>(
+    YAMATO_PRIORITY_REGISTRY_ADDRESSES,
+    YAMATO_PRIORITY_REGISTRY_ABI
   );
 }
 

@@ -4,6 +4,7 @@ import {
   fetchRateOfEthJpy,
   fetchTokenState,
   fetchYamatoState,
+  resetEvents,
 } from './actions';
 import reducer, {
   initialState,
@@ -37,6 +38,7 @@ describe('yamato-entirety reducer', () => {
           SRR: 20,
           GRR: 1,
         },
+        isRedeemablePledge: false,
       };
 
       store.dispatch(fetchYamatoState(newState));
@@ -79,9 +81,30 @@ describe('yamato-entirety reducer', () => {
 
   describe('fetchEvents', () => {
     it('fetch Events', () => {
-      const events = [{ id: '1' }, { id: '2' }] as LogEvent[];
+      const events = [{ id: 1 }, { id: 2 }] as LogEvent[];
       store.dispatch(fetchEvents({ events }));
-      expect(store.getState()).toEqual({ ...initialState, events });
+      expect(store.getState()).toEqual({
+        ...initialState,
+        events: events.reverse(),
+      });
+    });
+  });
+
+  describe('resetEvents', () => {
+    it('reset Events', () => {
+      const events = [{ id: 1 }, { id: 2 }] as LogEvent[];
+      store.dispatch(fetchEvents({ events }));
+      expect(store.getState()).toEqual({
+        ...initialState,
+        events: events.reverse(),
+      });
+
+      store.dispatch(resetEvents());
+
+      expect(store.getState()).toEqual({
+        ...initialState,
+        events: [],
+      });
     });
   });
 });
