@@ -13,7 +13,7 @@
       },
       {
         "internalType": "address",
-        "name": "feePoolProxy",
+        "name": "feePool",
         "type": "address"
       }
     ],
