@@ -1,6 +1,8 @@
 name: E2E visiting and wallet connection tests.
 
-on: push
+on:
+  workflow_dispatch:
+  push:
 
 jobs:
   cypress-run:
