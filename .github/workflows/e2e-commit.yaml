@@ -31,7 +31,7 @@ jobs:
 
       - name: Archive test recordings
         uses: actions/upload-artifact@v2
-        if: true
+        if: ${{ true }}
         with:
           retention-days: 7
           name: test-recordings
