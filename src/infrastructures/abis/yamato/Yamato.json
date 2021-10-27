@@ -265,6 +265,19 @@
   },
   {
     "inputs": [],
+    "name": "cjpyOS",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
     "name": "deposit",
     "outputs": [],
     "stateMutability": "payable",
@@ -416,7 +429,7 @@
         "type": "uint256"
       }
     ],
-    "stateMutability": "nonpayable",
+    "stateMutability": "view",
     "type": "function"
   },
   {
