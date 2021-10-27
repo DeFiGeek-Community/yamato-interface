@@ -9,8 +9,6 @@ import {
   Box,
   HStack,
 } from '@chakra-ui/react';
-import { red } from 'bn.js';
-import React from 'react';
 import {
   ButtonInHeaderBox1,
   popoverBorderColor,

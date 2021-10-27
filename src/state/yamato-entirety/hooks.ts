@@ -47,7 +47,7 @@ export function useYamatoStateForPledge() {
 }
 export function useYamatoStateForWorld() {
   return useSelector((state: AppState) => ({
-    events: state.yamatoEntirety.events,
+    events: state.yamatoEntirety.events.slice(0, 20),
   }));
 }
 export function useYamatoStateForInfographics() {

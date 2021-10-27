@@ -1,5 +1,6 @@
 import { Grid, GridItem, VStack } from '@chakra-ui/react';
 import { Formik, Form, FormikHelpers } from 'formik';
+import { useCallback } from 'react';
 import { YAMATO_SYMBOL } from '../../../constants/yamato';
 import { useActiveWeb3React } from '../../../hooks/web3';
 import { useCoreRedeemCallback } from '../../../hooks/yamato/useCoreRedemption';
@@ -43,28 +44,31 @@ export default function RedemptionInput(props: Props) {
     MCR
   );
 
-  async function submitRedemption(
-    values: { redemption: number },
-    formikHelpers: FormikHelpers<{
-      redemption: number;
-    }>
-  ) {
-    if (!account || !callback) {
-      return `ウォレットを接続してください。またはネットワークを切り替えてください。`;
-    }
+  const submitRedemption = useCallback(
+    async (
+      values: { redemption: number },
+      formikHelpers: FormikHelpers<{
+        redemption: number;
+      }>
+    ) => {
+      if (!account || !callback) {
+        return `ウォレットを接続してください。またはネットワークを切り替えてください。`;
+      }
 
-    console.debug('submit core redemption', values);
+      console.debug('submit core redemption', values);
 
-    try {
-      const res = await callback!(redeemableCandidate.eth);
-      console.debug('core redemption done', res);
-    } catch (error) {
-      errorToast(error);
-    }
+      try {
+        const res = await callback!(redeemableCandidate.eth);
+        console.debug('core redemption done', res);
+      } catch (error) {
+        errorToast(error);
+      }
 
-    // reset
-    formikHelpers.resetForm();
-  }
+      // reset
+      formikHelpers.resetForm();
+    },
+    [account, redeemableCandidate, callback]
+  );
 
   return (
     <Formik initialValues={{ redemption: 0 }} onSubmit={submitRedemption}>

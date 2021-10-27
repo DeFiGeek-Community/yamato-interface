@@ -5,9 +5,13 @@ import { LogEvent } from '../../state/yamato-entirety/reducer';
 import { formatCjpy, formatEther } from '../web3';
 
 export async function fetchEventLogs(
-  blockNumber: number,
-  yamatoMainContract: Yamato
+  blockNumber: number | undefined,
+  yamatoMainContract: Yamato | null
 ): Promise<LogEvent[]> {
+  if (!blockNumber || !yamatoMainContract) {
+    return [];
+  }
+
   // event filter
   const borrowed = yamatoMainContract.filters.Borrowed();
   const withdrawn = yamatoMainContract.filters.Withdrawn();
