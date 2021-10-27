@@ -5,7 +5,7 @@ import {
   VStack,
 } from '@chakra-ui/react';
 import { Formik, Form, Field, FormikHelpers, FieldProps } from 'formik';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { YAMATO_SYMBOL } from '../../../constants/yamato';
 import { useActiveWeb3React } from '../../../hooks/web3';
 import { useBorrowCallback } from '../../../hooks/yamato/useBorrowCallback';
@@ -32,48 +32,54 @@ export default function BorrowingInput(props: Props) {
 
   const [borrowing, setBorrowing] = useState(0);
 
-  async function validateBorrowing(value: number) {
-    if (!account || !callback) {
-      return `ウォレットを接続してください。またはネットワークを切り替えてください。`;
-    }
+  const validateBorrowing = useCallback(
+    async (value: number) => {
+      if (!account || !callback) {
+        return `ウォレットを接続してください。またはネットワークを切り替えてください。`;
+      }
 
-    if (value == null || typeof value !== 'number') {
-      return '数値で入力してください。';
-    }
+      if (value == null || typeof value !== 'number') {
+        return '数値で入力してください。';
+      }
 
-    const sum = debt + value;
-    if (sum <= 0) {
-      return '数値で入力してください。';
-    }
-    const collateralRatio = ((collateral * rateOfEthJpy) / sum) * 100;
-    if (MCR > collateralRatio) {
-      return `担保率は最低${MCR}%が必要です。`;
-    }
+      const sum = debt + value;
+      if (sum <= 0) {
+        return '数値で入力してください。';
+      }
+      const collateralRatio = ((collateral * rateOfEthJpy) / sum) * 100;
+      if (MCR > collateralRatio) {
+        return `担保率は最低${MCR}%が必要です。`;
+      }
 
-    // Value is correct
-    setBorrowing(value);
-    return undefined;
-  }
+      // Value is correct
+      setBorrowing(value);
+      return undefined;
+    },
+    [account, collateral, debt, rateOfEthJpy, MCR, callback]
+  );
 
-  async function submitBorrowing(
-    values: { borrowing: number },
-    formikHelpers: FormikHelpers<{
-      borrowing: number;
-    }>
-  ) {
-    console.debug('submit borrowing', values);
+  const submitBorrowing = useCallback(
+    async (
+      values: { borrowing: number },
+      formikHelpers: FormikHelpers<{
+        borrowing: number;
+      }>
+    ) => {
+      console.debug('submit borrowing', values);
 
-    try {
-      const res = await callback!(values.borrowing);
-      console.debug('borrowing done', res);
-    } catch (error) {
-      errorToast(error);
-    }
+      try {
+        const res = await callback!(values.borrowing);
+        console.debug('borrowing done', res);
+      } catch (error) {
+        errorToast(error);
+      }
 
-    // reset
-    setBorrowing(0);
-    formikHelpers.resetForm();
-  }
+      // reset
+      setBorrowing(0);
+      formikHelpers.resetForm();
+    },
+    [callback]
+  );
 
   return (
     <Formik initialValues={{ borrowing: 0 }} onSubmit={submitBorrowing}>

@@ -98,12 +98,14 @@ export default function Updater(): null {
   }, 5000);
 
   useInterval(async () => {
+    // TODO: If implementing subgraph, remove. You will execute this alltime without wallet.
+    if (!active || !account) {
+      resetEvents();
+      return;
+    }
+
     let params;
     if (!isUseMock) {
-      if (!blockNumber || !yamatoMainContract) {
-        resetEvents();
-        return;
-      }
       params = await fetchEventLogs(blockNumber, yamatoMainContract);
     } else {
       params = mockLogs();

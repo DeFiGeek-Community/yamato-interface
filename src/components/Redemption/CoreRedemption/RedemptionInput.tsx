@@ -1,5 +1,6 @@
 import { Grid, GridItem, VStack } from '@chakra-ui/react';
 import { Formik, Form, FormikHelpers } from 'formik';
+import { useCallback } from 'react';
 import { YAMATO_SYMBOL } from '../../../constants/yamato';
 import { useActiveWeb3React } from '../../../hooks/web3';
 import { useCoreRedeemCallback } from '../../../hooks/yamato/useCoreRedemption';
@@ -12,59 +13,48 @@ import {
 } from '../shared/function';
 
 type Props = {
-  totalCollateral: number;
-  totalDebt: number;
-  tcr: number;
   rateOfEthJpy: number;
   redemptionReserve: number;
-  MCR: number;
+  redeemableCandidate: number;
   GRR: number;
 };
 
 export default function RedemptionInput(props: Props) {
-  const {
-    totalCollateral,
-    totalDebt,
-    tcr,
-    rateOfEthJpy,
-    redemptionReserve,
-    MCR,
-    GRR,
-  } = props;
+  const { rateOfEthJpy, redemptionReserve, redeemableCandidate, GRR } = props;
 
   const { account } = useActiveWeb3React();
   const { callback } = useCoreRedeemCallback();
 
-  const redeemableCandidate = getRedeemableCandidate(
-    totalCollateral,
-    totalDebt,
-    tcr,
-    rateOfEthJpy,
-    MCR
+  const formattedRedeemableCandidate = getRedeemableCandidate(
+    redeemableCandidate,
+    rateOfEthJpy
   );
 
-  async function submitRedemption(
-    values: { redemption: number },
-    formikHelpers: FormikHelpers<{
-      redemption: number;
-    }>
-  ) {
-    if (!account || !callback) {
-      return `ウォレットを接続してください。またはネットワークを切り替えてください。`;
-    }
+  const submitRedemption = useCallback(
+    async (
+      values: { redemption: number },
+      formikHelpers: FormikHelpers<{
+        redemption: number;
+      }>
+    ) => {
+      if (!account || !callback) {
+        return `ウォレットを接続してください。またはネットワークを切り替えてください。`;
+      }
 
-    console.debug('submit core redemption', values);
+      console.debug('submit core redemption', values);
 
-    try {
-      const res = await callback!(redeemableCandidate.eth);
-      console.debug('core redemption done', res);
-    } catch (error) {
-      errorToast(error);
-    }
+      try {
+        const res = await callback!(formattedRedeemableCandidate.eth);
+        console.debug('core redemption done', res);
+      } catch (error) {
+        errorToast(error);
+      }
 
-    // reset
-    formikHelpers.resetForm();
-  }
+      // reset
+      formikHelpers.resetForm();
+    },
+    [account, formattedRedeemableCandidate, callback]
+  );
 
   return (
     <Formik initialValues={{ redemption: 0 }} onSubmit={submitRedemption}>
@@ -85,11 +75,11 @@ export default function RedemptionInput(props: Props) {
               <VStack align="start">
                 <CustomFormLabel text={'償還候補総量'} />
                 <Text>
-                  {formatPrice(redeemableCandidate.eth, 'eth').value}
+                  {formatPrice(formattedRedeemableCandidate.eth, 'eth').value}
                   {YAMATO_SYMBOL.COLLATERAL}
                 </Text>
                 <Text>
-                  ({formatPrice(redeemableCandidate.cjpy, 'jpy').value}
+                  ({formatPrice(formattedRedeemableCandidate.cjpy, 'jpy').value}
                   {YAMATO_SYMBOL.YEN})
                 </Text>
               </VStack>
@@ -102,8 +92,8 @@ export default function RedemptionInput(props: Props) {
                   {
                     formatPrice(
                       getExpectedCollateral(
-                        redeemableCandidate.eth + 1, // dummy
-                        redeemableCandidate.eth,
+                        formattedRedeemableCandidate.eth + 1, // dummy
+                        formattedRedeemableCandidate.eth,
                         GRR
                       ),
                       'eth'

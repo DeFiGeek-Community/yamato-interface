@@ -20,6 +20,8 @@ export type LogEventType =
   | 'sweep';
 export type LogEvent = {
   id: number;
+  blockNumber: number;
+  logIndex: number;
   address: string;
   category: LogEventType;
   value: any;
@@ -41,7 +43,11 @@ export interface YamatoEntiretyState {
     prevRedemptionReserve: number; // CJPY
     sweepReserve: number; // CJPY
     prevSweepReserve: number; // CJPY
-    sweepableCandiate: number; // ETH
+  };
+  pledges: {
+    redeemableCandidate: number; // ETH
+    sweepableCandidate: number; // CJPY
+    isRedeemablePledge: boolean;
   };
   token: {
     cjpy: {
@@ -64,7 +70,6 @@ export interface YamatoEntiretyState {
     SRR: number; // SweepReserveRate
     GRR: number; // GasReserveRate
   };
-  isRedeemablePledge: boolean;
   events: Array<LogEvent>; // the Ethereum events the users wallet has been recieved.
 }
 
@@ -75,7 +80,11 @@ export const initialState: YamatoEntiretyState = {
     prevRedemptionReserve: 0,
     sweepReserve: 0,
     prevSweepReserve: 0,
-    sweepableCandiate: 0,
+  },
+  pledges: {
+    redeemableCandidate: 0,
+    sweepableCandidate: 0,
+    isRedeemablePledge: false,
   },
   token: {
     cjpy: { totalSupply: 0 },
@@ -90,7 +99,6 @@ export const initialState: YamatoEntiretyState = {
     SRR: 20,
     GRR: 1,
   },
-  isRedeemablePledge: false,
   events: [],
 };
 
@@ -98,18 +106,18 @@ export default createReducer(initialState, (builder) =>
   builder
     .addCase(
       fetchYamatoState,
-      (
-        state,
-        { payload: { lending, pool, parameter, isRedeemablePledge } }
-      ) => {
+      (state, { payload: { lending, pool, parameter, pledges } }) => {
         state.lending = lending;
+        state.pledges = {
+          ...pledges,
+          isRedeemablePledge: pledges.redeemableCandidate > 0,
+        };
         state.pool = {
           ...pool,
           prevRedemptionReserve: state.pool.redemptionReserve,
           prevSweepReserve: state.pool.sweepReserve,
         };
         state.parameter = parameter;
-        state.isRedeemablePledge = isRedeemablePledge;
       }
     )
     .addCase(fetchTokenState, (state, { payload: { cjpy, ymt, veYmt } }) => {
@@ -126,9 +134,15 @@ export default createReducer(initialState, (builder) =>
         return !state.events.some((event) => event.id === newEvent.id);
       });
       const newState = state.events.concat(additionals).sort((a, b) => {
-        if (a.id > b.id) {
+        if (a.blockNumber > b.blockNumber) {
           return -1;
-        } else if (a.id < b.id) {
+        } else if (a.blockNumber < b.blockNumber) {
+          return 1;
+        }
+        // block number is the same
+        if (a.logIndex > b.logIndex) {
+          return -1;
+        } else if (a.logIndex < b.logIndex) {
           return 1;
         }
         return 0;

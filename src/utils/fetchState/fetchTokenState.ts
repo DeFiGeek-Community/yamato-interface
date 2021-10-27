@@ -1,15 +1,12 @@
 import { CJPY, YMT, VeYMT } from '../../infrastructures/abis/types';
+import { YamatoEntiretyState } from '../../state/yamato-entirety/reducer';
 import { formatCjpy } from '../web3';
 
 export async function fetchTotalSupply(contracts: {
   cjpyContract: CJPY | null;
   ymtContract: YMT | null;
   veYmtContract: VeYMT | null;
-}): Promise<{
-  cjpy: { totalSupply: number };
-  ymt: { totalSupply: number };
-  veYmt: { totalSupply: number; boostRate: number };
-}> {
+}): Promise<YamatoEntiretyState['token']> {
   return {
     cjpy: {
       totalSupply: contracts.cjpyContract
@@ -33,11 +30,12 @@ export async function fetchTotalSupply(contracts: {
     veYmt: {
       totalSupply: 0,
       boostRate: 0,
+      farmingScore: 0,
     },
   };
 }
 
-export async function fetchTokenBalance(
+export async function fetchTokenBalanceOf(
   account: string | null | undefined,
   contracts: {
     cjpyContract: CJPY | null;
@@ -47,13 +45,13 @@ export async function fetchTokenBalance(
 ): Promise<{
   cjpy: { totalSupply: number };
   ymt: { totalSupply: number };
-  veYmt: { totalSupply: number; boostRate: number };
+  veYmt: { totalSupply: number };
 }> {
   if (!account) {
     return {
       cjpy: { totalSupply: 0 },
       ymt: { totalSupply: 0 },
-      veYmt: { totalSupply: 0, boostRate: 0 },
+      veYmt: { totalSupply: 0 },
     };
   }
 
@@ -79,7 +77,6 @@ export async function fetchTokenBalance(
     // },
     veYmt: {
       totalSupply: 0,
-      boostRate: 0,
     },
   };
 }

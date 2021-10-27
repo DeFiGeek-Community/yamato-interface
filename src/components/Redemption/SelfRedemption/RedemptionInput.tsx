@@ -6,7 +6,7 @@ import {
   VStack,
 } from '@chakra-ui/react';
 import { Formik, Form, Field, FieldProps, FormikHelpers } from 'formik';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { YAMATO_SYMBOL } from '../../../constants/yamato';
 import { useActiveWeb3React } from '../../../hooks/web3';
 import { useSelfRedeemCallback } from '../../../hooks/yamato/useSelfRedemption';
@@ -25,70 +25,73 @@ import {
 } from '../shared/function';
 
 type Props = {
-  totalCollateral: number;
-  totalDebt: number;
-  tcr: number;
+  redeemableCandidate: number;
   rateOfEthJpy: number;
-  MCR: number;
   GRR: number;
 };
 
 export default function RedemptionInput(props: Props) {
-  const { totalCollateral, totalDebt, tcr, rateOfEthJpy, MCR, GRR } = props;
+  const { redeemableCandidate, rateOfEthJpy, GRR } = props;
 
   const { account } = useActiveWeb3React();
   const { callback } = useSelfRedeemCallback();
   const { cjpy } = useWalletState();
 
   const [redemption, setRedemption] = useState(0);
-  const redeemableCandidate = getRedeemableCandidate(
-    totalCollateral,
-    totalDebt,
-    tcr,
-    rateOfEthJpy,
-    MCR
+  const formattedRedeemableCandidate = getRedeemableCandidate(
+    redeemableCandidate,
+    rateOfEthJpy
   );
 
-  async function validateRedemption(value: number) {
-    if (!account || !callback) {
-      return `ウォレットを接続してください。またはネットワークを切り替えてください。`;
-    }
+  const validateRedemption = useCallback(
+    async (value: number) => {
+      if (!account || !callback) {
+        return `ウォレットを接続してください。またはネットワークを切り替えてください。`;
+      }
 
-    if (value == null || typeof value !== 'number') {
-      return '数値で入力してください。';
-    }
-    if (value > cjpy) {
-      return '残高が足りません。';
-    }
+      if (value == null || typeof value !== 'number') {
+        return '数値で入力してください。';
+      }
+      if (value > cjpy) {
+        return '残高が足りません。';
+      }
 
-    if (value > redeemableCandidate.cjpy) {
-      return '可能数量を超えています。';
-    }
+      if (value > formattedRedeemableCandidate.cjpy) {
+        return '可能数量を超えています。';
+      }
 
-    // Value is correct
-    setRedemption(value);
-    return undefined;
-  }
+      // Value is correct
+      setRedemption(value);
+      return undefined;
+    },
+    [account, cjpy, formattedRedeemableCandidate, callback]
+  );
 
-  async function submitRedemption(
-    values: { redemption: number },
-    formikHelpers: FormikHelpers<{
-      redemption: number;
-    }>
-  ) {
-    console.debug('submit self redemption', values);
+  const submitRedemption = useCallback(
+    async (
+      values: { redemption: number },
+      formikHelpers: FormikHelpers<{
+        redemption: number;
+      }>
+    ) => {
+      console.debug('submit self redemption', values);
 
-    try {
-      const res = await callback!(values.redemption, redeemableCandidate.eth);
-      console.debug('self redemption done', res);
-    } catch (error) {
-      errorToast(error);
-    }
+      try {
+        const res = await callback!(
+          values.redemption,
+          formattedRedeemableCandidate.eth
+        );
+        console.debug('self redemption done', res);
+      } catch (error) {
+        errorToast(error);
+      }
 
-    // reset
-    setRedemption(0);
-    formikHelpers.resetForm();
-  }
+      // reset
+      setRedemption(0);
+      formikHelpers.resetForm();
+    },
+    [formattedRedeemableCandidate, callback]
+  );
 
   return (
     <Formik initialValues={{ redemption: 0 }} onSubmit={submitRedemption}>
@@ -128,7 +131,7 @@ export default function RedemptionInput(props: Props) {
                       formatPrice(
                         getExpectedCollateral(
                           redemption,
-                          redeemableCandidate.eth,
+                          formattedRedeemableCandidate.eth,
                           GRR
                         ),
                         'eth'
@@ -144,11 +147,11 @@ export default function RedemptionInput(props: Props) {
               <VStack align="start">
                 <CustomFormLabel text="償還候補総量" />
                 <Text>
-                  {formatPrice(redeemableCandidate.eth, 'eth').value}
+                  {formatPrice(formattedRedeemableCandidate.eth, 'eth').value}
                   {YAMATO_SYMBOL.COLLATERAL}
                 </Text>
                 <Text>
-                  ({formatPrice(redeemableCandidate.cjpy, 'jpy').value}
+                  ({formatPrice(formattedRedeemableCandidate.cjpy, 'jpy').value}
                   {YAMATO_SYMBOL.YEN})
                 </Text>
               </VStack>

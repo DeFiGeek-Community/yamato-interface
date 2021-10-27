@@ -1,5 +1,6 @@
 import { Grid, GridItem, VStack } from '@chakra-ui/react';
 import { Formik, Form, FormikHelpers } from 'formik';
+import { useCallback } from 'react';
 import { YAMATO_SYMBOL } from '../../../constants/yamato';
 import { useActiveWeb3React } from '../../../hooks/web3';
 import { useSweepCallback } from '../../../hooks/yamato/useSweep';
@@ -19,36 +20,39 @@ export default function SweepInput(props: Props) {
   const { account } = useActiveWeb3React();
   const { callback } = useSweepCallback();
 
-  function getExpectedReward() {
+  const getExpectedReward = useCallback(() => {
     const amount =
       sweepReserve > sweepableCandiate ? sweepableCandiate : sweepReserve;
 
     const reward = amount * 0.01;
     return reward;
-  }
+  }, [sweepReserve, sweepableCandiate]);
 
-  async function submitSweep(
-    values: { sweep: number },
-    formikHelpers: FormikHelpers<{
-      sweep: number;
-    }>
-  ) {
-    if (!account || !callback) {
-      return `ウォレットを接続してください。またはネットワークを切り替えてください。`;
-    }
+  const submitSweep = useCallback(
+    async (
+      values: { sweep: number },
+      formikHelpers: FormikHelpers<{
+        sweep: number;
+      }>
+    ) => {
+      if (!account || !callback) {
+        return `ウォレットを接続してください。またはネットワークを切り替えてください。`;
+      }
 
-    console.debug('submit sweep', values);
+      console.debug('submit sweep', values);
 
-    try {
-      const res = await callback!(getExpectedReward());
-      console.debug('sweep done', res);
-    } catch (error) {
-      errorToast(error);
-    }
+      try {
+        const res = await callback!(getExpectedReward());
+        console.debug('sweep done', res);
+      } catch (error) {
+        errorToast(error);
+      }
 
-    // reset
-    formikHelpers.resetForm();
-  }
+      // reset
+      formikHelpers.resetForm();
+    },
+    [account, getExpectedReward, callback]
+  );
 
   return (
     <Formik initialValues={{ sweep: 0 }} onSubmit={submitSweep}>

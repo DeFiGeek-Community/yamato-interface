@@ -69,7 +69,7 @@
     "name": "currency",
     "outputs": [
       {
-        "internalType": "contract ICurrency",
+        "internalType": "address",
         "name": "",
         "type": "address"
       }

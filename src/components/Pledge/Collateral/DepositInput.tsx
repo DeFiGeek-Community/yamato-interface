@@ -5,7 +5,7 @@ import {
   VStack,
 } from '@chakra-ui/react';
 import { Formik, Form, Field, FormikHelpers, FieldProps } from 'formik';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { YAMATO_SYMBOL } from '../../../constants/yamato';
 import { useActiveWeb3React } from '../../../hooks/web3';
 import { useDepositCallback } from '../../../hooks/yamato/useDepositCallback';
@@ -29,46 +29,52 @@ export default function DepositInput(props: Props) {
 
   const [deposit, setDeposit] = useState(0);
 
-  async function validateDeposit(value: number) {
-    if (!account || !callback) {
-      return `ウォレットを接続してください。またはネットワークを切り替えてください。`;
-    }
+  const validateDeposit = useCallback(
+    async (value: number) => {
+      if (!account || !callback) {
+        return `ウォレットを接続してください。またはネットワークを切り替えてください。`;
+      }
 
-    if (value == null || typeof value !== 'number') {
-      return '数値で入力してください。';
-    }
-    if (value > eth) {
-      return '残高を超えています。';
-    }
+      if (value == null || typeof value !== 'number') {
+        return '数値で入力してください。';
+      }
+      if (value > eth) {
+        return '残高を超えています。';
+      }
 
-    // Value is correct
-    setDeposit(value);
-    return undefined;
-  }
+      // Value is correct
+      setDeposit(value);
+      return undefined;
+    },
+    [account, eth, callback]
+  );
 
-  async function submitDeposit(
-    values: { deposit: number },
-    formikHelpers: FormikHelpers<{
-      deposit: number;
-    }>
-  ) {
-    console.debug('submit deposit', values);
-    if (values.deposit <= 0) {
-      errorToast('預入量が0です。');
-      return;
-    }
+  const submitDeposit = useCallback(
+    async (
+      values: { deposit: number },
+      formikHelpers: FormikHelpers<{
+        deposit: number;
+      }>
+    ) => {
+      console.debug('submit deposit', values);
+      if (values.deposit <= 0) {
+        errorToast('預入量が0です。');
+        return;
+      }
 
-    try {
-      const res = await callback!(values.deposit);
-      console.debug('deposit done', res);
-    } catch (error) {
-      errorToast(error);
-    }
+      try {
+        const res = await callback!(values.deposit);
+        console.debug('deposit done', res);
+      } catch (error) {
+        errorToast(error);
+      }
 
-    // reset
-    setDeposit(0);
-    formikHelpers.resetForm();
-  }
+      // reset
+      setDeposit(0);
+      formikHelpers.resetForm();
+    },
+    [callback]
+  );
 
   return (
     <Formik initialValues={{ deposit: 0 }} onSubmit={submitDeposit}>

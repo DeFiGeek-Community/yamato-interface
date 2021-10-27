@@ -6,7 +6,7 @@ import {
 } from '@chakra-ui/react';
 import { intervalToDuration } from 'date-fns';
 import { Formik, Form, Field, FormikHelpers, FieldProps } from 'formik';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { YAMATO_SYMBOL } from '../../../constants/yamato';
 import useInterval from '../../../hooks/useInterval';
 import { useActiveWeb3React } from '../../../hooks/web3';
@@ -55,43 +55,49 @@ export default function WithdrawalInput(props: Props) {
     );
   }, 500);
 
-  function validateWithdrawal(value: number) {
-    if (!account || !callback) {
-      return `ウォレットを接続してください。またはネットワークを切り替えてください。`;
-    }
+  const validateWithdrawal = useCallback(
+    (value: number) => {
+      if (!account || !callback) {
+        return `ウォレットを接続してください。またはネットワークを切り替えてください。`;
+      }
 
-    // FIXME: ロックタイム中
-    if (value == null || typeof value !== 'number') {
-      return '数値で入力してください。';
-    }
-    if (value > collateral) {
-      return '残高を超えています。';
-    }
+      // FIXME: ロックタイム中
+      if (value == null || typeof value !== 'number') {
+        return '数値で入力してください。';
+      }
+      if (value > collateral) {
+        return '残高を超えています。';
+      }
 
-    // Value is correct
-    setWithdrawal(value);
-    return undefined;
-  }
+      // Value is correct
+      setWithdrawal(value);
+      return undefined;
+    },
+    [account, collateral, callback]
+  );
 
-  async function submitWithdrawal(
-    values: { withdrawal: number },
-    formikHelpers: FormikHelpers<{
-      withdrawal: number;
-    }>
-  ) {
-    console.debug('submit withdrawal', values);
+  const submitWithdrawal = useCallback(
+    async (
+      values: { withdrawal: number },
+      formikHelpers: FormikHelpers<{
+        withdrawal: number;
+      }>
+    ) => {
+      console.debug('submit withdrawal', values);
 
-    try {
-      const res = await callback!(values.withdrawal);
-      console.debug('withdrawal done', res);
-    } catch (error) {
-      errorToast(error);
-    }
+      try {
+        const res = await callback!(values.withdrawal);
+        console.debug('withdrawal done', res);
+      } catch (error) {
+        errorToast(error);
+      }
 
-    // reset
-    setWithdrawal(0);
-    formikHelpers.resetForm();
-  }
+      // reset
+      setWithdrawal(0);
+      formikHelpers.resetForm();
+    },
+    [callback]
+  );
 
   return (
     <Formik initialValues={{ withdrawal: 0 }} onSubmit={submitWithdrawal}>

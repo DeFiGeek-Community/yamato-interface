@@ -5,7 +5,7 @@ import {
   VStack,
 } from '@chakra-ui/react';
 import { Formik, Form, Field, FormikHelpers, FieldProps } from 'formik';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { YAMATO_SYMBOL } from '../../../constants/yamato';
 import { useActiveWeb3React } from '../../../hooks/web3';
 import { useRepayCallback } from '../../../hooks/yamato/useRepayCallback';
@@ -27,42 +27,48 @@ export default function RepayInput(props: Props) {
 
   const [repayment, setRepayment] = useState(0);
 
-  function validateRepayment(value: number) {
-    if (!account || !callback) {
-      return `ウォレットを接続してください。またはネットワークを切り替えてください。`;
-    }
+  const validateRepayment = useCallback(
+    (value: number) => {
+      if (!account || !callback) {
+        return `ウォレットを接続してください。またはネットワークを切り替えてください。`;
+      }
 
-    if (value == null || typeof value !== 'number') {
-      return '数値で入力してください。';
-    }
-    if (value > debt) {
-      return '残高を超えています。';
-    }
+      if (value == null || typeof value !== 'number') {
+        return '数値で入力してください。';
+      }
+      if (value > debt) {
+        return '残高を超えています。';
+      }
 
-    // Value is correct
-    setRepayment(value);
-    return undefined;
-  }
+      // Value is correct
+      setRepayment(value);
+      return undefined;
+    },
+    [account, debt, callback]
+  );
 
-  async function submitRepayment(
-    values: { repayment: number },
-    formikHelpers: FormikHelpers<{
-      repayment: number;
-    }>
-  ) {
-    console.debug('submit repayment', values);
+  const submitRepayment = useCallback(
+    async (
+      values: { repayment: number },
+      formikHelpers: FormikHelpers<{
+        repayment: number;
+      }>
+    ) => {
+      console.debug('submit repayment', values);
 
-    try {
-      const res = await callback!(values.repayment);
-      console.debug('repayment done', res);
-    } catch (error) {
-      errorToast(error);
-    }
+      try {
+        const res = await callback!(values.repayment);
+        console.debug('repayment done', res);
+      } catch (error) {
+        errorToast(error);
+      }
 
-    // reset
-    setRepayment(0);
-    formikHelpers.resetForm();
-  }
+      // reset
+      setRepayment(0);
+      formikHelpers.resetForm();
+    },
+    [callback]
+  );
 
   return (
     <Formik initialValues={{ repayment: 0 }} onSubmit={submitRepayment}>

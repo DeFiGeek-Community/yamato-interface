@@ -9,7 +9,7 @@ import {
   fetchYamatoState,
   resetEvents,
 } from './actions';
-import { LogEvent } from './reducer';
+import { YamatoEntiretyState } from './reducer';
 
 /**
  * selector
@@ -34,20 +34,18 @@ export function useYamatoStateForDashboard() {
 }
 export function useYamatoStateForPledge() {
   return useSelector((state: AppState) => ({
-    totalCollateral: state.yamatoEntirety.lending.totalCollateral,
-    totalDebt: state.yamatoEntirety.lending.totalDebt,
-    tcr: state.yamatoEntirety.lending.tcr,
     rateOfEthJpy: state.yamatoEntirety.rateOfEthJpy,
     redemptionReserve: state.yamatoEntirety.pool.redemptionReserve,
     sweepReserve: state.yamatoEntirety.pool.sweepReserve,
-    sweepableCandiate: state.yamatoEntirety.pool.sweepableCandiate,
+    redeemableCandidate: state.yamatoEntirety.pledges.redeemableCandidate,
+    sweepableCandiate: state.yamatoEntirety.pledges.sweepableCandidate,
     MCR: state.yamatoEntirety.parameter.MCR,
     GRR: state.yamatoEntirety.parameter.GRR,
   }));
 }
 export function useYamatoStateForWorld() {
   return useSelector((state: AppState) => ({
-    events: state.yamatoEntirety.events,
+    events: state.yamatoEntirety.events.slice(0, 20),
   }));
 }
 export function useYamatoStateForInfographics() {
@@ -67,7 +65,7 @@ export function useYamatoStateForInfographics() {
       sweepReserve: state.yamatoEntirety.pool.sweepReserve,
       prevSweepReserve: state.yamatoEntirety.pool.prevSweepReserve,
       MCR: state.yamatoEntirety.parameter.MCR,
-      isRedeemablePledge: state.yamatoEntirety.isRedeemablePledge,
+      isRedeemablePledge: state.yamatoEntirety.pledges.isRedeemablePledge,
     };
   });
 }
@@ -78,37 +76,26 @@ export function useYamatoStateForInfographics() {
 export function useFetchYamatoState() {
   const dispatch = useDispatch<AppDispatch>();
   return useCallback(
-    (args: {
-      lending: {
-        totalCollateral: number;
-        totalDebt: number;
-        tvl: number;
-        tcr: number;
-      };
-      pool: {
-        redemptionReserve: number;
-        sweepReserve: number;
-        sweepableCandiate: number;
-      };
-      parameter: {
-        MCR: number;
-        RRR: number;
-        SRR: number;
-        GRR: number;
-      };
-      isRedeemablePledge: boolean;
-    }) => dispatch(fetchYamatoState(args)),
+    (
+      args: {
+        [key in keyof Pick<
+          YamatoEntiretyState,
+          'lending' | 'pledges' | 'pool' | 'parameter'
+        >]: key extends 'pool'
+          ? Omit<
+              YamatoEntiretyState[key],
+              'prevRedemptionReserve' | 'prevSweepReserve'
+            >
+          : YamatoEntiretyState[key];
+      }
+    ) => dispatch(fetchYamatoState(args)),
     [dispatch]
   );
 }
 export function useFetchTokenState() {
   const dispatch = useDispatch<AppDispatch>();
   return useCallback(
-    (args: {
-      cjpy: { totalSupply: number };
-      ymt: { totalSupply: number };
-      veYmt: { totalSupply: number; boostRate: number };
-    }) => {
+    (args: YamatoEntiretyState['token']) => {
       dispatch(fetchTokenState(args));
     },
     [dispatch]
@@ -117,14 +104,16 @@ export function useFetchTokenState() {
 export function useFetchRateOfEthJpy() {
   const dispatch = useDispatch<AppDispatch>();
   return useCallback(
-    (rateOfEthJpy: number) => dispatch(fetchRateOfEthJpy({ rateOfEthJpy })),
+    (rateOfEthJpy: YamatoEntiretyState['rateOfEthJpy']) =>
+      dispatch(fetchRateOfEthJpy({ rateOfEthJpy })),
     [dispatch]
   );
 }
 export function useFetchEvents() {
   const dispatch = useDispatch<AppDispatch>();
   return useCallback(
-    (events: LogEvent[]) => dispatch(fetchEvents({ events })),
+    (events: YamatoEntiretyState['events']) =>
+      dispatch(fetchEvents({ events })),
     [dispatch]
   );
 }

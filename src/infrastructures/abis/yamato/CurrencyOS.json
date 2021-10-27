@@ -47,19 +47,6 @@
     "type": "function"
   },
   {
-    "inputs": [],
-    "name": "currency",
-    "outputs": [
-      {
-        "internalType": "contract ICurrency",
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
     "inputs": [
       {
         "internalType": "address",
