@@ -27,6 +27,11 @@ export const mockYamatoEntirety = {
           : 0,
       tvl: mockState.totalCollateral + 1, // lockedCollateral in Pool.sol
     },
+    pledges: {
+      redeemableCandidate: 100,
+      sweepableCandidate: 50,
+      isRedeemablePledge: true,
+    },
     pool: {
       redemptionReserve: mockState.redemptionReserve, // redemptionReserve in Pool.sol
       sweepReserve: mockState.sweepReserve, // sweepReserve in Pool.sol
@@ -38,7 +43,6 @@ export const mockYamatoEntirety = {
       SRR: 20,
       GRR: 1,
     },
-    isRedeemablePledge: false,
   },
   rateOfEthJpy: mockState.rateOfEthJpy,
 };
@@ -46,7 +50,7 @@ export const mockYamatoEntirety = {
 export const mockTokenTotalSupply = {
   cjpy: { totalSupply: 1000 },
   ymt: { totalSupply: 100 },
-  veYmt: { totalSupply: 10, boostRate: 1.5 },
+  veYmt: { totalSupply: 10, boostRate: 1.5, farmingScore: 100 },
 };
 
 export const mockWalletBalance = { eth: 10, cjpy: 1000 };

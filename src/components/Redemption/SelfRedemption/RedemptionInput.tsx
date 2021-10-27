@@ -25,28 +25,22 @@ import {
 } from '../shared/function';
 
 type Props = {
-  totalCollateral: number;
-  totalDebt: number;
-  tcr: number;
+  redeemableCandidate: number;
   rateOfEthJpy: number;
-  MCR: number;
   GRR: number;
 };
 
 export default function RedemptionInput(props: Props) {
-  const { totalCollateral, totalDebt, tcr, rateOfEthJpy, MCR, GRR } = props;
+  const { redeemableCandidate, rateOfEthJpy, GRR } = props;
 
   const { account } = useActiveWeb3React();
   const { callback } = useSelfRedeemCallback();
   const { cjpy } = useWalletState();
 
   const [redemption, setRedemption] = useState(0);
-  const redeemableCandidate = getRedeemableCandidate(
-    totalCollateral,
-    totalDebt,
-    tcr,
-    rateOfEthJpy,
-    MCR
+  const formattedRedeemableCandidate = getRedeemableCandidate(
+    redeemableCandidate,
+    rateOfEthJpy
   );
 
   const validateRedemption = useCallback(
@@ -62,7 +56,7 @@ export default function RedemptionInput(props: Props) {
         return '残高が足りません。';
       }
 
-      if (value > redeemableCandidate.cjpy) {
+      if (value > formattedRedeemableCandidate.cjpy) {
         return '可能数量を超えています。';
       }
 
@@ -70,7 +64,7 @@ export default function RedemptionInput(props: Props) {
       setRedemption(value);
       return undefined;
     },
-    [account, cjpy, redeemableCandidate, callback]
+    [account, cjpy, formattedRedeemableCandidate, callback]
   );
 
   const submitRedemption = useCallback(
@@ -83,7 +77,10 @@ export default function RedemptionInput(props: Props) {
       console.debug('submit self redemption', values);
 
       try {
-        const res = await callback!(values.redemption, redeemableCandidate.eth);
+        const res = await callback!(
+          values.redemption,
+          formattedRedeemableCandidate.eth
+        );
         console.debug('self redemption done', res);
       } catch (error) {
         errorToast(error);
@@ -93,7 +90,7 @@ export default function RedemptionInput(props: Props) {
       setRedemption(0);
       formikHelpers.resetForm();
     },
-    [redeemableCandidate, callback]
+    [formattedRedeemableCandidate, callback]
   );
 
   return (
@@ -134,7 +131,7 @@ export default function RedemptionInput(props: Props) {
                       formatPrice(
                         getExpectedCollateral(
                           redemption,
-                          redeemableCandidate.eth,
+                          formattedRedeemableCandidate.eth,
                           GRR
                         ),
                         'eth'
@@ -150,11 +147,11 @@ export default function RedemptionInput(props: Props) {
               <VStack align="start">
                 <CustomFormLabel text="償還候補総量" />
                 <Text>
-                  {formatPrice(redeemableCandidate.eth, 'eth').value}
+                  {formatPrice(formattedRedeemableCandidate.eth, 'eth').value}
                   {YAMATO_SYMBOL.COLLATERAL}
                 </Text>
                 <Text>
-                  ({formatPrice(redeemableCandidate.cjpy, 'jpy').value}
+                  ({formatPrice(formattedRedeemableCandidate.cjpy, 'jpy').value}
                   {YAMATO_SYMBOL.YEN})
                 </Text>
               </VStack>

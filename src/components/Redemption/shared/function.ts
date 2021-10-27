@@ -11,20 +11,15 @@ export function getExpectedCollateral(
 }
 
 export function getRedeemableCandidate(
-  totalCollateral: number,
-  totalDebt: number,
-  tcr: number,
-  rateOfEthJpy: number,
-  MCR: number
+  redeemableCandidate: number,
+  rateOfEthJpy: number
 ): { eth: number; cjpy: number } {
-  if (tcr >= MCR || !rateOfEthJpy) {
+  if (!redeemableCandidate || !rateOfEthJpy) {
     return { eth: 0, cjpy: 0 };
   }
 
-  const totalDebtPerEth = totalDebt / rateOfEthJpy;
-  const valueOfEth = (MCR * totalDebtPerEth) / 100 - totalCollateral; // (totalColl + x) / totalDebt * 100 = MCR  ->  x = MCR * totalDebt / 100 - totalColl
-  const valueOfCjpy = valueOfEth * rateOfEthJpy;
-  return { eth: valueOfEth, cjpy: valueOfCjpy };
+  const valueOfCjpy = redeemableCandidate * rateOfEthJpy;
+  return { eth: redeemableCandidate, cjpy: valueOfCjpy };
 }
 
 export function getEthFromCjpy(value: number, rateOfEthJpy: number) {

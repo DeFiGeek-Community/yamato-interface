@@ -1,4 +1,3 @@
-import { AddressZero } from '@ethersproject/constants';
 import { BigNumber } from 'ethers';
 import {
   useYamatoMainContract,
@@ -62,13 +61,20 @@ export async function fetchYamatoEntiretyStateFromContract(contracts: {
   // PriorityRegistry.sol
   const yamatoPriorityRegistryResults = contracts.yamatoPriorityRegistryContract
     ? {
-        isRedeemablePledge:
-          (
-            await contracts.yamatoPriorityRegistryContract.nextRedeemable()
-          )[3] !== AddressZero,
+        redeemableCandidate: Number(
+          formatEther(
+            await contracts.yamatoPriorityRegistryContract.getRedeemablesCap()
+          )
+        ),
+        sweepableCandidate: Number(
+          formatYen(
+            await contracts.yamatoPriorityRegistryContract.getSweepablesCap()
+          )
+        ),
       }
     : {
-        isRedeemablePledge: false,
+        redeemableCandidate: 0,
+        sweepableCandidate: 0,
       };
 
   // Create response
@@ -102,6 +108,9 @@ export async function fetchYamatoEntiretyStateFromContract(contracts: {
     pool,
     parameter,
     rateOfEthJpy: yamatoPriceFeedResults.rateOfEthJpy,
-    isRedeemablePledge: yamatoPriorityRegistryResults.isRedeemablePledge,
+    pledges: {
+      ...yamatoPriorityRegistryResults,
+      isRedeemablePledge: yamatoPriorityRegistryResults.redeemableCandidate > 0,
+    },
   };
 }

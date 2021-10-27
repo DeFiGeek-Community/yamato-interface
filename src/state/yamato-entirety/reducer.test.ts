@@ -27,10 +27,14 @@ describe('yamato-entirety reducer', () => {
     it('fetch Yamato State', () => {
       const newState = {
         lending: { totalCollateral: 10, totalDebt: 5, tvl: 11, tcr: 110 },
+        pledges: {
+          redeemableCandidate: 100,
+          sweepableCandidate: 50,
+          isRedeemablePledge: true,
+        },
         pool: {
           redemptionReserve: 2,
           sweepReserve: 1,
-          sweepableCandiate: 0.5,
         },
         parameter: {
           MCR: 110,
@@ -38,7 +42,6 @@ describe('yamato-entirety reducer', () => {
           SRR: 20,
           GRR: 1,
         },
-        isRedeemablePledge: false,
       };
 
       store.dispatch(fetchYamatoState(newState));
@@ -56,7 +59,7 @@ describe('yamato-entirety reducer', () => {
         token: {
           cjpy: { totalSupply: 1000 },
           ymt: { totalSupply: 100 },
-          veYmt: { totalSupply: 10, boostRate: 1.5 },
+          veYmt: { totalSupply: 10, boostRate: 1.5, farmingScore: 100 },
         },
       };
 

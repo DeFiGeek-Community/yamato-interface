@@ -13,35 +13,21 @@ import {
 } from '../shared/function';
 
 type Props = {
-  totalCollateral: number;
-  totalDebt: number;
-  tcr: number;
   rateOfEthJpy: number;
   redemptionReserve: number;
-  MCR: number;
+  redeemableCandidate: number;
   GRR: number;
 };
 
 export default function RedemptionInput(props: Props) {
-  const {
-    totalCollateral,
-    totalDebt,
-    tcr,
-    rateOfEthJpy,
-    redemptionReserve,
-    MCR,
-    GRR,
-  } = props;
+  const { rateOfEthJpy, redemptionReserve, redeemableCandidate, GRR } = props;
 
   const { account } = useActiveWeb3React();
   const { callback } = useCoreRedeemCallback();
 
-  const redeemableCandidate = getRedeemableCandidate(
-    totalCollateral,
-    totalDebt,
-    tcr,
-    rateOfEthJpy,
-    MCR
+  const formattedRedeemableCandidate = getRedeemableCandidate(
+    redeemableCandidate,
+    rateOfEthJpy
   );
 
   const submitRedemption = useCallback(
@@ -58,7 +44,7 @@ export default function RedemptionInput(props: Props) {
       console.debug('submit core redemption', values);
 
       try {
-        const res = await callback!(redeemableCandidate.eth);
+        const res = await callback!(formattedRedeemableCandidate.eth);
         console.debug('core redemption done', res);
       } catch (error) {
         errorToast(error);
@@ -67,7 +53,7 @@ export default function RedemptionInput(props: Props) {
       // reset
       formikHelpers.resetForm();
     },
-    [account, redeemableCandidate, callback]
+    [account, formattedRedeemableCandidate, callback]
   );
 
   return (
@@ -89,11 +75,11 @@ export default function RedemptionInput(props: Props) {
               <VStack align="start">
                 <CustomFormLabel text={'償還候補総量'} />
                 <Text>
-                  {formatPrice(redeemableCandidate.eth, 'eth').value}
+                  {formatPrice(formattedRedeemableCandidate.eth, 'eth').value}
                   {YAMATO_SYMBOL.COLLATERAL}
                 </Text>
                 <Text>
-                  ({formatPrice(redeemableCandidate.cjpy, 'jpy').value}
+                  ({formatPrice(formattedRedeemableCandidate.cjpy, 'jpy').value}
                   {YAMATO_SYMBOL.YEN})
                 </Text>
               </VStack>
@@ -106,8 +92,8 @@ export default function RedemptionInput(props: Props) {
                   {
                     formatPrice(
                       getExpectedCollateral(
-                        redeemableCandidate.eth + 1, // dummy
-                        redeemableCandidate.eth,
+                        formattedRedeemableCandidate.eth + 1, // dummy
+                        formattedRedeemableCandidate.eth,
                         GRR
                       ),
                       'eth'

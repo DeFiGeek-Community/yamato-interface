@@ -5,7 +5,7 @@ import {
 } from '../../hooks/useContract';
 import useInterval from '../../hooks/useInterval';
 import { useActiveWeb3React } from '../../hooks/web3';
-import { fetchTokenBalance } from '../../utils/fetchState';
+import { fetchTokenBalanceOf } from '../../utils/fetchState';
 import { getEthBalance } from '../../utils/web3';
 import { mockWalletBalance } from '../mockData';
 import { useFetchWallet } from './hooks';
@@ -37,7 +37,7 @@ export default function Updater(): null {
     let walletParams;
     if (!isUseMock) {
       try {
-        const wallet = await fetchTokenBalance(account, {
+        const wallet = await fetchTokenBalanceOf(account, {
           cjpyContract,
           ymtContract,
           veYmtContract,
