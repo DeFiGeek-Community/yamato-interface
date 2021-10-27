@@ -50,7 +50,9 @@ export async function fetchEventLogs(
     switch (event.name) {
       case 'Deposited':
         events.push({
-          id: log.logIndex,
+          id: Number(`${log.blockNumber}${log.logIndex}`),
+          blockNumber: log.blockNumber,
+          logIndex: log.logIndex,
           address: event.args[0],
           category: 'deposit',
           value: formatEther(event.args[1]),
@@ -58,7 +60,9 @@ export async function fetchEventLogs(
         break;
       case 'Withdrawn':
         events.push({
-          id: log.logIndex,
+          id: Number(`${log.blockNumber}${log.logIndex}`),
+          blockNumber: log.blockNumber,
+          logIndex: log.logIndex,
           address: event.args[0],
           category: 'withdrawal',
           value: formatEther(event.args[1]),
@@ -66,7 +70,9 @@ export async function fetchEventLogs(
         break;
       case 'Borrowed':
         events.push({
-          id: log.logIndex,
+          id: Number(`${log.blockNumber}${log.logIndex}`),
+          blockNumber: log.blockNumber,
+          logIndex: log.logIndex,
           address: event.args[0],
           category: 'borrowing',
           value: formatCjpy(event.args[1]),
@@ -74,7 +80,9 @@ export async function fetchEventLogs(
         break;
       case 'Repaid':
         events.push({
-          id: log.logIndex,
+          id: Number(`${log.blockNumber}${log.logIndex}`),
+          blockNumber: log.blockNumber,
+          logIndex: log.logIndex,
           address: event.args[0],
           category: 'repay',
           value: formatCjpy(event.args[1]),
@@ -82,7 +90,9 @@ export async function fetchEventLogs(
         break;
       case 'RedeemedMeta':
         events.push({
-          id: log.logIndex,
+          id: Number(`${log.blockNumber}${log.logIndex}`),
+          blockNumber: log.blockNumber,
+          logIndex: log.logIndex,
           address: event.args[0],
           category: !event.args[2] ? 'self_redemption' : 'core_redemption',
           value: formatEther(event.args[3]),
@@ -90,7 +100,9 @@ export async function fetchEventLogs(
         break;
       case 'Swept':
         events.push({
-          id: log.logIndex,
+          id: Number(`${log.blockNumber}${log.logIndex}`),
+          blockNumber: log.blockNumber,
+          logIndex: log.logIndex,
           address: event.args[0],
           category: 'sweep',
           value: formatCjpy(event.args[2]),

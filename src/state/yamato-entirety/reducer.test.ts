@@ -84,7 +84,7 @@ describe('yamato-entirety reducer', () => {
 
   describe('fetchEvents', () => {
     it('fetch Events', () => {
-      const events = [{ id: 1 }, { id: 2 }] as LogEvent[];
+      const events = [{ blockNumber: 1 }, { blockNumber: 2 }] as LogEvent[];
       store.dispatch(fetchEvents({ events }));
       expect(store.getState()).toEqual({
         ...initialState,
@@ -95,7 +95,7 @@ describe('yamato-entirety reducer', () => {
 
   describe('resetEvents', () => {
     it('reset Events', () => {
-      const events = [{ id: 1 }, { id: 2 }] as LogEvent[];
+      const events = [{ blockNumber: 1 }, { blockNumber: 2 }] as LogEvent[];
       store.dispatch(fetchEvents({ events }));
       expect(store.getState()).toEqual({
         ...initialState,
