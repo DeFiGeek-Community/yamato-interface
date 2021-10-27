@@ -2,6 +2,18 @@
 
 This article is for topics related to the test of this repository.
 
+## About the accounts used in the test
+
+The E2E test uses the following addresses:
+
+> 0x8D440ea7d740d59c221a78708323604268666f6e
+
+As we are concerned about the lack of ETH, we would appreciate it if you could turn on the tap or send them when you can spare it.
+
+The following test nets are currently in use:
+
+- Rinkeby
+
 ## DOM element identification for test
 
 Several tests require to identify DOM elements. E2E test is an example.
