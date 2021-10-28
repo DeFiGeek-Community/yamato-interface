@@ -17,19 +17,20 @@ import {
   fetchYamatoEntiretyStateFromContract,
 } from '../../utils/fetchState';
 import { fetchEventLogs } from '../../utils/fetchState/fetchEventLogs';
-import { fetchSubgraph, getCache } from '../../utils/fetchState/fetchSubgraph';
+import { fetchSubgraph } from '../../utils/fetchState/fetchSubgraph';
 import { useBlockNumber } from '../application/hooks';
+import { useAppDispatch } from '../hooks';
 import {
   mockLogs,
   mockTokenTotalSupply,
   mockYamatoEntirety,
 } from '../mockData';
 import {
-  useFetchEvents,
-  useFetchRateOfEthJpy,
-  useFetchTokenState,
-  useFetchYamatoState,
-} from './hooks';
+  fetchEvents,
+  fetchRateOfEthJpy,
+  fetchTokenState,
+  fetchYamatoState,
+} from './actions';
 import { initialState } from './reducer';
 
 const isUseMock = process.env.REACT_APP_USE_MOCK
@@ -42,6 +43,7 @@ const initialTokenParams = initialState.token;
 export default function Updater(): null {
   const { active, account, chainId } = useActiveWeb3React();
 
+  const dispatch = useAppDispatch();
   const yamatoMainContract = useYamatoMainContract();
   const yamatoPoolContract = useYamatoPoolContract();
   const yamatoPriceFeedContract = useYamatoPriceFeedContract();
@@ -50,39 +52,7 @@ export default function Updater(): null {
   const ymtContract = useYmtContract();
   const veYmtContract = useVeYmtContract();
 
-  const dispatchFetchYamatoState = useFetchYamatoState();
-  const dispatchFetchTokenState = useFetchTokenState();
-  const dispatchFetchRateOfEthJpy = useFetchRateOfEthJpy();
-  const dispatchFetchEvents = useFetchEvents();
   const blockNumber = useBlockNumber();
-
-  useInterval(
-    async () => {
-      let yamatoParams;
-      let rateOfEthJpy: number;
-      let tokenParams;
-      let eventParams;
-      if (!isUseMock) {
-        const res = await fetch();
-        yamatoParams = res.yamatoParams;
-        rateOfEthJpy = res.rateOfEthJpy;
-        tokenParams = res.tokenParams;
-        eventParams = res.eventParams;
-      } else {
-        yamatoParams = mockYamatoEntirety.yamatoParams;
-        rateOfEthJpy = mockYamatoEntirety.rateOfEthJpy;
-        tokenParams = mockTokenTotalSupply;
-        eventParams = mockLogs();
-      }
-
-      dispatchFetchYamatoState(yamatoParams);
-      dispatchFetchRateOfEthJpy(rateOfEthJpy);
-      dispatchFetchTokenState(tokenParams);
-      dispatchFetchEvents(eventParams);
-    },
-    5000,
-    true
-  );
 
   const fetch = useCallback(async () => {
     // from Subgraph
@@ -147,6 +117,32 @@ export default function Updater(): null {
     yamatoPriorityRegistryContract,
     ymtContract,
   ]);
+
+  const polling = useCallback(async () => {
+    let yamatoParams;
+    let rateOfEthJpy: number;
+    let tokenParams;
+    let eventParams;
+    if (!isUseMock) {
+      const res = await fetch();
+      yamatoParams = res.yamatoParams;
+      rateOfEthJpy = res.rateOfEthJpy;
+      tokenParams = res.tokenParams;
+      eventParams = res.eventParams;
+    } else {
+      yamatoParams = mockYamatoEntirety.yamatoParams;
+      rateOfEthJpy = mockYamatoEntirety.rateOfEthJpy;
+      tokenParams = mockTokenTotalSupply;
+      eventParams = mockLogs();
+    }
+
+    dispatch(fetchYamatoState(yamatoParams));
+    dispatch(fetchRateOfEthJpy({ rateOfEthJpy }));
+    dispatch(fetchTokenState(tokenParams));
+    dispatch(fetchEvents({ events: eventParams }));
+  }, [fetch, dispatch]);
+
+  useInterval(polling, 5000, true);
 
   return null;
 }

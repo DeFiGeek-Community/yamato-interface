@@ -1,4 +1,4 @@
-import { Grid, GridItem } from '@chakra-ui/react';
+import { Grid, GridItem, Skeleton } from '@chakra-ui/react';
 import { YAMATO_SYMBOL } from '../../../constants/yamato';
 import { usePledgeData } from '../../../state/pledge/hooks';
 import { useYamatoStateForPledge } from '../../../state/yamato-entirety/hooks';
@@ -16,14 +16,16 @@ function getBorrowableAmount(
   rateOfEthJpy: number,
   MCR: number
 ) {
-  if (debt <= 0 || MCR <= 0) {
+  if (MCR <= 0) {
     return 0;
   }
   const collateralBasedJpy = collateral * rateOfEthJpy;
   const MCR2 = MCR / 100;
-  const ICR = collateralBasedJpy / debt;
-  if (ICR - MCR2 <= 0) {
-    return 0;
+  if (debt > 0) {
+    const ICR = collateralBasedJpy / debt;
+    if (ICR - MCR2 <= 0) {
+      return 0;
+    }
   }
 
   // coll / (debt + x) = MCR  ->  x = (coll - debt * MCR) / MCR
@@ -32,7 +34,7 @@ function getBorrowableAmount(
 }
 
 export default function Debt() {
-  const { rateOfEthJpy, MCR } = useYamatoStateForPledge();
+  const { rateOfEthJpy, MCR, firstLoadCompleted } = useYamatoStateForPledge();
   const { collateral, debt } = usePledgeData();
 
   return (
@@ -46,8 +48,14 @@ export default function Debt() {
           marginTop={26}
           data-testid="borrowing-data-currentAmount"
         >
-          {formatPrice(debt, 'jpy').value}
-          {YAMATO_SYMBOL.YEN}
+          {firstLoadCompleted ? (
+            <>
+              {formatPrice(debt, 'jpy').value}
+              {YAMATO_SYMBOL.YEN}
+            </>
+          ) : (
+            <Skeleton height="1.6rem" width="7rem" />
+          )}
         </ItemTitleValue>
       </GridItem>
 
@@ -73,19 +81,35 @@ export default function Debt() {
       </GridItem>
       <GridItem colSpan={1}>
         <ItemTitleValue marginTop={26}>
-          {formatCollateralizationRatio(collateral * rateOfEthJpy, debt)}%
+          {firstLoadCompleted ? (
+            <>
+              {formatCollateralizationRatio(collateral * rateOfEthJpy, debt)}%
+            </>
+          ) : (
+            <Skeleton height="1.6rem" width="7rem" />
+          )}
         </ItemTitleValue>
       </GridItem>
       <GridItem colSpan={5}>
         <div style={{ marginTop: '32px', textAlign: 'right' }}>
           <Text>
             最大借入可能量...
-            {
-              formatPrice(
-                getBorrowableAmount(collateral, debt, rateOfEthJpy, MCR),
-                'jpy'
-              ).value
-            }
+            {firstLoadCompleted ? (
+              <>
+                {
+                  formatPrice(
+                    getBorrowableAmount(collateral, debt, rateOfEthJpy, MCR),
+                    'jpy'
+                  ).value
+                }
+              </>
+            ) : (
+              <Skeleton
+                height="1.4rem"
+                width="5rem"
+                style={{ display: 'inline-block', verticalAlign: 'middle' }}
+              />
+            )}
             {YAMATO_SYMBOL.YEN}
           </Text>
         </div>

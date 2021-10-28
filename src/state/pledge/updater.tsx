@@ -45,7 +45,7 @@ export default function Updater(): null {
 
       dispatchFetchMyPledge(params);
     },
-    5000,
+    isEnableSubgraph ? 1000 : 5000, // basically, only return cache
     true
   );
 

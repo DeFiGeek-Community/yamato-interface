@@ -8,17 +8,19 @@ import { PledgeDetail, PledgeState } from './reducer';
 /**
  * selector
  */
-export function usePledgeData(): PledgeDetail {
+export function usePledgeData(): PledgeDetail['owner'] {
   const { account } = useActiveWeb3React();
   return useSelector((state: AppState) => {
-    if (!account || !state.pledge[account.toLowerCase()]) {
+    if (!account || !state.pledge.list[account.toLowerCase()]) {
       return {
         collateral: 0,
         debt: 0,
         withdrawalLockDate: 0,
       };
     }
-    return state.pledge[account.toLowerCase()];
+    return {
+      ...state.pledge.list[account.toLowerCase()],
+    };
   });
 }
 
@@ -28,7 +30,7 @@ export function usePledgeData(): PledgeDetail {
 export function useFetchMyPledge() {
   const dispatch = useDispatch<AppDispatch>();
   return useCallback(
-    (pledge: PledgeState) => dispatch(fetchMyPledge(pledge)),
+    (pledge: PledgeState['list']) => dispatch(fetchMyPledge(pledge)),
     [dispatch]
   );
 }

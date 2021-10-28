@@ -1,4 +1,4 @@
-import { Grid, GridItem, VStack } from '@chakra-ui/react';
+import { Grid, GridItem, Skeleton, VStack } from '@chakra-ui/react';
 import { Formik, Form, FormikHelpers } from 'formik';
 import { useCallback } from 'react';
 import { YAMATO_SYMBOL } from '../../../constants/yamato';
@@ -17,10 +17,17 @@ type Props = {
   redemptionReserve: number;
   redeemableCandidate: number;
   GRR: number;
+  firstLoadCompleted: boolean;
 };
 
 export default function RedemptionInput(props: Props) {
-  const { rateOfEthJpy, redemptionReserve, redeemableCandidate, GRR } = props;
+  const {
+    rateOfEthJpy,
+    redemptionReserve,
+    redeemableCandidate,
+    GRR,
+    firstLoadCompleted,
+  } = props;
 
   const { account } = useActiveWeb3React();
   const { callback } = useCoreRedeemCallback();
@@ -65,8 +72,14 @@ export default function RedemptionInput(props: Props) {
               <VStack align="start">
                 <CustomFormLabel text={'プール総量'} />
                 <Text>
-                  {formatPrice(redemptionReserve, 'jpy').value}
-                  {YAMATO_SYMBOL.YEN}
+                  {firstLoadCompleted ? (
+                    <>
+                      {formatPrice(redemptionReserve, 'jpy').value}
+                      {YAMATO_SYMBOL.YEN}
+                    </>
+                  ) : (
+                    <Skeleton height="1.6rem" width="7rem" />
+                  )}
                 </Text>
               </VStack>
             </GridItem>
@@ -75,7 +88,23 @@ export default function RedemptionInput(props: Props) {
               <VStack align="start">
                 <CustomFormLabel text={'償還候補総量'} />
                 <Text>
-                  {formatPrice(formattedRedeemableCandidate.eth, 'eth').value}
+                  {firstLoadCompleted ? (
+                    <>
+                      {
+                        formatPrice(formattedRedeemableCandidate.eth, 'eth')
+                          .value
+                      }
+                    </>
+                  ) : (
+                    <Skeleton
+                      height="1.4rem"
+                      width="5rem"
+                      style={{
+                        display: 'inline-block',
+                        verticalAlign: 'middle',
+                      }}
+                    />
+                  )}
                   {YAMATO_SYMBOL.COLLATERAL}
                 </Text>
                 <Text>
@@ -89,16 +118,29 @@ export default function RedemptionInput(props: Props) {
               <VStack align="start">
                 <CustomFormLabel text={'実行リワード予測'} />
                 <Text>
-                  {
-                    formatPrice(
-                      getExpectedCollateral(
-                        formattedRedeemableCandidate.eth + 1, // dummy
-                        formattedRedeemableCandidate.eth,
-                        GRR
-                      ),
-                      'eth'
-                    ).value
-                  }
+                  {firstLoadCompleted ? (
+                    <>
+                      {
+                        formatPrice(
+                          getExpectedCollateral(
+                            formattedRedeemableCandidate.eth + 1, // dummy
+                            formattedRedeemableCandidate.eth,
+                            GRR
+                          ),
+                          'eth'
+                        ).value
+                      }
+                    </>
+                  ) : (
+                    <Skeleton
+                      height="1.4rem"
+                      width="5rem"
+                      style={{
+                        display: 'inline-block',
+                        verticalAlign: 'middle',
+                      }}
+                    />
+                  )}
                   {YAMATO_SYMBOL.COLLATERAL}
                 </Text>
               </VStack>

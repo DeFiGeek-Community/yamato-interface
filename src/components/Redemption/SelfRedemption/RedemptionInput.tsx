@@ -3,6 +3,7 @@ import {
   FormErrorMessage,
   Grid,
   GridItem,
+  Skeleton,
   VStack,
 } from '@chakra-ui/react';
 import { Formik, Form, Field, FieldProps, FormikHelpers } from 'formik';
@@ -28,10 +29,11 @@ type Props = {
   redeemableCandidate: number;
   rateOfEthJpy: number;
   GRR: number;
+  firstLoadCompleted: boolean;
 };
 
 export default function RedemptionInput(props: Props) {
-  const { redeemableCandidate, rateOfEthJpy, GRR } = props;
+  const { redeemableCandidate, rateOfEthJpy, GRR, firstLoadCompleted } = props;
 
   const { account } = useActiveWeb3React();
   const { callback } = useSelfRedeemCallback();
@@ -147,7 +149,24 @@ export default function RedemptionInput(props: Props) {
               <VStack align="start">
                 <CustomFormLabel text="償還候補総量" />
                 <Text>
-                  {formatPrice(formattedRedeemableCandidate.eth, 'eth').value}
+                  {firstLoadCompleted ? (
+                    <>
+                      {
+                        formatPrice(formattedRedeemableCandidate.eth, 'eth')
+                          .value
+                      }
+                    </>
+                  ) : (
+                    <Skeleton
+                      height="1.4rem"
+                      width="5rem"
+                      style={{
+                        display: 'inline-block',
+                        verticalAlign: 'middle',
+                      }}
+                    />
+                  )}
+
                   {YAMATO_SYMBOL.COLLATERAL}
                 </Text>
                 <Text>
