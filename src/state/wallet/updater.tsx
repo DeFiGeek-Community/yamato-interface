@@ -26,11 +26,11 @@ export default function Updater(): null {
   const ymtContract = useYmtContract();
   const veYmtContract = useVeYmtContract();
 
-  const fetchWallet = useFetchWallet();
+  const dispatchFetchWallet = useFetchWallet();
 
   useInterval(async () => {
     if (!active || !account) {
-      fetchWallet(initialWalletParams.cjpy, initialWalletParams.eth);
+      dispatchFetchWallet(initialWalletParams.cjpy, initialWalletParams.eth);
       return;
     }
 
@@ -53,7 +53,8 @@ export default function Updater(): null {
     } else {
       walletParams = mockWalletBalance;
     }
-    fetchWallet(walletParams.cjpy, walletParams.eth);
+
+    dispatchFetchWallet(walletParams.cjpy, walletParams.eth);
   }, 5000);
 
   return null;

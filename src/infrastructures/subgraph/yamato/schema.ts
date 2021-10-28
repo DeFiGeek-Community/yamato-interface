@@ -1,7 +1,11 @@
 export type Maybe<T> = T | null;
-export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
-export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
-export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
+export type Exact<T extends { [key: string]: unknown }> = {
+  [K in keyof T]: T[K];
+};
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> &
+  { [SubKey in K]?: Maybe<T[SubKey]> };
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> &
+  { [SubKey in K]: Maybe<T[SubKey]> };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -73,7 +77,7 @@ export enum Borrow_OrderBy {
   CjpyAmount = 'cjpyAmount',
   Date = 'date',
   Fee = 'fee',
-  Id = 'id'
+  Id = 'id',
 }
 
 export enum Category {
@@ -85,7 +89,7 @@ export enum Category {
   Repay = 'Repay',
   Sweep = 'Sweep',
   Withdraw = 'Withdraw',
-  WithrawYmt = 'WithrawYMT'
+  WithrawYmt = 'WithrawYMT',
 }
 
 export type Deposit = {
@@ -132,24 +136,31 @@ export enum Deposit_OrderBy {
   Address = 'address',
   Date = 'date',
   EthAmount = 'ethAmount',
-  Id = 'id'
+  Id = 'id',
 }
 
-export type Event = Borrow & Deposit & IncreaseYmtLockTime & LockYmt & Redeem & Repay & Sweep & Withdraw & {
-  __typename?: 'Event';
-  address?: Maybe<Scalars['Bytes']>;
-  category?: Maybe<Category>;
-  cjpyAmount?: Maybe<Scalars['BigInt']>;
-  date: Scalars['BigInt'];
-  ethAmount?: Maybe<Scalars['BigInt']>;
-  fee?: Maybe<Scalars['BigInt']>;
-  gasCompensationAmount?: Maybe<Scalars['BigInt']>;
-  id: Scalars['ID'];
-  isCoreRedemption?: Maybe<Scalars['Boolean']>;
-  lockUntil?: Maybe<Scalars['Int']>;
-  price?: Maybe<Scalars['BigInt']>;
-  ymtAmount?: Maybe<Scalars['BigInt']>;
-};
+export type Event = Borrow &
+  Deposit &
+  IncreaseYmtLockTime &
+  LockYmt &
+  Redeem &
+  Repay &
+  Sweep &
+  Withdraw & {
+    __typename?: 'Event';
+    address?: Maybe<Scalars['Bytes']>;
+    category?: Maybe<Category>;
+    cjpyAmount?: Maybe<Scalars['BigInt']>;
+    date: Scalars['BigInt'];
+    ethAmount?: Maybe<Scalars['BigInt']>;
+    fee?: Maybe<Scalars['BigInt']>;
+    gasCompensationAmount?: Maybe<Scalars['BigInt']>;
+    id: Scalars['ID'];
+    isCoreRedemption?: Maybe<Scalars['Boolean']>;
+    lockUntil?: Maybe<Scalars['Int']>;
+    price?: Maybe<Scalars['BigInt']>;
+    ymtAmount?: Maybe<Scalars['BigInt']>;
+  };
 
 export type Event_Filter = {
   address?: Maybe<Scalars['Bytes']>;
@@ -252,7 +263,7 @@ export enum Event_OrderBy {
   IsCoreRedemption = 'isCoreRedemption',
   LockUntil = 'lockUntil',
   Price = 'price',
-  YmtAmount = 'ymtAmount'
+  YmtAmount = 'ymtAmount',
 }
 
 export type IncreaseYmtLockTime = {
@@ -299,7 +310,7 @@ export enum IncreaseYmtLockTime_OrderBy {
   Address = 'address',
   Date = 'date',
   Id = 'id',
-  LockUntil = 'lockUntil'
+  LockUntil = 'lockUntil',
 }
 
 export type LockYmt = {
@@ -356,12 +367,12 @@ export enum LockYmt_OrderBy {
   Date = 'date',
   Id = 'id',
   LockUntil = 'lockUntil',
-  YmtAmount = 'ymtAmount'
+  YmtAmount = 'ymtAmount',
 }
 
 export enum OrderDirection {
   Asc = 'asc',
-  Desc = 'desc'
+  Desc = 'desc',
 }
 
 export type Pledge = {
@@ -411,7 +422,7 @@ export enum Pledge_OrderBy {
   BorrowedCjpyAmount = 'borrowedCjpyAmount',
   EthAmount = 'ethAmount',
   Id = 'id',
-  WithdrawLocks = 'withdrawLocks'
+  WithdrawLocks = 'withdrawLocks',
 }
 
 export type Query = {
@@ -444,18 +455,15 @@ export type Query = {
   worldStates: Array<WorldState>;
 };
 
-
 export type Query_MetaArgs = {
   block?: Maybe<Block_Height>;
 };
-
 
 export type QueryBorrowArgs = {
   block?: Maybe<Block_Height>;
   id: Scalars['ID'];
   subgraphError?: _SubgraphErrorPolicy_;
 };
-
 
 export type QueryBorrowsArgs = {
   block?: Maybe<Block_Height>;
@@ -467,13 +475,11 @@ export type QueryBorrowsArgs = {
   where?: Maybe<Borrow_Filter>;
 };
 
-
 export type QueryDepositArgs = {
   block?: Maybe<Block_Height>;
   id: Scalars['ID'];
   subgraphError?: _SubgraphErrorPolicy_;
 };
-
 
 export type QueryDepositsArgs = {
   block?: Maybe<Block_Height>;
@@ -485,13 +491,11 @@ export type QueryDepositsArgs = {
   where?: Maybe<Deposit_Filter>;
 };
 
-
 export type QueryEventArgs = {
   block?: Maybe<Block_Height>;
   id: Scalars['ID'];
   subgraphError?: _SubgraphErrorPolicy_;
 };
-
 
 export type QueryEventsArgs = {
   block?: Maybe<Block_Height>;
@@ -503,13 +507,11 @@ export type QueryEventsArgs = {
   where?: Maybe<Event_Filter>;
 };
 
-
 export type QueryIncreaseYmtLockTimeArgs = {
   block?: Maybe<Block_Height>;
   id: Scalars['ID'];
   subgraphError?: _SubgraphErrorPolicy_;
 };
-
 
 export type QueryIncreaseYmtLockTimesArgs = {
   block?: Maybe<Block_Height>;
@@ -521,13 +523,11 @@ export type QueryIncreaseYmtLockTimesArgs = {
   where?: Maybe<IncreaseYmtLockTime_Filter>;
 };
 
-
 export type QueryLockYmtArgs = {
   block?: Maybe<Block_Height>;
   id: Scalars['ID'];
   subgraphError?: _SubgraphErrorPolicy_;
 };
-
 
 export type QueryLockYmTsArgs = {
   block?: Maybe<Block_Height>;
@@ -539,13 +539,11 @@ export type QueryLockYmTsArgs = {
   where?: Maybe<LockYmt_Filter>;
 };
 
-
 export type QueryPledgeArgs = {
   block?: Maybe<Block_Height>;
   id: Scalars['ID'];
   subgraphError?: _SubgraphErrorPolicy_;
 };
-
 
 export type QueryPledgesArgs = {
   block?: Maybe<Block_Height>;
@@ -557,13 +555,11 @@ export type QueryPledgesArgs = {
   where?: Maybe<Pledge_Filter>;
 };
 
-
 export type QueryRedeemArgs = {
   block?: Maybe<Block_Height>;
   id: Scalars['ID'];
   subgraphError?: _SubgraphErrorPolicy_;
 };
-
 
 export type QueryRedeemsArgs = {
   block?: Maybe<Block_Height>;
@@ -575,13 +571,11 @@ export type QueryRedeemsArgs = {
   where?: Maybe<Redeem_Filter>;
 };
 
-
 export type QueryRepayArgs = {
   block?: Maybe<Block_Height>;
   id: Scalars['ID'];
   subgraphError?: _SubgraphErrorPolicy_;
 };
-
 
 export type QueryRepaysArgs = {
   block?: Maybe<Block_Height>;
@@ -593,13 +587,11 @@ export type QueryRepaysArgs = {
   where?: Maybe<Repay_Filter>;
 };
 
-
 export type QuerySweepArgs = {
   block?: Maybe<Block_Height>;
   id: Scalars['ID'];
   subgraphError?: _SubgraphErrorPolicy_;
 };
-
 
 export type QuerySweepsArgs = {
   block?: Maybe<Block_Height>;
@@ -611,13 +603,11 @@ export type QuerySweepsArgs = {
   where?: Maybe<Sweep_Filter>;
 };
 
-
 export type QueryWithdrawArgs = {
   block?: Maybe<Block_Height>;
   id: Scalars['ID'];
   subgraphError?: _SubgraphErrorPolicy_;
 };
-
 
 export type QueryWithdrawsArgs = {
   block?: Maybe<Block_Height>;
@@ -629,13 +619,11 @@ export type QueryWithdrawsArgs = {
   where?: Maybe<Withdraw_Filter>;
 };
 
-
 export type QueryWithrawYmtArgs = {
   block?: Maybe<Block_Height>;
   id: Scalars['ID'];
   subgraphError?: _SubgraphErrorPolicy_;
 };
-
 
 export type QueryWithrawYmTsArgs = {
   block?: Maybe<Block_Height>;
@@ -647,13 +635,11 @@ export type QueryWithrawYmTsArgs = {
   where?: Maybe<WithrawYmt_Filter>;
 };
 
-
 export type QueryWorldStateArgs = {
   block?: Maybe<Block_Height>;
   id: Scalars['ID'];
   subgraphError?: _SubgraphErrorPolicy_;
 };
-
 
 export type QueryWorldStatesArgs = {
   block?: Maybe<Block_Height>;
@@ -745,7 +731,7 @@ export enum Redeem_OrderBy {
   GasCompensationAmount = 'gasCompensationAmount',
   Id = 'id',
   IsCoreRedemption = 'isCoreRedemption',
-  Price = 'price'
+  Price = 'price',
 }
 
 export type Repay = {
@@ -792,7 +778,7 @@ export enum Repay_OrderBy {
   Address = 'address',
   CjpyAmount = 'cjpyAmount',
   Date = 'date',
-  Id = 'id'
+  Id = 'id',
 }
 
 export type Subscription = {
@@ -825,18 +811,15 @@ export type Subscription = {
   worldStates: Array<WorldState>;
 };
 
-
 export type Subscription_MetaArgs = {
   block?: Maybe<Block_Height>;
 };
-
 
 export type SubscriptionBorrowArgs = {
   block?: Maybe<Block_Height>;
   id: Scalars['ID'];
   subgraphError?: _SubgraphErrorPolicy_;
 };
-
 
 export type SubscriptionBorrowsArgs = {
   block?: Maybe<Block_Height>;
@@ -848,13 +831,11 @@ export type SubscriptionBorrowsArgs = {
   where?: Maybe<Borrow_Filter>;
 };
 
-
 export type SubscriptionDepositArgs = {
   block?: Maybe<Block_Height>;
   id: Scalars['ID'];
   subgraphError?: _SubgraphErrorPolicy_;
 };
-
 
 export type SubscriptionDepositsArgs = {
   block?: Maybe<Block_Height>;
@@ -866,13 +847,11 @@ export type SubscriptionDepositsArgs = {
   where?: Maybe<Deposit_Filter>;
 };
 
-
 export type SubscriptionEventArgs = {
   block?: Maybe<Block_Height>;
   id: Scalars['ID'];
   subgraphError?: _SubgraphErrorPolicy_;
 };
-
 
 export type SubscriptionEventsArgs = {
   block?: Maybe<Block_Height>;
@@ -884,13 +863,11 @@ export type SubscriptionEventsArgs = {
   where?: Maybe<Event_Filter>;
 };
 
-
 export type SubscriptionIncreaseYmtLockTimeArgs = {
   block?: Maybe<Block_Height>;
   id: Scalars['ID'];
   subgraphError?: _SubgraphErrorPolicy_;
 };
-
 
 export type SubscriptionIncreaseYmtLockTimesArgs = {
   block?: Maybe<Block_Height>;
@@ -902,13 +879,11 @@ export type SubscriptionIncreaseYmtLockTimesArgs = {
   where?: Maybe<IncreaseYmtLockTime_Filter>;
 };
 
-
 export type SubscriptionLockYmtArgs = {
   block?: Maybe<Block_Height>;
   id: Scalars['ID'];
   subgraphError?: _SubgraphErrorPolicy_;
 };
-
 
 export type SubscriptionLockYmTsArgs = {
   block?: Maybe<Block_Height>;
@@ -920,13 +895,11 @@ export type SubscriptionLockYmTsArgs = {
   where?: Maybe<LockYmt_Filter>;
 };
 
-
 export type SubscriptionPledgeArgs = {
   block?: Maybe<Block_Height>;
   id: Scalars['ID'];
   subgraphError?: _SubgraphErrorPolicy_;
 };
-
 
 export type SubscriptionPledgesArgs = {
   block?: Maybe<Block_Height>;
@@ -938,13 +911,11 @@ export type SubscriptionPledgesArgs = {
   where?: Maybe<Pledge_Filter>;
 };
 
-
 export type SubscriptionRedeemArgs = {
   block?: Maybe<Block_Height>;
   id: Scalars['ID'];
   subgraphError?: _SubgraphErrorPolicy_;
 };
-
 
 export type SubscriptionRedeemsArgs = {
   block?: Maybe<Block_Height>;
@@ -956,13 +927,11 @@ export type SubscriptionRedeemsArgs = {
   where?: Maybe<Redeem_Filter>;
 };
 
-
 export type SubscriptionRepayArgs = {
   block?: Maybe<Block_Height>;
   id: Scalars['ID'];
   subgraphError?: _SubgraphErrorPolicy_;
 };
-
 
 export type SubscriptionRepaysArgs = {
   block?: Maybe<Block_Height>;
@@ -974,13 +943,11 @@ export type SubscriptionRepaysArgs = {
   where?: Maybe<Repay_Filter>;
 };
 
-
 export type SubscriptionSweepArgs = {
   block?: Maybe<Block_Height>;
   id: Scalars['ID'];
   subgraphError?: _SubgraphErrorPolicy_;
 };
-
 
 export type SubscriptionSweepsArgs = {
   block?: Maybe<Block_Height>;
@@ -992,13 +959,11 @@ export type SubscriptionSweepsArgs = {
   where?: Maybe<Sweep_Filter>;
 };
 
-
 export type SubscriptionWithdrawArgs = {
   block?: Maybe<Block_Height>;
   id: Scalars['ID'];
   subgraphError?: _SubgraphErrorPolicy_;
 };
-
 
 export type SubscriptionWithdrawsArgs = {
   block?: Maybe<Block_Height>;
@@ -1010,13 +975,11 @@ export type SubscriptionWithdrawsArgs = {
   where?: Maybe<Withdraw_Filter>;
 };
 
-
 export type SubscriptionWithrawYmtArgs = {
   block?: Maybe<Block_Height>;
   id: Scalars['ID'];
   subgraphError?: _SubgraphErrorPolicy_;
 };
-
 
 export type SubscriptionWithrawYmTsArgs = {
   block?: Maybe<Block_Height>;
@@ -1028,13 +991,11 @@ export type SubscriptionWithrawYmTsArgs = {
   where?: Maybe<WithrawYmt_Filter>;
 };
 
-
 export type SubscriptionWorldStateArgs = {
   block?: Maybe<Block_Height>;
   id: Scalars['ID'];
   subgraphError?: _SubgraphErrorPolicy_;
 };
-
 
 export type SubscriptionWorldStatesArgs = {
   block?: Maybe<Block_Height>;
@@ -1100,7 +1061,7 @@ export enum Sweep_OrderBy {
   CjpyAmount = 'cjpyAmount',
   Date = 'date',
   GasCompensationAmount = 'gasCompensationAmount',
-  Id = 'id'
+  Id = 'id',
 }
 
 export type Withdraw = {
@@ -1147,7 +1108,7 @@ export enum Withdraw_OrderBy {
   Address = 'address',
   Date = 'date',
   EthAmount = 'ethAmount',
-  Id = 'id'
+  Id = 'id',
 }
 
 export type WithrawYmt = {
@@ -1194,7 +1155,7 @@ export enum WithrawYmt_OrderBy {
   Address = 'address',
   Date = 'date',
   Id = 'id',
-  YmtAmount = 'ymtAmount'
+  YmtAmount = 'ymtAmount',
 }
 
 export type WorldState = {
@@ -1324,7 +1285,7 @@ export enum WorldState_OrderBy {
   SweepReserve = 'sweepReserve',
   TotalColl = 'totalColl',
   TotalDebt = 'totalDebt',
-  TotalSupplyCjpy = 'totalSupplyCjpy'
+  TotalSupplyCjpy = 'totalSupplyCjpy',
 }
 
 export type _Block_ = {
@@ -1356,12 +1317,17 @@ export enum _SubgraphErrorPolicy_ {
   /** Data will be returned even if the subgraph has indexing errors */
   Allow = 'allow',
   /** If the subgraph has indexing errors, data will be omitted. The default. */
-  Deny = 'deny'
+  Deny = 'deny',
 }
 
 export type YamatoQueryVariables = Exact<{
   now: Scalars['BigInt'];
 }>;
 
-
-export type YamatoQuery = { __typename?: 'Query', yamatoEntirety: Array<{ __typename?: 'WorldState', id: string }>, events: Array<{ __typename?: 'Event', id: string }>, redeemablePledges: Array<{ __typename?: 'Pledge', id: string }>, sweepablePledges: Array<{ __typename?: 'Pledge', id: string }> };
+export type YamatoQuery = {
+  __typename?: 'Query';
+  yamatoEntirety: Array<{ __typename?: 'WorldState'; id: string }>;
+  events: Array<{ __typename?: 'Event'; id: string }>;
+  redeemablePledges: Array<{ __typename?: 'Pledge'; id: string }>;
+  sweepablePledges: Array<{ __typename?: 'Pledge'; id: string }>;
+};

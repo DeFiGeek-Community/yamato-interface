@@ -23,7 +23,7 @@ export default function Updater(): null {
   const { account } = useActiveWeb3React();
   const yamatoMainContract = useYamatoMainContract();
 
-  const fetchMyPledge = useFetchMyPledge();
+  const dispatchFetchMyPledge = useFetchMyPledge();
 
   useInterval(async () => {
     let params;
@@ -42,7 +42,7 @@ export default function Updater(): null {
       params = mockPledge(account ?? '');
     }
 
-    fetchMyPledge(params);
+    dispatchFetchMyPledge(params);
   }, 5000);
 
   return null;

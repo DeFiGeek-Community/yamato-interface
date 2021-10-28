@@ -1,5 +1,5 @@
-import { isEnableSubgraph, SUBGRAPH_YAMATO_URLS } from '../../constants/api';
-import { SupportedChainId } from '../../constants/chains';
+import { useCallback } from 'react';
+import { isEnableSubgraph } from '../../constants/api';
 import {
   useCjpyContract,
   useVeYmtContract,
@@ -40,7 +40,7 @@ const initialYamatoParams = initialState;
 const initialTokenParams = initialState.token;
 
 export default function Updater(): null {
-  const { account, chainId } = useActiveWeb3React();
+  const { active, account, chainId } = useActiveWeb3React();
 
   const yamatoMainContract = useYamatoMainContract();
   const yamatoPoolContract = useYamatoPoolContract();
@@ -50,10 +50,10 @@ export default function Updater(): null {
   const ymtContract = useYmtContract();
   const veYmtContract = useVeYmtContract();
 
-  const fetchYamatoState = useFetchYamatoState();
-  const fetchTokenState = useFetchTokenState();
-  const fetchRateOfEthJpy = useFetchRateOfEthJpy();
-  const fetchEvents = useFetchEvents();
+  const dispatchFetchYamatoState = useFetchYamatoState();
+  const dispatchFetchTokenState = useFetchTokenState();
+  const dispatchFetchRateOfEthJpy = useFetchRateOfEthJpy();
+  const dispatchFetchEvents = useFetchEvents();
   const blockNumber = useBlockNumber();
 
   useInterval(async () => {
@@ -71,9 +71,9 @@ export default function Updater(): null {
       tokenParams = mockTokenTotalSupply;
     }
 
-    fetchYamatoState(yamatoParams);
-    fetchRateOfEthJpy(rateOfEthJpy);
-    fetchTokenState(tokenParams);
+    dispatchFetchYamatoState(yamatoParams);
+    dispatchFetchRateOfEthJpy(rateOfEthJpy);
+    dispatchFetchTokenState(tokenParams);
   }, 5000);
 
   useInterval(async () => {
@@ -86,14 +86,14 @@ export default function Updater(): null {
       params = mockLogs();
     }
 
-    fetchEvents(params);
+    dispatchFetchEvents(params);
   }, 5000);
 
-  async function fetch() {
+  const fetch = useCallback(async () => {
     // from Subgraph
     if (isEnableSubgraph) {
       try {
-        const res = await fetchSubgraph(chainId, account);
+        const res = await fetchSubgraph(chainId, account, active);
         const res2 = await fetchRedeemablPledges(
           yamatoPriorityRegistryContract
         );
@@ -128,7 +128,6 @@ export default function Updater(): null {
           ymtContract,
           veYmtContract,
         }),
-        eventsParams: await fetchEventLogs(blockNumber, yamatoMainContract),
       };
     } catch (error) {
       console.error(error);
@@ -136,10 +135,20 @@ export default function Updater(): null {
         yamatoParams: initialYamatoParams,
         rateOfEthJpy: initialYamatoParams.rateOfEthJpy,
         tokenParams: initialTokenParams,
-        eventParams: [],
       };
     }
-  }
+  }, [
+    active,
+    account,
+    chainId,
+    cjpyContract,
+    veYmtContract,
+    yamatoMainContract,
+    yamatoPoolContract,
+    yamatoPriceFeedContract,
+    yamatoPriorityRegistryContract,
+    ymtContract,
+  ]);
 
   return null;
 }
