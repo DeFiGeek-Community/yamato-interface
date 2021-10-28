@@ -25,7 +25,7 @@ export const mockYamatoEntirety = {
               mockState.totalDebt) *
             100
           : 0,
-      tvl: mockState.totalCollateral + 1, // lockedCollateral in Pool.sol
+      tvl: mockState.totalCollateral * mockState.rateOfEthJpy,
     },
     pledges: {
       redeemableCandidate: 100,

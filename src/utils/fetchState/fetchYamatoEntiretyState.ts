@@ -75,7 +75,9 @@ export async function fetchYamatoEntiretyStateFromContract(contracts: {
             totalDebt) *
           100
         : 0,
-    tvl: Number(formatEther(yamatoPoolResults[3])), // lockedCollateral in Pool.sol
+    tvl:
+      Number(formatEther(yamatoPoolResults[3])) *
+      yamatoPriceFeedResults.rateOfEthJpy,
   };
   const pool = {
     redemptionReserve: Number(formatEther(yamatoPoolResults[0])), // redemptionReserve in Pool.sol

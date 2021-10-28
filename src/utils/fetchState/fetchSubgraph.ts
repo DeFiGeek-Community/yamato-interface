@@ -19,13 +19,21 @@ interface YamatoCurentState {
   sweepablePledges: [Pledge];
 }
 
-const cache: { yamatoEntiretyState: YamatoEntiretyState; pledge: PledgeState } =
-  {
+let cache: {
+  yamatoEntiretyState: YamatoEntiretyState;
+  pledge: PledgeState['list'];
+} = {
+  yamatoEntiretyState: deepCopy(initialState),
+  pledge: {},
+};
+export function getCache() {
+  return cache;
+}
+export function resetCache() {
+  cache = {
     yamatoEntiretyState: deepCopy(initialState),
     pledge: {},
   };
-export function getCache() {
-  return cache;
 }
 
 const currentStateQuery = gql`
@@ -131,7 +139,8 @@ function transformWorldStates(worldState: WorldState) {
           newState.lending.totalDebt) *
         100
       : 0;
-  newState.lending.tvl = newState.lending.totalCollateral;
+  newState.lending.tvl =
+    newState.lending.totalCollateral * newState.rateOfEthJpy;
 
   // pool
   newState.pool.redemptionReserve = Number(
@@ -149,7 +158,7 @@ function transformWorldStates(worldState: WorldState) {
   return newState;
 }
 
-function transformMyPledge(pledge: Pledge): PledgeState {
+function transformMyPledge(pledge: Pledge) {
   return {
     [pledge.id]: {
       collateral: Number(formatEther(pledge.ethAmount ?? 0)),
