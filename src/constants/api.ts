@@ -21,8 +21,9 @@ const ENABLE_SUBGRAPH = process.env.REACT_APP_ENABLE_SUBGRAPH;
 export const isEnableSubgraph =
   typeof ENABLE_SUBGRAPH === 'undefined' || ENABLE_SUBGRAPH === 'true';
 // default is mainnet.
-export const DEFAULT_CHAINID_FOR_SUBGRAPH =
-  Number(process.env.REACT_APP_DEFAULT_CHAINID_FOR_SUBGRAPH) ?? 1;
+export const DEFAULT_CHAINID = Number(
+  process.env.REACT_APP_DEFAULT_CHAINID ?? 1
+);
 export const SUBGRAPH_YAMATO_URLS: Record<number, string> = {
   [SupportedChainId.MAINNET]: '',
   [SupportedChainId.RINKEBY]:

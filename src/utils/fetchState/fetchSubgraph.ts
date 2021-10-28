@@ -1,8 +1,5 @@
 import { request, gql } from 'graphql-request';
-import {
-  DEFAULT_CHAINID_FOR_SUBGRAPH,
-  SUBGRAPH_YAMATO_URLS,
-} from '../../constants/api';
+import { DEFAULT_CHAINID, SUBGRAPH_YAMATO_URLS } from '../../constants/api';
 import {
   Event,
   Pledge,
@@ -82,8 +79,8 @@ export async function fetchSubgraph(
 ) {
   // Construct param
   const activeChainId = active
-    ? chainId ?? DEFAULT_CHAINID_FOR_SUBGRAPH // connected wallet
-    : DEFAULT_CHAINID_FOR_SUBGRAPH; // Not connecting wallet
+    ? chainId ?? DEFAULT_CHAINID // connected wallet
+    : DEFAULT_CHAINID; // Not connecting wallet
   const endpoint = SUBGRAPH_YAMATO_URLS[activeChainId];
   const variables = {
     account: account ?? '',

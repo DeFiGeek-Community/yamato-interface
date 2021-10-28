@@ -4,7 +4,7 @@ import {
   WRAPPED_ETHER_ADDRESS,
 } from '../../constants/addresses';
 import {
-  DEFAULT_CHAINID_FOR_SUBGRAPH,
+  DEFAULT_CHAINID,
   SUBGRAPH_UNISWAP_V2_URLS,
   SUBGRAPH_UNISWAP_V3_URLS,
 } from '../../constants/api';
@@ -81,8 +81,8 @@ export async function fetchCjpyPriceFromUniswap(
 ) {
   // Construct param
   const activeChainId = active
-    ? chainId ?? DEFAULT_CHAINID_FOR_SUBGRAPH // connected wallet
-    : DEFAULT_CHAINID_FOR_SUBGRAPH; // Not connecting wallet
+    ? chainId ?? DEFAULT_CHAINID // connected wallet
+    : DEFAULT_CHAINID; // Not connecting wallet
   const endpoint =
     version === 'v2'
       ? SUBGRAPH_UNISWAP_V2_URLS[activeChainId]
