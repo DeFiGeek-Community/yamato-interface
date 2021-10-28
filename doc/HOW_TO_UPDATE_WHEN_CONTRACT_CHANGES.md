@@ -31,3 +31,8 @@ $ git push origin main
 
 - Change the mappings of parameter/response in `src/hooks/yamato/use[method]Callback.ts`.
 - Change the relevant parts in `src/components`
+
+### subgraph
+
+- Run `yarn graphql:gen`
+- Change the mappings of parameter/response in `src/utils/fetchState/fetchSubgraph.ts`.
