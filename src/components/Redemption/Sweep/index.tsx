@@ -4,7 +4,7 @@ import { ItemTitleForPledge } from '../../CommonItem';
 import SweepInput from './SweepInput';
 
 export default function Sweep() {
-  const { rateOfEthJpy, sweepReserve, sweepableCandiate } =
+  const { rateOfEthJpy, sweepReserve, sweepableCandiate, firstLoadCompleted } =
     useYamatoStateForPledge();
 
   return (
@@ -20,6 +20,7 @@ export default function Sweep() {
           rateOfEthJpy={rateOfEthJpy}
           sweepReserve={sweepReserve}
           sweepableCandiate={sweepableCandiate}
+          firstLoadCompleted={firstLoadCompleted}
         />
       </GridItem>
     </Grid>

@@ -1,7 +1,7 @@
 import { Web3Provider } from '@ethersproject/providers';
 //import { SafeAppConnector } from '@gnosis.pm/safe-apps-web3-react';
 import { InjectedConnector } from '@web3-react/injected-connector';
-import { NETWORK_URLS } from '../../constants/api';
+import { DEFAULT_CHAINID, NETWORK_URLS } from '../../constants/api';
 //import { PortisConnector } from '@web3-react/portis-connector';
 //import { WalletConnectConnector } from '@web3-react/walletconnect-connector';
 //import { WalletLinkConnector } from '@web3-react/walletlink-connector';
@@ -17,7 +17,7 @@ import { NetworkConnector } from './NetworkConnector';
 
 export const network = new NetworkConnector({
   urls: NETWORK_URLS,
-  defaultChainId: 1,
+  defaultChainId: DEFAULT_CHAINID,
 });
 
 let networkLibrary: Web3Provider | undefined;

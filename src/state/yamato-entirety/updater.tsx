@@ -1,3 +1,5 @@
+import { useCallback } from 'react';
+import { isEnableSubgraph } from '../../constants/api';
 import {
   useCjpyContract,
   useVeYmtContract,
@@ -10,23 +12,25 @@ import {
 import useInterval from '../../hooks/useInterval';
 import { useActiveWeb3React } from '../../hooks/web3';
 import {
+  fetchRedeemablPledges,
   fetchTotalSupply,
   fetchYamatoEntiretyStateFromContract,
 } from '../../utils/fetchState';
 import { fetchEventLogs } from '../../utils/fetchState/fetchEventLogs';
+import { fetchSubgraph } from '../../utils/fetchState/fetchSubgraph';
 import { useBlockNumber } from '../application/hooks';
+import { useAppDispatch } from '../hooks';
 import {
   mockLogs,
   mockTokenTotalSupply,
   mockYamatoEntirety,
 } from '../mockData';
 import {
-  useFetchEvents,
-  useFetchRateOfEthJpy,
-  useFetchTokenState,
-  useFetchYamatoState,
-  useResetEvents,
-} from './hooks';
+  fetchEvents,
+  fetchRateOfEthJpy,
+  fetchTokenState,
+  fetchYamatoState,
+} from './actions';
 import { initialState } from './reducer';
 
 const isUseMock = process.env.REACT_APP_USE_MOCK
@@ -37,8 +41,9 @@ const initialYamatoParams = initialState;
 const initialTokenParams = initialState.token;
 
 export default function Updater(): null {
-  const { active, account } = useActiveWeb3React();
+  const { active, account, chainId } = useActiveWeb3React();
 
+  const dispatch = useAppDispatch();
   const yamatoMainContract = useYamatoMainContract();
   const yamatoPoolContract = useYamatoPoolContract();
   const yamatoPriceFeedContract = useYamatoPriceFeedContract();
@@ -47,72 +52,97 @@ export default function Updater(): null {
   const ymtContract = useYmtContract();
   const veYmtContract = useVeYmtContract();
 
-  const fetchYamatoState = useFetchYamatoState();
-  const fetchTokenState = useFetchTokenState();
-  const fetchRateOfEthJpy = useFetchRateOfEthJpy();
-  const fetchEvents = useFetchEvents();
-  const resetEvents = useResetEvents();
   const blockNumber = useBlockNumber();
 
-  useInterval(async () => {
-    // TODO: If implementing subgraph, remove. You will execute this alltime without wallet.
-    if (!active || !account) {
-      fetchYamatoState(initialYamatoParams);
-      fetchRateOfEthJpy(initialYamatoParams.rateOfEthJpy);
-      fetchTokenState(initialTokenParams);
-      return;
+  const fetch = useCallback(async () => {
+    // from Subgraph
+    if (isEnableSubgraph) {
+      try {
+        const res = await fetchSubgraph(chainId, account, active);
+        const res2 = await fetchRedeemablPledges(
+          yamatoPriorityRegistryContract
+        );
+        const yamatoParams = { ...res };
+        yamatoParams.pledges.redeemableCandidate = res2.redeemableCandidate;
+        yamatoParams.pledges.isRedeemablePledge = res2.isRedeemablePledge;
+        return {
+          yamatoParams,
+          rateOfEthJpy: res.rateOfEthJpy,
+          tokenParams: { ...res.token },
+          eventParams: res.events,
+        };
+      } catch (error) {
+        console.error(error);
+        // do nothing
+      }
     }
 
-    let yamatoParams;
-    let rateOfEthJpy: number;
-    let tokenParams;
-    if (!isUseMock) {
-      try {
-        yamatoParams = await fetchYamatoEntiretyStateFromContract({
-          yamatoMainContract,
-          yamatoPoolContract,
-          yamatoPriceFeedContract,
-          yamatoPriorityRegistryContract,
-        });
-        rateOfEthJpy = yamatoParams.rateOfEthJpy;
-        tokenParams = await fetchTotalSupply({
+    // from Ethers
+    try {
+      const res = await fetchYamatoEntiretyStateFromContract({
+        yamatoMainContract,
+        yamatoPoolContract,
+        yamatoPriceFeedContract,
+        yamatoPriorityRegistryContract,
+      });
+      return {
+        yamatoParams: res,
+        rateOfEthJpy: res.rateOfEthJpy,
+        tokenParams: await fetchTotalSupply({
           cjpyContract,
           ymtContract,
           veYmtContract,
-        });
-      } catch (error) {
-        console.error(error);
-        yamatoParams = initialYamatoParams;
-        rateOfEthJpy = initialYamatoParams.rateOfEthJpy;
-        tokenParams = initialTokenParams;
-      }
+        }),
+        eventParams: await fetchEventLogs(blockNumber, yamatoMainContract),
+      };
+    } catch (error) {
+      console.error(error);
+      return {
+        yamatoParams: initialYamatoParams,
+        rateOfEthJpy: initialYamatoParams.rateOfEthJpy,
+        tokenParams: initialTokenParams,
+        eventParams: [],
+      };
+    }
+  }, [
+    active,
+    account,
+    chainId,
+    blockNumber,
+    cjpyContract,
+    veYmtContract,
+    yamatoMainContract,
+    yamatoPoolContract,
+    yamatoPriceFeedContract,
+    yamatoPriorityRegistryContract,
+    ymtContract,
+  ]);
+
+  const polling = useCallback(async () => {
+    let yamatoParams;
+    let rateOfEthJpy: number;
+    let tokenParams;
+    let eventParams;
+    if (!isUseMock) {
+      const res = await fetch();
+      yamatoParams = res.yamatoParams;
+      rateOfEthJpy = res.rateOfEthJpy;
+      tokenParams = res.tokenParams;
+      eventParams = res.eventParams;
     } else {
       yamatoParams = mockYamatoEntirety.yamatoParams;
       rateOfEthJpy = mockYamatoEntirety.rateOfEthJpy;
       tokenParams = mockTokenTotalSupply;
+      eventParams = mockLogs();
     }
 
-    fetchYamatoState(yamatoParams);
-    fetchRateOfEthJpy(rateOfEthJpy);
-    fetchTokenState(tokenParams);
-  }, 5000);
+    dispatch(fetchYamatoState(yamatoParams));
+    dispatch(fetchRateOfEthJpy({ rateOfEthJpy }));
+    dispatch(fetchTokenState(tokenParams));
+    dispatch(fetchEvents({ events: eventParams }));
+  }, [fetch, dispatch]);
 
-  useInterval(async () => {
-    // TODO: If implementing subgraph, remove. You will execute this alltime without wallet.
-    if (!active || !account) {
-      resetEvents();
-      return;
-    }
-
-    let params;
-    if (!isUseMock) {
-      params = await fetchEventLogs(blockNumber, yamatoMainContract);
-    } else {
-      params = mockLogs();
-    }
-
-    fetchEvents(params);
-  }, 5000);
+  useInterval(polling, 5000, true);
 
   return null;
 }

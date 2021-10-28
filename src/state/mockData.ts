@@ -25,7 +25,7 @@ export const mockYamatoEntirety = {
               mockState.totalDebt) *
             100
           : 0,
-      tvl: mockState.totalCollateral + 1, // lockedCollateral in Pool.sol
+      tvl: mockState.totalCollateral * mockState.rateOfEthJpy,
     },
     pledges: {
       redeemableCandidate: 100,
@@ -56,15 +56,16 @@ export const mockTokenTotalSupply = {
 export const mockWalletBalance = { eth: 10, cjpy: 1000 };
 
 export const mockPledge = (account: string) => ({
-  account: account ?? '',
-  collateral: 3.5,
-  debt: 800000,
-  withdrawalLockDate: Date.now() / 1000 + 1000,
+  [account]: {
+    collateral: 3.5,
+    debt: 800000,
+    withdrawalLockDate: Date.now() / 1000 + 1000,
+  },
 });
 
 export const mockLogs = () => [
   {
-    id: 1,
+    id: `1`,
     blockNumber: 1,
     logIndex: 1,
     address: mockAddress(),
@@ -72,7 +73,7 @@ export const mockLogs = () => [
     value: '10',
   },
   {
-    id: 2,
+    id: `2`,
     blockNumber: 2,
     logIndex: 2,
     address: mockAddress(),
@@ -80,7 +81,7 @@ export const mockLogs = () => [
     value: '5',
   },
   {
-    id: Math.floor(Math.random() * 100),
+    id: Math.floor(Math.random() * 100).toString(),
     blockNumber: Math.floor(Math.random() * 100),
     logIndex: Math.floor(Math.random() * 10),
     address: mockAddress(),
@@ -88,7 +89,7 @@ export const mockLogs = () => [
     value: `${Math.floor(Math.random() * 1000)}`,
   },
   {
-    id: Math.floor(Math.random() * 100),
+    id: Math.floor(Math.random() * 100).toString(),
     blockNumber: Math.floor(Math.random() * 100),
     logIndex: Math.floor(Math.random() * 10),
     address: mockAddress(),
@@ -96,7 +97,7 @@ export const mockLogs = () => [
     value: `${Math.floor(Math.random() * 100)}`,
   },
   {
-    id: Math.floor(Math.random() * 100),
+    id: Math.floor(Math.random() * 100).toString(),
     blockNumber: Math.floor(Math.random() * 100),
     logIndex: Math.floor(Math.random() * 10),
     address: mockAddress(),
@@ -104,7 +105,7 @@ export const mockLogs = () => [
     value: `${Math.floor(Math.random() * 10)}`,
   },
   {
-    id: Math.floor(Math.random() * 100),
+    id: Math.floor(Math.random() * 100).toString(),
     blockNumber: Math.floor(Math.random() * 100),
     logIndex: Math.floor(Math.random() * 10),
     address: mockAddress(),

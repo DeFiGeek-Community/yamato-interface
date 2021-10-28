@@ -27,4 +27,4 @@ export const fetchEvents = createAction<{
   events: YamatoEntiretyState['events'];
 }>('yamato-entirety/fetchEvents');
 
-export const resetEvents = createAction('yamato-entirety/resetEvents');
+export const reset = createAction('yamato-entirety/reset');

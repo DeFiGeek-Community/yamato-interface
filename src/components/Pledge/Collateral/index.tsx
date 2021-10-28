@@ -1,4 +1,4 @@
-import { Grid, GridItem } from '@chakra-ui/react';
+import { Grid, GridItem, Skeleton } from '@chakra-ui/react';
 import { YAMATO_SYMBOL } from '../../../constants/yamato';
 import { usePledgeData } from '../../../state/pledge/hooks';
 import { useYamatoStateForPledge } from '../../../state/yamato-entirety/hooks';
@@ -9,7 +9,7 @@ import DepositInput from './DepositInput';
 import WithdrawalInput from './WithdrawalInput';
 
 export default function Collateral() {
-  const { rateOfEthJpy } = useYamatoStateForPledge();
+  const { rateOfEthJpy, firstLoadCompleted } = useYamatoStateForPledge();
   const { collateral, debt, withdrawalLockDate } = usePledgeData();
 
   return (
@@ -23,8 +23,14 @@ export default function Collateral() {
           marginTop={26}
           data-testid="collateral-data-currentAmount"
         >
-          {formatPrice(collateral, 'eth').value}
-          {YAMATO_SYMBOL.COLLATERAL}
+          {firstLoadCompleted ? (
+            <>
+              {formatPrice(collateral, 'eth').value}
+              {YAMATO_SYMBOL.COLLATERAL}
+            </>
+          ) : (
+            <Skeleton height="1.6rem" width="7rem" />
+          )}
         </ItemTitleValue>
       </GridItem>
 
@@ -50,7 +56,17 @@ export default function Collateral() {
       </GridItem>
       <GridItem colSpan={1}>
         <ItemTitleValue marginTop={26}>
-          ¥{formatPrice(multiplyToNum(collateral, rateOfEthJpy), 'jpy').value}
+          {firstLoadCompleted ? (
+            <>
+              ¥
+              {
+                formatPrice(multiplyToNum(collateral, rateOfEthJpy), 'jpy')
+                  .value
+              }
+            </>
+          ) : (
+            <Skeleton height="1.6rem" width="7rem" />
+          )}
         </ItemTitleValue>
       </GridItem>
     </Grid>

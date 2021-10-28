@@ -15,8 +15,9 @@
     "format": "prettier --config .prettierrc.json --write '{src,cypress}/**/*.{js,jsx,ts,tsx}'",
     "diff-check": "git diff --exit-code -- .",
     "ci:format": "yarn lint:fix && yarn format && yarn diff-check",
-    "svg:gen": "svgr ./src/assets/svg/sources --out-dir ./src/components/svgs && yarn format",
     "contracts:compile": "typechain --target ethers-v5 --out-dir src/infrastructures/abis/types './src/infrastructures/abis/**/*.json' './node_modules/@uniswap/?(v3-core|v3-periphery)/artifacts/contracts/**/*.json'",
+    "graphql:gen": "graphql-codegen --config codegen.yml && yarn format",
+    "svg:gen": "svgr ./src/assets/svg/sources --out-dir ./src/components/svgs && yarn format",
     "eject": "react-scripts eject"
   },
   "dependencies": {
@@ -57,6 +58,9 @@
     "web-vitals": "^1.0.1"
   },
   "devDependencies": {
+    "@graphql-codegen/cli": "^2.2.1",
+    "@graphql-codegen/typescript": "^2.2.4",
+    "@graphql-codegen/typescript-operations": "^2.1.8",
     "@svgr/cli": "^5.5.0",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",

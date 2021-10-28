@@ -1,7 +1,9 @@
+import { isEnableSubgraph } from '../../constants/api';
 import { useYamatoMainContract } from '../../hooks/useContract';
 import useInterval from '../../hooks/useInterval';
 import { useActiveWeb3React } from '../../hooks/web3';
 import { fetchPledgeStateFromContract } from '../../utils/fetchState';
+import { getCache } from '../../utils/fetchState/fetchSubgraph';
 import { mockPledge } from '../mockData';
 import { useFetchMyPledge } from './hooks';
 
@@ -10,51 +12,42 @@ const isUseMock = process.env.REACT_APP_USE_MOCK
   : false;
 
 const initialPledgeParams = {
-  account: '',
-  collateral: 0,
-  debt: 0,
-  withdrawalLockDate: 0,
+  '': {
+    collateral: 0,
+    debt: 0,
+    withdrawalLockDate: 0,
+  },
 };
 
 export default function Updater(): null {
-  const { active, account } = useActiveWeb3React();
+  const { account } = useActiveWeb3React();
   const yamatoMainContract = useYamatoMainContract();
 
-  const fetchMyPledge = useFetchMyPledge();
+  const dispatchFetchMyPledge = useFetchMyPledge();
 
-  // FIXME: Detect not only the account change but also the network change.
-  useInterval(async () => {
-    if (!active || !account) {
-      fetchMyPledge(
-        initialPledgeParams.account,
-        initialPledgeParams.collateral,
-        initialPledgeParams.debt,
-        initialPledgeParams.withdrawalLockDate
-      );
-      return;
-    }
-
-    let params;
-    if (!isUseMock) {
-      try {
-        params = await fetchPledgeStateFromContract(account, {
-          yamatoMainContract,
-        });
-      } catch (error) {
-        console.error(error);
-        params = { ...initialPledgeParams, account };
+  useInterval(
+    async () => {
+      let params;
+      if (!isUseMock) {
+        try {
+          params = isEnableSubgraph
+            ? getCache().pledge
+            : await fetchPledgeStateFromContract(account, {
+                yamatoMainContract,
+              });
+        } catch (error) {
+          console.error(error);
+          params = { ...initialPledgeParams };
+        }
+      } else {
+        params = mockPledge(account ?? '');
       }
-    } else {
-      params = mockPledge(account);
-    }
 
-    fetchMyPledge(
-      params.account,
-      params.collateral,
-      params.debt,
-      params.withdrawalLockDate
-    );
-  }, 5000);
+      dispatchFetchMyPledge(params);
+    },
+    isEnableSubgraph ? 1000 : 5000, // basically, only return cache
+    true
+  );
 
   return null;
 }

@@ -1,0 +1,8 @@
+overrideExisting: true
+schema: 'https://api.thegraph.com/subgraphs/name/subgraph-account/yamato_test_subgraph'
+documents: src/utils/fetchState/fetchSubgraph.ts
+generates:
+  ./src/infrastructures/subgraph/yamato/schema.ts:
+    plugins:
+      - typescript
+      - typescript-operations

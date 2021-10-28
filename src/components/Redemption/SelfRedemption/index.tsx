@@ -4,7 +4,8 @@ import { ItemTitleForPledge } from '../../CommonItem';
 import RedemptionInput from './RedemptionInput';
 
 export default function SelfRedemption() {
-  const { redeemableCandidate, rateOfEthJpy, GRR } = useYamatoStateForPledge();
+  const { redeemableCandidate, rateOfEthJpy, GRR, firstLoadCompleted } =
+    useYamatoStateForPledge();
 
   return (
     <Grid templateColumns="repeat(6, 1fr)" gap={4} mb={12}>
@@ -19,6 +20,7 @@ export default function SelfRedemption() {
           redeemableCandidate={redeemableCandidate}
           rateOfEthJpy={rateOfEthJpy}
           GRR={GRR}
+          firstLoadCompleted={firstLoadCompleted}
         />
       </GridItem>
     </Grid>

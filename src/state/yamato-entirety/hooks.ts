@@ -1,15 +1,6 @@
-import { useCallback } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { getEthChangePercent } from '../../utils/prices';
-import { AppDispatch, AppState } from '../index';
-import {
-  fetchEvents,
-  fetchRateOfEthJpy,
-  fetchTokenState,
-  fetchYamatoState,
-  resetEvents,
-} from './actions';
-import { YamatoEntiretyState } from './reducer';
+import { AppState } from '../index';
 
 /**
  * selector
@@ -29,6 +20,7 @@ export function useYamatoStateForDashboard() {
         state.yamatoEntirety.rateOfEthJpy,
         state.yamatoEntirety.prevRateOfEthJpy
       ),
+      firstLoadCompleted: state.yamatoEntirety.firstLoadCompleted,
     };
   });
 }
@@ -41,11 +33,13 @@ export function useYamatoStateForPledge() {
     sweepableCandiate: state.yamatoEntirety.pledges.sweepableCandidate,
     MCR: state.yamatoEntirety.parameter.MCR,
     GRR: state.yamatoEntirety.parameter.GRR,
+    firstLoadCompleted: state.yamatoEntirety.firstLoadCompleted,
   }));
 }
 export function useYamatoStateForWorld() {
   return useSelector((state: AppState) => ({
     events: state.yamatoEntirety.events.slice(0, 20),
+    firstLoadCompleted: state.yamatoEntirety.firstLoadCompleted,
   }));
 }
 export function useYamatoStateForInfographics() {
@@ -68,58 +62,6 @@ export function useYamatoStateForInfographics() {
       isRedeemablePledge: state.yamatoEntirety.pledges.isRedeemablePledge,
     };
   });
-}
-
-/**
- * dispatcher
- */
-export function useFetchYamatoState() {
-  const dispatch = useDispatch<AppDispatch>();
-  return useCallback(
-    (
-      args: {
-        [key in keyof Pick<
-          YamatoEntiretyState,
-          'lending' | 'pledges' | 'pool' | 'parameter'
-        >]: key extends 'pool'
-          ? Omit<
-              YamatoEntiretyState[key],
-              'prevRedemptionReserve' | 'prevSweepReserve'
-            >
-          : YamatoEntiretyState[key];
-      }
-    ) => dispatch(fetchYamatoState(args)),
-    [dispatch]
-  );
-}
-export function useFetchTokenState() {
-  const dispatch = useDispatch<AppDispatch>();
-  return useCallback(
-    (args: YamatoEntiretyState['token']) => {
-      dispatch(fetchTokenState(args));
-    },
-    [dispatch]
-  );
-}
-export function useFetchRateOfEthJpy() {
-  const dispatch = useDispatch<AppDispatch>();
-  return useCallback(
-    (rateOfEthJpy: YamatoEntiretyState['rateOfEthJpy']) =>
-      dispatch(fetchRateOfEthJpy({ rateOfEthJpy })),
-    [dispatch]
-  );
-}
-export function useFetchEvents() {
-  const dispatch = useDispatch<AppDispatch>();
-  return useCallback(
-    (events: YamatoEntiretyState['events']) =>
-      dispatch(fetchEvents({ events })),
-    [dispatch]
-  );
-}
-export function useResetEvents() {
-  const dispatch = useDispatch<AppDispatch>();
-  return useCallback(() => dispatch(resetEvents()), [dispatch]);
 }
 
 /**

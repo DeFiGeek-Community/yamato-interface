@@ -26,35 +26,40 @@ export default function Updater(): null {
   const ymtContract = useYmtContract();
   const veYmtContract = useVeYmtContract();
 
-  const fetchWallet = useFetchWallet();
+  const dispatchFetchWallet = useFetchWallet();
 
-  useInterval(async () => {
-    if (!active || !account) {
-      fetchWallet(initialWalletParams.cjpy, initialWalletParams.eth);
-      return;
-    }
-
-    let walletParams;
-    if (!isUseMock) {
-      try {
-        const wallet = await fetchTokenBalanceOf(account, {
-          cjpyContract,
-          ymtContract,
-          veYmtContract,
-        });
-        walletParams = {
-          eth: await getEthBalance(account, library),
-          cjpy: wallet.cjpy.totalSupply,
-        };
-      } catch (error) {
-        console.error(error);
-        walletParams = initialWalletParams;
+  useInterval(
+    async () => {
+      if (!active || !account) {
+        dispatchFetchWallet(initialWalletParams.cjpy, initialWalletParams.eth);
+        return;
       }
-    } else {
-      walletParams = mockWalletBalance;
-    }
-    fetchWallet(walletParams.cjpy, walletParams.eth);
-  }, 5000);
+
+      let walletParams;
+      if (!isUseMock) {
+        try {
+          const wallet = await fetchTokenBalanceOf(account, {
+            cjpyContract,
+            ymtContract,
+            veYmtContract,
+          });
+          walletParams = {
+            eth: await getEthBalance(account, library),
+            cjpy: wallet.cjpy.totalSupply,
+          };
+        } catch (error) {
+          console.error(error);
+          walletParams = initialWalletParams;
+        }
+      } else {
+        walletParams = mockWalletBalance;
+      }
+
+      dispatchFetchWallet(walletParams.cjpy, walletParams.eth);
+    },
+    5000,
+    true
+  );
 
   return null;
 }

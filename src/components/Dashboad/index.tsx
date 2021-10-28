@@ -28,8 +28,14 @@ function getMarketRateOfCjpyJpy(rateOfCjpyJpy: [string, number]) {
 }
 
 export default function Dashboad() {
-  const { tvl, tcr, rateOfEthJpy, totalSupplyOfCjpy, rateOfCjpyJpy } =
-    useYamatoStateForDashboard();
+  const {
+    tvl,
+    tcr,
+    rateOfEthJpy,
+    totalSupplyOfCjpy,
+    rateOfCjpyJpy,
+    firstLoadCompleted,
+  } = useYamatoStateForDashboard();
 
   return (
     <>
@@ -52,33 +58,37 @@ export default function Dashboad() {
             <VStack align="start">
               <DashboadItem
                 title={'TVL'}
-                stat={`${formatPrice(tvl, 'eth').value} ${
-                  YAMATO_SYMBOL.COLLATERAL
-                }`}
+                stat={`¥${formatPrice(tvl, 'jpy').value}`}
+                firstLoadCompleted={firstLoadCompleted}
               />
               <DashboadItem
                 title={'TCR'}
                 stat={`${tcr.toLocaleString(undefined, {
                   maximumFractionDigits: 2,
                 })}%`}
+                firstLoadCompleted={firstLoadCompleted}
               />
               <DashboadItem
                 title={'CJPYプライス'}
                 stat={`¥${
                   formatPrice(getRateOfCjpyJpy(rateOfCjpyJpy), 'jpy').value
                 }`}
+                firstLoadCompleted={firstLoadCompleted}
               />
               <DashboadItem
                 title={'市場間価格差異'}
                 stat={getMarketRateOfCjpyJpy(rateOfCjpyJpy[0])}
+                firstLoadCompleted={true}
               />
               <DashboadItem
                 title={''}
                 stat={getMarketRateOfCjpyJpy(rateOfCjpyJpy[1])}
+                firstLoadCompleted={true}
               />
               <DashboadItem
                 title={''}
                 stat={getMarketRateOfCjpyJpy(rateOfCjpyJpy[2])}
+                firstLoadCompleted={true}
               />
             </VStack>
           </GridItem>
@@ -91,12 +101,14 @@ export default function Dashboad() {
               <DashboadItem
                 title={'ETHプライス'}
                 stat={`¥${formatPrice(rateOfEthJpy, 'jpy').value}`}
+                firstLoadCompleted={firstLoadCompleted}
               />
               <DashboadItem
                 title={'CJPY総発行量'}
                 stat={`${formatPrice(totalSupplyOfCjpy, 'jpy').value} ${
                   YAMATO_SYMBOL.YEN
                 }`}
+                firstLoadCompleted={firstLoadCompleted}
               />
             </VStack>
           </GridItem>

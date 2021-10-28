@@ -92,7 +92,7 @@ export function ExternalLink({
         // });
       }
     },
-    [href, target]
+    [target]
   );
   return (
     <StyledLink
@@ -128,7 +128,7 @@ export function ExternalLinkIcon({
         // });
       }
     },
-    [href, target]
+    [target]
   );
   return (
     <LinkIconWrapper

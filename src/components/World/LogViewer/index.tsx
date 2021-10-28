@@ -1,3 +1,4 @@
+import { Skeleton } from '@chakra-ui/react';
 import { useWeb3React } from '@web3-react/core';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import styled from 'styled-components';
@@ -76,7 +77,7 @@ const Animation = styled.div`
 
 export default function LogViewer() {
   const { account } = useWeb3React();
-  const { events } = useYamatoStateForWorld();
+  const { events, firstLoadCompleted } = useYamatoStateForWorld();
 
   function renderLogEvents(events: LogEvent[]) {
     return events.map((event) => {
@@ -106,10 +107,25 @@ export default function LogViewer() {
     <div
       style={{ height: !!account ? '30rem' : '34.5rem', overflowY: 'scroll' }}
     >
-      {events.length > 0 ? (
-        <TransitionGroup>{renderLogEvents(events)}</TransitionGroup>
+      {firstLoadCompleted ? (
+        events.length > 0 ? (
+          <TransitionGroup>{renderLogEvents(events)}</TransitionGroup>
+        ) : (
+          <Text>ログがありません。</Text>
+        )
       ) : (
-        <Text>ログがありません。</Text>
+        <>
+          <Skeleton height="1.6rem" style={{ marginBottom: '0.3rem' }} />
+          <Skeleton height="1.6rem" style={{ marginBottom: '0.3rem' }} />
+          <Skeleton height="1.6rem" style={{ marginBottom: '0.3rem' }} />
+          <Skeleton height="1.6rem" style={{ marginBottom: '0.3rem' }} />
+          <Skeleton height="1.6rem" style={{ marginBottom: '0.3rem' }} />
+          <Skeleton height="1.6rem" style={{ marginBottom: '0.3rem' }} />
+          <Skeleton height="1.6rem" style={{ marginBottom: '0.3rem' }} />
+          <Skeleton height="1.6rem" style={{ marginBottom: '0.3rem' }} />
+          <Skeleton height="1.6rem" style={{ marginBottom: '0.3rem' }} />
+          <Skeleton height="1.6rem" style={{ marginBottom: '0.3rem' }} />
+        </>
       )}
     </div>
   );

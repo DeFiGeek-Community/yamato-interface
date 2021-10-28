@@ -1,4 +1,4 @@
-import { Grid, GridItem, VStack } from '@chakra-ui/react';
+import { Grid, GridItem, Skeleton, VStack } from '@chakra-ui/react';
 import { Formik, Form, FormikHelpers } from 'formik';
 import { useCallback } from 'react';
 import { YAMATO_SYMBOL } from '../../../constants/yamato';
@@ -12,10 +12,11 @@ type Props = {
   rateOfEthJpy: number;
   sweepReserve: number;
   sweepableCandiate: number;
+  firstLoadCompleted: boolean;
 };
 
 export default function SweepInput(props: Props) {
-  const { sweepReserve, sweepableCandiate } = props;
+  const { sweepReserve, sweepableCandiate, firstLoadCompleted } = props;
 
   const { account } = useActiveWeb3React();
   const { callback } = useSweepCallback();
@@ -63,8 +64,14 @@ export default function SweepInput(props: Props) {
               <VStack align="start">
                 <CustomFormLabel text={'プール総量'} />
                 <Text>
-                  {formatPrice(sweepReserve, 'jpy').value}
-                  {YAMATO_SYMBOL.YEN}
+                  {firstLoadCompleted ? (
+                    <>
+                      {formatPrice(sweepReserve, 'jpy').value}
+                      {YAMATO_SYMBOL.YEN}
+                    </>
+                  ) : (
+                    <Skeleton height="1.6rem" width="7rem" />
+                  )}
                 </Text>
               </VStack>
             </GridItem>
@@ -73,7 +80,18 @@ export default function SweepInput(props: Props) {
               <VStack align="start">
                 <CustomFormLabel text={'弁済候補総量'} />
                 <Text>
-                  {formatPrice(sweepableCandiate, 'jpy').value}
+                  {firstLoadCompleted ? (
+                    <>{formatPrice(sweepableCandiate, 'jpy').value}</>
+                  ) : (
+                    <Skeleton
+                      height="1.4rem"
+                      width="5rem"
+                      style={{
+                        display: 'inline-block',
+                        verticalAlign: 'middle',
+                      }}
+                    />
+                  )}
                   {YAMATO_SYMBOL.YEN}
                 </Text>
               </VStack>
@@ -83,7 +101,18 @@ export default function SweepInput(props: Props) {
               <VStack align="start">
                 <CustomFormLabel text={'実行リワード予測'} />
                 <Text>
-                  {formatPrice(getExpectedReward(), 'jpy').value}
+                  {firstLoadCompleted ? (
+                    <>{formatPrice(getExpectedReward(), 'jpy').value}</>
+                  ) : (
+                    <Skeleton
+                      height="1.4rem"
+                      width="5rem"
+                      style={{
+                        display: 'inline-block',
+                        verticalAlign: 'middle',
+                      }}
+                    />
+                  )}
                   {YAMATO_SYMBOL.YEN}
                 </Text>
               </VStack>
