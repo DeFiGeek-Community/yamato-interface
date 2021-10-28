@@ -3,13 +3,13 @@ name: E2E walk through test.
 on:
   schedule:
     # * is a special character in YAML so you have to quote this string
-    - cron:  '0 7 * * *'
+    - cron: '0 7 * * *'
   workflow_dispatch: {}
 
 jobs:
   cypress-run:
     runs-on: ubuntu-latest
-    container: cypress/browsers:node14.7.0-chrome84
+    container: cypress/browsers:node14.17.0-chrome91-ff89
     steps:
       - name: Checkout
         uses: actions/checkout@v2
