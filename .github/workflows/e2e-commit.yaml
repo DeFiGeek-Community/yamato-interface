@@ -5,7 +5,7 @@ on:
   push:
 
 jobs:
-  cypress-run:
+  e2e-load-only:
     runs-on: ubuntu-latest
     container: cypress/browsers:node14.17.0-chrome91-ff89
     steps:

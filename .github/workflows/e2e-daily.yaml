@@ -7,7 +7,7 @@ on:
   workflow_dispatch: {}
 
 jobs:
-  cypress-run:
+  e2e-walk-through:
     runs-on: ubuntu-latest
     container: cypress/browsers:node14.17.0-chrome91-ff89
     steps:
