@@ -19,9 +19,10 @@ export type LogEventType =
   | 'core_redemption'
   | 'sweep';
 export type LogEvent = {
-  id: number;
-  blockNumber: number;
-  logIndex: number;
+  id: string;
+  date?: number;
+  blockNumber?: number;
+  logIndex?: number;
   address: string;
   category: LogEventType;
   value: any;
@@ -134,16 +135,29 @@ export default createReducer(initialState, (builder) =>
         return !state.events.some((event) => event.id === newEvent.id);
       });
       const newState = state.events.concat(additionals).sort((a, b) => {
-        if (a.blockNumber > b.blockNumber) {
-          return -1;
-        } else if (a.blockNumber < b.blockNumber) {
-          return 1;
+        // from subgraph
+        if (a.date && b.date) {
+          if (a.date > b.date) {
+            return -1;
+          } else if (a.date < b.date) {
+            return 1;
+          }
+          return 0;
         }
-        // block number is the same
-        if (a.logIndex > b.logIndex) {
-          return -1;
-        } else if (a.logIndex < b.logIndex) {
-          return 1;
+        // from ethers
+        if (a.blockNumber && b.blockNumber) {
+          if (a.blockNumber > b.blockNumber) {
+            return -1;
+          } else if (a.blockNumber < b.blockNumber) {
+            return 1;
+          }
+          // block number is the same
+          if (a.logIndex! > b.logIndex!) {
+            return -1;
+          } else if (a.logIndex! < b.logIndex!) {
+            return 1;
+          }
+          return 0;
         }
         return 0;
       });

@@ -1,8 +1,4 @@
 import { createAction } from '@reduxjs/toolkit';
-import { PledgeDetail } from './reducer';
+import { PledgeState } from './reducer';
 
-export const fetchMyPledge = createAction<
-  {
-    owner: string;
-  } & PledgeDetail
->('pledge/fetchMyPledge');
+export const fetchMyPledge = createAction<PledgeState>('pledge/fetchMyPledge');

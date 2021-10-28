@@ -16,7 +16,20 @@ export const NETWORK_URLS: { [key in SupportedChainId]: string } = {
   [SupportedChainId.ARBITRUM_RINKEBY]: `https://arbitrum-rinkeby.infura.io/v3/${INFURA_KEY}`,
 };
 
-export const CHAIN_SUBGRAPH_V3_URL: Record<number, string> = {
+const ENABLE_SUBGRAPH = process.env.REACT_APP_ENABLE_SUBGRAPH;
+// default will be true.
+export const isEnableSubgraph =
+  typeof ENABLE_SUBGRAPH === 'undefined' || ENABLE_SUBGRAPH === 'true';
+// default is mainnet.
+export const DEFAULT_CHAINID_FOR_SUBGRAPH =
+  Number(process.env.REACT_APP_DEFAULT_CHAINID_FOR_SUBGRAPH) ?? 1;
+export const SUBGRAPH_YAMATO_URLS: Record<number, string> = {
+  [SupportedChainId.MAINNET]: '',
+  [SupportedChainId.RINKEBY]:
+    'https://api.thegraph.com/subgraphs/name/subgraph-account/yamato_test_subgraph',
+};
+
+export const SUBGRAPH_UNISWAP_V3_URLS: Record<number, string> = {
   [SupportedChainId.MAINNET]:
     'https://api.thegraph.com/subgraphs/name/uniswap/uniswap-v3',
   [SupportedChainId.RINKEBY]:
@@ -29,7 +42,7 @@ export const CHAIN_SUBGRAPH_V3_URL: Record<number, string> = {
     'https://api.thegraph.com/subgraphs/name/ianlapham/uniswap-optimism-dev',
 };
 
-export const CHAIN_SUBGRAPH_V2_URL: Record<number, string> = {
+export const SUBGRAPH_UNISWAP_V2_URLS: Record<number, string> = {
   [SupportedChainId.MAINNET]:
     'https://api.thegraph.com/subgraphs/name/uniswap/uniswap-v2',
   [SupportedChainId.RINKEBY]:

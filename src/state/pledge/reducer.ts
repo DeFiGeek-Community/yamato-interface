@@ -16,10 +16,8 @@ export interface PledgeState {
 const initialState: PledgeState = {};
 
 export default createReducer(initialState, (builder) =>
-  builder.addCase(
-    fetchMyPledge,
-    (state, { payload: { owner, collateral, debt, withdrawalLockDate } }) => {
-      state[owner] = { collateral, debt, withdrawalLockDate };
-    }
-  )
+  builder.addCase(fetchMyPledge, (state, { payload }) => {
+    const key = Object.keys(payload)[0];
+    state[key] = Object.values(payload)[0];
+  })
 );

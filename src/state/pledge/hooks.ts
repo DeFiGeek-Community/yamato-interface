@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useActiveWeb3React } from '../../hooks/web3';
 import { AppDispatch, AppState } from '../index';
 import { fetchMyPledge } from './actions';
-import { PledgeDetail } from './reducer';
+import { PledgeDetail, PledgeState } from './reducer';
 
 /**
  * selector
@@ -28,20 +28,7 @@ export function usePledgeData(): PledgeDetail {
 export function useFetchMyPledge() {
   const dispatch = useDispatch<AppDispatch>();
   return useCallback(
-    (
-      account: string,
-      collateral: number,
-      debt: number,
-      withdrawalLockDate: number
-    ) =>
-      dispatch(
-        fetchMyPledge({
-          owner: account,
-          collateral,
-          debt,
-          withdrawalLockDate,
-        })
-      ),
+    (pledge: PledgeState) => dispatch(fetchMyPledge(pledge)),
     [dispatch]
   );
 }

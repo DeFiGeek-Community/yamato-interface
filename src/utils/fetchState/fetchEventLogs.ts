@@ -50,7 +50,7 @@ export async function fetchEventLogs(
     switch (event.name) {
       case 'Deposited':
         events.push({
-          id: Number(`${log.blockNumber}${log.logIndex}`),
+          id: `${log.blockNumber}${log.logIndex}`,
           blockNumber: log.blockNumber,
           logIndex: log.logIndex,
           address: event.args[0],
@@ -60,7 +60,7 @@ export async function fetchEventLogs(
         break;
       case 'Withdrawn':
         events.push({
-          id: Number(`${log.blockNumber}${log.logIndex}`),
+          id: `${log.blockNumber}${log.logIndex}`,
           blockNumber: log.blockNumber,
           logIndex: log.logIndex,
           address: event.args[0],
@@ -70,7 +70,7 @@ export async function fetchEventLogs(
         break;
       case 'Borrowed':
         events.push({
-          id: Number(`${log.blockNumber}${log.logIndex}`),
+          id: `${log.blockNumber}${log.logIndex}`,
           blockNumber: log.blockNumber,
           logIndex: log.logIndex,
           address: event.args[0],
@@ -80,7 +80,7 @@ export async function fetchEventLogs(
         break;
       case 'Repaid':
         events.push({
-          id: Number(`${log.blockNumber}${log.logIndex}`),
+          id: `${log.blockNumber}${log.logIndex}`,
           blockNumber: log.blockNumber,
           logIndex: log.logIndex,
           address: event.args[0],
@@ -90,7 +90,7 @@ export async function fetchEventLogs(
         break;
       case 'RedeemedMeta':
         events.push({
-          id: Number(`${log.blockNumber}${log.logIndex}`),
+          id: `${log.blockNumber}${log.logIndex}`,
           blockNumber: log.blockNumber,
           logIndex: log.logIndex,
           address: event.args[0],
@@ -100,7 +100,7 @@ export async function fetchEventLogs(
         break;
       case 'Swept':
         events.push({
-          id: Number(`${log.blockNumber}${log.logIndex}`),
+          id: `${log.blockNumber}${log.logIndex}`,
           blockNumber: log.blockNumber,
           logIndex: log.logIndex,
           address: event.args[0],

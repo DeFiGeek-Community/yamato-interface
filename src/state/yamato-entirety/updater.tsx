@@ -1,3 +1,5 @@
+import { isEnableSubgraph, SUBGRAPH_YAMATO_URLS } from '../../constants/api';
+import { SupportedChainId } from '../../constants/chains';
 import {
   useCjpyContract,
   useVeYmtContract,
@@ -10,10 +12,12 @@ import {
 import useInterval from '../../hooks/useInterval';
 import { useActiveWeb3React } from '../../hooks/web3';
 import {
+  fetchRedeemablPledges,
   fetchTotalSupply,
   fetchYamatoEntiretyStateFromContract,
 } from '../../utils/fetchState';
 import { fetchEventLogs } from '../../utils/fetchState/fetchEventLogs';
+import { fetchSubgraph, getCache } from '../../utils/fetchState/fetchSubgraph';
 import { useBlockNumber } from '../application/hooks';
 import {
   mockLogs,
@@ -25,7 +29,6 @@ import {
   useFetchRateOfEthJpy,
   useFetchTokenState,
   useFetchYamatoState,
-  useResetEvents,
 } from './hooks';
 import { initialState } from './reducer';
 
@@ -37,7 +40,7 @@ const initialYamatoParams = initialState;
 const initialTokenParams = initialState.token;
 
 export default function Updater(): null {
-  const { active, account } = useActiveWeb3React();
+  const { account, chainId } = useActiveWeb3React();
 
   const yamatoMainContract = useYamatoMainContract();
   const yamatoPoolContract = useYamatoPoolContract();
@@ -51,41 +54,17 @@ export default function Updater(): null {
   const fetchTokenState = useFetchTokenState();
   const fetchRateOfEthJpy = useFetchRateOfEthJpy();
   const fetchEvents = useFetchEvents();
-  const resetEvents = useResetEvents();
   const blockNumber = useBlockNumber();
 
   useInterval(async () => {
-    // TODO: If implementing subgraph, remove. You will execute this alltime without wallet.
-    if (!active || !account) {
-      fetchYamatoState(initialYamatoParams);
-      fetchRateOfEthJpy(initialYamatoParams.rateOfEthJpy);
-      fetchTokenState(initialTokenParams);
-      return;
-    }
-
     let yamatoParams;
     let rateOfEthJpy: number;
     let tokenParams;
     if (!isUseMock) {
-      try {
-        yamatoParams = await fetchYamatoEntiretyStateFromContract({
-          yamatoMainContract,
-          yamatoPoolContract,
-          yamatoPriceFeedContract,
-          yamatoPriorityRegistryContract,
-        });
-        rateOfEthJpy = yamatoParams.rateOfEthJpy;
-        tokenParams = await fetchTotalSupply({
-          cjpyContract,
-          ymtContract,
-          veYmtContract,
-        });
-      } catch (error) {
-        console.error(error);
-        yamatoParams = initialYamatoParams;
-        rateOfEthJpy = initialYamatoParams.rateOfEthJpy;
-        tokenParams = initialTokenParams;
-      }
+      const res = await fetch();
+      yamatoParams = res.yamatoParams;
+      rateOfEthJpy = res.rateOfEthJpy;
+      tokenParams = res?.tokenParams;
     } else {
       yamatoParams = mockYamatoEntirety.yamatoParams;
       rateOfEthJpy = mockYamatoEntirety.rateOfEthJpy;
@@ -98,21 +77,69 @@ export default function Updater(): null {
   }, 5000);
 
   useInterval(async () => {
-    // TODO: If implementing subgraph, remove. You will execute this alltime without wallet.
-    if (!active || !account) {
-      resetEvents();
-      return;
-    }
-
     let params;
     if (!isUseMock) {
-      params = await fetchEventLogs(blockNumber, yamatoMainContract);
+      params = isEnableSubgraph
+        ? getCache().yamatoEntiretyState.events
+        : await fetchEventLogs(blockNumber, yamatoMainContract);
     } else {
       params = mockLogs();
     }
 
     fetchEvents(params);
   }, 5000);
+
+  async function fetch() {
+    // from Subgraph
+    if (isEnableSubgraph) {
+      try {
+        const res = await fetchSubgraph(chainId, account);
+        const res2 = await fetchRedeemablPledges(
+          yamatoPriorityRegistryContract
+        );
+        const yamatoParams = { ...res };
+        yamatoParams.pledges.redeemableCandidate = res2.redeemableCandidate;
+        yamatoParams.pledges.isRedeemablePledge = res2.isRedeemablePledge;
+        return {
+          yamatoParams,
+          rateOfEthJpy: res.rateOfEthJpy,
+          tokenParams: { ...res.token },
+          eventParams: res.events,
+        };
+      } catch (error) {
+        console.error(error);
+        // do nothing
+      }
+    }
+
+    // from Ethers
+    try {
+      const res = await fetchYamatoEntiretyStateFromContract({
+        yamatoMainContract,
+        yamatoPoolContract,
+        yamatoPriceFeedContract,
+        yamatoPriorityRegistryContract,
+      });
+      return {
+        yamatoParams: res,
+        rateOfEthJpy: res.rateOfEthJpy,
+        tokenParams: await fetchTotalSupply({
+          cjpyContract,
+          ymtContract,
+          veYmtContract,
+        }),
+        eventsParams: await fetchEventLogs(blockNumber, yamatoMainContract),
+      };
+    } catch (error) {
+      console.error(error);
+      return {
+        yamatoParams: initialYamatoParams,
+        rateOfEthJpy: initialYamatoParams.rateOfEthJpy,
+        tokenParams: initialTokenParams,
+        eventParams: [],
+      };
+    }
+  }
 
   return null;
 }

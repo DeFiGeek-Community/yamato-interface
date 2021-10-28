@@ -4,10 +4,10 @@ import {
   WRAPPED_ETHER_ADDRESS,
 } from '../../constants/addresses';
 import {
-  CHAIN_SUBGRAPH_V2_URL,
-  CHAIN_SUBGRAPH_V3_URL,
+  DEFAULT_CHAINID_FOR_SUBGRAPH,
+  SUBGRAPH_UNISWAP_V2_URLS,
+  SUBGRAPH_UNISWAP_V3_URLS,
 } from '../../constants/api';
-import { SupportedChainId } from '../../constants/chains';
 import { Pool } from '../../infrastructures/subgraph/uniswap/generated-v3';
 
 const v3Query = gql`
@@ -76,23 +76,28 @@ const v2Query = gql`
 
 export async function fetchCjpyPriceFromUniswap(
   version: 'v2' | 'v3',
-  chainId: SupportedChainId
+  chainId: number | undefined,
+  active: boolean
 ) {
+  // Construct param
+  const activeChainId = active
+    ? chainId ?? DEFAULT_CHAINID_FOR_SUBGRAPH // connected wallet
+    : DEFAULT_CHAINID_FOR_SUBGRAPH; // Not connecting wallet
   const endpoint =
     version === 'v2'
-      ? CHAIN_SUBGRAPH_V2_URL[chainId]
-      : CHAIN_SUBGRAPH_V3_URL[chainId];
-  const cjpyAddress = CJPY_ADDRESSES[chainId].toLowerCase();
-  const wethAddress = WRAPPED_ETHER_ADDRESS[chainId].toLowerCase();
+      ? SUBGRAPH_UNISWAP_V2_URLS[activeChainId]
+      : SUBGRAPH_UNISWAP_V3_URLS[activeChainId];
 
   const query = version === 'v2' ? v2Query : v3Query;
   const variables = {
-    tokenAddress0: cjpyAddress,
-    tokenAddress1: wethAddress,
+    tokenAddress0: CJPY_ADDRESSES[activeChainId].toLowerCase(),
+    tokenAddress1: WRAPPED_ETHER_ADDRESS[activeChainId].toLowerCase(),
   };
 
+  // Query
   const data = await request(endpoint, query, variables);
 
+  // Create response
   if (version === 'v2') {
     if (data.asToken0.length > 0) {
       return Number(data.asToken0[0].token0Price);

@@ -1,25 +1,11 @@
 import { BigNumber } from 'ethers';
 import {
-  useYamatoMainContract,
-  useYamatoPoolContract,
-  useYamatoPriceFeedContract,
-} from '../../hooks/useContract';
-import {
   Pool,
   PriceFeed,
   PriorityRegistry,
   Yamato,
 } from '../../infrastructures/abis/types';
 import { formatCjpy, formatEther, formatYen } from '../web3';
-
-export function useFetchYamatoEntiretyState() {
-  const yamatoMainContract = useYamatoMainContract();
-  const yamatoPoolContract = useYamatoPoolContract();
-  const yamatoPriceFeedContract = useYamatoPriceFeedContract();
-
-  // TODO: subgraph pattern
-  return fetchYamatoEntiretyStateFromContract;
-}
 
 export async function fetchYamatoEntiretyStateFromContract(contracts: {
   yamatoMainContract: Yamato | null;
@@ -94,7 +80,6 @@ export async function fetchYamatoEntiretyStateFromContract(contracts: {
   const pool = {
     redemptionReserve: Number(formatEther(yamatoPoolResults[0])), // redemptionReserve in Pool.sol
     sweepReserve: Number(formatEther(yamatoPoolResults[1])), // sweepReserve in Pool.sol
-    sweepableCandiate: 10, // FIXME: ISSUE #27
   };
   const parameter = {
     MCR: yamatoMainResults[2],
@@ -112,5 +97,26 @@ export async function fetchYamatoEntiretyStateFromContract(contracts: {
       ...yamatoPriorityRegistryResults,
       isRedeemablePledge: yamatoPriorityRegistryResults.redeemableCandidate > 0,
     },
+  };
+}
+
+export async function fetchRedeemablPledges(
+  yamatoPriorityRegistryContract: PriorityRegistry | null
+) {
+  // PriorityRegistry.sol
+  const yamatoPriorityRegistryResults = yamatoPriorityRegistryContract
+    ? {
+        redeemableCandidate: Number(
+          formatEther(await yamatoPriorityRegistryContract.getRedeemablesCap())
+        ),
+      }
+    : {
+        redeemableCandidate: 0,
+      };
+
+  // Create response
+  return {
+    ...yamatoPriorityRegistryResults,
+    isRedeemablePledge: yamatoPriorityRegistryResults.redeemableCandidate > 0,
   };
 }
