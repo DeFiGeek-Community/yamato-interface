@@ -10,7 +10,7 @@ import { PriceSource } from './reducer';
 export function useFetchRateOfCjpyEth() {
   const dispatch = useDispatch<AppDispatch>();
   return useCallback(
-    (source: PriceSource, rateOfCjpyEth: number) =>
+    (source: PriceSource, rateOfCjpyEth: number | null) =>
       dispatch(fetchRateOfCjpyEth({ source, rateOfCjpyEth })),
     [dispatch]
   );

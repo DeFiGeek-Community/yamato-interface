@@ -3,5 +3,5 @@ import { PriceSource } from './reducer';
 
 export const fetchRateOfCjpyEth = createAction<{
   source: PriceSource;
-  rateOfCjpyEth: number;
+  rateOfCjpyEth: number | null;
 }>('market/fetchRateOfCjpyEth');

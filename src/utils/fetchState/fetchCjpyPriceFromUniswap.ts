@@ -104,7 +104,7 @@ export async function fetchCjpyPriceFromUniswap(
     } else if (data.asToken1.length > 0) {
       return Number(data.asToken1[0].token1Price);
     }
-    return 0;
+    return null;
   }
   // v3
   if (data.asToken0.length > 0) {
@@ -112,7 +112,7 @@ export async function fetchCjpyPriceFromUniswap(
   } else if (data.asToken1.length > 0) {
     return getMidPrice(data.asToken1, 'token1Price');
   }
-  return 0;
+  return null;
 }
 
 function getMidPrice(pools: Pool[], pairType: 'token0Price' | 'token1Price') {

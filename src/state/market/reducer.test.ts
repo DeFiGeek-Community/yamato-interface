@@ -19,10 +19,27 @@ describe('market reducer', () => {
       const rateOfCjpyEth = 10;
 
       store.dispatch(fetchRateOfCjpyEth({ source, rateOfCjpyEth }));
-      expect(store.getState()).toEqual({
-        ...initialState,
-        rateOfCjpyEth: { [source]: rateOfCjpyEth },
+      expect(store.getState().rateOfCjpyEth).toEqual({
+        [source]: rateOfCjpyEth,
       });
+    });
+
+    it('should set if source exist and rate is 0', () => {
+      const source = 'uniswap(v3)';
+      const rateOfCjpyEth = 0;
+
+      store.dispatch(fetchRateOfCjpyEth({ source, rateOfCjpyEth }));
+      expect(store.getState().rateOfCjpyEth).toEqual({
+        [source]: rateOfCjpyEth,
+      });
+    });
+
+    it('should delete the source if source exist and rate is nulls', () => {
+      const source = 'uniswap(v3)';
+      const rateOfCjpyEth = null;
+
+      store.dispatch(fetchRateOfCjpyEth({ source, rateOfCjpyEth }));
+      expect(store.getState().rateOfCjpyEth).toEqual({});
     });
   });
 });

@@ -20,11 +20,13 @@ function getRateOfCjpyJpy(rateOfCjpyJpy: [string, number][]) {
 }
 
 function getMarketRateOfCjpyJpy(rateOfCjpyJpy: [string, number]) {
-  if (!rateOfCjpyJpy || !rateOfCjpyJpy[1]) {
+  if (!rateOfCjpyJpy) {
     return ``;
   }
 
-  return `${rateOfCjpyJpy[0]}:¥${formatPrice(rateOfCjpyJpy[1], 'jpy').value}\n`;
+  return `${rateOfCjpyJpy[0]}: ¥${
+    formatPrice(rateOfCjpyJpy[1], 'jpy').value
+  }\n`;
 }
 
 export default function Dashboad() {

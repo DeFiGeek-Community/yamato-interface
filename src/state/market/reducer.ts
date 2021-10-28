@@ -18,7 +18,13 @@ export default createReducer(initialState, (builder) =>
   builder.addCase(
     fetchRateOfCjpyEth,
     (state, { payload: { source, rateOfCjpyEth } }) => {
-      state.rateOfCjpyEth[source] = rateOfCjpyEth;
+      if (rateOfCjpyEth != null) {
+        state.rateOfCjpyEth[source] = rateOfCjpyEth;
+      } else {
+        if (state.rateOfCjpyEth[source] != null) {
+          delete state.rateOfCjpyEth[source];
+        }
+      }
     }
   )
 );
