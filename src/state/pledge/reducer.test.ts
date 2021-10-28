@@ -1,6 +1,6 @@
 import { Store, createStore } from '@reduxjs/toolkit';
-import { fetchMyPledge } from './actions';
-import reducer, { PledgeState } from './reducer';
+import { fetchMyPledge, reset } from './actions';
+import reducer, { initialState, PledgeState } from './reducer';
 
 describe('pledge reducer', () => {
   let store: Store<PledgeState>;
@@ -11,7 +11,7 @@ describe('pledge reducer', () => {
   });
 
   it('has correct initial state', () => {
-    expect(store.getState()).toEqual({});
+    expect(store.getState()).toEqual(initialState);
   });
 
   describe('fetchMyPledge', () => {
@@ -24,7 +24,7 @@ describe('pledge reducer', () => {
         },
       };
       store.dispatch(fetchMyPledge(expected));
-      expect(store.getState()).toEqual(expected);
+      expect(store.getState().list).toEqual(expected);
     });
 
     it('should be lower case if address has upper case character', () => {
@@ -36,7 +36,7 @@ describe('pledge reducer', () => {
         },
       };
       store.dispatch(fetchMyPledge(expected));
-      expect(Object.keys(store.getState())[0]).toEqual(
+      expect(Object.keys(store.getState().list)[0]).toEqual(
         defaultOwner.toLowerCase()
       );
     });
@@ -50,7 +50,24 @@ describe('pledge reducer', () => {
         },
       };
       store.dispatch(fetchMyPledge(expected));
-      expect(store.getState()).toEqual(expected);
+      expect(store.getState().list).toEqual({});
+    });
+  });
+
+  describe('reset', () => {
+    it('reset', () => {
+      const expected = {
+        [defaultOwner]: {
+          collateral: 10,
+          debt: 5,
+          withdrawalLockDate: 0,
+        },
+      };
+      store.dispatch(fetchMyPledge(expected));
+      expect(Object.keys(store.getState().list)[0]).toBe(defaultOwner);
+
+      store.dispatch(reset());
+      expect(store.getState().list).toEqual({});
     });
   });
 });

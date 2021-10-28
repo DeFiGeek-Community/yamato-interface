@@ -4,7 +4,7 @@ import {
   fetchRateOfEthJpy,
   fetchTokenState,
   fetchYamatoState,
-  resetEvents,
+  reset,
 } from './actions';
 import reducer, {
   initialState,
@@ -42,6 +42,7 @@ describe('yamato-entirety reducer', () => {
           SRR: 20,
           GRR: 1,
         },
+        firstLoadCompleted: true,
       };
 
       store.dispatch(fetchYamatoState(newState));
@@ -93,21 +94,31 @@ describe('yamato-entirety reducer', () => {
     });
   });
 
-  describe('resetEvents', () => {
-    it('reset Events', () => {
-      const events = [{ blockNumber: 1 }, { blockNumber: 2 }] as LogEvent[];
-      store.dispatch(fetchEvents({ events }));
-      expect(store.getState()).toEqual({
-        ...initialState,
-        events: events.reverse(),
-      });
+  describe('reset', () => {
+    it('reset', () => {
+      const newState = {
+        lending: { totalCollateral: 10, totalDebt: 5, tvl: 11, tcr: 110 },
+        pledges: {
+          redeemableCandidate: 100,
+          sweepableCandidate: 50,
+          isRedeemablePledge: true,
+        },
+        pool: {
+          redemptionReserve: 2,
+          sweepReserve: 1,
+        },
+        parameter: {
+          MCR: 110,
+          RRR: 80,
+          SRR: 20,
+          GRR: 1,
+        },
+      };
+      store.dispatch(fetchYamatoState(newState));
+      expect(store.getState().firstLoadCompleted).toBe(true);
 
-      store.dispatch(resetEvents());
-
-      expect(store.getState()).toEqual({
-        ...initialState,
-        events: [],
-      });
+      store.dispatch(reset());
+      expect(store.getState().firstLoadCompleted).toBe(false);
     });
   });
 });

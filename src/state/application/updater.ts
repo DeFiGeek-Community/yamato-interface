@@ -4,9 +4,12 @@ import { CHAIN_INFO } from '../../constants/chains';
 import useDebounce from '../../hooks/useDebounce';
 import useIsWindowVisible from '../../hooks/useIsWindowVisible';
 import { useActiveWeb3React } from '../../hooks/web3';
+import { resetCache } from '../../utils/fetchState/fetchSubgraph';
 import { supportedChainId } from '../../utils/supportedChainId';
 import { switchToNetwork } from '../../utils/switchToNetwork';
 import { useAppDispatch, useAppSelector } from '../hooks';
+import { reset as resetOfPledge } from '../pledge/actions';
+import { reset as resetOfYamato } from '../yamato-entirety/actions';
 
 import {
   setChainConnectivityWarning,
@@ -140,6 +143,7 @@ export default function Updater(): null {
     debouncedState.chainId,
   ]);
 
+  // chainId has changed
   useEffect(() => {
     dispatch(
       updateChainId({
@@ -148,6 +152,10 @@ export default function Updater(): null {
           : null,
       })
     );
+    //reset
+    dispatch(resetOfYamato());
+    dispatch(resetOfPledge());
+    resetCache();
   }, [dispatch, debouncedState.chainId]);
 
   useEffect(() => {
