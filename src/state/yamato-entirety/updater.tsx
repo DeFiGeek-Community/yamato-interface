@@ -56,38 +56,33 @@ export default function Updater(): null {
   const dispatchFetchEvents = useFetchEvents();
   const blockNumber = useBlockNumber();
 
-  useInterval(async () => {
-    let yamatoParams;
-    let rateOfEthJpy: number;
-    let tokenParams;
-    if (!isUseMock) {
-      const res = await fetch();
-      yamatoParams = res.yamatoParams;
-      rateOfEthJpy = res.rateOfEthJpy;
-      tokenParams = res?.tokenParams;
-    } else {
-      yamatoParams = mockYamatoEntirety.yamatoParams;
-      rateOfEthJpy = mockYamatoEntirety.rateOfEthJpy;
-      tokenParams = mockTokenTotalSupply;
-    }
+  useInterval(
+    async () => {
+      let yamatoParams;
+      let rateOfEthJpy: number;
+      let tokenParams;
+      let eventParams;
+      if (!isUseMock) {
+        const res = await fetch();
+        yamatoParams = res.yamatoParams;
+        rateOfEthJpy = res.rateOfEthJpy;
+        tokenParams = res.tokenParams;
+        eventParams = res.eventParams;
+      } else {
+        yamatoParams = mockYamatoEntirety.yamatoParams;
+        rateOfEthJpy = mockYamatoEntirety.rateOfEthJpy;
+        tokenParams = mockTokenTotalSupply;
+        eventParams = mockLogs();
+      }
 
-    dispatchFetchYamatoState(yamatoParams);
-    dispatchFetchRateOfEthJpy(rateOfEthJpy);
-    dispatchFetchTokenState(tokenParams);
-  }, 5000);
-
-  useInterval(async () => {
-    let params;
-    if (!isUseMock) {
-      params = isEnableSubgraph
-        ? getCache().yamatoEntiretyState.events
-        : await fetchEventLogs(blockNumber, yamatoMainContract);
-    } else {
-      params = mockLogs();
-    }
-
-    dispatchFetchEvents(params);
-  }, 5000);
+      dispatchFetchYamatoState(yamatoParams);
+      dispatchFetchRateOfEthJpy(rateOfEthJpy);
+      dispatchFetchTokenState(tokenParams);
+      dispatchFetchEvents(eventParams);
+    },
+    5000,
+    true
+  );
 
   const fetch = useCallback(async () => {
     // from Subgraph
@@ -128,6 +123,7 @@ export default function Updater(): null {
           ymtContract,
           veYmtContract,
         }),
+        eventParams: await fetchEventLogs(blockNumber, yamatoMainContract),
       };
     } catch (error) {
       console.error(error);
@@ -135,12 +131,14 @@ export default function Updater(): null {
         yamatoParams: initialYamatoParams,
         rateOfEthJpy: initialYamatoParams.rateOfEthJpy,
         tokenParams: initialTokenParams,
+        eventParams: [],
       };
     }
   }, [
     active,
     account,
     chainId,
+    blockNumber,
     cjpyContract,
     veYmtContract,
     yamatoMainContract,

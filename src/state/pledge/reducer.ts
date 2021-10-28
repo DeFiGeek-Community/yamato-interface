@@ -17,7 +17,9 @@ const initialState: PledgeState = {};
 
 export default createReducer(initialState, (builder) =>
   builder.addCase(fetchMyPledge, (state, { payload }) => {
-    const key = Object.keys(payload)[0];
+    const key = Object.keys(payload)[0]
+      ? Object.keys(payload)[0].toLowerCase()
+      : '';
     state[key] = Object.values(payload)[0];
   })
 );

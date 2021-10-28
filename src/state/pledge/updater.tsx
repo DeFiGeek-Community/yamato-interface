@@ -25,25 +25,29 @@ export default function Updater(): null {
 
   const dispatchFetchMyPledge = useFetchMyPledge();
 
-  useInterval(async () => {
-    let params;
-    if (!isUseMock) {
-      try {
-        params = isEnableSubgraph
-          ? getCache().pledge
-          : await fetchPledgeStateFromContract(account, {
-              yamatoMainContract,
-            });
-      } catch (error) {
-        console.error(error);
-        params = { ...initialPledgeParams };
+  useInterval(
+    async () => {
+      let params;
+      if (!isUseMock) {
+        try {
+          params = isEnableSubgraph
+            ? getCache().pledge
+            : await fetchPledgeStateFromContract(account, {
+                yamatoMainContract,
+              });
+        } catch (error) {
+          console.error(error);
+          params = { ...initialPledgeParams };
+        }
+      } else {
+        params = mockPledge(account ?? '');
       }
-    } else {
-      params = mockPledge(account ?? '');
-    }
 
-    dispatchFetchMyPledge(params);
-  }, 5000);
+      dispatchFetchMyPledge(params);
+    },
+    5000,
+    true
+  );
 
   return null;
 }

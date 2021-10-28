@@ -7,22 +7,21 @@ type AddressMap = { [chainId: number]: string };
  * Yamato
  * TODO: Consider L2 and Upgradability. Probably access CurrencyOS.yamatoes and get addresses dynamically.
  */
-export type YamatoContractSort = 'main' | 'pool' | 'pricefeed';
 export const YAMATO_MAIN_ADDRESSES: AddressMap = {
   [SupportedChainId.MAINNET]: '0x0000000000000000000000000000000000000000',
-  [SupportedChainId.RINKEBY]: '0xBA29557591b66f973Ee21CA97b435b4071B71A03',
+  [SupportedChainId.RINKEBY]: '0x664E34EDDAcCC08118829f4FE5EedcF2305F6567',
 };
 export const YAMATO_POOL_ADDRESSES: AddressMap = {
   [SupportedChainId.MAINNET]: '0x0000000000000000000000000000000000000000',
-  [SupportedChainId.RINKEBY]: '0xCF44eCA56895a9FDaBbF994bA24Efe887610EA74',
+  [SupportedChainId.RINKEBY]: '0x1960Ffafa3F1CC31FB50aa2284002573c8a5b1E4',
+};
+export const YAMATO_PRIORITY_REGISTRY_ADDRESSES: AddressMap = {
+  [SupportedChainId.MAINNET]: '0x0000000000000000000000000000000000000000',
+  [SupportedChainId.RINKEBY]: '0x7996D873A3d6fBbA5A06C029D1C8feb954BbD07F',
 };
 export const YAMATO_PRICE_FEED_ADDRESSES: AddressMap = {
   [SupportedChainId.MAINNET]: '0x0000000000000000000000000000000000000000',
   [SupportedChainId.RINKEBY]: '0x5dBF987fB335510620C3dEe6F55Dcb8712796a3f',
-};
-export const YAMATO_PRIORITY_REGISTRY_ADDRESSES: AddressMap = {
-  [SupportedChainId.MAINNET]: '0x0000000000000000000000000000000000000000',
-  [SupportedChainId.RINKEBY]: '0x34FcEE2BC5A9526764eb71EcF99ae3FAffD3CEd7',
 };
 
 /**
@@ -30,7 +29,7 @@ export const YAMATO_PRIORITY_REGISTRY_ADDRESSES: AddressMap = {
  */
 export const CJPY_ADDRESSES: AddressMap = {
   [SupportedChainId.MAINNET]: '0x0000000000000000000000000000000000000000',
-  [SupportedChainId.RINKEBY]: '0x33926D4a080b8900A972Db225Da858B336EbAd2D',
+  [SupportedChainId.RINKEBY]: '0xB27eD27f0c7238b609fCA871B15B3FFC66e7c9f1',
 };
 export const YMT_ADDRESSES: AddressMap = {
   [SupportedChainId.MAINNET]: '0x0000000000000000000000000000000000000000',

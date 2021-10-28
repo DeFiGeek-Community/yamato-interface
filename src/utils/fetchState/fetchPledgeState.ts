@@ -19,7 +19,7 @@ export async function fetchPledgeStateFromContract(
     await contracts.yamatoMainContract.getIndivisualStates(account); // coll, debt, isCreated, withdrawLock, depositAndBorrowLock
 
   return {
-    [account]: {
+    [account.toLowerCase()]: {
       collateral: Number(formatEther(indivisualStates[0])),
       debt: Number(formatCjpy(indivisualStates[1])),
       withdrawalLockDate: indivisualStates[3].toNumber(),

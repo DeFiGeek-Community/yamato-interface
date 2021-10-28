@@ -14,19 +14,23 @@ export default function Updater(): null {
 
   const dispatchFetchRateOfCjpyEth = useFetchRateOfCjpyEth();
 
-  useInterval(() => {
-    if (!isUseMock) {
-      fetchCjpyPriceFromUniswap('v3', chainId, active).then((data) =>
-        dispatchFetchRateOfCjpyEth('uniswap(v3)', data)
-      );
-      fetchCjpyPriceFromUniswap('v2', chainId, active).then((data) => {
-        dispatchFetchRateOfCjpyEth('uniswap(v2)', data);
-      });
-    } else {
-      dispatchFetchRateOfCjpyEth('uniswap(v3)', rateOfEthJpy);
-      dispatchFetchRateOfCjpyEth('uniswap(v2)', rateOfEthJpy);
-    }
-  }, 5000);
+  useInterval(
+    () => {
+      if (!isUseMock) {
+        fetchCjpyPriceFromUniswap('v3', chainId, active).then((data) =>
+          dispatchFetchRateOfCjpyEth('uniswap(v3)', data)
+        );
+        fetchCjpyPriceFromUniswap('v2', chainId, active).then((data) => {
+          dispatchFetchRateOfCjpyEth('uniswap(v2)', data);
+        });
+      } else {
+        dispatchFetchRateOfCjpyEth('uniswap(v3)', rateOfEthJpy);
+        dispatchFetchRateOfCjpyEth('uniswap(v2)', rateOfEthJpy);
+      }
+    },
+    5000,
+    true
+  );
 
   return null;
 }

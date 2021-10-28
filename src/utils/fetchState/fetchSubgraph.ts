@@ -29,7 +29,7 @@ export function getCache() {
 }
 
 const currentStateQuery = gql`
-  query yamatoCurrentState($account: String!) {
+  query yamatoCurrentState($account: ID!) {
     worldStates(first: 1) {
       id
       totalColl
@@ -83,7 +83,7 @@ export async function fetchSubgraph(
     : DEFAULT_CHAINID; // Not connecting wallet
   const endpoint = SUBGRAPH_YAMATO_URLS[activeChainId];
   const variables = {
-    account: account ?? '',
+    account: account ? account.toLowerCase() : '',
   };
 
   // Query
@@ -154,7 +154,7 @@ function transformMyPledge(pledge: Pledge): PledgeState {
     [pledge.id]: {
       collateral: Number(formatEther(pledge.ethAmount ?? 0)),
       debt: Number(formatEther(pledge.borrowedCjpyAmount ?? 0)),
-      withdrawalLockDate: pledge.withdrawLocks,
+      withdrawalLockDate: Number(pledge.withdrawLocks),
     },
   };
 }

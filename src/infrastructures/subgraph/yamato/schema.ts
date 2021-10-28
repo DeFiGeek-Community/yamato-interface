@@ -1320,14 +1320,56 @@ export enum _SubgraphErrorPolicy_ {
   Deny = 'deny',
 }
 
-export type YamatoQueryVariables = Exact<{
-  now: Scalars['BigInt'];
+export type YamatoCurrentStateQueryVariables = Exact<{
+  account: Scalars['ID'];
 }>;
 
-export type YamatoQuery = {
+export type YamatoCurrentStateQuery = {
   __typename?: 'Query';
-  yamatoEntirety: Array<{ __typename?: 'WorldState'; id: string }>;
-  events: Array<{ __typename?: 'Event'; id: string }>;
-  redeemablePledges: Array<{ __typename?: 'Pledge'; id: string }>;
-  sweepablePledges: Array<{ __typename?: 'Pledge'; id: string }>;
+  worldStates: Array<{
+    __typename?: 'WorldState';
+    id: string;
+    totalColl: any;
+    totalDebt: any;
+    MCR: any;
+    RRR: any;
+    SRR: any;
+    GRR: any;
+    redemptionReserve?: any | null | undefined;
+    sweepReserve?: any | null | undefined;
+    totalSupplyCjpy?: any | null | undefined;
+    lastPrice?: any | null | undefined;
+    priceChange?: any | null | undefined;
+  }>;
+  events: Array<{
+    __typename?: 'Event';
+    id: string;
+    date: any;
+    category?: Category | null | undefined;
+    ethAmount?: any | null | undefined;
+    address?: any | null | undefined;
+    fee?: any | null | undefined;
+    cjpyAmount?: any | null | undefined;
+    ymtAmount?: any | null | undefined;
+    lockUntil?: number | null | undefined;
+    price?: any | null | undefined;
+    isCoreRedemption?: boolean | null | undefined;
+    gasCompensationAmount?: any | null | undefined;
+  }>;
+  myPledge?:
+    | {
+        __typename?: 'Pledge';
+        id: string;
+        ethAmount?: any | null | undefined;
+        borrowedCjpyAmount: any;
+        withdrawLocks: any;
+      }
+    | null
+    | undefined;
+  sweepablePledges: Array<{
+    __typename?: 'Pledge';
+    id: string;
+    ethAmount?: any | null | undefined;
+    borrowedCjpyAmount: any;
+  }>;
 };
