@@ -10,6 +10,10 @@ export function getExpectedCollateral(
   return expectedCollateral;
 }
 
+export function getExpectedReward(candidateAmount: number, GRR: number) {
+  return candidateAmount / (100 - GRR);
+}
+
 export function getRedeemableCandidate(
   redeemableCandidate: number,
   rateOfEthJpy: number

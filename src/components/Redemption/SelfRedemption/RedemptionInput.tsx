@@ -155,19 +155,18 @@ export default function RedemptionInput(props: Props) {
                         formatPrice(formattedRedeemableCandidate.eth, 'eth')
                           .value
                       }
+                      {YAMATO_SYMBOL.COLLATERAL}
                     </>
                   ) : (
                     <Skeleton
                       height="1.4rem"
-                      width="5rem"
+                      width="4rem"
                       style={{
                         display: 'inline-block',
-                        verticalAlign: 'middle',
+                        lineHeight: '1.4rem',
                       }}
                     />
                   )}
-
-                  {YAMATO_SYMBOL.COLLATERAL}
                 </Text>
                 <Text>
                   ({formatPrice(formattedRedeemableCandidate.cjpy, 'jpy').value}

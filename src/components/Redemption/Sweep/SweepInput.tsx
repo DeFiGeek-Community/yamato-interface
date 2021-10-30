@@ -7,27 +7,21 @@ import { useSweepCallback } from '../../../hooks/yamato/useSweep';
 import { errorToast } from '../../../utils/errorToast';
 import { formatPrice } from '../../../utils/prices';
 import { Text, CustomButton, CustomFormLabel } from '../../CommonItem';
+import { getExpectedReward } from '../shared/function';
 
 type Props = {
   rateOfEthJpy: number;
   sweepReserve: number;
   sweepableCandiate: number;
+  GRR: number;
   firstLoadCompleted: boolean;
 };
 
 export default function SweepInput(props: Props) {
-  const { sweepReserve, sweepableCandiate, firstLoadCompleted } = props;
+  const { sweepReserve, sweepableCandiate, GRR, firstLoadCompleted } = props;
 
   const { account } = useActiveWeb3React();
   const { callback } = useSweepCallback();
-
-  const getExpectedReward = useCallback(() => {
-    const amount =
-      sweepReserve > sweepableCandiate ? sweepableCandiate : sweepReserve;
-
-    const reward = amount * 0.01;
-    return reward;
-  }, [sweepReserve, sweepableCandiate]);
 
   const submitSweep = useCallback(
     async (
@@ -43,7 +37,7 @@ export default function SweepInput(props: Props) {
       console.debug('submit sweep', values);
 
       try {
-        const res = await callback!(getExpectedReward());
+        const res = await callback!(sweepableCandiate);
         console.debug('sweep done', res);
       } catch (error) {
         errorToast(error);
@@ -52,7 +46,7 @@ export default function SweepInput(props: Props) {
       // reset
       formikHelpers.resetForm();
     },
-    [account, getExpectedReward, callback]
+    [account, sweepableCandiate, callback]
   );
 
   return (
@@ -70,7 +64,14 @@ export default function SweepInput(props: Props) {
                       {YAMATO_SYMBOL.YEN}
                     </>
                   ) : (
-                    <Skeleton height="1.6rem" width="7rem" />
+                    <Skeleton
+                      height="1.4rem"
+                      width="5rem"
+                      style={{
+                        display: 'inline-block',
+                        lineHeight: '1.4rem',
+                      }}
+                    />
                   )}
                 </Text>
               </VStack>
@@ -81,18 +82,20 @@ export default function SweepInput(props: Props) {
                 <CustomFormLabel text={'弁済候補総量'} />
                 <Text>
                   {firstLoadCompleted ? (
-                    <>{formatPrice(sweepableCandiate, 'jpy').value}</>
+                    <>
+                      {formatPrice(sweepableCandiate, 'jpy').value}{' '}
+                      {YAMATO_SYMBOL.YEN}
+                    </>
                   ) : (
                     <Skeleton
                       height="1.4rem"
-                      width="5rem"
+                      width="4rem"
                       style={{
                         display: 'inline-block',
-                        verticalAlign: 'middle',
+                        lineHeight: '1.4rem',
                       }}
                     />
                   )}
-                  {YAMATO_SYMBOL.YEN}
                 </Text>
               </VStack>
             </GridItem>
@@ -102,18 +105,25 @@ export default function SweepInput(props: Props) {
                 <CustomFormLabel text={'実行リワード予測'} />
                 <Text>
                   {firstLoadCompleted ? (
-                    <>{formatPrice(getExpectedReward(), 'jpy').value}</>
+                    <>
+                      {
+                        formatPrice(
+                          getExpectedReward(sweepableCandiate, GRR),
+                          'jpy'
+                        ).value
+                      }
+                      {YAMATO_SYMBOL.YEN}
+                    </>
                   ) : (
                     <Skeleton
                       height="1.4rem"
-                      width="5rem"
+                      width="4rem"
                       style={{
                         display: 'inline-block',
-                        verticalAlign: 'middle',
+                        lineHeight: '1.4rem',
                       }}
                     />
                   )}
-                  {YAMATO_SYMBOL.YEN}
                 </Text>
               </VStack>
             </GridItem>

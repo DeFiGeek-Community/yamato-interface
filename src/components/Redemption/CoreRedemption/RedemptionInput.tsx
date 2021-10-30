@@ -7,10 +7,7 @@ import { useCoreRedeemCallback } from '../../../hooks/yamato/useCoreRedemption';
 import { errorToast } from '../../../utils/errorToast';
 import { formatPrice } from '../../../utils/prices';
 import { Text, CustomButton, CustomFormLabel } from '../../CommonItem';
-import {
-  getExpectedCollateral,
-  getRedeemableCandidate,
-} from '../shared/function';
+import { getExpectedReward, getRedeemableCandidate } from '../shared/function';
 
 type Props = {
   rateOfEthJpy: number;
@@ -78,7 +75,13 @@ export default function RedemptionInput(props: Props) {
                       {YAMATO_SYMBOL.YEN}
                     </>
                   ) : (
-                    <Skeleton height="1.6rem" width="7rem" />
+                    <Skeleton
+                      height="1.4rem"
+                      width="5rem"
+                      style={{
+                        lineHeight: '1.4rem',
+                      }}
+                    />
                   )}
                 </Text>
               </VStack>
@@ -94,18 +97,18 @@ export default function RedemptionInput(props: Props) {
                         formatPrice(formattedRedeemableCandidate.eth, 'eth')
                           .value
                       }
+                      {YAMATO_SYMBOL.COLLATERAL}
                     </>
                   ) : (
                     <Skeleton
                       height="1.4rem"
-                      width="5rem"
+                      width="4rem"
                       style={{
                         display: 'inline-block',
-                        verticalAlign: 'middle',
+                        lineHeight: '1.4rem',
                       }}
                     />
                   )}
-                  {YAMATO_SYMBOL.COLLATERAL}
                 </Text>
                 <Text>
                   ({formatPrice(formattedRedeemableCandidate.cjpy, 'jpy').value}
@@ -122,26 +125,25 @@ export default function RedemptionInput(props: Props) {
                     <>
                       {
                         formatPrice(
-                          getExpectedCollateral(
-                            formattedRedeemableCandidate.eth + 1, // dummy
+                          getExpectedReward(
                             formattedRedeemableCandidate.eth,
                             GRR
                           ),
                           'eth'
                         ).value
                       }
+                      {YAMATO_SYMBOL.COLLATERAL}
                     </>
                   ) : (
                     <Skeleton
                       height="1.4rem"
-                      width="5rem"
+                      width="4rem"
                       style={{
                         display: 'inline-block',
-                        verticalAlign: 'middle',
+                        lineHeight: '1.4rem',
                       }}
                     />
                   )}
-                  {YAMATO_SYMBOL.COLLATERAL}
                 </Text>
               </VStack>
             </GridItem>
