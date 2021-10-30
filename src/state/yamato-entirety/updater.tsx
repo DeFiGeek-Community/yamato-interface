@@ -73,7 +73,7 @@ export default function Updater(): null {
         };
       } catch (error) {
         console.error(error);
-        // do nothing
+        // Do nothing. Continue to fetching from Ethers.
       }
     }
 
