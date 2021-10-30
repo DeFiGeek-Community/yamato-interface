@@ -29,7 +29,13 @@ export default function Collateral() {
               {YAMATO_SYMBOL.COLLATERAL}
             </>
           ) : (
-            <Skeleton height="1.6rem" width="7rem" />
+            <Skeleton
+              height="1.4rem"
+              width="7rem"
+              style={{
+                lineHeight: '1.4rem',
+              }}
+            />
           )}
         </ItemTitleValue>
       </GridItem>
@@ -65,7 +71,13 @@ export default function Collateral() {
               }
             </>
           ) : (
-            <Skeleton height="1.6rem" width="7rem" />
+            <Skeleton
+              height="1.4rem"
+              width="7rem"
+              style={{
+                lineHeight: '1.4rem',
+              }}
+            />
           )}
         </ItemTitleValue>
       </GridItem>

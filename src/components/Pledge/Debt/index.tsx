@@ -54,7 +54,13 @@ export default function Debt() {
               {YAMATO_SYMBOL.YEN}
             </>
           ) : (
-            <Skeleton height="1.6rem" width="7rem" />
+            <Skeleton
+              height="1.4rem"
+              width="7rem"
+              style={{
+                lineHeight: '1.4rem',
+              }}
+            />
           )}
         </ItemTitleValue>
       </GridItem>
@@ -86,7 +92,13 @@ export default function Debt() {
               {formatCollateralizationRatio(collateral * rateOfEthJpy, debt)}%
             </>
           ) : (
-            <Skeleton height="1.6rem" width="7rem" />
+            <Skeleton
+              height="1.4rem"
+              width="7rem"
+              style={{
+                lineHeight: '1.4rem',
+              }}
+            />
           )}
         </ItemTitleValue>
       </GridItem>
@@ -107,7 +119,11 @@ export default function Debt() {
               <Skeleton
                 height="1.4rem"
                 width="5rem"
-                style={{ display: 'inline-block', verticalAlign: 'middle' }}
+                style={{
+                  display: 'inline-block',
+                  verticalAlign: 'middle',
+                  lineHeight: '1.4rem',
+                }}
               />
             )}
             {YAMATO_SYMBOL.YEN}

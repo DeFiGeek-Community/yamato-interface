@@ -15,7 +15,7 @@ export default function CoreRedemption() {
   return (
     <Grid templateColumns="repeat(6, 1fr)" gap={4} mb={12}>
       <GridItem colSpan={1}>
-        <ItemTitleForPledge width="150px" marginTop={26}>
+        <ItemTitleForPledge width="150px" marginTop={25}>
           Yamato償還
         </ItemTitleForPledge>
       </GridItem>
