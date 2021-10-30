@@ -26,6 +26,8 @@ jobs:
           browser: chrome
         env:
           REACT_APP_INFURA_KEY: ${{ secrets.REACT_APP_INFURA_KEY }}
+          REACT_APP_DEFAULT_CHAINID: 4
+          REACT_APP_ENABLE_SUBGRAPH: false
           CYPRESS_BASE_URL: http://localhost:3000/#/
           CYPRESS_WALLET_PRIVATE_KEY: ${{ secrets.CYPRESS_WALLET_PRIVATE_KEY }}
 
