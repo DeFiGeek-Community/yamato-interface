@@ -116,12 +116,13 @@ export default createReducer(initialState, (builder) =>
           isRedeemablePledge: pledges.redeemableCandidate > 0,
         };
         state.pool = {
+          ...state.pool,
           ...pool,
-          prevRedemptionReserve: state.pool.redemptionReserve,
-          prevSweepReserve: state.pool.sweepReserve,
         };
         state.parameter = parameter;
         if (!state.firstLoadCompleted) {
+          state.pool.prevRedemptionReserve = pool.redemptionReserve; // Update only once
+          state.pool.prevSweepReserve = pool.sweepReserve; // Update only once
           state.firstLoadCompleted = true;
         }
       }
@@ -132,7 +133,9 @@ export default createReducer(initialState, (builder) =>
       state.token = { cjpy, ymt, veYmt: newState };
     })
     .addCase(fetchRateOfEthJpy, (state, { payload: { rateOfEthJpy } }) => {
-      state.prevRateOfEthJpy = state.rateOfEthJpy;
+      if (state.prevRateOfEthJpy === 0) {
+        state.prevRateOfEthJpy = rateOfEthJpy; // Update only once
+      }
       state.rateOfEthJpy = rateOfEthJpy;
     })
     .addCase(fetchEvents, (state, { payload: { events } }) => {
