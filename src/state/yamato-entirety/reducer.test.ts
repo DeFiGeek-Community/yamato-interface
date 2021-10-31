@@ -58,6 +58,45 @@ describe('yamato-entirety reducer', () => {
         },
       });
     });
+
+    it('shoud be that prev reserves set only first', () => {
+      const firstState = {
+        ...initialState,
+        pool: {
+          redemptionReserve: 2,
+          sweepReserve: 1,
+        },
+      };
+
+      // initial
+      expect(store.getState().pool.prevRedemptionReserve).toBe(0);
+      expect(store.getState().pool.prevSweepReserve).toBe(0);
+
+      // first time
+      store.dispatch(fetchYamatoState(firstState));
+      expect(store.getState().pool.prevRedemptionReserve).toBe(
+        firstState.pool.redemptionReserve
+      );
+      expect(store.getState().pool.prevSweepReserve).toBe(
+        firstState.pool.sweepReserve
+      );
+
+      // second time
+      const secondState = {
+        ...firstState,
+        pool: {
+          redemptionReserve: 3,
+          sweepReserve: 2,
+        },
+      };
+      store.dispatch(fetchYamatoState(secondState));
+      expect(store.getState().pool.prevRedemptionReserve).toBe(
+        firstState.pool.redemptionReserve
+      );
+      expect(store.getState().pool.prevSweepReserve).toBe(
+        firstState.pool.sweepReserve
+      );
+    });
   });
 
   describe('fetchTokenState', () => {
@@ -86,13 +125,15 @@ describe('yamato-entirety reducer', () => {
       expect(store.getState().rateOfEthJpy).toBe(10);
     });
 
-    it('shoud be that prevRateOfEthJpy changes only first', () => {
+    it('shoud be that prevRateOfEthJpy sets only first', () => {
+      // initial
       expect(store.getState()).toEqual({
         ...initialState,
         rateOfEthJpy: 0,
         prevRateOfEthJpy: 0,
       });
 
+      // first time
       store.dispatch(fetchRateOfEthJpy({ rateOfEthJpy: 10 }));
       expect(store.getState()).toEqual({
         ...initialState,
@@ -100,17 +141,11 @@ describe('yamato-entirety reducer', () => {
         prevRateOfEthJpy: 10,
       });
 
+      // second time
       store.dispatch(fetchRateOfEthJpy({ rateOfEthJpy: 11 }));
       expect(store.getState()).toEqual({
         ...initialState,
         rateOfEthJpy: 11,
-        prevRateOfEthJpy: 10,
-      });
-
-      store.dispatch(fetchRateOfEthJpy({ rateOfEthJpy: 12 }));
-      expect(store.getState()).toEqual({
-        ...initialState,
-        rateOfEthJpy: 12,
         prevRateOfEthJpy: 10,
       });
     });
