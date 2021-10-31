@@ -20,7 +20,7 @@ describe('yamato-entirety reducer', () => {
   });
 
   it('has correct initial state', () => {
-    expect(store.getState()).toEqual({ ...initialState, rateOfEthJpy: 0 });
+    expect(store.getState()).toEqual(initialState);
   });
 
   describe('fetchYamatoState', () => {
@@ -49,7 +49,13 @@ describe('yamato-entirety reducer', () => {
       expect(store.getState()).toEqual({
         ...initialState,
         ...newState,
-        pool: { ...initialState.pool, ...newState.pool },
+        pool: {
+          ...newState.pool,
+          ...{
+            prevRedemptionReserve: newState.pool.redemptionReserve,
+            prevSweepReserve: newState.pool.sweepReserve,
+          },
+        },
       });
     });
   });
@@ -74,11 +80,38 @@ describe('yamato-entirety reducer', () => {
 
   describe('fetchRateOfEthJpy', () => {
     it('fetch Rate Of EthJpy', () => {
+      expect(store.getState().rateOfEthJpy).toBe(0);
+
+      store.dispatch(fetchRateOfEthJpy({ rateOfEthJpy: 10 }));
+      expect(store.getState().rateOfEthJpy).toBe(10);
+    });
+
+    it('shoud be that prevRateOfEthJpy changes only first', () => {
+      expect(store.getState()).toEqual({
+        ...initialState,
+        rateOfEthJpy: 0,
+        prevRateOfEthJpy: 0,
+      });
+
       store.dispatch(fetchRateOfEthJpy({ rateOfEthJpy: 10 }));
       expect(store.getState()).toEqual({
         ...initialState,
         rateOfEthJpy: 10,
-        prevRateOfEthJpy: 0,
+        prevRateOfEthJpy: 10,
+      });
+
+      store.dispatch(fetchRateOfEthJpy({ rateOfEthJpy: 11 }));
+      expect(store.getState()).toEqual({
+        ...initialState,
+        rateOfEthJpy: 11,
+        prevRateOfEthJpy: 10,
+      });
+
+      store.dispatch(fetchRateOfEthJpy({ rateOfEthJpy: 12 }));
+      expect(store.getState()).toEqual({
+        ...initialState,
+        rateOfEthJpy: 12,
+        prevRateOfEthJpy: 10,
       });
     });
   });
