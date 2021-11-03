@@ -1,6 +1,6 @@
 A procedure of [yamato-interface](https://github.com/DeFiGeek-Community/yamato-interface) when contract changes
 
-## required
+## Required
 
 1. Update contract addresses
 
@@ -27,7 +27,7 @@ $ git push origin main
 
 - Add added/changed reason to `function swapErrorToUserReadableMessage` in `src/hooks/yamato/helper.ts`.
 
-### arguments/respons of method
+### arguments/respons of the contract methods
 
 - Change the mappings of parameter/response in `src/hooks/yamato/use[method]Callback.ts`.
 - Change the relevant parts in `src/components`

@@ -7,6 +7,10 @@ if (typeof INFURA_KEY === 'undefined') {
   );
 }
 
+// default is mainnet.
+export const DEFAULT_CHAINID = Number(
+  process.env.REACT_APP_DEFAULT_CHAINID ?? 1
+);
 export const NETWORK_URLS: { [key in SupportedChainId]: string } = {
   [SupportedChainId.MAINNET]: `https://mainnet.infura.io/v3/${INFURA_KEY}`,
   [SupportedChainId.RINKEBY]: `https://rinkeby.infura.io/v3/${INFURA_KEY}`,
@@ -20,10 +24,6 @@ const ENABLE_SUBGRAPH = process.env.REACT_APP_ENABLE_SUBGRAPH;
 // default will be true.
 export const isEnableSubgraph =
   typeof ENABLE_SUBGRAPH === 'undefined' || ENABLE_SUBGRAPH === 'true';
-// default is mainnet.
-export const DEFAULT_CHAINID = Number(
-  process.env.REACT_APP_DEFAULT_CHAINID ?? 1
-);
 export const SUBGRAPH_YAMATO_URLS: Record<number, string> = {
   [SupportedChainId.MAINNET]: '',
   [SupportedChainId.RINKEBY]:
