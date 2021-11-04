@@ -16,14 +16,13 @@ export interface SerializableTransactionReceipt {
  * These values is persisted in state and if you change the value it will cause errors
  */
 export enum TransactionType {
-  APPROVAL = 0,
-  DEPOSIT = 1,
-  WITHDRAW = 2,
-  BORROW = 3,
-  REPAY = 4,
-  SELF_REDEEM = 5,
-  CORE_REDEEM = 6,
-  SWEEP = 7,
+  DEPOSIT = 0,
+  WITHDRAW = 1,
+  BORROW = 2,
+  REPAY = 3,
+  SELF_REDEEM = 4,
+  CORE_REDEEM = 5,
+  SWEEP = 6,
 }
 
 export interface BaseTransactionInfo {
@@ -66,12 +65,6 @@ export interface SweepTransactionInfo extends BaseTransactionInfo {
   expected: number;
 }
 
-export interface ApproveTransactionInfo extends BaseTransactionInfo {
-  type: TransactionType.APPROVAL;
-  tokenAddress: string;
-  spender: string;
-}
-
 export type TransactionInfo =
   | DepositTransactionInfo
   | WithdrawTransactionInfo
@@ -79,8 +72,7 @@ export type TransactionInfo =
   | RepayTransactionInfo
   | SelfRedeemTransactionInfo
   | CoreRedeemTransactionInfo
-  | SweepTransactionInfo
-  | ApproveTransactionInfo;
+  | SweepTransactionInfo;
 
 export const addTransaction = createAction<{
   chainId: number;

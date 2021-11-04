@@ -37,6 +37,7 @@ export default function SweepInput(props: Props) {
       console.debug('submit sweep', values);
 
       try {
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         const res = await callback!(sweepableCandiate);
         console.debug('sweep done', res);
       } catch (error) {

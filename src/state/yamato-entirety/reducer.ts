@@ -152,6 +152,7 @@ export default createReducer(initialState, (builder) =>
           }
           return 0;
         }
+
         // from ethers
         if (a.blockNumber && b.blockNumber) {
           if (a.blockNumber > b.blockNumber) {
@@ -160,8 +161,10 @@ export default createReducer(initialState, (builder) =>
             return 1;
           }
           // block number is the same
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
           if (a.logIndex! > b.logIndex!) {
             return -1;
+            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
           } else if (a.logIndex! < b.logIndex!) {
             return 1;
           }

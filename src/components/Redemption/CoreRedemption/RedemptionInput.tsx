@@ -48,6 +48,7 @@ export default function RedemptionInput(props: Props) {
       console.debug('submit core redemption', values);
 
       try {
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         const res = await callback!(formattedRedeemableCandidate.eth);
         console.debug('core redemption done', res);
       } catch (error) {

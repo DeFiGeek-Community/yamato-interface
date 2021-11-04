@@ -63,6 +63,7 @@ export default function DepositInput(props: Props) {
       }
 
       try {
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         const res = await callback!(values.deposit);
         console.debug('deposit done', res);
       } catch (error) {

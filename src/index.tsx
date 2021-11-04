@@ -1,6 +1,5 @@
 import { ChakraProvider } from '@chakra-ui/react';
 import { createWeb3ReactRoot, Web3ReactProvider } from '@web3-react/core';
-import { ethers } from 'ethers';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';

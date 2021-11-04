@@ -22,11 +22,17 @@ export async function fetchEventLogs(
   const eventFilter: any = {
     topics: [
       [
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         ...borrowed.topics!,
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         ...withdrawn.topics!,
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         ...deposited.topics!,
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         ...repaid.topics!,
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         ...redeemedMeta.topics!,
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         ...swept.topics!,
       ],
     ],
