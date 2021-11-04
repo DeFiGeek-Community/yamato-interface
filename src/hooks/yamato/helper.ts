@@ -148,9 +148,14 @@ export function estimateGas(
   }
 
   return method
-    .then((gasEstimate) => ({ gasEstimate }))
+    .then((gasEstimate) => ({ gasEstimate: calculateGasMargin(gasEstimate) }))
     .catch((gasError) => {
       console.error(`Gas estimate failed in Yamato.${methodName}`);
       return { error: swapErrorToUserReadableMessage(gasError) };
     });
+}
+
+// add 20% (except on optimism)
+export function calculateGasMargin(value: BigNumber): BigNumber {
+  return value.mul(BigNumber.from(10000 + 2000)).div(BigNumber.from(10000));
 }

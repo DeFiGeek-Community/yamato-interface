@@ -75,7 +75,7 @@ function createRateOfCjpyJpy(
   return Object.entries(rateOfCjpyEth)
     .sort((a, b) => (a[1] > b[1] ? -1 : 1))
     .map((data) => {
-      data[1] = rateOfEthJpy ? data[1] / rateOfEthJpy : 0;
+      data[1] = rateOfEthJpy ? rateOfEthJpy / data[1] : 0;
       return data;
     });
 }
