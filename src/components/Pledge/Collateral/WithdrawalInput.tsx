@@ -86,6 +86,7 @@ export default function WithdrawalInput(props: Props) {
       console.debug('submit withdrawal', values);
 
       try {
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         const res = await callback!(values.withdrawal);
         console.debug('withdrawal done', res);
       } catch (error) {

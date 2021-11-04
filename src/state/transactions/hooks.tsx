@@ -3,7 +3,7 @@ import { useCallback, useMemo } from 'react';
 import { useActiveWeb3React } from '../../hooks/web3';
 import { useAppDispatch, useAppSelector } from '../hooks';
 
-import { addTransaction, TransactionInfo, TransactionType } from './actions';
+import { addTransaction, TransactionInfo } from './actions';
 import { TransactionDetails } from './reducer';
 
 // helper that can take a ethers library transaction response and add it to the list of transactions
@@ -86,17 +86,7 @@ export function useHasPendingApproval(
       typeof spender === 'string' &&
       Object.keys(allTransactions).some((hash) => {
         const tx = allTransactions[hash];
-        if (!tx) return false;
-        if (tx.receipt) {
-          return false;
-        } else {
-          if (tx.info.type !== TransactionType.APPROVAL) return false;
-          return (
-            tx.info.spender === spender &&
-            tx.info.tokenAddress === tokenAddress &&
-            isTransactionRecent(tx)
-          );
-        }
+        return !!tx;
       }),
     [allTransactions, spender, tokenAddress]
   );

@@ -68,6 +68,7 @@ export default function BorrowingInput(props: Props) {
       console.debug('submit borrowing', values);
 
       try {
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         const res = await callback!(values.borrowing);
         console.debug('borrowing done', res);
       } catch (error) {

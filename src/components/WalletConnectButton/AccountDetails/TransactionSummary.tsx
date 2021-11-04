@@ -1,6 +1,5 @@
 import { LOG_EVENT_NAME, YAMATO_SYMBOL } from '../../../constants/yamato';
 import {
-  ApproveTransactionInfo,
   BorrowTransactionInfo,
   CoreRedeemTransactionInfo,
   DepositTransactionInfo,
@@ -64,13 +63,6 @@ function SweepSummary({ info }: { info: SweepTransactionInfo }) {
   );
 }
 
-function ApprovalSummary({ info }: { info: ApproveTransactionInfo }) {
-  // const token = useToken(info.tokenAddress);
-
-  // return <>Approve {token?.symbol}</>;
-  return <>Approve</>;
-}
-
 export function TransactionSummary({ info }: { info: TransactionInfo }) {
   switch (info.type) {
     case TransactionType.DEPOSIT:
@@ -87,8 +79,5 @@ export function TransactionSummary({ info }: { info: TransactionInfo }) {
       return <CoreRedeemSummary info={info} />;
     case TransactionType.SWEEP:
       return <SweepSummary info={info} />;
-
-    case TransactionType.APPROVAL:
-      return <ApprovalSummary info={info} />;
   }
 }

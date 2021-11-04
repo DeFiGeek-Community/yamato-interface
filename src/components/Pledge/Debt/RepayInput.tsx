@@ -57,6 +57,7 @@ export default function RepayInput(props: Props) {
       console.debug('submit repayment', values);
 
       try {
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         const res = await callback!(values.repayment);
         console.debug('repayment done', res);
       } catch (error) {
