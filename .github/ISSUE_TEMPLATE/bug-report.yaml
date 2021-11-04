@@ -16,7 +16,7 @@ body:
     id: type
     attributes:
       label: 現象の種類
-      description: 現象が何に起因するものが選択してください。わかる範囲でかまいません。
+      description: 現象が何に起因するものか選択してください。わかる範囲でかまいません。
       options:
         - A 動作の問題
         - B UIの問題
