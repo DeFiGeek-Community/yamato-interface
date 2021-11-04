@@ -1,0 +1,104 @@
+name: バグ報告
+description: 何かが正しく動作していないと思ったらこちら。
+labels:
+  - 'S: needs triage'
+  - 'type: bug'
+
+body:
+  - type: markdown
+    attributes:
+      value: >-
+        Yamato プロジェクトへのバグ報告ありがとうございます!
+        以下のフォームに必要事項を入力してください。
+
+  #・A,動作の問題　B,UIの問題　C,設計の問題　D,その他　「A or B or C or D」
+  - type: dropdown
+    attributes:
+      label: 現象の種類
+      description: 現象が何に起因するものが選択してください。わかる範囲でかまいません。
+      options:
+        - A 動作の問題
+        - B UIの問題
+        - C 設計の問題
+        - D その他(またはわからない)
+    validations:
+      required: true
+
+  #・見つかった現象及び動作
+  - type: textarea
+    attributes:
+      label: 見つかった現象及び動作
+      description: >-
+        どんなことがどんな順序で起きたのか説明してください。
+
+    validations:
+      required: true
+
+  #・問題のTxn Hash
+  - type: textarea
+    attributes:
+      label: 問題のTxn Hash
+      description: >-
+        もしトランザクションが発生していてハッシュがわかるようであれば、
+        こちらに記載してください。
+
+  #・検証環境：ブラウザ種別「　　　　　　」（できればバージョンも。）
+  - type: textarea
+    attributes:
+      label: 検証環境：ブラウザ種別
+      description: >-
+        現象が発生した環境(ブラウザの種類、 OS など)を記載してください。
+        バージョンも記載していただけると助かります。
+
+    validations:
+      required: true
+
+  - type: input
+    attributes:
+      label: Web3 インターフェース
+      description: >-
+        現象が発生した時に使用されていたウォレットを記載してください(例: MetaMask)。
+
+    validations:
+      required: true
+
+  #・再現性の有無：　有り　or　無し（又は原因不明）
+  - type: dropdown
+    attributes:
+      label: 再現性について
+      description: 現象を再現することができますか?
+      options:
+        - わからない
+        - 再現できる
+        - 再現できず、その理由がわかっている
+        - 再現できず、その理由がわかっていない
+    validations:
+      required: true
+
+  #・再現手順
+  - type: textarea
+    attributes:
+      label: 再現手順
+      description: >-
+        現象を再現することができる場合、その手順を記載してください。
+
+      placeholder: |
+        1. 借入量入力欄に、担保率が150%くらいになるように借入料を入力する。
+          - 多分 165% 以下だと再現する?
+        2. 借入ボタンを押す。
+        3. 借入が失敗する。
+
+  #・考えられる原因又は問題と考えられるコード：「　　　　　　　　　　　　　　」
+  #・詳細・備考：「　　　　　　　　　　　　　　　　　　　　　　　　　」
+  - type: textarea
+    attributes:
+      label: 詳細説明、考察、備考など
+      description: >-
+        これまでの内容の補足や、原因の推測など、
+        問題解決に役立ちそうな事柄はなんでも記入してください。
+
+  - type: markdown
+    attributes:
+      value: >-
+        プロジェクトへの貢献ありがとうございます!
+        また何かありましたらご報告おねがいいたします。
