@@ -1,7 +1,8 @@
 name: バグ報告
 description: 何かが正しく動作していないと思ったらこちら。
-labels: "S: needs triage, type: bug"
-
+labels:
+  - 'S: needs triage'
+  - 'type: bug'
 
 body:
   - type: markdown
@@ -10,7 +11,7 @@ body:
         Yamato プロジェクトへのバグ報告ありがとうございます!
         以下のフォームに必要事項を入力してください。
 
-#・A,動作の問題　B,UIの問題　C,設計の問題　D,その他　「A or B or C or D」
+  #・A,動作の問題　B,UIの問題　C,設計の問題　D,その他　「A or B or C or D」
   - type: dropdown
     id: 現象の種類
     attributes:
@@ -22,8 +23,8 @@ body:
         - D その他(またはわからない)
     validations:
       required: true
-  
-#・見つかった現象及び動作
+
+  #・見つかった現象及び動作
   - type: textarea
     attributes:
       label: 見つかった現象及び動作
@@ -33,7 +34,7 @@ body:
     validations:
       required: true
 
-#・問題のTxn Hash
+  #・問題のTxn Hash
   - type: textarea
     attributes:
       label: 問題のTxn Hash
@@ -41,14 +42,14 @@ body:
         もしトランザクションが発生していてハッシュがわかるようであれば、
         こちらに記載してください。
 
-#・検証環境：ブラウザ種別「　　　　　　」（できればバージョンも。）
+  #・検証環境：ブラウザ種別「　　　　　　」（できればバージョンも。）
   - type: textarea
     attributes:
       label: 検証環境：ブラウザ種別
       description: >-
         現象が発生した環境(ブラウザの種類、 OS など)を記載してください。
         バージョンも記載していただけると助かります。
-      
+
     validations:
       required: true
 
@@ -57,16 +58,11 @@ body:
       label: Web3 インターフェース
       description: >-
         現象が発生した時に使用されていたウォレットを記載してください(例: MetaMask)。
-    
+
     validations:
       required: true
 
-#・再現性の有無：　有り　or　無し（又は原因不明）
-  - type: dropdown
-    attributes:
-      label: OS
-    validations:
-      required: true
+  #・再現性の有無：　有り　or　無し（又は原因不明）
   - type: dropdown
     id: 再現性について
     attributes:
@@ -78,8 +74,8 @@ body:
         - 再現できず、その理由がわかっていない
     validations:
       required: true
-      
-#・再現手順
+
+  #・再現手順
   - type: textarea
     attributes:
       label: 再現手順
@@ -92,8 +88,8 @@ body:
         2. 借入ボタンを押す。
         3. 借入が失敗する。
 
-#・考えられる原因又は問題と考えられるコード：「　　　　　　　　　　　　　　」
-#・詳細・備考：「　　　　　　　　　　　　　　　　　　　　　　　　　」
+  #・考えられる原因又は問題と考えられるコード：「　　　　　　　　　　　　　　」
+  #・詳細・備考：「　　　　　　　　　　　　　　　　　　　　　　　　　」
   - type: textarea
     attributes:
       label: 詳細説明、考察、備考など
@@ -106,5 +102,3 @@ body:
       value: >-
         プロジェクトへの貢献ありがとうございます!
         また何かありましたらご報告おねがいいたします。
-
-
