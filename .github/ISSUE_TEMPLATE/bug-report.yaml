@@ -1,8 +1,7 @@
 name: バグ報告
 description: 何かが正しく動作していないと思ったらこちら。
 labels:
-  - 'S: needs triage'
-  - 'type: bug'
+  - bug
 
 body:
   - type: markdown

@@ -1,8 +1,7 @@
 name: 機能・改善要望
 description: 新機能や改善の要望はこちら
 labels:
-  - 'S: needs triage'
-  - 'type: feature request'
+  - feature
 
 body:
   - type: markdown
