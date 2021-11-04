@@ -13,9 +13,9 @@ body:
 
   #・A,動作の問題　B,UIの問題　C,設計の問題　D,その他　「A or B or C or D」
   - type: dropdown
-    id: 現象の種類
     attributes:
-      label: 現象が何に起因するものが選択してください。わかる範囲でかまいません。
+      label: 現象の種類
+      description: 現象が何に起因するものが選択してください。わかる範囲でかまいません。
       options:
         - A 動作の問題
         - B UIの問題
@@ -64,9 +64,9 @@ body:
 
   #・再現性の有無：　有り　or　無し（又は原因不明）
   - type: dropdown
-    id: 再現性について
     attributes:
-      label: 現象を再現することができますか?
+      label: 再現性について
+      description: 現象を再現することができますか?
       options:
         - わからない
         - 再現できる
