@@ -1,0 +1,40 @@
+name: 機能・改善要望
+description: 新機能や改善の要望はこちら
+labels:
+  - 'S: needs triage'
+  - 'type: feature request'
+
+body:
+  - type: markdown
+    attributes:
+      value: >-
+        Yamato プロジェクトへの機能・改善要望ありがとうございます!
+        以下のフォームに必要事項を入力してください。
+
+  - type: dropdown
+    id: type
+    attributes:
+      label: 要望の種類
+      description: 要望がどの部分にかんするものか選択してください。わかる範囲でかまいません。
+      options:
+        - A 動作について
+        - B UIについて
+        - C 設計について
+        - D その他(またはわからない)
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: 新機能や改善の概要
+      description: >-
+        新機能や改善がどのようなものか説明してください。
+    validations:
+      required: true
+
+  - type: markdown
+    attributes:
+      value: >-
+        プロジェクトへの貢献ありがとうございます!
+        また何かありましたらご報告おねがいいたします。
