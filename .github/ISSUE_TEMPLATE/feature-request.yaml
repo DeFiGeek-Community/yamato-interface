@@ -12,6 +12,7 @@ body:
         以下のフォームに必要事項を入力してください。
 
   - type: dropdown
+    id: type
     attributes:
       label: 要望の種類
       description: 要望がどの部分にかんするものか選択してください。わかる範囲でかまいません。
@@ -24,6 +25,7 @@ body:
       required: true
 
   - type: textarea
+    id: description
     attributes:
       label: 新機能や改善の概要
       description: >-
