@@ -77,7 +77,7 @@ jobs:
         with:
           webhook: ${{ secrets.DISCORD_WEBHOOK }}
 
-  test:
+  unit_test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -100,9 +100,14 @@ jobs:
       - name: Install dependencies
         run: yarn
       - name: test
-        run: yarn test
+        run: yarn test -- --coverage
         env:
           REACT_APP_INFURA_KEY: ${{ secrets.REACT_APP_INFURA_KEY }}
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
 
       - name: discord notification（if failure）
         uses: sarisia/actions-status-discord@v1
