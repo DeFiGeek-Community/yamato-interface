@@ -19,9 +19,9 @@ Please use [a template to open new issue](https://github.com/DeFiGeek-Community/
 
 4. Create your patch, **including appropriate test cases**.
 
-5. Run the full test suite, as described in [test section](#test) below, and ensure that all tests pass.
+5. Run the full test suite, as described in [test section](##running-tests-locally) below, and ensure that all tests pass.
 
-6. Commit your changes using a descriptive commit message that follows our [commit message conventions](#Committing Changes).
+6. Commit your changes using a descriptive commit message that follows our [commit message conventions](#committing-changes).
    Adherence to these conventions is necessary because release notes are automatically generated from these messages.
 
    ```shell
