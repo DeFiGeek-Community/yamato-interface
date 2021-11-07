@@ -6,23 +6,19 @@ Please use [a template to open new issue](https://github.com/DeFiGeek-Community/
 
 ## Pull Request Guidelines
 
-1. Be sure that an issue describes the problem you're fixing, or documents the design for the feature you'd like to add.
-   Discussing the design upfront helps to ensure that we're ready to accept your work.
+1. Set up local copy, as described in [development section](#fork-and-clone-the-repository) below.
 
-2. [Fork](https://docs.github.com/en/github/getting-started-with-github/fork-a-repo) the [yamato-interface](https://github.com/DeFiGeek-Community/yamato-interface).
-
-3. In your forked repository, make your changes in a new git branch:
+2. In your forked repository, make your changes in a new git branch:
 
    ```shell
    git checkout -b my-fix-branch main
    ```
 
-4. Create your patch, **including appropriate test cases**.
+3. Create your patch, **including appropriate test cases**.
 
-5. Run the full test suite, as described in [test section](##running-tests-locally) below, and ensure that all tests pass.
+4. Run the full test suite, as described in [test section](#running-tests-locally) below, and ensure that all tests pass.
 
-6. Commit your changes using a descriptive commit message that follows our [commit message conventions](#committing-changes).
-   Adherence to these conventions is necessary because release notes are automatically generated from these messages.
+5. Commit your changes using a descriptive commit message that follows our [commit message conventions](#committing-changes).
 
    ```shell
    git commit --all
@@ -30,13 +26,13 @@ Please use [a template to open new issue](https://github.com/DeFiGeek-Community/
 
    Note: the optional commit `-a` command line option will automatically "add" and "rm" edited files.
 
-7. Push your branch to GitHub:
+6. Push your branch to GitHub:
 
    ```shell
    git push origin my-fix-branch
    ```
 
-8. In GitHub, send a pull request to `yamato-interface:main`.
+7. In GitHub, send a pull request to `yamato-interface:main`.
 
 ## Development Setup
 
