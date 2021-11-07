@@ -60,7 +60,27 @@ export function getContract(
  *
  */
 
-export function parseEther(ether: string) {
+// See: node_modules/@ethersproject/bignumber/src.ts/fixednumber.ts
+const WEI_UNIT = 18;
+let zeros = '0';
+while (zeros.length < WEI_UNIT) {
+  zeros += zeros;
+}
+// Returns a string "1" followed by decimal "0"s
+function getMultiplier(decimals: ethers.BigNumberish): string {
+  if (typeof decimals !== 'number') {
+    try {
+      decimals = BigNumber.from(decimals).toNumber();
+    } catch (e) {}
+  }
+
+  if (typeof decimals !== 'number' || decimals < 0 || decimals > WEI_UNIT)
+    return '1';
+
+  return '1' + zeros.substring(0, decimals);
+}
+
+export function parseEther(ether: string): BigNumber {
   if (ether.includes('e')) {
     // Parse
     const integerPart = ether.match(/^([0-9])+e/);
@@ -75,12 +95,16 @@ export function parseEther(ether: string) {
       return BigNumber.from(0);
     }
 
-    // resolve exponential number
-    const pow = !isNegative
-      ? 18 + Number(exponentialPart[1])
-      : 18 - Number(exponentialPart[1]);
-    return BigNumber.from(integerPart[1]).pow(pow);
+    // Resolve exponential number
+    // Plus 18 to convert ETH to WEI
+    const pow = getMultiplier(
+      !isNegative
+        ? Number(exponentialPart[1]) + 18
+        : -Number(exponentialPart[1]) + 18
+    );
+    return BigNumber.from(integerPart[1]).mul(pow);
   }
+
   return ethers.utils.parseEther(ether);
 }
 
