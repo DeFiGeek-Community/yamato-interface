@@ -27,6 +27,16 @@ module.exports = (on, config) => {
     config.env.REACT_APP_INFURA_KEY = process.env.REACT_APP_INFURA_KEY;
   }
 
+  if (process.env.REACT_APP_DEFAULT_CHAINID) {
+    config.env.REACT_APP_DEFAULT_CHAINID =
+      process.env.REACT_APP_DEFAULT_CHAINID;
+  }
+
+  if (process.env.REACT_APP_ENABLE_SUBGRAPH) {
+    config.env.REACT_APP_ENABLE_SUBGRAPH =
+      process.env.REACT_APP_ENABLE_SUBGRAPH;
+  }
+
   if (process.env.CYPRESS_BASE_URL) {
     config.baseUrl = process.env.CYPRESS_BASE_URL;
   }
