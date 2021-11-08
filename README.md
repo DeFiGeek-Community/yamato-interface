@@ -7,9 +7,23 @@
 A user interface for Yamato Protocol.
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app) and was helped a lot by [Uniswap Interface](https://github.com/Uniswap/uniswap-interface).
 
+## Quick overview
+
+- This repository consists of three main functions.
+  1. react components
+  1. react hooks
+  1. redux
+- Ethereum part is mostly handled by ethers.js and web3-react.
+  - [ethers.js](https://docs.ethers.io/v5/) deals with ethereum-node-api in general.
+  - [web3-react](https://github.com/NoahZinsmeister/web3-react) is responsible for the Wallet.
+  - [The Graph](https://thegraph.com/) communicates the data.
+- The mapping of directories/files in `/src` is below:
+
+![Top directories mapping](/doc/images/overview_architecture.png)
+
 ## Questions
 
-For questions and support please use [community chat](https://discord.com/invite/FQYXqVBEnh) or [the official forum](https://gov.defigeek.xyz/). The issue list of this repo is **exclusively** for bug reports and feature requests.
+For questions and support please use [community chat](https://discord.com/invite/FQYXqVBEnh) or [official forum](https://gov.defigeek.xyz/). The issue list of this repo is **exclusively** for bug reports and feature requests.
 
 ## Contribution
 

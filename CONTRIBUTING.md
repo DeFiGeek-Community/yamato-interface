@@ -94,17 +94,3 @@ Please refer to [TEST](doc/TEST.md) and [cypress](https://docs.cypress.io/guides
 ```bash
 yarn cypress:open
 ```
-
-## Project Structure
-
-- This repository consists of three main functions.
-  1. react components
-  1. react hooks
-  1. redux
-- Ethereum part is mostly handled by ethers.js and web3-react.
-  - [ethers.js](https://docs.ethers.io/v5/) deals with ethereum-node-api in general.
-  - [web3-react](https://github.com/NoahZinsmeister/web3-react) is responsible for the Wallet.
-  - [The Graph](https://thegraph.com/) communicates the data.
-- The mapping of directories/files in `/src` is below:
-
-![Top directories mapping](/doc/images/overview_architecture.png)
