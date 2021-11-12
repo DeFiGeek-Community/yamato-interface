@@ -36,6 +36,7 @@ export const REVERT_REASON_DESCRIPTION = {
   noSweepablePledge: '弁済できるpledgeがありません。',
   zeroRepay: '返済量が0です。',
   surplusRepay: '返済量が借入量より上回っています。',
+  exceedsBalanceRepay: '返済量が残高を超えています。',
   zeroFee: '手数料が0になっています。',
   insufficientBorrowing: '手数料が借入量より上回っています。',
   insufficientPaybackGas: '変換するためのガス代が不足しています。',

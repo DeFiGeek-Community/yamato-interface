@@ -9,6 +9,7 @@ import { useCallback, useState } from 'react';
 import { YAMATO_SYMBOL } from '../../../constants/yamato';
 import { useActiveWeb3React } from '../../../hooks/web3';
 import { useRepayCallback } from '../../../hooks/yamato/useRepayCallback';
+import { useWalletState } from '../../../state/wallet/hooks';
 import { subtractToNum } from '../../../utils/bignumber';
 import { errorToast } from '../../../utils/errorToast';
 import {
@@ -24,6 +25,7 @@ export default function RepayInput(props: Props) {
 
   const { account } = useActiveWeb3React();
   const { callback } = useRepayCallback();
+  const { cjpy } = useWalletState();
 
   const [repayment, setRepayment] = useState(0);
 
@@ -37,6 +39,9 @@ export default function RepayInput(props: Props) {
         return '数値で入力してください。';
       }
       if (value > debt) {
+        return '借入量を超えています。';
+      }
+      if (value > cjpy) {
         return '残高を超えています。';
       }
 
@@ -44,7 +49,7 @@ export default function RepayInput(props: Props) {
       setRepayment(value);
       return undefined;
     },
-    [account, debt, callback]
+    [account, debt, cjpy, callback]
   );
 
   const submitRepayment = useCallback(

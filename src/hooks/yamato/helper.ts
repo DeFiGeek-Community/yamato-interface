@@ -72,6 +72,8 @@ function swapErrorToUserReadableMessage(error: any): string {
       return REVERT_REASON_DESCRIPTION.zeroRepay;
     case 'You are repaying more than you are owing.':
       return REVERT_REASON_DESCRIPTION.surplusRepay;
+    case 'ERC20: burn amount exceeds balance':
+      return REVERT_REASON_DESCRIPTION.exceedsBalanceRepay;
     // redeem/sweep
     case 'No pledges are redeemed.':
       return REVERT_REASON_DESCRIPTION.noRedeemablePledge;
