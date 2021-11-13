@@ -1,7 +1,9 @@
 name: E2E visiting and wallet connection tests.
 
 on:
-  on: [push, pull_request, workflow_dispatch]
+  on: [push, workflow_dispatch]
+  pull_request_target:
+    types: [push]
 
 jobs:
   e2e-load-only:
