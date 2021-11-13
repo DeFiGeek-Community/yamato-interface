@@ -6,6 +6,12 @@ Please use [a template to open new issue](https://github.com/DeFiGeek-Community/
 
 ## Pull Request Guidelines
 
+### Discover issues
+
+If you're ready to tackle some open issues, we've collected [some good first issues](https://github.com/DeFiGeek-Community/yamato-interface/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22) for you.
+
+### Flow to pull request
+
 1. Set up local copy, as described in [development section](#fork-and-clone-the-repository) below.
 
 2. In your forked repository, make your changes in a new git branch:

@@ -23,11 +23,11 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Questions
 
-For questions and support please use [community chat](https://discord.com/invite/FQYXqVBEnh) or [official forum](https://gov.defigeek.xyz/). The issue list of this repo is **exclusively** for bug reports and feature requests.
+For questions and support please use [community chat](https://discord.com/invite/FQYXqVBEnh) or the [official forum](https://gov.defigeek.xyz/).
 
 ## Contribution
 
-For steps on local development and code contribution, please see [CONTRIBUTING](./CONTRIBUTING.md).
+For steps on local development and code contribution, please see the [contributing Guide](./CONTRIBUTING.md).
 
 Thank you to all the people who already contributed!
 
