@@ -1,11 +1,8 @@
 name: Build & Test
 
 on:
-  on: [push]
+  push:
   pull_request_target:
-    types: [push]
-  # push:
-  #   branches: [$default-branch]
   # pull_request:
   #   branches: [$default-branch]
 
