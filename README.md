@@ -1,6 +1,6 @@
 # Yamato Interface
 
-[![](https://github.com/DeFiGeek-Community/yamato-interface/workflows/Build%20&%20Test/badge.svg)](https://github.com/DeFiGeek-Community/yamato-interface/actions/workflows/main.yaml)
+![](https://github.com/DeFiGeek-Community/yamato-interface/workflows/Build%20&%20Test/badge.svg)
 [![E2E visiting and wallet connection tests.](https://github.com/DeFiGeek-Community/yamato-interface/actions/workflows/e2e-commit.yaml/badge.svg)](https://github.com/DeFiGeek-Community/yamato-interface/actions/workflows/e2e-commit.yaml)
 [![codecov](https://codecov.io/gh/DeFiGeek-Community/yamato-interface/branch/main/graph/badge.svg)](https://codecov.io/gh/DeFiGeek-Community/yamato-interface)
 
@@ -27,7 +27,7 @@ For questions and support please use [community chat](https://discord.com/invite
 
 ## Contribution
 
-For steps on local development and code contribution, please see the [contributing guide](./CONTRIBUTING.md).
+For steps on local development and code contribution, please see the [contributing Guide](./CONTRIBUTING.md).
 
 Thank you to all the people who already contributed!
 
