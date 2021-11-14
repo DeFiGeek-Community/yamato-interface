@@ -17,10 +17,15 @@ import {
 } from '../../../utils/prices';
 import { CustomButton, CustomFormLabel, CustomInput } from '../../CommonItem';
 
-type Props = { collateral: number; debt: number; rateOfEthJpy: number };
+type Props = {
+  collateral: number;
+  debt: number;
+  rateOfEthJpy: number;
+  cjpy: number;
+};
 
 export default function RepayInput(props: Props) {
-  const { collateral, debt, rateOfEthJpy } = props;
+  const { collateral, debt, rateOfEthJpy, cjpy } = props;
 
   const { account } = useActiveWeb3React();
   const { callback } = useRepayCallback();
@@ -37,6 +42,9 @@ export default function RepayInput(props: Props) {
         return '数値で入力してください。';
       }
       if (value > debt) {
+        return '借入量を超えています。';
+      }
+      if (value > cjpy) {
         return '残高を超えています。';
       }
 
@@ -44,7 +52,7 @@ export default function RepayInput(props: Props) {
       setRepayment(value);
       return undefined;
     },
-    [account, debt, callback]
+    [account, debt, cjpy, callback]
   );
 
   const submitRepayment = useCallback(

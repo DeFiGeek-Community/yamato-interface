@@ -66,7 +66,7 @@ export default function WithdrawalInput(props: Props) {
         return '数値で入力してください。';
       }
       if (value > collateral) {
-        return '残高を超えています。';
+        return '担保量を超えています。';
       }
 
       // Value is correct
