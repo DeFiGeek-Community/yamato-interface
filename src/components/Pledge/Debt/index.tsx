@@ -1,6 +1,7 @@
 import { Grid, GridItem, Skeleton } from '@chakra-ui/react';
 import { YAMATO_SYMBOL } from '../../../constants/yamato';
 import { usePledgeData } from '../../../state/pledge/hooks';
+import { useWalletState } from '../../../state/wallet/hooks';
 import { useYamatoStateForPledge } from '../../../state/yamato-entirety/hooks';
 import {
   formatCollateralizationRatio,
@@ -36,6 +37,7 @@ function getBorrowableAmount(
 export default function Debt() {
   const { rateOfEthJpy, MCR, firstLoadCompleted } = useYamatoStateForPledge();
   const { collateral, debt } = usePledgeData();
+  const { cjpy } = useWalletState();
 
   return (
     <Grid templateColumns="repeat(8, 1fr)" gap={4} mb={4}>
@@ -79,6 +81,7 @@ export default function Debt() {
           collateral={collateral}
           debt={debt}
           rateOfEthJpy={rateOfEthJpy}
+          cjpy={cjpy}
         />
       </GridItem>
 

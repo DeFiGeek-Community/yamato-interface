@@ -9,7 +9,6 @@ import { useCallback, useState } from 'react';
 import { YAMATO_SYMBOL } from '../../../constants/yamato';
 import { useActiveWeb3React } from '../../../hooks/web3';
 import { useRepayCallback } from '../../../hooks/yamato/useRepayCallback';
-import { useWalletState } from '../../../state/wallet/hooks';
 import { subtractToNum } from '../../../utils/bignumber';
 import { errorToast } from '../../../utils/errorToast';
 import {
@@ -18,14 +17,18 @@ import {
 } from '../../../utils/prices';
 import { CustomButton, CustomFormLabel, CustomInput } from '../../CommonItem';
 
-type Props = { collateral: number; debt: number; rateOfEthJpy: number };
+type Props = {
+  collateral: number;
+  debt: number;
+  rateOfEthJpy: number;
+  cjpy: number;
+};
 
 export default function RepayInput(props: Props) {
-  const { collateral, debt, rateOfEthJpy } = props;
+  const { collateral, debt, rateOfEthJpy, cjpy } = props;
 
   const { account } = useActiveWeb3React();
   const { callback } = useRepayCallback();
-  const { cjpy } = useWalletState();
 
   const [repayment, setRepayment] = useState(0);
 
