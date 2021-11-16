@@ -1,4 +1,4 @@
-import { HStack, VStack } from '@chakra-ui/layout';
+import { HStack, VStack, Flex, Spacer } from '@chakra-ui/layout';
 import { Grid, GridItem } from '@chakra-ui/react';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
@@ -38,43 +38,27 @@ export default function Header() {
   }, [blockNumber]);
 
   return (
-    <Grid
-      templateRows="repeat(1, 1fr)"
-      templateColumns="repeat(2, 1fr)"
-      gap={4}
-    >
-      <GridItem rowSpan={1} colSpan={1}>
-        <Link to="/">
-          <SvgYamatoLogWithTitle width={422} height={50} />
+    <Flex wrap="wrap" align="center">
+      <Link to="/">
+        <SvgYamatoLogWithTitle width={422} height={50} />
+      </Link>
+      <Spacer />
+      <Web3Status />
+      <VStack>
+        <StyledPollingNumber breathe={isMounting}>
+          {active && account && `block:${blockNumber}`}
+        </StyledPollingNumber>
+        <Link
+          to="/tools/"
+          style={{
+            fontSize: '1.6rem',
+            fontWeight: 'bold',
+            color: '#5BAD92',
+          }}
+        >
+          ツール
         </Link>
-      </GridItem>
-
-      <GridItem
-        rowSpan={1}
-        colEnd={4}
-        style={{
-          margin: 'auto',
-        }}
-      >
-        <HStack>
-          <Web3Status />
-          <VStack>
-            <StyledPollingNumber breathe={isMounting}>
-              {active && account && `block:${blockNumber}`}
-            </StyledPollingNumber>
-            <Link
-              to="/tools/"
-              style={{
-                fontSize: '1.6rem',
-                fontWeight: 'bold',
-                color: '#5BAD92',
-              }}
-            >
-              ツール
-            </Link>
-          </VStack>
-        </HStack>
-      </GridItem>
-    </Grid>
+      </VStack>
+    </Flex>
   );
 }
