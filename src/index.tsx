@@ -5,12 +5,12 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { HashRouter } from 'react-router-dom';
 import App from './App';
+import { MediaQueryProvider } from './MediaQueryProvider';
 import { NetworkContextName } from './constants/misc';
 import reportWebVitals from './reportWebVitals';
 import store from './state';
 import ThemeProvider, { ThemedGlobalStyle } from './theme';
 import getLibrary from './utils/getLibrary';
-import { MediaQueryProvider } from './MediaQueryProvider';
 
 const Web3ProviderNetwork = createWeb3ReactRoot(NetworkContextName);
 
