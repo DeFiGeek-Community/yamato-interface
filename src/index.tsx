@@ -10,6 +10,7 @@ import reportWebVitals from './reportWebVitals';
 import store from './state';
 import ThemeProvider, { ThemedGlobalStyle } from './theme';
 import getLibrary from './utils/getLibrary';
+import { MediaQueryProvider } from './MediaQueryProvider';
 
 const Web3ProviderNetwork = createWeb3ReactRoot(NetworkContextName);
 
@@ -25,10 +26,12 @@ ReactDOM.render(
         <Web3ProviderNetwork getLibrary={getLibrary}>
           <ThemeProvider>
             <ChakraProvider>
-              <Provider store={store}>
-                <ThemedGlobalStyle />
-                <App />
-              </Provider>
+              <MediaQueryProvider>
+                <Provider store={store}>
+                  <ThemedGlobalStyle />
+                  <App />
+                </Provider>
+              </MediaQueryProvider>
             </ChakraProvider>
           </ThemeProvider>
         </Web3ProviderNetwork>
