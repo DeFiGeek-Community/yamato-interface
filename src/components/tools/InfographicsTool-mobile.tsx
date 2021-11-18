@@ -43,15 +43,11 @@ export default function InfographicsTool() {
             </HStack>
           </HeaderBox1>
           <ConentBox>
-            <Grid
-              templateRows="repeat(5, 1fr)"
-              templateColumns="repeat(2, 1fr)"
-              gap={8}
-            >
-              <GridItem rowSpan={5} colSpan={1}>
+            <Grid gap={8}>
+              <GridItem>
                 <InfographicsContent {...formik.values} />
               </GridItem>
-              <GridItem rowSpan={5} colSpan={1}>
+              <GridItem>
                 <Stack>
                   <InputField
                     name="totalCollateral"

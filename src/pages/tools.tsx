@@ -1,8 +1,30 @@
 import { Grid, GridItem } from '@chakra-ui/react';
+import { useMediaQueryContext } from '../MediaQueryProvider';
 import Layout from '../components/layout';
 import InfographicsTool from '../components/tools/InfographicsTool';
 
 export default function Tools() {
+  const { isMobileSite } = useMediaQueryContext();
+  if (isMobileSite) {
+    return <ToolsMobile />;
+  } else {
+    return <ToolsPC />;
+  }
+}
+
+export function ToolsMobile() {
+  return (
+    <Layout title="Yamato Tools">
+      <Grid>
+        <GridItem>
+          <InfographicsTool />
+        </GridItem>
+      </Grid>
+    </Layout>
+  );
+}
+
+export function ToolsPC() {
   return (
     <Layout title="Yamato Tools">
       <Grid

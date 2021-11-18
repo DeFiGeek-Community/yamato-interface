@@ -39,8 +39,8 @@ export default function Header() {
 
   return (
     <Grid>
-      <GridItem rowSpan={1} colSpan={1}>
-        <HStack>
+      <GridItem>
+        <HStack spacing="auto">
           <Link to="/">
             <SvgYamatoLogWithTitle width={200} height={50} />
           </Link>
