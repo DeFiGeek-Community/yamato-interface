@@ -1,4 +1,5 @@
 import { Box, HStack } from '@chakra-ui/react';
+import { useMemo } from 'react';
 import Arrow from '../svgs/ArrowYen';
 import {
   Spring0,
@@ -94,11 +95,16 @@ function switchBackgroundColor(ethPriceRank: number) {
 
 export default function CjpyPrice(props: Props) {
   const { cjpyPriceRank, ethPriceRank, colorCodePerTcr } = props;
+
+  const background = useMemo(
+    () => switchBackgroundColor(ethPriceRank),
+    [ethPriceRank]
+  );
   return (
     <Box
       border="2px solid #5bad92"
       style={{
-        background: switchBackgroundColor(ethPriceRank),
+        background,
       }}
     >
       <HStack>

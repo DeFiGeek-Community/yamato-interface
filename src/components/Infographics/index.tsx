@@ -1,4 +1,5 @@
 import { Grid, GridItem, HStack } from '@chakra-ui/react';
+import { useCallback, useMemo } from 'react';
 import { useYamatoStateForInfographics } from '../../state/yamato-entirety/hooks';
 import { getEthChangePercent } from '../../utils/prices';
 import {
@@ -66,51 +67,75 @@ export function InfographicsContent(props: Partial<InfographicsProps>) {
   const {
     rateOfCjpyJpy,
     rateOfEthJpy,
+    prevRateOfEthJpy,
     redemptionReserve,
+    prevRedemptionReserve,
     sweepReserve,
+    prevSweepReserve,
+    totalCollateral,
+    totalDebt,
+    tcr,
     MCR,
     isRedeemablePledge,
   } = mixedValues;
 
-  const tcr =
-    props.hasOwnProperty('totalCollateral') ||
-    props.hasOwnProperty('totalDebt') ||
-    props.hasOwnProperty('rateOfEthJpy') ||
-    mixedValues.totalDebt
-      ? (100 * mixedValues.totalCollateral * mixedValues.rateOfEthJpy) /
-        mixedValues.totalDebt
-      : mixedValues.tcr;
-  const ethChangePercent = getEthChangePercent(
-    mixedValues.rateOfEthJpy,
-    mixedValues.prevRateOfEthJpy
+  const fixedTcr = useMemo(() => {
+    return props.hasOwnProperty('totalCollateral') ||
+      props.hasOwnProperty('totalDebt') ||
+      props.hasOwnProperty('rateOfEthJpy')
+      ? (100 * totalCollateral * rateOfEthJpy) / totalDebt
+      : tcr;
+  }, [props, totalDebt, totalCollateral, rateOfEthJpy, tcr]);
+  const ethChangePercent = useMemo(
+    () => getEthChangePercent(rateOfEthJpy, prevRateOfEthJpy),
+    [rateOfEthJpy, prevRateOfEthJpy]
   );
-  const isDecreaseForRedemptionReserve =
-    mixedValues.redemptionReserve < mixedValues.prevRedemptionReserve;
-  const isDecreaseForSweepReserve =
-    mixedValues.sweepReserve < mixedValues.prevSweepReserve;
+  const isDecreaseForRedemptionReserve = useMemo(
+    () => redemptionReserve < prevRedemptionReserve,
+    [redemptionReserve, prevRedemptionReserve]
+  );
+  const isDecreaseForSweepReserve = useMemo(
+    () => sweepReserve < prevSweepReserve,
+    [sweepReserve, prevSweepReserve]
+  );
 
   /**
    * All 21 Ranks(-10 ~ +10)
    */
-  const cjpyPriceRank = getCjpyRank(rateOfCjpyJpy[0]);
+  const cjpyPriceRank = useMemo(
+    () => getCjpyRank(rateOfCjpyJpy[0]),
+    [rateOfCjpyJpy]
+  );
   /**
    * All 91 Ranks(-45 ~ +45)
    */
-  const ethPriceRank = getEthPriceRank(ethChangePercent);
+  const ethPriceRank = useMemo(
+    () => getEthPriceRank(ethChangePercent),
+    [ethChangePercent]
+  );
   /**
    * All 125 ranks. Min 236 - Mid 298 - Max 360
    */
-  const colorCodePerTcr = getColorCodePerTcr(tcr, MCR);
+  const colorCodePerTcr = useMemo(
+    () => getColorCodePerTcr(fixedTcr, MCR),
+    [fixedTcr, MCR]
+  );
   /**
    * Rank up per 5000,000
    */
-  const reserveRankOfRedemption = getReserveRankOfRedemption(redemptionReserve);
+  const reserveRankOfRedemption = useMemo(
+    () => getReserveRankOfRedemption(redemptionReserve),
+    [redemptionReserve]
+  );
   /**
    * Rank up per 1000,000
    */
-  const reserveRankOfSweep = getReserveRankOfSweep(sweepReserve);
+  const reserveRankOfSweep = useMemo(
+    () => getReserveRankOfSweep(sweepReserve),
+    [sweepReserve]
+  );
 
-  function renderSignalMessages() {
+  const renderSignalMessages = useCallback(() => {
     const messages = getSignalMessages(
       cjpyPriceRank,
       ethPriceRank,
@@ -121,7 +146,7 @@ export function InfographicsContent(props: Partial<InfographicsProps>) {
         {message}
       </ItemTitleValue>
     ));
-  }
+  }, [cjpyPriceRank, ethPriceRank, isRedeemablePledge]);
 
   return (
     <>
@@ -139,7 +164,7 @@ export function InfographicsContent(props: Partial<InfographicsProps>) {
         <GridItem colSpan={1}>
           <EthPrice ethPrice={rateOfEthJpy} ethPriceRank={ethPriceRank} />
           <div style={{ margin: '0.4rem 0' }}>
-            <Tcr tcr={tcr} />
+            <Tcr tcr={fixedTcr} />
           </div>
           <Pool
             reserveRankOfRedemption={reserveRankOfRedemption}
