@@ -47,6 +47,7 @@ export const REVERT_REASON_DESCRIPTION = {
   justReverted:
     '不明なエラーが発生しました。またはネットワークを切り替えてください。',
   walletRejected: '送信を取り止めました。',
+  zeroInput: '入力値が０です。または小さすぎます。',
 };
 
 export const ErrorToastConfig: UseToastOptions = {

@@ -75,7 +75,7 @@ function getMultiplier(decimals: ethers.BigNumberish): string {
   }
 
   if (typeof decimals !== 'number' || decimals < 0 || decimals > WEI_UNIT)
-    return '1';
+    return '0';
 
   return '1' + zeros.substring(0, decimals);
 }
