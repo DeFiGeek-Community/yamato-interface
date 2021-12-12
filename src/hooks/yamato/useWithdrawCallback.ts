@@ -34,7 +34,7 @@ export function useWithdrawCallback(): {
       callback: async function onWithdraw(eth: number): Promise<string> {
         // payload
         const value = parseEther(eth.toString());
-        if (value === BIGNUMBER_ZERO) {
+        if (value.eq(BIGNUMBER_ZERO)) {
           throw new Error(REVERT_REASON_DESCRIPTION.zeroInput);
         }
         const option = {

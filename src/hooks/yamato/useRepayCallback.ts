@@ -34,7 +34,7 @@ export function useRepayCallback(): {
       callback: async function onRepay(cjpy: number): Promise<string> {
         // payload
         const value = parseEther(cjpy.toString());
-        if (value === BIGNUMBER_ZERO) {
+        if (value.eq(BIGNUMBER_ZERO)) {
           throw new Error(REVERT_REASON_DESCRIPTION.zeroInput);
         }
         const option = {
