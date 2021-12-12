@@ -1,7 +1,8 @@
 import { useMemo } from 'react';
-
+import { REVERT_REASON_DESCRIPTION } from '../../constants/yamato';
 import { TransactionType } from '../../state/transactions/actions';
 import { useTransactionAdder } from '../../state/transactions/hooks';
+import { BIGNUMBER_ZERO } from '../../utils/web3';
 import { parseEther } from '../../utils/web3';
 import { useYamatoMainContract } from '../useContract';
 import { useActiveWeb3React } from '../web3';
@@ -36,6 +37,9 @@ export function useSelfRedeemCallback(): {
       ): Promise<string> {
         // payload
         const value = parseEther(eth.toString());
+        if (value === BIGNUMBER_ZERO) {
+          throw new Error(REVERT_REASON_DESCRIPTION.zeroInput);
+        }
         const option = {
           from: account,
         };

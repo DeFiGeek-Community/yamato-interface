@@ -5,6 +5,8 @@ import { Contract } from '@ethersproject/contracts';
 import { JsonRpcSigner, Web3Provider } from '@ethersproject/providers';
 import { ethers } from 'ethers';
 
+export const BIGNUMBER_ZERO = BigNumber.from(0);
+
 // returns the checksummed address if the address is valid, otherwise returns false
 export function isAddress(value: any): string | false {
   try {
@@ -75,7 +77,7 @@ function getMultiplier(decimals: ethers.BigNumberish): string {
   }
 
   if (typeof decimals !== 'number' || decimals < 0 || decimals > WEI_UNIT)
-    return '1';
+    return '0';
 
   return '1' + zeros.substring(0, decimals);
 }

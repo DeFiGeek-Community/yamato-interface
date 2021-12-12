@@ -1,6 +1,7 @@
 name: E2E visiting and wallet connection tests.
 
 on:
+  push:
   pull_request_target:
   workflow_dispatch:
 

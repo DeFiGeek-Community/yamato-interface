@@ -8,7 +8,6 @@ export type PledgeDetail = {
   [owner: string]: {
     collateral: number; // ETH
     debt: number; // CJPY
-    withdrawalLockDate: number; // unix time
   };
 };
 export interface PledgeState {
