@@ -4,11 +4,9 @@ import {
   HStack,
   VStack,
 } from '@chakra-ui/react';
-import { intervalToDuration } from 'date-fns';
 import { Formik, Form, Field, FormikHelpers, FieldProps } from 'formik';
 import { useCallback, useState } from 'react';
 import { YAMATO_SYMBOL } from '../../../constants/yamato';
-import useInterval from '../../../hooks/useInterval';
 import { useActiveWeb3React } from '../../../hooks/web3';
 import { useWithdrawCallback } from '../../../hooks/yamato/useWithdrawCallback';
 import { subtractToNum } from '../../../utils/bignumber';
@@ -23,37 +21,15 @@ type Props = {
   collateral: number;
   debt: number;
   rateOfEthJpy: number;
-  withdrawalLockDate: number;
 };
 
 export default function WithdrawalInput(props: Props) {
-  const { collateral, debt, rateOfEthJpy, withdrawalLockDate } = props;
+  const { collateral, debt, rateOfEthJpy } = props;
 
   const { account } = useActiveWeb3React();
   const { callback } = useWithdrawCallback();
 
   const [withdrawal, setWithdrawal] = useState(0);
-  const [isRemainLockTime, setIsRemainLockTime] = useState(false);
-  const [remainLockTime, setRemainLockTime] = useState('');
-
-  useInterval(() => {
-    if (!withdrawalLockDate) {
-      return;
-    }
-
-    const now = Date.now();
-    const lockDate = withdrawalLockDate * 1000;
-    const remain = intervalToDuration({
-      start: now,
-      end: lockDate,
-    });
-    const hours = (remain.days ?? 0) * 24 + (remain.hours ?? 0);
-
-    setIsRemainLockTime(lockDate - now > 0);
-    setRemainLockTime(
-      `あと${hours}時間${remain.minutes ?? 0}分${remain.seconds ?? 0}秒`
-    );
-  }, 500);
 
   const validateWithdrawal = useCallback(
     (value: number) => {
@@ -61,7 +37,6 @@ export default function WithdrawalInput(props: Props) {
         return `ウォレットを接続してください。またはネットワークを切り替えてください。`;
       }
 
-      // FIXME: ロックタイム中
       if (value == null || typeof value !== 'number') {
         return '数値で入力してください。';
       }
@@ -140,7 +115,6 @@ export default function WithdrawalInput(props: Props) {
                 isLoading={formikProps.isSubmitting}
                 type="submit"
                 data-testid="collateral-act-withdraw"
-                disabled={isRemainLockTime}
               >
                 引出実行
               </CustomButton>
@@ -157,14 +131,6 @@ export default function WithdrawalInput(props: Props) {
                     (collateral - withdrawal) * rateOfEthJpy,
                     debt
                   )}%`}
-                />
-              </HStack>
-            )}
-            {isRemainLockTime && (
-              <HStack spacing={4} align="flex-end">
-                <CustomFormLabel
-                  data-testid="collateral-data-withdrawalLabel"
-                  text={`ロックタイムカウントダウン...${remainLockTime}`}
                 />
               </HStack>
             )}

@@ -1,6 +1,6 @@
 import { Store, createStore } from '@reduxjs/toolkit';
 import { fetchMyPledge, reset } from './actions';
-import reducer, { initialState, PledgeState } from './reducer';
+import reducer, { initialState, PledgeDetail, PledgeState } from './reducer';
 
 describe('pledge reducer', () => {
   let store: Store<PledgeState>;
@@ -16,11 +16,10 @@ describe('pledge reducer', () => {
 
   describe('fetchMyPledge', () => {
     it('fetch My Pledges', () => {
-      const expected = {
+      const expected: PledgeDetail = {
         [defaultOwner]: {
           collateral: 10,
           debt: 5,
-          withdrawalLockDate: 0,
         },
       };
       store.dispatch(fetchMyPledge(expected));
@@ -28,11 +27,10 @@ describe('pledge reducer', () => {
     });
 
     it('should be lower case if address has upper case character', () => {
-      const expected = {
+      const expected: PledgeDetail = {
         [defaultOwner.toUpperCase()]: {
           collateral: 10,
           debt: 5,
-          withdrawalLockDate: 0,
         },
       };
       store.dispatch(fetchMyPledge(expected));
@@ -42,11 +40,10 @@ describe('pledge reducer', () => {
     });
 
     it('should be correct even if address is empty', () => {
-      const expected = {
+      const expected: PledgeDetail = {
         '': {
           collateral: 10,
           debt: 5,
-          withdrawalLockDate: 0,
         },
       };
       store.dispatch(fetchMyPledge(expected));
@@ -56,11 +53,10 @@ describe('pledge reducer', () => {
 
   describe('reset', () => {
     it('reset', () => {
-      const expected = {
+      const expected: PledgeDetail = {
         [defaultOwner]: {
           collateral: 10,
           debt: 5,
-          withdrawalLockDate: 0,
         },
       };
       store.dispatch(fetchMyPledge(expected));

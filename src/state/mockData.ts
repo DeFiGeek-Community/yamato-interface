@@ -59,7 +59,6 @@ export const mockPledge = (account: string) => ({
   [account]: {
     collateral: 3.5,
     debt: 800000,
-    withdrawalLockDate: Date.now() / 1000 + 1000,
   },
 });
 

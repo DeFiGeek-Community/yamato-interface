@@ -10,7 +10,7 @@ import WithdrawalInput from './WithdrawalInput';
 
 export default function Collateral() {
   const { rateOfEthJpy, firstLoadCompleted } = useYamatoStateForPledge();
-  const { collateral, debt, withdrawalLockDate } = usePledgeData();
+  const { collateral, debt } = usePledgeData();
 
   return (
     <Grid templateColumns="repeat(8, 1fr)" gap={4} mb={4}>
@@ -53,7 +53,6 @@ export default function Collateral() {
           collateral={collateral}
           debt={debt}
           rateOfEthJpy={rateOfEthJpy}
-          withdrawalLockDate={withdrawalLockDate}
         />
       </GridItem>
 
