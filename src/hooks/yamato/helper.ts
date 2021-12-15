@@ -39,11 +39,20 @@ function swapErrorToUserReadableMessage(error: any): string {
   if (reason?.indexOf('execution reverted: ') === 0)
     reason = reason.substr('execution reverted: '.length);
 
+  const defaultMessage = `不明なエラーが発生しました${
+    reason ? `: "${reason}"` : ''
+  } `;
+
   switch (reason) {
-    // deposit
+    // Yamato.sol
+    case "FlashLock.blockHeight can't be more than currenct blockheight.":
+    case 'Invalid FlashLockTypes given.':
+    case "Those can't be called in the same block.":
+      return REVERT_REASON_DESCRIPTION.notFlashLoan;
+    // YamatoDepositor.sol
     case 'transfer failed':
       return REVERT_REASON_DESCRIPTION.transferFailure;
-    // withdraw
+    // YamatoWithdrawer.sol
     case 'Withdrawal amount must be less than equal to the target coll amount.':
       return REVERT_REASON_DESCRIPTION.depositShortage;
     case 'Withdrawal amount must be less than equal to the total coll amount.':
@@ -54,9 +63,7 @@ function swapErrorToUserReadableMessage(error: any): string {
       return REVERT_REASON_DESCRIPTION.underMCR;
     case "Withdrawal failure: ICR can't be less than MCR after withdrawal.":
       return REVERT_REASON_DESCRIPTION.underMCR;
-    // borrow
-    case 'Borrowing should not be executed within the same block with your deposit.':
-      return REVERT_REASON_DESCRIPTION.notFlashLoan;
+    // YamatoBorrower.sol
     case 'This pledge is not created yet.':
       return REVERT_REASON_DESCRIPTION.nonPledge;
     case 'This minting is invalid because of too large borrowing.':
@@ -65,26 +72,26 @@ function swapErrorToUserReadableMessage(error: any): string {
       return REVERT_REASON_DESCRIPTION.zeroFee;
     case '(borrow - fee) must be more than zero.':
       return REVERT_REASON_DESCRIPTION.insufficientBorrowing;
-    case 'ICR too low to get fee data.':
-      return REVERT_REASON_DESCRIPTION.underMCR;
-    // repay
-    case 'You are repaying no CJPY':
+    // YamatoRepayer.sol
+    case 'You are repaying no Currency':
       return REVERT_REASON_DESCRIPTION.zeroRepay;
-    case 'You are repaying more than you are owing.':
+    case "You can't repay for a zero-debt pledge.":
+    case 'You are trying to repay more than your debt.':
       return REVERT_REASON_DESCRIPTION.overDebt;
-    case 'ERC20: burn amount exceeds balance':
+    case 'You are trying to repay more than you have.':
       return REVERT_REASON_DESCRIPTION.overBalance;
-    // redeem/sweep
+    // YamatoRedeemer.sol
+    case 'You are redeeming more than the bearer has.':
+      return REVERT_REASON_DESCRIPTION.overBalance;
     case 'No pledges are redeemed.':
       return REVERT_REASON_DESCRIPTION.noRedeemablePledge;
+    case "Can't expense zero pledge.":
+      return REVERT_REASON_DESCRIPTION.depositShortage;
+    // YamatoSweeper.sol
     case 'Sweep failure: sweep reserve is empty.':
       return REVERT_REASON_DESCRIPTION.noSweepReserve;
     case 'At least a pledge should be swept.':
       return REVERT_REASON_DESCRIPTION.noSweepablePledge;
-    case 'Gas payback has been failed.':
-      return REVERT_REASON_DESCRIPTION.insufficientPaybackGas;
-    case "Can't expense zero pledge.":
-      return REVERT_REASON_DESCRIPTION.depositShortage;
     // authority
     case 'You are not the governer.':
       return REVERT_REASON_DESCRIPTION.notGoverner;
@@ -94,7 +101,7 @@ function swapErrorToUserReadableMessage(error: any): string {
     case 'execution reverted': // incorrect contract address, incorrect ABIs, etc.
       return REVERT_REASON_DESCRIPTION.justReverted;
     default:
-      return `不明なエラーが発生しました${reason ? `: "${reason}"` : ''}. `;
+      return defaultMessage;
   }
 }
 
