@@ -15,7 +15,6 @@ const initialPledgeParams = {
   '': {
     collateral: 0,
     debt: 0,
-    withdrawalLockDate: 0,
   },
 };
 

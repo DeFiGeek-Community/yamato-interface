@@ -10,7 +10,6 @@ export async function fetchPledgeStateFromContract(
       '': {
         collateral: 0,
         debt: 0,
-        withdrawalLockDate: 0,
       },
     };
   }
@@ -22,7 +21,6 @@ export async function fetchPledgeStateFromContract(
     [account.toLowerCase()]: {
       collateral: Number(formatEther(indivisualStates[0])),
       debt: Number(formatCjpy(indivisualStates[1])),
-      withdrawalLockDate: indivisualStates[3].toNumber(),
     },
   };
 }

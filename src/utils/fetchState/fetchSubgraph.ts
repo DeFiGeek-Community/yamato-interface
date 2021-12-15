@@ -163,7 +163,6 @@ function transformMyPledge(pledge: Pledge) {
     [pledge.id]: {
       collateral: Number(formatEther(pledge.ethAmount ?? 0)),
       debt: Number(formatEther(pledge.borrowedCjpyAmount ?? 0)),
-      withdrawalLockDate: Number(pledge.withdrawLocks),
     },
   };
 }
