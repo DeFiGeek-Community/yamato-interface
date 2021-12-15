@@ -1,10 +1,5 @@
 [
   {
-    "inputs": [],
-    "stateMutability": "nonpayable",
-    "type": "constructor"
-  },
-  {
     "anonymous": false,
     "inputs": [
       {
@@ -53,19 +48,13 @@
     "anonymous": false,
     "inputs": [
       {
-        "indexed": true,
+        "indexed": false,
         "internalType": "address",
-        "name": "previousOwner",
-        "type": "address"
-      },
-      {
-        "indexed": true,
-        "internalType": "address",
-        "name": "newOwner",
+        "name": "_sender",
         "type": "address"
       }
     ],
-    "name": "OwnershipTransferred",
+    "name": "NewPendingGovernance",
     "type": "event"
   },
   {
@@ -79,6 +68,32 @@
       }
     ],
     "name": "PriceFeedStatusChanged",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "_sender",
+        "type": "address"
+      }
+    ],
+    "name": "RevokeGovernance",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "_sender",
+        "type": "address"
+      }
+    ],
+    "name": "UpdateGovernance",
     "type": "event"
   },
   {
@@ -148,19 +163,6 @@
   },
   {
     "inputs": [],
-    "name": "NAME",
-    "outputs": [
-      {
-        "internalType": "string",
-        "name": "",
-        "type": "string"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
     "name": "TARGET_DIGITS",
     "outputs": [
       {
@@ -200,11 +202,18 @@
   },
   {
     "inputs": [],
+    "name": "acceptGovernance",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
     "name": "ethPriceAggregatorInUSD",
     "outputs": [
       {
-        "internalType": "contract AggregatorV3Interface",
-        "name": "",
+        "internalType": "address",
+        "name": "_ethPriceAggregatorInUSD",
         "type": "address"
       }
     ],
@@ -227,6 +236,19 @@
   {
     "inputs": [],
     "name": "getImplementation",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "governance",
     "outputs": [
       {
         "internalType": "address",
@@ -265,8 +287,8 @@
     "name": "jpyPriceAggregatorInUSD",
     "outputs": [
       {
-        "internalType": "contract AggregatorV3Interface",
-        "name": "",
+        "internalType": "address",
+        "name": "_jpyPriceAggregatorInUSD",
         "type": "address"
       }
     ],
@@ -288,7 +310,7 @@
   },
   {
     "inputs": [],
-    "name": "owner",
+    "name": "pendingGovernance",
     "outputs": [
       {
         "internalType": "address",
@@ -301,7 +323,27 @@
   },
   {
     "inputs": [],
-    "name": "renounceOwnership",
+    "name": "revokeGovernance",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "revokeTester",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_newGoverner",
+        "type": "address"
+      }
+    ],
+    "name": "setGovernance",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -324,8 +366,8 @@
     "name": "tellorCaller",
     "outputs": [
       {
-        "internalType": "contract ITellorCaller",
-        "name": "",
+        "internalType": "address",
+        "name": "_tellorCaller",
         "type": "address"
       }
     ],
@@ -333,16 +375,16 @@
     "type": "function"
   },
   {
-    "inputs": [
+    "inputs": [],
+    "name": "tester",
+    "outputs": [
       {
         "internalType": "address",
-        "name": "newOwner",
+        "name": "",
         "type": "address"
       }
     ],
-    "name": "transferOwnership",
-    "outputs": [],
-    "stateMutability": "nonpayable",
+    "stateMutability": "view",
     "type": "function"
   },
   {

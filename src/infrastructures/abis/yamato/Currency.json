@@ -319,7 +319,7 @@
   },
   {
     "inputs": [],
-    "name": "renounceGovernance",
+    "name": "revokeGovernance",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"

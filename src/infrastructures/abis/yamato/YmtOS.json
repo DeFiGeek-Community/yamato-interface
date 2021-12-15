@@ -107,86 +107,56 @@
     "inputs": [
       {
         "internalType": "address",
+        "name": "_currencyOS",
+        "type": "address"
+      }
+    ],
+    "name": "addCurrencyOS",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
         "name": "_yamatoAddr",
         "type": "address"
       }
     ],
-    "name": "addYamato",
+    "name": "addYamatoOfCurrencyOS",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "to",
-        "type": "address"
-      },
+    "inputs": [],
+    "name": "distributeYMT",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getCurrentCycle",
+    "outputs": [
       {
         "internalType": "uint256",
-        "name": "amount",
+        "name": "",
         "type": "uint256"
       }
     ],
-    "name": "burnCurrency",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "currency",
-    "outputs": [
-      {
-        "internalType": "address",
-        "name": "_currency",
-        "type": "address"
-      }
-    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "_yamato",
-        "type": "address"
-      }
-    ],
-    "name": "exists",
+    "inputs": [],
+    "name": "getCurrentCycleBlockRange",
     "outputs": [
       {
-        "internalType": "bool",
+        "internalType": "uint256[2]",
         "name": "",
-        "type": "bool"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "feePool",
-    "outputs": [
-      {
-        "internalType": "address",
-        "name": "_feePool",
-        "type": "address"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "feed",
-    "outputs": [
-      {
-        "internalType": "address",
-        "name": "_feed",
-        "type": "address"
+        "type": "uint256[2]"
       }
     ],
     "stateMutability": "view",
@@ -200,6 +170,83 @@
         "internalType": "address",
         "name": "",
         "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getLastCycle",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getLastCycleBlockRange",
+    "outputs": [
+      {
+        "internalType": "uint256[2]",
+        "name": "",
+        "type": "uint256[2]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "coll",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "debt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "isCreated",
+            "type": "bool"
+          },
+          {
+            "internalType": "address",
+            "name": "owner",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "priority",
+            "type": "uint256"
+          }
+        ],
+        "internalType": "struct IYamato.Pledge",
+        "name": "_pledge",
+        "type": "tuple"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_at",
+        "type": "uint256"
+      }
+    ],
+    "name": "getScore",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
       }
     ],
     "stateMutability": "view",
@@ -222,39 +269,16 @@
     "inputs": [
       {
         "internalType": "address",
-        "name": "currencyAddr",
+        "name": "_YMT",
         "type": "address"
       },
       {
         "internalType": "address",
-        "name": "feedAddr",
-        "type": "address"
-      },
-      {
-        "internalType": "address",
-        "name": "feePoolAddr",
+        "name": "_veYMT",
         "type": "address"
       }
     ],
     "name": "initialize",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "to",
-        "type": "address"
-      },
-      {
-        "internalType": "uint256",
-        "name": "amount",
-        "type": "uint256"
-      }
-    ],
-    "name": "mintCurrency",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -282,19 +306,6 @@
   {
     "inputs": [],
     "name": "revokeTester",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "_ymtOS",
-        "type": "address"
-      }
-    ],
-    "name": "setDeps",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -372,33 +383,19 @@
   {
     "inputs": [
       {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "name": "yamatoes",
-    "outputs": [
+        "internalType": "address",
+        "name": "_currencyOS",
+        "type": "address"
+      },
       {
         "internalType": "address",
-        "name": "",
+        "name": "_yamato",
         "type": "address"
       }
     ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "ymtOS",
-    "outputs": [
-      {
-        "internalType": "address",
-        "name": "_ymtOS",
-        "type": "address"
-      }
-    ],
-    "stateMutability": "view",
+    "name": "vote",
+    "outputs": [],
+    "stateMutability": "nonpayable",
     "type": "function"
   }
 ]
