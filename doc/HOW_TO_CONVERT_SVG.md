@@ -15,7 +15,7 @@ note: If the above does not apply, you can use [this standard Creat-React-App me
 
 If you want to add some props, follow below:
 
-4. Copy the folder with the suffix `-adjusted`.
+4. Copy the folder with the suffix `-with-props`.
 5. Edit the part you want to replace with props in the component.
 
 note: Let's set it with the full path like `props.foo` so that you can easily find the changed part. Then we can search for `props.` to list them.

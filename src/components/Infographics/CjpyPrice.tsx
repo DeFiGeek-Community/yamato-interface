@@ -23,7 +23,7 @@ import {
   SpringPlus7,
   SpringPlus8,
   SpringPlus9,
-} from '../svgs/spring-adjusted';
+} from '../svgs/spring-with-props';
 import { getBrightnessPerEth } from './functions';
 
 interface Props {

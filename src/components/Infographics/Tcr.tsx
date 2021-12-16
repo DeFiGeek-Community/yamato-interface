@@ -1,6 +1,6 @@
 import { Box } from '@chakra-ui/react';
 import { ItemTitleForInfographics } from '../CommonItem';
-import { Thermometer } from '../svgs/thermometer-adjusted';
+import { Thermometer } from '../svgs/thermometer-with-props';
 import { getTcrRate } from './functions';
 
 interface Props {

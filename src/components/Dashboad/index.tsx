@@ -1,10 +1,7 @@
 import { ExternalLinkIcon } from '@chakra-ui/icons';
 import { Grid, GridItem, HStack, VStack } from '@chakra-ui/react';
 import { useCallback, useMemo } from 'react';
-import {
-  CJPY_ADDRESSES,
-  WRAPPED_ETHER_ADDRESS,
-} from '../../constants/addresses';
+import { CJPY_ADDRESSES } from '../../constants/addresses';
 import { YAMATO_SYMBOL } from '../../constants/yamato';
 import { useActiveWeb3React } from '../../hooks/web3';
 import { useYamatoStateForDashboard } from '../../state/yamato-entirety/hooks';
@@ -48,10 +45,6 @@ export default function Dashboad() {
   } = useYamatoStateForDashboard();
 
   const { chainId } = useActiveWeb3React();
-  const ethAddress = useMemo(
-    () => (chainId != null ? WRAPPED_ETHER_ADDRESS[chainId] : ''),
-    [chainId]
-  );
   const cjpyAddress = useMemo(
     () => (chainId != null ? CJPY_ADDRESSES[chainId] : ''),
     [chainId]
@@ -60,11 +53,11 @@ export default function Dashboad() {
   const getExternalLink = useCallback(
     (exchangeName: string) => {
       if (exchangeName.includes('uniswap')) {
-        return `https://app.uniswap.org/#/swap?inputCurrency=${ethAddress}&outputCurrency=${cjpyAddress}`;
+        return `https://app.uniswap.org/#/swap?inputCurrency=eth&outputCurrency=${cjpyAddress}`;
       }
       return '';
     },
-    [ethAddress, cjpyAddress]
+    [cjpyAddress]
   );
 
   return (
