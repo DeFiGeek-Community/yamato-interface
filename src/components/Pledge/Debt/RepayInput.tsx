@@ -1,4 +1,5 @@
 import {
+  Button,
   FormControl,
   FormErrorMessage,
   HStack,
@@ -108,6 +109,17 @@ export default function RepayInput(props: Props) {
                       placeholder={YAMATO_SYMBOL.YEN}
                       data-testid="borrowing-data-repayAmount"
                     />
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      style={{ marginLeft: '5px' }}
+                      onClick={() => {
+                        const value = Math.min(debt, cjpy);
+                        form.setFieldValue('repayment', value);
+                      }}
+                    >
+                      MAX
+                    </Button>
                     <FormErrorMessage>
                       {formikProps.errors.repayment}
                     </FormErrorMessage>
