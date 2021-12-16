@@ -1,5 +1,12 @@
+import { ExternalLinkIcon } from '@chakra-ui/icons';
 import { Grid, GridItem, HStack, VStack } from '@chakra-ui/react';
+import { useCallback, useMemo } from 'react';
+import {
+  CJPY_ADDRESSES,
+  WRAPPED_ETHER_ADDRESS,
+} from '../../constants/addresses';
 import { YAMATO_SYMBOL } from '../../constants/yamato';
+import { useActiveWeb3React } from '../../hooks/web3';
 import { useYamatoStateForDashboard } from '../../state/yamato-entirety/hooks';
 import { formatPrice } from '../../utils/prices';
 import {
@@ -8,6 +15,7 @@ import {
   HeaderBox1,
   ItemTitleValue,
 } from '../CommonItem';
+import { ExternalLink } from '../ExternalLink';
 import TerminologyPopover from '../TerminologyPopover';
 import DashboadItem from './Item';
 
@@ -38,6 +46,26 @@ export default function Dashboad() {
     rateOfCjpyJpy,
     firstLoadCompleted,
   } = useYamatoStateForDashboard();
+
+  const { chainId } = useActiveWeb3React();
+  const ethAddress = useMemo(
+    () => (chainId != null ? WRAPPED_ETHER_ADDRESS[chainId] : ''),
+    [chainId]
+  );
+  const cjpyAddress = useMemo(
+    () => (chainId != null ? CJPY_ADDRESSES[chainId] : ''),
+    [chainId]
+  );
+
+  const getExternalLink = useCallback(
+    (exchangeName: string) => {
+      if (exchangeName.includes('uniswap')) {
+        return `https://app.uniswap.org/#/swap?inputCurrency=${ethAddress}&outputCurrency=${cjpyAddress}`;
+      }
+      return '';
+    },
+    [ethAddress, cjpyAddress]
+  );
 
   return (
     <>
@@ -81,7 +109,13 @@ export default function Dashboad() {
                 title={'市場間価格差異'}
                 stat={getMarketRateOfCjpyJpy(rateOfCjpyJpy[0])}
                 firstLoadCompleted={true}
-              />
+              >
+                {rateOfCjpyJpy[0] && (
+                  <ExternalLink href={getExternalLink(rateOfCjpyJpy[0][0])}>
+                    <ExternalLinkIcon />
+                  </ExternalLink>
+                )}
+              </DashboadItem>
               <DashboadItem
                 title={''}
                 stat={getMarketRateOfCjpyJpy(rateOfCjpyJpy[1])}
