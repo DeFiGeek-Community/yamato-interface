@@ -5,11 +5,12 @@ import {
   VStack,
 } from '@chakra-ui/react';
 import { Formik, Form, Field, FormikHelpers, FieldProps } from 'formik';
-import { useCallback, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { YAMATO_SYMBOL } from '../../../constants/yamato';
 import { useActiveWeb3React } from '../../../hooks/web3';
 import { useBorrowCallback } from '../../../hooks/yamato/useBorrowCallback';
-import { addToNum } from '../../../utils/bignumber';
+import { addToNum, divideToNum } from '../../../utils/bignumber';
+import { calcFee } from '../../../utils/calcFee';
 import { errorToast } from '../../../utils/errorToast';
 import {
   formatCollateralizationRatio,
@@ -31,6 +32,14 @@ export default function BorrowingInput(props: Props) {
   const { callback } = useBorrowCallback();
 
   const [borrowing, setBorrowing] = useState(0);
+
+  const feeResult = useMemo(() => {
+    if (debt + borrowing <= 0) {
+      return { fee: 0, feeRate: 0 };
+    }
+    const ICR = divideToNum(collateral * rateOfEthJpy, debt + borrowing) * 100;
+    return calcFee(borrowing, ICR);
+  }, [collateral, debt, borrowing, rateOfEthJpy]);
 
   const validateBorrowing = useCallback(
     async (value: number) => {
@@ -127,14 +136,21 @@ export default function BorrowingInput(props: Props) {
             </HStack>
             {borrowing > 0 && (
               <HStack spacing={4} align="flex-end">
-                <CustomFormLabel
-                  text={`変動予測値表示...${
-                    formatPrice(addToNum(debt, borrowing), 'jpy').value
-                  }${YAMATO_SYMBOL.YEN}, 担保率${formatCollateralizationRatio(
-                    collateral * rateOfEthJpy,
-                    debt + borrowing
-                  )}%`}
-                />
+                <VStack align="stretch">
+                  <CustomFormLabel
+                    text={`変動予測値表示...${
+                      formatPrice(addToNum(debt, borrowing), 'jpy').value
+                    }${YAMATO_SYMBOL.YEN}, 担保率${formatCollateralizationRatio(
+                      collateral * rateOfEthJpy,
+                      debt + borrowing
+                    )}%`}
+                  />
+                  <CustomFormLabel
+                    text={`手数料${formatPrice(feeResult.fee, 'jpy').value}${
+                      YAMATO_SYMBOL.YEN
+                    }(手数料率${feeResult.feeRate.toFixed(2)}%)`}
+                  />
+                </VStack>
               </HStack>
             )}
           </VStack>
