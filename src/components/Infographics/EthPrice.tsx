@@ -2,8 +2,8 @@ import { Box } from '@chakra-ui/react';
 import ArrowZero from '../../assets/svg/sources/eth-change-arrow/eth-change-arrow-zero.svg';
 import { formatPrice } from '../../utils/prices';
 import { ItemTitleForInfographics } from '../CommonItem';
-import ArrowDown from '../svgs/eth-change-arrow-adjusted/EthChangeArrowDown.js';
-import ArrowUp from '../svgs/eth-change-arrow-adjusted/EthChangeArrowUp.js';
+import ArrowDown from '../svgs/eth-change-arrow-with-props/EthChangeArrowDown.js';
+import ArrowUp from '../svgs/eth-change-arrow-with-props/EthChangeArrowUp.js';
 import { getBrightnessPerEth } from './functions';
 
 interface Props {
