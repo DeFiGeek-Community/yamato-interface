@@ -1,14 +1,35 @@
 [
   {
+    "anonymous": false,
     "inputs": [
       {
+        "indexed": false,
         "internalType": "address",
-        "name": "_cjpyOS",
+        "name": "previousAdmin",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "newAdmin",
         "type": "address"
       }
     ],
-    "stateMutability": "nonpayable",
-    "type": "constructor"
+    "name": "AdminChanged",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "beacon",
+        "type": "address"
+      }
+    ],
+    "name": "BeaconUpgraded",
+    "type": "event"
   },
   {
     "anonymous": false,
@@ -22,7 +43,7 @@
       {
         "indexed": false,
         "internalType": "uint256",
-        "name": "cjpyAmount",
+        "name": "currencyAmount",
         "type": "uint256"
       },
       {
@@ -58,6 +79,32 @@
     "anonymous": false,
     "inputs": [
       {
+        "indexed": false,
+        "internalType": "address",
+        "name": "_sender",
+        "type": "address"
+      }
+    ],
+    "name": "NewPendingGovernance",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      }
+    ],
+    "name": "Paused",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
         "indexed": true,
         "internalType": "address",
         "name": "sender",
@@ -66,7 +113,7 @@
       {
         "indexed": false,
         "internalType": "uint256",
-        "name": "cjpyAmount",
+        "name": "currencyAmount",
         "type": "uint256"
       },
       {
@@ -76,7 +123,7 @@
         "type": "uint256"
       },
       {
-        "indexed": true,
+        "indexed": false,
         "internalType": "address[]",
         "name": "pledgesOwner",
         "type": "address[]"
@@ -128,11 +175,24 @@
       {
         "indexed": false,
         "internalType": "uint256",
-        "name": "cjpyAmount",
+        "name": "currencyAmount",
         "type": "uint256"
       }
     ],
     "name": "Repaid",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "_sender",
+        "type": "address"
+      }
+    ],
+    "name": "RevokeGovernance",
     "type": "event"
   },
   {
@@ -147,7 +207,7 @@
       {
         "indexed": false,
         "internalType": "uint256",
-        "name": "cjpyAmount",
+        "name": "currencyAmount",
         "type": "uint256"
       },
       {
@@ -164,6 +224,45 @@
       }
     ],
     "name": "Swept",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "account",
+        "type": "address"
+      }
+    ],
+    "name": "Unpaused",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "_sender",
+        "type": "address"
+      }
+    ],
+    "name": "UpdateGovernance",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "implementation",
+        "type": "address"
+      }
+    ],
+    "name": "Upgraded",
     "type": "event"
   },
   {
@@ -239,22 +338,16 @@
   },
   {
     "inputs": [],
-    "name": "TCR",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
+    "name": "acceptGovernance",
+    "outputs": [],
+    "stateMutability": "nonpayable",
     "type": "function"
   },
   {
     "inputs": [
       {
         "internalType": "uint256",
-        "name": "borrowAmountInCjpy",
+        "name": "borrowAmountInCurrency",
         "type": "uint256"
       }
     ],
@@ -265,11 +358,43 @@
   },
   {
     "inputs": [],
-    "name": "cjpyOS",
+    "name": "borrower",
     "outputs": [
       {
         "internalType": "address",
-        "name": "",
+        "name": "_borrower",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_owner",
+        "type": "address"
+      }
+    ],
+    "name": "checkFlashLock",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "_isLocked",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "currencyOS",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "_currencyOS",
         "type": "address"
       }
     ],
@@ -285,7 +410,59 @@
   },
   {
     "inputs": [],
+    "name": "depositor",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "_depositor",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "feePool",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
     "name": "feed",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getDeps",
+    "outputs": [
+      {
+        "internalType": "address[9]",
+        "name": "",
+        "type": "address[9]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getImplementation",
     "outputs": [
       {
         "internalType": "address",
@@ -322,14 +499,31 @@
         "type": "bool"
       },
       {
-        "internalType": "uint256",
-        "name": "withdrawLock",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "depositAndBorrowLock",
-        "type": "uint256"
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "blockHeight",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "depositLock",
+            "type": "bool"
+          },
+          {
+            "internalType": "bool",
+            "name": "borrowLock",
+            "type": "bool"
+          },
+          {
+            "internalType": "bool",
+            "name": "withdrawLock",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct IYamato.FlashLockData",
+        "name": "lock",
+        "type": "tuple"
       }
     ],
     "stateMutability": "view",
@@ -421,12 +615,96 @@
   },
   {
     "inputs": [],
-    "name": "getTCR",
+    "name": "governance",
     "outputs": [
       {
-        "internalType": "uint256",
-        "name": "_TCR",
-        "type": "uint256"
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_currencyOS",
+        "type": "address"
+      }
+    ],
+    "name": "initialize",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "paused",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "pendingGovernance",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_sender",
+        "type": "address"
+      }
+    ],
+    "name": "permitDeps",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "pool",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "_pool",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "priorityRegistry",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "_priorityRegistry",
+        "type": "address"
       }
     ],
     "stateMutability": "view",
@@ -436,7 +714,7 @@
     "inputs": [
       {
         "internalType": "uint256",
-        "name": "maxRedemptionCjpyAmount",
+        "name": "maxRedemptionCurrencyAmount",
         "type": "uint256"
       },
       {
@@ -451,16 +729,42 @@
     "type": "function"
   },
   {
+    "inputs": [],
+    "name": "redeemer",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "_redeemer",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
     "inputs": [
       {
         "internalType": "uint256",
-        "name": "cjpyAmount",
+        "name": "currencyAmount",
         "type": "uint256"
       }
     ],
     "name": "repay",
     "outputs": [],
     "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "repayer",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "_repayer",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
     "type": "function"
   },
   {
@@ -481,11 +785,46 @@
     "inputs": [
       {
         "internalType": "address",
+        "name": "_yamatoDepositor",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "_yamatoBorrower",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "_yamatoRepayer",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "_yamatoWithdrawer",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "_yamatoRedeemer",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "_yamatoSweeper",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
         "name": "_pool",
         "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "_priorityRegistry",
+        "type": "address"
       }
     ],
-    "name": "setPool",
+    "name": "setDeps",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -494,11 +833,16 @@
     "inputs": [
       {
         "internalType": "address",
-        "name": "_priorityRegistry",
+        "name": "_owner",
         "type": "address"
+      },
+      {
+        "internalType": "enum IYamato.FlashLockTypes",
+        "name": "_types",
+        "type": "uint8"
       }
     ],
-    "name": "setPriorityRegistry",
+    "name": "setFlashLock",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -507,11 +851,82 @@
     "inputs": [
       {
         "internalType": "address",
-        "name": "_priorityRegistry",
+        "name": "_newGoverner",
         "type": "address"
       }
     ],
-    "name": "setPriorityRegistryInTest",
+    "name": "setGovernance",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_owner",
+        "type": "address"
+      },
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "coll",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "debt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "isCreated",
+            "type": "bool"
+          },
+          {
+            "internalType": "address",
+            "name": "owner",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "priority",
+            "type": "uint256"
+          }
+        ],
+        "internalType": "struct IYamato.Pledge",
+        "name": "_p",
+        "type": "tuple"
+      }
+    ],
+    "name": "setPledge",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_totalColl",
+        "type": "uint256"
+      }
+    ],
+    "name": "setTotalColl",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_totalDebt",
+        "type": "uint256"
+      }
+    ],
+    "name": "setTotalDebt",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -525,9 +940,66 @@
   },
   {
     "inputs": [],
-    "name": "updateTCR",
+    "name": "sweeper",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "_sweeper",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "tester",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "toggle",
     "outputs": [],
     "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "newImplementation",
+        "type": "address"
+      }
+    ],
+    "name": "upgradeTo",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "newImplementation",
+        "type": "address"
+      },
+      {
+        "internalType": "bytes",
+        "name": "data",
+        "type": "bytes"
+      }
+    ],
+    "name": "upgradeToAndCall",
+    "outputs": [],
+    "stateMutability": "payable",
     "type": "function"
   },
   {
@@ -541,6 +1013,32 @@
     "name": "withdraw",
     "outputs": [],
     "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "withdrawer",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "_withdrawer",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "yamato",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
     "type": "function"
   }
 ]

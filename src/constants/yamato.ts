@@ -26,20 +26,19 @@ export const LOG_EVENT_NAME: {
 export const REVERT_REASON_DESCRIPTION = {
   // yamato
   depositShortage: '担保が不足しています。',
-  transferFailure: 'コントラクトで転送に失敗しました。',
+  transferFailure: 'コントラクト内で送金に失敗しました。',
   underMCR: '最低担保率を下回ります。',
   withdrawLock: '引き出しがロックされています。',
-  notFlashLoan: '借入は預入と同じブロックではできません。',
+  notFlashLoan: '同じブロックでこの操作はできません。',
   nonPledge: 'まだpledgeが作られていません。',
   noSweepReserve: '弁済プールが空です。',
   noRedeemablePledge: '償還できるpledgeがありません。',
   noSweepablePledge: '弁済できるpledgeがありません。',
   zeroRepay: '返済量が0です。',
   overDebt: '返済量が借入量より上回っています。',
-  overBalance: '返済量が残高を超えています。',
+  overBalance: '指定した量が保有残高を超えています。',
   zeroFee: '手数料が0になっています。',
   insufficientBorrowing: '手数料が借入量より上回っています。',
-  insufficientPaybackGas: '変換するためのガス代が不足しています。',
   // authority
   notGoverner: 'あなたはガバナーではありません。',
   notTester: 'あなたはテスターではありません。',

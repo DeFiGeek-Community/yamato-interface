@@ -5,6 +5,7 @@ interface Props {
   title: string;
   stat: any;
   firstLoadCompleted: boolean;
+  children?: any;
 }
 
 export default function DashboadItem(props: Props) {
@@ -12,7 +13,10 @@ export default function DashboadItem(props: Props) {
     <HStack align="start">
       <ItemTitleForPledge width="15rem">{props.title}</ItemTitleForPledge>
       {props.firstLoadCompleted ? (
-        <ItemTitleValue width="20rem">{props.stat}</ItemTitleValue>
+        <ItemTitleValue width="20rem">
+          {props.stat}
+          {props.children}
+        </ItemTitleValue>
       ) : (
         <Skeleton width="20rem" height="1.6rem" />
       )}
