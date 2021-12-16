@@ -139,7 +139,10 @@ export default function BorrowingInput(props: Props) {
                 <VStack align="stretch">
                   <CustomFormLabel
                     text={`変動予測値表示...${
-                      formatPrice(addToNum(debt, borrowing), 'jpy').value
+                      formatPrice(
+                        addToNum(debt, borrowing - feeResult.fee),
+                        'jpy'
+                      ).value
                     }${YAMATO_SYMBOL.YEN}, 担保率${formatCollateralizationRatio(
                       collateral * rateOfEthJpy,
                       debt + borrowing
