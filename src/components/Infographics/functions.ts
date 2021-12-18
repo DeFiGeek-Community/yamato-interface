@@ -58,10 +58,10 @@ function getReserveRank(reserveAmount: number, baseNumber: number): number {
 export function getTcrRate(tcr: number): number {
   if (tcr <= 0) {
     return 100;
-  } else if (tcr > 500) {
+  } else if (tcr > 300) {
     return 1;
   }
-  return Math.abs(tcr / 5 - 99); // 0 to 500% fits in 100 to 1
+  return Math.abs(tcr / 3 - 99); // 0% to 300% fits in 100 to 1
 }
 
 export function getSignalMessages(
