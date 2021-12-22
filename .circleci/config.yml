@@ -56,7 +56,7 @@ jobs:
       - run:
           name: Build
           environment:
-            CI: false
+            CI: 'false'
           command: yarn build
 
   lint:
@@ -88,5 +88,8 @@ workflows:
           requires:
             - setup
       - lint:
+          requires:
+            - setup
+      - unit_test:
           requires:
             - setup
