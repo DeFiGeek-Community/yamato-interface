@@ -1,6 +1,9 @@
 # This config is equivalent to both the '.circleci/extended/orb-free.yml' and the base '.circleci/config.yml'
 version: 2.1
 
+orbs:
+  codecov: codecov/codecov@3.2.2
+
 aliases:
   - &docker
     - image: cimg/node:14.18.2-browsers
@@ -93,3 +96,5 @@ workflows:
       - unit_test:
           requires:
             - setup
+          post-steps:
+            - codecov/upload
