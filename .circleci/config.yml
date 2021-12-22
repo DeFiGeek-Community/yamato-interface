@@ -3,6 +3,7 @@ version: 2.1
 
 orbs:
   codecov: codecov/codecov@3.2.2
+  discord: antonioned/discord@0.1.0
 
 aliases:
   - &docker
@@ -61,6 +62,10 @@ jobs:
           environment:
             CI: 'false'
           command: yarn build
+      - discord/status:
+          fail_only: true
+          failure_message: '**${CIRCLE_JOB}** failed.'
+          webhook: '${DISCORD_WEBHOOK}'
 
   lint:
     docker: *docker
@@ -69,6 +74,10 @@ jobs:
       - *restore_node_modules
       - run: yarn ci:format
       - run: yarn lint
+      - discord/status:
+          fail_only: true
+          failure_message: '**${CIRCLE_JOB}** failed.'
+          webhook: '${DISCORD_WEBHOOK}'
 
   unit_test:
     docker: *docker
@@ -80,6 +89,10 @@ jobs:
           environment:
             REACT_APP_INFURA_KEY: $REACT_APP_INFURA_KEY
           command: yarn test -- --coverage
+      - discord/status:
+          fail_only: true
+          failure_message: '**${CIRCLE_JOB}** failed.'
+          webhook: '${DISCORD_WEBHOOK}'
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
