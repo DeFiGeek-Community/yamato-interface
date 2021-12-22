@@ -1,6 +1,6 @@
 # Yamato Interface
 
-[![](https://github.com/DeFiGeek-Community/yamato-interface/workflows/Build%20&%20Test/badge.svg)](https://github.com/DeFiGeek-Community/yamato-interface/actions/workflows/main.yaml)
+[![Buid & Test](https://circleci.com/gh/DeFiGeek-Community/yamato-interface.svg?style=svg)](https://circleci.com/gh/DeFiGeek-Community/yamato-interface)
 [![E2E visiting and wallet connection tests.](https://github.com/DeFiGeek-Community/yamato-interface/actions/workflows/e2e-commit.yaml/badge.svg)](https://github.com/DeFiGeek-Community/yamato-interface/actions/workflows/e2e-commit.yaml)
 [![codecov](https://codecov.io/gh/DeFiGeek-Community/yamato-interface/branch/main/graph/badge.svg)](https://codecov.io/gh/DeFiGeek-Community/yamato-interface)
 
