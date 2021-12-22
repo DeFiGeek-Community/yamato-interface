@@ -1,0 +1,92 @@
+# This config is equivalent to both the '.circleci/extended/orb-free.yml' and the base '.circleci/config.yml'
+version: 2.1
+
+aliases:
+  - &docker
+    - image: cimg/node:14.18.2-browsers
+
+  - &restore_yarn_cache
+    restore_cache:
+      name: Restore yarn cache
+      key: v2-node-{{ arch }}-{{ checksum "yarn.lock" }}-yarn
+
+  - &restore_node_modules
+    restore_cache:
+      name: Restore node_modules cache
+      keys:
+        - v2-node-{{ arch }}-{{ .Branch }}-{{ checksum "yarn.lock" }}-node-modules
+
+  - &TEST_PARALLELISM 20
+
+jobs:
+  setup:
+    docker: *docker
+    steps:
+      - checkout
+      - run:
+          name: Nodejs Version
+          command: node --version
+      - *restore_yarn_cache
+      - run:
+          name: Install dependencies
+          command: yarn --frozen-lockfile --cache-folder ~/.cache/yarn
+      - save_cache:
+          # Store the yarn cache globally for all lock files with this same
+          # checksum. This will speed up the setup job for all PRs where the
+          # lockfile is the same.
+          name: Save yarn cache for future installs
+          key: v2-node-{{ arch }}-{{ checksum "yarn.lock" }}-yarn
+          paths:
+            - ~/.cache/yarn
+      - save_cache:
+          # Store node_modules for all jobs in this workflow so that they don't
+          # need to each run a yarn install for each job. This will speed up
+          # all jobs run on this branch with the same lockfile.
+          name: Save node_modules cache
+          # This cache key is per branch, a yarn install in setup is required.
+          key: v2-node-{{ arch }}-{{ .Branch }}-{{ checksum "yarn.lock" }}-node-modules
+          paths:
+            - node_modules
+
+  build_check:
+    docker: *docker
+    steps:
+      - checkout
+      - *restore_node_modules
+      - run:
+          name: Build
+          environment:
+            CI: false
+          command: yarn build
+
+  lint:
+    docker: *docker
+    steps:
+      - checkout
+      - *restore_node_modules
+      - run: yarn ci:format
+      - run: yarn lint
+
+  unit_test:
+    docker: *docker
+    steps:
+      - checkout
+      - *restore_node_modules
+      - run:
+          name: Test
+          environment:
+            REACT_APP_INFURA_KEY: $REACT_APP_INFURA_KEY
+          command: yarn test -- --coverage
+
+# Invoke jobs via workflows
+# See: https://circleci.com/docs/2.0/configuration-reference/#workflows
+workflows:
+  build_and_test:
+    jobs:
+      - setup
+      - build_check:
+          requires:
+            - setup
+      - lint:
+          requires:
+            - setup
