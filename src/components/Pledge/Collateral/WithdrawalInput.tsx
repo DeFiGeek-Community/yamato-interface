@@ -89,12 +89,9 @@ export default function WithdrawalInput(props: Props) {
               }
             >
               <Field name="withdrawal" validate={validateWithdrawal}>
-                {({ field, form }: FieldProps) => (
+                {({ field }: FieldProps) => (
                   <FormControl
-                    isInvalid={
-                      !!formikProps.errors.withdrawal &&
-                      !!form.touched.withdrawal
-                    }
+                    isInvalid={!!formikProps.errors.withdrawal}
                     style={{ maxWidth: '200px' }}
                   >
                     <CustomFormLabel htmlFor="withdrawal" text="引出量入力" />

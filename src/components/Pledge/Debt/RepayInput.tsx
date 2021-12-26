@@ -96,9 +96,7 @@ export default function RepayInput(props: Props) {
               <Field name="repayment" validate={validateRepayment}>
                 {({ field, form }: FieldProps) => (
                   <FormControl
-                    isInvalid={
-                      !!formikProps.errors.repayment && !!form.touched.repayment
-                    }
+                    isInvalid={!!formikProps.errors.repayment}
                     style={{ maxWidth: '200px' }}
                   >
                     <CustomFormLabel htmlFor="repayment" text="返済量入力" />

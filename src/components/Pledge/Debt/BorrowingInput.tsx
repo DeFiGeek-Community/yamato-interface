@@ -105,11 +105,9 @@ export default function BorrowingInput(props: Props) {
               }
             >
               <Field name="borrowing" validate={validateBorrowing}>
-                {({ field, form }: FieldProps) => (
+                {({ field }: FieldProps) => (
                   <FormControl
-                    isInvalid={
-                      !!formikProps.errors.borrowing && !!form.touched.borrowing
-                    }
+                    isInvalid={!!formikProps.errors.borrowing}
                     style={{ maxWidth: '200px' }}
                   >
                     <CustomFormLabel htmlFor="borrowing" text="借入量入力" />

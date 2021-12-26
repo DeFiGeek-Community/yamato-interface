@@ -91,11 +91,9 @@ export default function DepositInput(props: Props) {
               }
             >
               <Field name="deposit" validate={validateDeposit}>
-                {({ field, form }: FieldProps) => (
+                {({ field }: FieldProps) => (
                   <FormControl
-                    isInvalid={
-                      !!formikProps.errors.deposit && !!form.touched.deposit
-                    }
+                    isInvalid={!!formikProps.errors.deposit}
                     style={{ maxWidth: '200px' }}
                   >
                     <CustomFormLabel htmlFor="deposit" text="預入量入力" />
