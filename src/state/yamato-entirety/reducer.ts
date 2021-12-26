@@ -46,7 +46,7 @@ export interface YamatoEntiretyState {
     prevSweepReserve: number; // CJPY
   };
   pledges: {
-    redeemableCandidate: number; // ETH
+    redeemableCandidate: number; // CJPY
     sweepableCandidate: number; // CJPY
     isRedeemablePledge: boolean;
   };

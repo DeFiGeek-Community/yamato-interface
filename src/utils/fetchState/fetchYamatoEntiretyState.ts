@@ -48,7 +48,7 @@ export async function fetchYamatoEntiretyStateFromContract(contracts: {
   const yamatoPriorityRegistryResults = contracts.yamatoPriorityRegistryContract
     ? {
         redeemableCandidate: Number(
-          formatEther(
+          formatYen(
             await contracts.yamatoPriorityRegistryContract.getRedeemablesCap()
           )
         ),
@@ -109,7 +109,7 @@ export async function fetchRedeemablPledges(
   const yamatoPriorityRegistryResults = yamatoPriorityRegistryContract
     ? {
         redeemableCandidate: Number(
-          formatEther(await yamatoPriorityRegistryContract.getRedeemablesCap())
+          formatYen(await yamatoPriorityRegistryContract.getRedeemablesCap())
         ),
       }
     : {

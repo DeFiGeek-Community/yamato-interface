@@ -11,7 +11,7 @@ export function getExpectedCollateral(
 }
 
 export function getExpectedReward(candidateAmount: number, GRR: number) {
-  return candidateAmount / (100 - GRR);
+  return candidateAmount * (GRR / 100);
 }
 
 export function getRedeemableCandidate(
@@ -22,11 +22,11 @@ export function getRedeemableCandidate(
     return { eth: 0, cjpy: 0 };
   }
 
-  const valueOfCjpy = redeemableCandidate * rateOfEthJpy;
-  return { eth: redeemableCandidate, cjpy: valueOfCjpy };
+  const eth = redeemableCandidate / rateOfEthJpy;
+  return { eth, cjpy: redeemableCandidate };
 }
 
-export function getEthFromCjpy(value: number, rateOfEthJpy: number) {
+export function convertEthFromCjpy(value: number, rateOfEthJpy: number) {
   if (!rateOfEthJpy) {
     return 0;
   }
