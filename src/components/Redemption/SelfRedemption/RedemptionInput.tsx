@@ -105,9 +105,7 @@ export default function RedemptionInput(props: Props) {
               <Field name="redemption" validate={validateRedemption}>
                 {({ field, form }: FieldProps) => (
                   <FormControl
-                    isInvalid={
-                      !!form.errors.redemption && !!form.touched.redemption
-                    }
+                    isInvalid={!!form.errors.redemption}
                     style={{ maxWidth: '200px' }}
                   >
                     <CustomFormLabel
@@ -135,7 +133,8 @@ export default function RedemptionInput(props: Props) {
                         getExpectedCollateral(
                           redemption,
                           formattedRedeemableCandidate.eth,
-                          GRR
+                          GRR,
+                          rateOfEthJpy
                         ),
                         'eth'
                       ).value

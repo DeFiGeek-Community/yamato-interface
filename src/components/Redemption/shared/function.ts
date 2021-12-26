@@ -1,10 +1,17 @@
 export function getExpectedCollateral(
   redemption: number,
   redeemableCandidate: number,
-  GRR: number
+  GRR: number,
+  rateOfEthJpy: number
 ) {
+  if (!rateOfEthJpy) {
+    return 0;
+  }
+  const redemptionPerEth = redemption / rateOfEthJpy;
   const redeemableAmount =
-    redemption > redeemableCandidate ? redeemableCandidate : redemption;
+    redemptionPerEth > redeemableCandidate
+      ? redeemableCandidate
+      : redemptionPerEth;
 
   const expectedCollateral = redeemableAmount * ((100 - GRR) / 100);
   return expectedCollateral;
