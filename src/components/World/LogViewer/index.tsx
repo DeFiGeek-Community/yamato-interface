@@ -94,7 +94,7 @@ export default function LogViewer() {
               }}
             >
               <span style={{ color, fontWeight: 'bold' }}>{title}</span>
-              <span>: {shortenAddress(event.address)}が</span>
+              <span>: {event.address}が</span>
               <span>{descriptor}</span>
             </Text>
           </Animation>

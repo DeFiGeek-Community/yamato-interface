@@ -2,7 +2,7 @@ import { Interface } from 'ethers/lib/utils';
 import { Yamato } from '../../infrastructures/abis/types';
 import YAMATO_MAIN_ABI from '../../infrastructures/abis/yamato/Yamato.json';
 import { LogEvent } from '../../state/yamato-entirety/reducer';
-import { formatCjpy, formatEther } from '../web3';
+import { formatCjpy, formatEther, shortenAddressOrEns } from '../web3';
 
 export async function fetchEventLogs(
   blockNumber: number | undefined,
@@ -59,7 +59,7 @@ export async function fetchEventLogs(
           id: `${log.blockNumber}${log.logIndex}`,
           blockNumber: log.blockNumber,
           logIndex: log.logIndex,
-          address: event.args[0],
+          address: await shortenAddressOrEns(event.args[0]),
           category: 'deposit',
           value: formatEther(event.args[1]),
         });
@@ -69,7 +69,7 @@ export async function fetchEventLogs(
           id: `${log.blockNumber}${log.logIndex}`,
           blockNumber: log.blockNumber,
           logIndex: log.logIndex,
-          address: event.args[0],
+           address: await  shortenAddressOrEns(event.args[0]),
           category: 'withdrawal',
           value: formatEther(event.args[1]),
         });
@@ -79,7 +79,7 @@ export async function fetchEventLogs(
           id: `${log.blockNumber}${log.logIndex}`,
           blockNumber: log.blockNumber,
           logIndex: log.logIndex,
-          address: event.args[0],
+           address: await  shortenAddressOrEns(event.args[0]),
           category: 'borrowing',
           value: formatCjpy(event.args[1]),
         });
@@ -89,7 +89,7 @@ export async function fetchEventLogs(
           id: `${log.blockNumber}${log.logIndex}`,
           blockNumber: log.blockNumber,
           logIndex: log.logIndex,
-          address: event.args[0],
+          address: await  shortenAddressOrEns(event.args[0]),
           category: 'repay',
           value: formatCjpy(event.args[1]),
         });
@@ -99,7 +99,7 @@ export async function fetchEventLogs(
           id: `${log.blockNumber}${log.logIndex}`,
           blockNumber: log.blockNumber,
           logIndex: log.logIndex,
-          address: event.args[0],
+          address: await  shortenAddressOrEns(event.args[0]),
           category: !event.args[2] ? 'self_redemption' : 'core_redemption',
           value: formatEther(event.args[3]),
         });
@@ -109,7 +109,7 @@ export async function fetchEventLogs(
           id: `${log.blockNumber}${log.logIndex}`,
           blockNumber: log.blockNumber,
           logIndex: log.logIndex,
-          address: event.args[0],
+          address: await  shortenAddressOrEns(event.args[0]),
           category: 'sweep',
           value: formatCjpy(event.args[2]),
         });
