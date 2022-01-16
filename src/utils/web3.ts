@@ -17,7 +17,7 @@ export function isAddress(value: any): string | false {
 }
 
 // returns the ENS name or shortenAddress
-async function getEnsName(parsedAddress: string, chars = 4) : Promise<string> {
+async function shortenAddressOrEns(parsedAddress: string, chars = 4) : Promise<string> {
   const provider = new ethers.providers.InfuraProvider( "homestead", process.env.REACT_APP_INFURA_KEY)
   const ensName =  await provider.lookupAddress(parsedAddress)
   if(ensName === null) {
@@ -27,12 +27,12 @@ async function getEnsName(parsedAddress: string, chars = 4) : Promise<string> {
 }
 
 // convert to ENS name if possible. Otherwise, convert to shortenAddress
-export async function shortenAddressOrEns(address: string, chars = 4): Promise<string> {
+export async function getEnsName(address: string, chars = 4): Promise<string> {
   const parsed = isAddress(address);
   if (!parsed) {
     throw Error(`Invalid 'address' parameter '${address}'.`);
   }
-  return await getEnsName(parsed, chars);
+  return await shortenAddressOrEns(parsed, chars);
 }
 
 // shorten the checksummed version of the input address to have 0x + 4 characters at start and end

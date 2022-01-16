@@ -1,6 +1,6 @@
 import { BigNumber } from '@ethersproject/bignumber';
 import { ethers } from 'ethers';
-import { parseEther, shortenAddressOrEns } from './web3';
+import { parseEther, getEnsName } from './web3';
 
 const ethByWei = '1000000000000000000';
 
@@ -33,13 +33,13 @@ describe('parseEther', () => {
   });
 
   it('should be lookup address', () => {
-    return shortenAddressOrEns('0x3d9e368dcf29a9de3eb12075340aa74c390429d9').then(ensName => {
+    return getEnsName('0x3d9e368dcf29a9de3eb12075340aa74c390429d9').then(ensName => {
       expect(ensName).toBe('brokenftguy.eth')
     })
   });
 
   it('should be shorten address', () => {
-    return shortenAddressOrEns('0x3d9e368dcf29a9de3eb12075340aa74c390429d1').then(ensName => {
+    return getEnsName('0x3d9e368dcf29a9de3eb12075340aa74c390429d1').then(ensName => {
       expect(ensName).toBe("0x3d9E...29D1")
     })
   });

@@ -10,7 +10,7 @@ import {
   initialState,
   YamatoEntiretyState,
 } from '../../state/yamato-entirety/reducer';
-import { formatEther, shortenAddressOrEns } from '../web3';
+import { formatEther, getEnsName } from '../web3';
 
 interface YamatoCurentState {
   worldStates: [WorldState];
@@ -176,7 +176,7 @@ async function transformEvents(events: Event[]) {
         newState.push({
           id: event.id,
           date: event.date,
-          address: await shortenAddressOrEns(event.address),
+          address: await getEnsName(event.address),
           category: 'deposit',
           value: formatEther(event.ethAmount),
         });
@@ -185,7 +185,7 @@ async function transformEvents(events: Event[]) {
         newState.push({
           id: event.id,
           date: event.date,
-          address: await shortenAddressOrEns(event.address),
+          address: await getEnsName(event.address),
           category: 'withdrawal',
           value: formatEther(event.ethAmount),
         });
@@ -194,7 +194,7 @@ async function transformEvents(events: Event[]) {
         newState.push({
           id: event.id,
           date: event.date,
-          address: await shortenAddressOrEns(event.address),
+          address: await getEnsName(event.address),
           category: 'borrowing',
           value: formatEther(event.cjpyAmount),
         });
@@ -203,7 +203,7 @@ async function transformEvents(events: Event[]) {
         newState.push({
           id: event.id,
           date: event.date,
-          address: await shortenAddressOrEns(event.address),
+          address: await getEnsName(event.address),
           category: 'repay',
           value: formatEther(event.cjpyAmount),
         });
@@ -212,7 +212,7 @@ async function transformEvents(events: Event[]) {
         newState.push({
           id: event.id,
           date: event.date,
-          address: await shortenAddressOrEns(event.address),
+          address: await getEnsName(event.address),
           category: !event.isCoreRedemption
             ? 'self_redemption'
             : 'core_redemption',
@@ -223,7 +223,7 @@ async function transformEvents(events: Event[]) {
         newState.push({
           id: event.id,
           date: event.date,
-          address: await shortenAddressOrEns(event.address),
+          address: await getEnsName(event.address),
           category: 'sweep',
           value: formatEther(event.gasCompensationAmount),
         });
