@@ -8,7 +8,7 @@ Please use [a template to open new issue](https://github.com/DeFiGeek-Community/
 
 ### Discover issues
 
-If you're ready to tackle some open issues, we've collected [some good first issues](https://github.com/DeFiGeek-Community/yamato-interface/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22) for you.
+If you're ready to tackle some open issues, we've collected [some good first issues](https://github.com/DeFiGeek-Community/yamato-interface/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22) for you. And issues labeled like `v1`, `v2`, and `vX`...which indicate the release target has decided to implement.
 
 ### Flow to pull request
 
