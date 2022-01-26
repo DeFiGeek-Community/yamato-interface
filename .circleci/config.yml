@@ -11,11 +11,9 @@ executors:
     docker:
       - image: cypress/browsers:node14.17.0-chrome91-ff89
     environment:
-      REACT_APP_INFURA_KEY: $REACT_APP_INFURA_KEY
       REACT_APP_DEFAULT_CHAINID: 4
       REACT_APP_ENABLE_SUBGRAPH: 'false'
       CYPRESS_BASE_URL: 'http://localhost:3000/#/'
-      CYPRESS_WALLET_PRIVATE_KEY: $CYPRESS_WALLET_PRIVATE_KEY
 
 aliases:
   - &docker
@@ -127,6 +125,7 @@ workflows:
           requires:
             - setup
           executor: cypress-browsers-14
+          env: 'REACT_APP_INFURA_KEY=${REACT_APP_INFURA_KEY},CYPRESS_WALLET_PRIVATE_KEY=${CYPRESS_WALLET_PRIVATE_KEY}' #because can't pass through executer's enviroment key
           yarn: true
           cache-key: 'yarn-packages-{{ arch }}-{{ checksum "yarn.lock" }}'
           store_artifacts: true
