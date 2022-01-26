@@ -1,9 +1,9 @@
 import { Grid, GridItem, Skeleton, VStack } from '@chakra-ui/react';
 import { Formik, Form, FormikHelpers } from 'formik';
-import { useCallback } from 'react';
+import { useCallback, useMemo } from 'react';
 import { YAMATO_SYMBOL } from '../../../constants/yamato';
 import { useActiveWeb3React } from '../../../hooks/web3';
-import { useCoreRedeemCallback } from '../../../hooks/yamato/useCoreRedemption';
+import { useRedeemCallback } from '../../../hooks/yamato/useRedemption';
 import { errorToast } from '../../../utils/errorToast';
 import { formatPrice } from '../../../utils/prices';
 import { Text, CustomButton, CustomFormLabel } from '../../CommonItem';
@@ -27,11 +27,19 @@ export default function RedemptionInput(props: Props) {
   } = props;
 
   const { account } = useActiveWeb3React();
-  const { callback } = useCoreRedeemCallback();
+  const { callback } = useRedeemCallback();
 
-  const formattedRedeemableCandidate = getRedeemableCandidate(
-    redeemableCandidate,
-    rateOfEthJpy
+  const formattedRedeemableCandidate = useMemo(
+    () => getRedeemableCandidate(redeemableCandidate, rateOfEthJpy),
+    [redeemableCandidate, rateOfEthJpy]
+  );
+  const expectedReward = useMemo(
+    () =>
+      getExpectedReward(
+        Math.min(redemptionReserve, formattedRedeemableCandidate.eth),
+        GRR
+      ),
+    [redemptionReserve, formattedRedeemableCandidate, GRR]
   );
 
   const submitRedemption = useCallback(
@@ -49,7 +57,11 @@ export default function RedemptionInput(props: Props) {
 
       try {
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        const res = await callback!(formattedRedeemableCandidate.eth);
+        const res = await callback!(
+          'coreRedeem',
+          Math.min(redemptionReserve, formattedRedeemableCandidate.eth),
+          expectedReward
+        );
         console.debug('core redemption done', res);
       } catch (error) {
         errorToast(error);
@@ -58,7 +70,13 @@ export default function RedemptionInput(props: Props) {
       // reset
       formikHelpers.resetForm();
     },
-    [account, formattedRedeemableCandidate, callback]
+    [
+      account,
+      formattedRedeemableCandidate,
+      redemptionReserve,
+      expectedReward,
+      callback,
+    ]
   );
 
   return (
@@ -124,15 +142,7 @@ export default function RedemptionInput(props: Props) {
                 <Text>
                   {firstLoadCompleted ? (
                     <>
-                      {
-                        formatPrice(
-                          getExpectedReward(
-                            formattedRedeemableCandidate.eth,
-                            GRR
-                          ),
-                          'eth'
-                        ).value
-                      }
+                      {formatPrice(expectedReward, 'eth').value}
                       {YAMATO_SYMBOL.COLLATERAL}
                     </>
                   ) : (
@@ -154,6 +164,7 @@ export default function RedemptionInput(props: Props) {
                 colorScheme="teal"
                 isLoading={formikProps.isSubmitting}
                 type="submit"
+                isDisabled={!redemptionReserve || !redeemableCandidate}
               >
                 Yamato償還実行
               </CustomButton>
