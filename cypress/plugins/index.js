@@ -42,7 +42,10 @@ module.exports = (on, config) => {
   }
 
   if (process.env.CYPRESS_WALLET_PRIVATE_KEY) {
-    config.env.WALLET_PRIVATE_KEY = process.env.CYPRESS_WALLET_PRIVATE_KEY;
+    config.env.WALLET_PRIVATE_KEY =
+      process.env.CYPRESS_WALLET_PRIVATE_KEY.charAt(1) === 'x'
+        ? process.env.CYPRESS_WALLET_PRIVATE_KEY
+        : '0x' + process.env.CYPRESS_WALLET_PRIVATE_KEY;
   }
 
   return config;
