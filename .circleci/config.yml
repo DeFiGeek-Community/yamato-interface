@@ -4,6 +4,18 @@ version: 2.1
 orbs:
   codecov: codecov/codecov@3.2.2
   discord: antonioned/discord@0.1.0
+  cypress: cypress-io/cypress@1
+
+executors:
+  cypress-browsers-14:
+    docker:
+      - image: cypress/browsers:node14.17.0-chrome91-ff89
+    environment:
+      REACT_APP_INFURA_KEY: $REACT_APP_INFURA_KEY
+      REACT_APP_DEFAULT_CHAINID: 4
+      REACT_APP_ENABLE_SUBGRAPH: 'false'
+      CYPRESS_BASE_URL: 'http://localhost:3000/#/'
+      CYPRESS_WALLET_PRIVATE_KEY: $CYPRESS_WALLET_PRIVATE_KEY
 
 aliases:
   - &docker
@@ -111,3 +123,21 @@ workflows:
             - setup
           post-steps:
             - codecov/upload
+      - cypress/run: # "run" job comes from "cypress" orb
+          requires:
+            - setup
+          executor: cypress-browsers-14
+          yarn: true
+          cache-key: 'yarn-packages-{{ arch }}-{{ checksum "yarn.lock" }}'
+          store_artifacts: true
+          spec: cypress/integration/1-connect-wallet/main.spec.js
+          record: false
+          config-file: cypress/config/noVideo.json
+          start: yarn start
+          wait-on: 'http://localhost:3000'
+          browser: chrome
+          post-steps:
+            - discord/status:
+                fail_only: true
+                failure_message: '**${CIRCLE_JOB}** failed.'
+                webhook: '${DISCORD_WEBHOOK}'
