@@ -21,6 +21,7 @@ export type Scalars = {
 export type Block_Height = {
   hash?: Maybe<Scalars['Bytes']>;
   number?: Maybe<Scalars['Int']>;
+  number_gte?: Maybe<Scalars['Int']>;
 };
 
 export type Borrow = {
@@ -159,6 +160,8 @@ export type Event = Borrow &
     isCoreRedemption?: Maybe<Scalars['Boolean']>;
     lockUntil?: Maybe<Scalars['Int']>;
     price?: Maybe<Scalars['BigInt']>;
+    redeemedAddressList?: Maybe<Array<Scalars['Bytes']>>;
+    sweepedAddressList?: Maybe<Array<Scalars['Bytes']>>;
     ymtAmount?: Maybe<Scalars['BigInt']>;
   };
 
@@ -241,6 +244,14 @@ export type Event_Filter = {
   price_lte?: Maybe<Scalars['BigInt']>;
   price_not?: Maybe<Scalars['BigInt']>;
   price_not_in?: Maybe<Array<Scalars['BigInt']>>;
+  redeemedAddressList?: Maybe<Array<Scalars['Bytes']>>;
+  redeemedAddressList_contains?: Maybe<Array<Scalars['Bytes']>>;
+  redeemedAddressList_not?: Maybe<Array<Scalars['Bytes']>>;
+  redeemedAddressList_not_contains?: Maybe<Array<Scalars['Bytes']>>;
+  sweepedAddressList?: Maybe<Array<Scalars['Bytes']>>;
+  sweepedAddressList_contains?: Maybe<Array<Scalars['Bytes']>>;
+  sweepedAddressList_not?: Maybe<Array<Scalars['Bytes']>>;
+  sweepedAddressList_not_contains?: Maybe<Array<Scalars['Bytes']>>;
   ymtAmount?: Maybe<Scalars['BigInt']>;
   ymtAmount_gt?: Maybe<Scalars['BigInt']>;
   ymtAmount_gte?: Maybe<Scalars['BigInt']>;
@@ -263,6 +274,8 @@ export enum Event_OrderBy {
   IsCoreRedemption = 'isCoreRedemption',
   LockUntil = 'lockUntil',
   Price = 'price',
+  RedeemedAddressList = 'redeemedAddressList',
+  SweepedAddressList = 'sweepedAddressList',
   YmtAmount = 'ymtAmount',
 }
 
@@ -380,7 +393,6 @@ export type Pledge = {
   borrowedCjpyAmount: Scalars['BigInt'];
   ethAmount?: Maybe<Scalars['BigInt']>;
   id: Scalars['ID'];
-  withdrawLocks: Scalars['BigInt'];
 };
 
 export type Pledge_Filter = {
@@ -408,21 +420,12 @@ export type Pledge_Filter = {
   id_lte?: Maybe<Scalars['ID']>;
   id_not?: Maybe<Scalars['ID']>;
   id_not_in?: Maybe<Array<Scalars['ID']>>;
-  withdrawLocks?: Maybe<Scalars['BigInt']>;
-  withdrawLocks_gt?: Maybe<Scalars['BigInt']>;
-  withdrawLocks_gte?: Maybe<Scalars['BigInt']>;
-  withdrawLocks_in?: Maybe<Array<Scalars['BigInt']>>;
-  withdrawLocks_lt?: Maybe<Scalars['BigInt']>;
-  withdrawLocks_lte?: Maybe<Scalars['BigInt']>;
-  withdrawLocks_not?: Maybe<Scalars['BigInt']>;
-  withdrawLocks_not_in?: Maybe<Array<Scalars['BigInt']>>;
 };
 
 export enum Pledge_OrderBy {
   BorrowedCjpyAmount = 'borrowedCjpyAmount',
   EthAmount = 'ethAmount',
   Id = 'id',
-  WithdrawLocks = 'withdrawLocks',
 }
 
 export type Query = {
@@ -1013,6 +1016,7 @@ export type Sweep = {
   date: Scalars['BigInt'];
   gasCompensationAmount?: Maybe<Scalars['BigInt']>;
   id: Scalars['ID'];
+  sweepedAddressList?: Maybe<Array<Scalars['Bytes']>>;
 };
 
 export type Sweep_Filter = {
@@ -1054,6 +1058,10 @@ export type Sweep_Filter = {
   id_lte?: Maybe<Scalars['ID']>;
   id_not?: Maybe<Scalars['ID']>;
   id_not_in?: Maybe<Array<Scalars['ID']>>;
+  sweepedAddressList?: Maybe<Array<Scalars['Bytes']>>;
+  sweepedAddressList_contains?: Maybe<Array<Scalars['Bytes']>>;
+  sweepedAddressList_not?: Maybe<Array<Scalars['Bytes']>>;
+  sweepedAddressList_not_contains?: Maybe<Array<Scalars['Bytes']>>;
 };
 
 export enum Sweep_OrderBy {
@@ -1062,6 +1070,7 @@ export enum Sweep_OrderBy {
   Date = 'date',
   GasCompensationAmount = 'gasCompensationAmount',
   Id = 'id',
+  SweepedAddressList = 'sweepedAddressList',
 }
 
 export type Withdraw = {
@@ -1165,7 +1174,7 @@ export type WorldState = {
   RRR: Scalars['BigInt'];
   SRR: Scalars['BigInt'];
   id: Scalars['ID'];
-  lastPrice?: Maybe<Scalars['BigInt']>;
+  lastPrice: Scalars['BigInt'];
   priceChange?: Maybe<Scalars['BigDecimal']>;
   redemptionReserve?: Maybe<Scalars['BigInt']>;
   sweepReserve?: Maybe<Scalars['BigInt']>;
@@ -1338,7 +1347,7 @@ export type YamatoCurrentStateQuery = {
     redemptionReserve?: any | null | undefined;
     sweepReserve?: any | null | undefined;
     totalSupplyCjpy?: any | null | undefined;
-    lastPrice?: any | null | undefined;
+    lastPrice: any;
     priceChange?: any | null | undefined;
   }>;
   events: Array<{
@@ -1362,7 +1371,6 @@ export type YamatoCurrentStateQuery = {
         id: string;
         ethAmount?: any | null | undefined;
         borrowedCjpyAmount: any;
-        withdrawLocks: any;
       }
     | null
     | undefined;

@@ -70,7 +70,6 @@ const currentStateQuery = gql`
       id
       ethAmount
       borrowedCjpyAmount
-      withdrawLocks
     }
     sweepablePledges: pledges(where: { ethAmount: 0 }) {
       id
