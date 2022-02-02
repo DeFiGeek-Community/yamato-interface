@@ -130,7 +130,11 @@ export default function SweepInput(props: Props) {
             </GridItem>
 
             <GridItem colSpan={1}>
-              <CustomButton isLoading={formikProps.isSubmitting} type="submit">
+              <CustomButton
+                isLoading={formikProps.isSubmitting}
+                type="submit"
+                isDisabled={!expectedReward}
+              >
                 代位弁済実行
               </CustomButton>
             </GridItem>

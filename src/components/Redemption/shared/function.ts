@@ -18,6 +18,9 @@ export function getExpectedCollateral(
 }
 
 export function getExpectedReward(candidateAmount: number, GRR: number) {
+  if (candidateAmount <= 0) {
+    return 0;
+  }
   return candidateAmount * (GRR / 100);
 }
 

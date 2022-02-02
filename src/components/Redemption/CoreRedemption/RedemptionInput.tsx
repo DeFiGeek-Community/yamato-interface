@@ -164,7 +164,7 @@ export default function RedemptionInput(props: Props) {
                 colorScheme="teal"
                 isLoading={formikProps.isSubmitting}
                 type="submit"
-                isDisabled={!redemptionReserve || !redeemableCandidate}
+                isDisabled={!expectedReward}
               >
                 Yamato償還実行
               </CustomButton>
