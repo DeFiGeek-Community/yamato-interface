@@ -1,7 +1,8 @@
 import { useMemo } from 'react';
-
+import { REVERT_REASON_DESCRIPTION } from '../../constants/yamato';
 import { TransactionType } from '../../state/transactions/actions';
 import { useTransactionAdder } from '../../state/transactions/hooks';
+import { BIGNUMBER_ZERO } from '../../utils/web3';
 import { parseEther } from '../../utils/web3';
 import { useYamatoMainContract } from '../useContract';
 import { useActiveWeb3React } from '../web3';
@@ -12,10 +13,16 @@ import {
   InvalidCallback,
 } from './helper';
 
-export function useCoreRedeemCallback(): {
+export function useRedeemCallback(): {
   // signatureData: SignatureData | undefined | null  FIXME: EIP-2612
   state: CallbackState;
-  callback: null | ((expected: number) => Promise<string>);
+  callback:
+    | null
+    | ((
+        sort: 'selfRedeem' | 'coreRedeem',
+        eth: number,
+        expected: number
+      ) => Promise<string>);
   error: string | null;
 } {
   const { account, chainId, library } = useActiveWeb3React();
@@ -30,9 +37,16 @@ export function useCoreRedeemCallback(): {
 
     return {
       state: CallbackState.VALID,
-      callback: async function onCoreRedeem(expected: number): Promise<string> {
+      callback: async function onRedeem(
+        sort: 'selfRedeem' | 'coreRedeem',
+        eth: number,
+        expected: number
+      ): Promise<string> {
         // payload
-        const value = parseEther('0'); // Set 0 as dummy.
+        const value = parseEther(eth.toString());
+        if (value.eq(BIGNUMBER_ZERO)) {
+          throw new Error(REVERT_REASON_DESCRIPTION.zeroInput);
+        }
         const option = {
           from: account,
         };
@@ -40,7 +54,7 @@ export function useCoreRedeemCallback(): {
         const signer = yamatoMainContract.connect(library.getSigner());
 
         // estimate gas
-        const call = await estimateGas('coreRedeem', value, option, signer);
+        const call = await estimateGas(sort, value, option, signer);
         if ('error' in call) {
           throw new Error(call.error);
         }
@@ -48,17 +62,18 @@ export function useCoreRedeemCallback(): {
         try {
           // send tx
           const params = { ...option, gasLimit: call.gasEstimate };
-          const response = await signer.redeem(value, true, params);
+          const response = await signer.redeem(value, false, params);
 
           // regist pending tx
           addTransaction(response, {
-            type: TransactionType.CORE_REDEEM,
+            type: TransactionType.SELF_REDEEM,
+            value: eth,
             expected,
           });
 
           return response.hash;
         } catch (error: any) {
-          throw new Error(getErrorMessage('coreRedeem', error));
+          throw new Error(getErrorMessage(sort, error));
         }
       },
       error: null,

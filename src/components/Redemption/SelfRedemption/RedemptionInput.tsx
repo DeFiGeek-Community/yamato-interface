@@ -10,7 +10,7 @@ import { Formik, Form, Field, FieldProps, FormikHelpers } from 'formik';
 import { useCallback, useState } from 'react';
 import { YAMATO_SYMBOL } from '../../../constants/yamato';
 import { useActiveWeb3React } from '../../../hooks/web3';
-import { useSelfRedeemCallback } from '../../../hooks/yamato/useSelfRedemption';
+import { useRedeemCallback } from '../../../hooks/yamato/useRedemption';
 import { useWalletState } from '../../../state/wallet/hooks';
 import { errorToast } from '../../../utils/errorToast';
 import { formatPrice } from '../../../utils/prices';
@@ -36,7 +36,7 @@ export default function RedemptionInput(props: Props) {
   const { redeemableCandidate, rateOfEthJpy, GRR, firstLoadCompleted } = props;
 
   const { account } = useActiveWeb3React();
-  const { callback } = useSelfRedeemCallback();
+  const { callback } = useRedeemCallback();
   const { cjpy } = useWalletState();
 
   const [redemption, setRedemption] = useState(0);
@@ -81,6 +81,7 @@ export default function RedemptionInput(props: Props) {
       try {
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         const res = await callback!(
+          'selfRedeem',
           values.redemption,
           formattedRedeemableCandidate.eth
         );

@@ -1,6 +1,6 @@
 import { Grid, GridItem, Skeleton, VStack } from '@chakra-ui/react';
 import { Formik, Form, FormikHelpers } from 'formik';
-import { useCallback } from 'react';
+import { useCallback, useMemo } from 'react';
 import { YAMATO_SYMBOL } from '../../../constants/yamato';
 import { useActiveWeb3React } from '../../../hooks/web3';
 import { useSweepCallback } from '../../../hooks/yamato/useSweep';
@@ -22,6 +22,11 @@ export default function SweepInput(props: Props) {
 
   const { account } = useActiveWeb3React();
   const { callback } = useSweepCallback();
+
+  const expectedReward = useMemo(
+    () => getExpectedReward(Math.min(sweepReserve, sweepableCandiate), GRR),
+    [sweepReserve, sweepableCandiate, GRR]
+  );
 
   const submitSweep = useCallback(
     async (
@@ -107,12 +112,7 @@ export default function SweepInput(props: Props) {
                 <Text>
                   {firstLoadCompleted ? (
                     <>
-                      {
-                        formatPrice(
-                          getExpectedReward(sweepableCandiate, GRR),
-                          'jpy'
-                        ).value
-                      }
+                      {formatPrice(expectedReward, 'jpy').value}
                       {YAMATO_SYMBOL.YEN}
                     </>
                   ) : (
@@ -130,7 +130,11 @@ export default function SweepInput(props: Props) {
             </GridItem>
 
             <GridItem colSpan={1}>
-              <CustomButton isLoading={formikProps.isSubmitting} type="submit">
+              <CustomButton
+                isLoading={formikProps.isSubmitting}
+                type="submit"
+                isDisabled={!expectedReward}
+              >
                 代位弁済実行
               </CustomButton>
             </GridItem>

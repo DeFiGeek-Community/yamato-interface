@@ -30,11 +30,11 @@ import {
   PriorityRegistry,
 } from '../infrastructures/abis/types';
 import CJPY_ABI from '../infrastructures/abis/yamato/CJPY.json';
-import YAMATO_POOL_ABI from '../infrastructures/abis/yamato/Pool.json';
+import YAMATO_POOL_ABI from '../infrastructures/abis/yamato/PoolV2.json';
 import YAMATO_PRICE_FEED_ABI from '../infrastructures/abis/yamato/PriceFeed.json';
-import YAMATO_PRIORITY_REGISTRY_ABI from '../infrastructures/abis/yamato/PriorityRegistry.json';
+import YAMATO_PRIORITY_REGISTRY_ABI from '../infrastructures/abis/yamato/PriorityRegistryV5.json';
 import YMT_ABI from '../infrastructures/abis/yamato/YMT.json';
-import YAMATO_MAIN_ABI from '../infrastructures/abis/yamato/Yamato.json';
+import YAMATO_MAIN_ABI from '../infrastructures/abis/yamato/YamatoV2.json';
 import VEYMT_ABI from '../infrastructures/abis/yamato/veYMT.json';
 import { getContract } from '../utils/web3';
 import { useActiveWeb3React } from './web3';
