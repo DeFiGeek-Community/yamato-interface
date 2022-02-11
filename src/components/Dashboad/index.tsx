@@ -102,11 +102,7 @@ export default function Dashboad() {
                   </ExternalLink>
                 )}
               </DashboadItem>
-              <DashboadItem
-                title={''}
-                stat={''}
-                firstLoadCompleted={true}
-              >
+              <DashboadItem title={''} stat={''} firstLoadCompleted={true}>
                 {rateOfCjpyJpy[1] && (
                   <ExternalLink href={getExternalLink(rateOfCjpyJpy[1][0])}>
                     {`${getMarketRateOfCjpyJpy(rateOfCjpyJpy[1])}
@@ -114,15 +110,11 @@ export default function Dashboad() {
                   </ExternalLink>
                 )}
               </DashboadItem>
-              <DashboadItem
-                title={''}
-                stat={''}
-                firstLoadCompleted={true}
-              >
+              <DashboadItem title={''} stat={''} firstLoadCompleted={true}>
                 {rateOfCjpyJpy[2] && (
-                  <ExternalLink href={getExternalLink(rateOfCjpyJpy[0][0])}>
-                    {`${getMarketRateOfCjpyJpy(rateOfCjpyJpy[0])}
-                    (${getDeviationRate(rateOfCjpyJpy[0][1])})`}
+                  <ExternalLink href={getExternalLink(rateOfCjpyJpy[2][0])}>
+                    {`${getMarketRateOfCjpyJpy(rateOfCjpyJpy[2])}
+                    (${getDeviationRate(rateOfCjpyJpy[2][1])})`}
                   </ExternalLink>
                 )}
               </DashboadItem>
