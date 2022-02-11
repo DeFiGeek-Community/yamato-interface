@@ -5,6 +5,7 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { HashRouter } from 'react-router-dom';
 import App from './App';
+import { MediaQueryProvider } from './MediaQueryProvider';
 import { NetworkContextName } from './constants/misc';
 import reportWebVitals from './reportWebVitals';
 import store from './state';
@@ -25,10 +26,12 @@ ReactDOM.render(
         <Web3ProviderNetwork getLibrary={getLibrary}>
           <ThemeProvider>
             <ChakraProvider>
-              <Provider store={store}>
-                <ThemedGlobalStyle />
-                <App />
-              </Provider>
+              <MediaQueryProvider>
+                <Provider store={store}>
+                  <ThemedGlobalStyle />
+                  <App />
+                </Provider>
+              </MediaQueryProvider>
             </ChakraProvider>
           </ThemeProvider>
         </Web3ProviderNetwork>

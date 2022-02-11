@@ -1,36 +1,15 @@
-import { Box } from '@chakra-ui/react';
-import { Helmet } from 'react-helmet';
-import BackgroundImage from '../../assets/images/background_main.webp';
-import Footer from './Footer';
-import Header from './Header';
+import { useMediaQueryContext } from '../../MediaQueryProvider';
+import LayoutMobile from './media-mobile';
+import LayoutPC from './media-pc';
 
-export default function Layout({
-  title,
-  children,
-}: {
+export default function Layout(props: {
   title?: string;
   children: React.ReactNode;
 }) {
-  return (
-    <>
-      <Helmet title={title ?? 'Yamato Protocol Interface'} />
-
-      <Box p={4} style={{ backgroundColor: '#FCFAF2' }}>
-        <Header />
-      </Box>
-
-      <Box
-        style={{
-          padding: '20px',
-          backgroundImage: `url(${BackgroundImage})`,
-        }}
-      >
-        {children}
-      </Box>
-
-      <Box style={{ backgroundColor: '#FCFAF2' }}>
-        <Footer />
-      </Box>
-    </>
-  );
+  const { isMobileSite } = useMediaQueryContext();
+  if (isMobileSite) {
+    return <LayoutMobile {...props} />;
+  } else {
+    return <LayoutPC {...props} />;
+  }
 }
