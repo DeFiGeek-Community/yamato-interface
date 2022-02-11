@@ -16,14 +16,6 @@ import { ExternalLink } from '../ExternalLink';
 import TerminologyPopover from '../TerminologyPopover';
 import DashboadItem from './Item';
 
-function getRateOfCjpyJpy(rateOfCjpyJpy: [string, number][]) {
-  if (!rateOfCjpyJpy[0]) {
-    return 0;
-  }
-  const value = rateOfCjpyJpy[0][1];
-  return value ?? 0;
-}
-
 function getMarketRateOfCjpyJpy(rateOfCjpyJpy: [string, number]) {
   if (!rateOfCjpyJpy) {
     return ``;
@@ -32,6 +24,13 @@ function getMarketRateOfCjpyJpy(rateOfCjpyJpy: [string, number]) {
   return `${rateOfCjpyJpy[0]}: ¥${
     formatPrice(rateOfCjpyJpy[1], 'jpy').value
   }\n`;
+}
+
+function getDeviationRate(rateOfCjpyJpy: number) {
+  const deviationRate = (rateOfCjpyJpy - 1) * 100;
+  return `${deviationRate.toLocaleString(undefined, {
+    maximumFractionDigits: 2,
+  })}%`;
 }
 
 export default function Dashboad() {
@@ -92,33 +91,41 @@ export default function Dashboad() {
                 firstLoadCompleted={firstLoadCompleted}
               />
               <DashboadItem
-                title={'CJPYプライス'}
-                stat={`¥${
-                  formatPrice(getRateOfCjpyJpy(rateOfCjpyJpy), 'jpy').value
-                }`}
-                firstLoadCompleted={firstLoadCompleted}
-              />
-              <DashboadItem
                 title={'市場間価格差異'}
-                stat={getMarketRateOfCjpyJpy(rateOfCjpyJpy[0])}
+                stat={''}
                 firstLoadCompleted={true}
               >
                 {rateOfCjpyJpy[0] && (
                   <ExternalLink href={getExternalLink(rateOfCjpyJpy[0][0])}>
-                    <ExternalLinkIcon />
+                    {`${getMarketRateOfCjpyJpy(rateOfCjpyJpy[0])}
+                    (${getDeviationRate(rateOfCjpyJpy[0][1])})`}
                   </ExternalLink>
                 )}
               </DashboadItem>
               <DashboadItem
                 title={''}
-                stat={getMarketRateOfCjpyJpy(rateOfCjpyJpy[1])}
+                stat={''}
                 firstLoadCompleted={true}
-              />
+              >
+                {rateOfCjpyJpy[1] && (
+                  <ExternalLink href={getExternalLink(rateOfCjpyJpy[1][0])}>
+                    {`${getMarketRateOfCjpyJpy(rateOfCjpyJpy[1])}
+                    (${getDeviationRate(rateOfCjpyJpy[1][1])})`}
+                  </ExternalLink>
+                )}
+              </DashboadItem>
               <DashboadItem
                 title={''}
-                stat={getMarketRateOfCjpyJpy(rateOfCjpyJpy[2])}
+                stat={''}
                 firstLoadCompleted={true}
-              />
+              >
+                {rateOfCjpyJpy[2] && (
+                  <ExternalLink href={getExternalLink(rateOfCjpyJpy[0][0])}>
+                    {`${getMarketRateOfCjpyJpy(rateOfCjpyJpy[0])}
+                    (${getDeviationRate(rateOfCjpyJpy[0][1])})`}
+                  </ExternalLink>
+                )}
+              </DashboadItem>
             </VStack>
           </GridItem>
 
