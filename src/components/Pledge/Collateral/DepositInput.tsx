@@ -117,7 +117,7 @@ export default function DepositInput(props: Props) {
               >
                 預入実行
               </CustomButton>
-            </HStack>            
+            </HStack>
             {deposit > 0 && (
               <VStack spacing={4} align="start">
                 <CustomFormLabel

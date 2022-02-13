@@ -54,7 +54,8 @@ export default function Debt() {
                     getBorrowableAmount(collateral, debt, rateOfEthJpy, MCR),
                     'jpy'
                   ).value
-                }{YAMATO_SYMBOL.YEN}
+                }
+                {YAMATO_SYMBOL.YEN}
               </>
             ) : (
               <Skeleton

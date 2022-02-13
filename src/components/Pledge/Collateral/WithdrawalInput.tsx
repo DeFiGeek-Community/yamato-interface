@@ -120,7 +120,8 @@ export default function WithdrawalInput(props: Props) {
               <VStack spacing={4} align="start">
                 <CustomFormLabel
                   text={`変動予測値表示 ${
-                    formatPrice(subtractToNum(collateral, withdrawal), 'jpy').value
+                    formatPrice(subtractToNum(collateral, withdrawal), 'jpy')
+                      .value
                   }${YAMATO_SYMBOL.COLLATERAL}`}
                 />
                 <CustomFormLabel
