@@ -124,7 +124,7 @@ export default function WithdrawalInput(props: Props) {
                   }${YAMATO_SYMBOL.COLLATERAL}`}
                 />
                 <CustomFormLabel
-                  text={`担保率${formatCollateralizationRatio(
+                  text={`担保率 ${formatCollateralizationRatio(
                     (collateral - withdrawal) * rateOfEthJpy,
                     debt
                   )}%`}
