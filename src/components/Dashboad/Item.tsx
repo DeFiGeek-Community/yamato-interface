@@ -13,7 +13,7 @@ export default function DashboadItem(props: Props) {
     <HStack align="start">
       <ItemTitleForPledge width="15rem">{props.title}</ItemTitleForPledge>
       {props.firstLoadCompleted ? (
-        <ItemTitleValue width="20rem">
+        <ItemTitleValue width="30rem">
           {props.stat}
           {props.children}
         </ItemTitleValue>

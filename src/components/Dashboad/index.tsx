@@ -26,8 +26,12 @@ function getMarketRateOfCjpyJpy(rateOfCjpyJpy: [string, number]) {
   }\n`;
 }
 
-function getDeviationRate(rateOfCjpyJpy: number) {
-  const deviationRate = (rateOfCjpyJpy - 1) * 100;
+function getDeviationRate(rateOfCjpyJpy: [string, number]) {
+  if (!rateOfCjpyJpy) {
+    return `0%`;
+  }
+
+  const deviationRate = (rateOfCjpyJpy[1] - 1) * 100;
   return `${deviationRate.toLocaleString(undefined, {
     maximumFractionDigits: 2,
   })}%`;
@@ -92,32 +96,40 @@ export default function Dashboad() {
               />
               <DashboadItem
                 title={'市場間価格差異'}
-                stat={''}
-                firstLoadCompleted={true}
+                stat={`${getMarketRateOfCjpyJpy(rateOfCjpyJpy[0])}
+                (${getDeviationRate(rateOfCjpyJpy[0])})`}
+                firstLoadCompleted={firstLoadCompleted}
               >
                 {rateOfCjpyJpy[0] && (
                   <ExternalLink href={getExternalLink(rateOfCjpyJpy[0][0])}>
-                    {`${getMarketRateOfCjpyJpy(rateOfCjpyJpy[0])}
-                    (${getDeviationRate(rateOfCjpyJpy[0][1])})`}
+                    <ExternalLinkIcon />
                   </ExternalLink>
                 )}
               </DashboadItem>
-              <DashboadItem title={''} stat={''} firstLoadCompleted={true}>
+              {/* <DashboadItem
+                title={''}
+                stat={`${getMarketRateOfCjpyJpy(rateOfCjpyJpy[1])}
+                (${getDeviationRate(rateOfCjpyJpy[1])})`}
+                firstLoadCompleted={firstLoadCompleted}
+              >
                 {rateOfCjpyJpy[1] && (
                   <ExternalLink href={getExternalLink(rateOfCjpyJpy[1][0])}>
-                    {`${getMarketRateOfCjpyJpy(rateOfCjpyJpy[1])}
-                    (${getDeviationRate(rateOfCjpyJpy[1][1])})`}
+                    <ExternalLinkIcon />
                   </ExternalLink>
                 )}
               </DashboadItem>
-              <DashboadItem title={''} stat={''} firstLoadCompleted={true}>
+              <DashboadItem
+                title={''}
+                stat={`${getMarketRateOfCjpyJpy(rateOfCjpyJpy[2])}
+                (${getDeviationRate(rateOfCjpyJpy[2])})`}
+                firstLoadCompleted={firstLoadCompleted}
+              >
                 {rateOfCjpyJpy[2] && (
                   <ExternalLink href={getExternalLink(rateOfCjpyJpy[2][0])}>
-                    {`${getMarketRateOfCjpyJpy(rateOfCjpyJpy[2])}
-                    (${getDeviationRate(rateOfCjpyJpy[2][1])})`}
+                    <ExternalLinkIcon />
                   </ExternalLink>
                 )}
-              </DashboadItem>
+              </DashboadItem> */}
             </VStack>
           </GridItem>
 
