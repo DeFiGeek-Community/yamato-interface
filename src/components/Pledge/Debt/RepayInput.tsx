@@ -135,16 +135,19 @@ export default function RepayInput(props: Props) {
               </CustomButton>
             </HStack>
             {repayment > 0 && (
-              <HStack spacing={4} align="flex-end">
+              <VStack spacing={4} align="start">
                 <CustomFormLabel
-                  text={`変動予測値表示...${
+                  text={`変動予測値表示 ${
                     formatPrice(subtractToNum(debt, repayment), 'jpy').value
-                  }${YAMATO_SYMBOL.YEN}, 担保率${formatCollateralizationRatio(
+                  }${YAMATO_SYMBOL.YEN}`}
+                />
+                <CustomFormLabel
+                  text={`担保率 ${formatCollateralizationRatio(
                     collateral * rateOfEthJpy,
                     debt - repayment
                   )}%`}
                 />
-              </HStack>
+              </VStack>
             )}
           </VStack>
         </Form>

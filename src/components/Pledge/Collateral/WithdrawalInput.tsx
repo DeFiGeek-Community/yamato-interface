@@ -117,19 +117,20 @@ export default function WithdrawalInput(props: Props) {
               </CustomButton>
             </HStack>
             {withdrawal > 0 && (
-              <HStack spacing={4} align="flex-end">
+              <VStack spacing={4} align="start">
                 <CustomFormLabel
-                  text={`変動予測値表示...${
+                  text={`変動予測値表示 ${
                     formatPrice(subtractToNum(collateral, withdrawal), 'jpy')
                       .value
-                  }${
-                    YAMATO_SYMBOL.COLLATERAL
-                  }, 担保率${formatCollateralizationRatio(
+                  }${YAMATO_SYMBOL.COLLATERAL}`}
+                />
+                <CustomFormLabel
+                  text={`担保率 ${formatCollateralizationRatio(
                     (collateral - withdrawal) * rateOfEthJpy,
                     debt
                   )}%`}
                 />
-              </HStack>
+              </VStack>
             )}
           </VStack>
         </Form>

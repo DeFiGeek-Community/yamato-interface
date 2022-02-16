@@ -40,75 +40,13 @@ export default function Debt() {
   const { cjpy } = useWalletState();
 
   return (
-    <Grid templateColumns="repeat(8, 1fr)" gap={4} mb={4}>
-      <GridItem colSpan={1}>
-        <ItemTitleForPledge marginTop={26}>借入量</ItemTitleForPledge>
-      </GridItem>
-
-      <GridItem colSpan={1}>
-        <ItemTitleValue
-          marginTop={26}
-          data-testid="borrowing-data-currentAmount"
-        >
-          {firstLoadCompleted ? (
-            <>
-              {formatPrice(debt, 'jpy').value}
-              {YAMATO_SYMBOL.YEN}
-            </>
-          ) : (
-            <Skeleton
-              height="1.4rem"
-              width="7rem"
-              style={{
-                lineHeight: '1.4rem',
-              }}
-            />
-          )}
-        </ItemTitleValue>
-      </GridItem>
-
-      <GridItem colSpan={3}>
-        <BorrowInput
-          collateral={collateral}
-          debt={debt}
-          rateOfEthJpy={rateOfEthJpy}
-          MCR={MCR}
-        />
-      </GridItem>
-
-      <GridItem colSpan={3}>
-        <RepayInput
-          collateral={collateral}
-          debt={debt}
-          rateOfEthJpy={rateOfEthJpy}
-          cjpy={cjpy}
-        />
-      </GridItem>
-
-      <GridItem colSpan={1}>
-        <ItemTitleForPledge marginTop={26}>担保率</ItemTitleForPledge>
-      </GridItem>
-      <GridItem colSpan={1}>
-        <ItemTitleValue marginTop={26}>
-          {firstLoadCompleted ? (
-            <>
-              {formatCollateralizationRatio(collateral * rateOfEthJpy, debt)}%
-            </>
-          ) : (
-            <Skeleton
-              height="1.4rem"
-              width="7rem"
-              style={{
-                lineHeight: '1.4rem',
-              }}
-            />
-          )}
-        </ItemTitleValue>
-      </GridItem>
-      <GridItem colSpan={5}>
-        <div style={{ marginTop: '32px', textAlign: 'right' }}>
-          <Text>
-            最大借入可能量...
+    <>
+      <Grid templateColumns="repeat(8, 1fr)" gap={4} mb={4}>
+        <GridItem colSpan={1}>
+          <ItemTitleForPledge marginTop={26}>最大借入可能量</ItemTitleForPledge>
+        </GridItem>
+        <GridItem colSpan={1}>
+          <ItemTitleValue marginTop={26}>
             {firstLoadCompleted ? (
               <>
                 {
@@ -117,22 +55,87 @@ export default function Debt() {
                     'jpy'
                   ).value
                 }
+                {YAMATO_SYMBOL.YEN}
               </>
             ) : (
               <Skeleton
                 height="1.4rem"
-                width="5rem"
+                width="7rem"
                 style={{
-                  display: 'inline-block',
-                  verticalAlign: 'middle',
                   lineHeight: '1.4rem',
                 }}
               />
             )}
-            {YAMATO_SYMBOL.YEN}
-          </Text>
-        </div>
-      </GridItem>
-    </Grid>
+          </ItemTitleValue>
+        </GridItem>
+      </Grid>
+      <Grid templateColumns="repeat(8, 1fr)" gap={4} mb={4}>
+        <GridItem colSpan={1}>
+          <ItemTitleForPledge marginTop={26}>借入量</ItemTitleForPledge>
+        </GridItem>
+
+        <GridItem colSpan={1}>
+          <ItemTitleValue
+            marginTop={26}
+            data-testid="borrowing-data-currentAmount"
+          >
+            {firstLoadCompleted ? (
+              <>
+                {formatPrice(debt, 'jpy').value}
+                {YAMATO_SYMBOL.YEN}
+              </>
+            ) : (
+              <Skeleton
+                height="1.4rem"
+                width="7rem"
+                style={{
+                  lineHeight: '1.4rem',
+                }}
+              />
+            )}
+          </ItemTitleValue>
+        </GridItem>
+
+        <GridItem colSpan={3}>
+          <BorrowInput
+            collateral={collateral}
+            debt={debt}
+            rateOfEthJpy={rateOfEthJpy}
+            MCR={MCR}
+          />
+        </GridItem>
+
+        <GridItem colSpan={3}>
+          <RepayInput
+            collateral={collateral}
+            debt={debt}
+            rateOfEthJpy={rateOfEthJpy}
+            cjpy={cjpy}
+          />
+        </GridItem>
+      </Grid>
+      <Grid templateColumns="repeat(8, 1fr)" gap={4} mb={4}>
+        <GridItem colSpan={1}>
+          <ItemTitleForPledge marginTop={26}>担保率</ItemTitleForPledge>
+        </GridItem>
+        <GridItem colSpan={1}>
+          <ItemTitleValue marginTop={26}>
+            {firstLoadCompleted ? (
+              <>
+                {formatCollateralizationRatio(collateral * rateOfEthJpy, debt)}%
+              </>
+            ) : (
+              <Skeleton
+                height="1.4rem"
+                width="7rem"
+                style={{
+                  lineHeight: '1.4rem',
+                }}
+              />
+            )}
+          </ItemTitleValue>
+        </GridItem>
+      </Grid>
+    </>
   );
 }
