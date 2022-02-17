@@ -137,9 +137,9 @@ export default function RepayInput(props: Props) {
             {repayment > 0 && (
               <VStack spacing={4} align="start">
                 <CustomFormLabel
-                  text={`変動予測値表示 ${
+                  text={`変動予測値 ${
                     formatPrice(subtractToNum(debt, repayment), 'jpy').value
-                  }${YAMATO_SYMBOL.YEN}`}
+                  } ${YAMATO_SYMBOL.YEN}`}
                 />
                 <CustomFormLabel
                   text={`担保率 ${formatCollateralizationRatio(

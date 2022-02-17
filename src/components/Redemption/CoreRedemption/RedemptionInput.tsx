@@ -91,6 +91,7 @@ export default function RedemptionInput(props: Props) {
                   {firstLoadCompleted ? (
                     <>
                       {formatPrice(redemptionReserve, 'jpy').value}
+                      {` `}
                       {YAMATO_SYMBOL.YEN}
                     </>
                   ) : (
@@ -116,6 +117,7 @@ export default function RedemptionInput(props: Props) {
                         formatPrice(formattedRedeemableCandidate.eth, 'eth')
                           .value
                       }
+                      {` `}
                       {YAMATO_SYMBOL.COLLATERAL}
                     </>
                   ) : (
@@ -131,6 +133,7 @@ export default function RedemptionInput(props: Props) {
                 </Text>
                 <Text>
                   ({formatPrice(formattedRedeemableCandidate.cjpy, 'jpy').value}
+                  {` `}
                   {YAMATO_SYMBOL.YEN})
                 </Text>
               </VStack>
@@ -143,6 +146,7 @@ export default function RedemptionInput(props: Props) {
                   {firstLoadCompleted ? (
                     <>
                       {formatPrice(expectedReward, 'eth').value}
+                      {` `}
                       {YAMATO_SYMBOL.COLLATERAL}
                     </>
                   ) : (

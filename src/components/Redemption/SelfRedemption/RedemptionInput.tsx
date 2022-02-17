@@ -140,6 +140,7 @@ export default function RedemptionInput(props: Props) {
                         'eth'
                       ).value
                     }
+                    {` `}
                     {YAMATO_SYMBOL.COLLATERAL}
                   </Text>
                 </VStack>
@@ -156,6 +157,7 @@ export default function RedemptionInput(props: Props) {
                         formatPrice(formattedRedeemableCandidate.eth, 'eth')
                           .value
                       }
+                      {` `}
                       {YAMATO_SYMBOL.COLLATERAL}
                     </>
                   ) : (
@@ -171,6 +173,7 @@ export default function RedemptionInput(props: Props) {
                 </Text>
                 <Text>
                   ({formatPrice(formattedRedeemableCandidate.cjpy, 'jpy').value}
+                  {` `}
                   {YAMATO_SYMBOL.YEN})
                 </Text>
               </VStack>
