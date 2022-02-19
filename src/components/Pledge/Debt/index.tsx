@@ -45,7 +45,7 @@ export default function Debt() {
         <GridItem colSpan={1}>
           <ItemTitleForPledge marginTop={26}>最大借入可能量</ItemTitleForPledge>
         </GridItem>
-        <GridItem colSpan={1}>
+        <GridItem colSpan={2}>
           <ItemTitleValue marginTop={26}>
             {firstLoadCompleted ? (
               <>
@@ -55,6 +55,7 @@ export default function Debt() {
                     'jpy'
                   ).value
                 }
+                {` `}
                 {YAMATO_SYMBOL.YEN}
               </>
             ) : (
@@ -69,12 +70,12 @@ export default function Debt() {
           </ItemTitleValue>
         </GridItem>
       </Grid>
-      <Grid templateColumns="repeat(8, 1fr)" gap={4} mb={4}>
-        <GridItem colSpan={1}>
+      <Grid templateColumns="repeat(16, 1fr)" gap={4} mb={4}>
+        <GridItem colSpan={2}>
           <ItemTitleForPledge marginTop={26}>借入量</ItemTitleForPledge>
         </GridItem>
 
-        <GridItem colSpan={1}>
+        <GridItem colSpan={3}>
           <ItemTitleValue
             marginTop={26}
             data-testid="borrowing-data-currentAmount"
@@ -82,6 +83,7 @@ export default function Debt() {
             {firstLoadCompleted ? (
               <>
                 {formatPrice(debt, 'jpy').value}
+                {` `}
                 {YAMATO_SYMBOL.YEN}
               </>
             ) : (
@@ -96,7 +98,7 @@ export default function Debt() {
           </ItemTitleValue>
         </GridItem>
 
-        <GridItem colSpan={3}>
+        <GridItem colSpan={5}>
           <BorrowInput
             collateral={collateral}
             debt={debt}
@@ -105,7 +107,7 @@ export default function Debt() {
           />
         </GridItem>
 
-        <GridItem colSpan={3}>
+        <GridItem colSpan={6}>
           <RepayInput
             collateral={collateral}
             debt={debt}

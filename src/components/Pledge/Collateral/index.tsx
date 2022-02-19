@@ -14,12 +14,12 @@ export default function Collateral() {
 
   return (
     <>
-      <Grid templateColumns="repeat(8, 1fr)" gap={4} mb={4}>
-        <GridItem colSpan={1}>
+      <Grid templateColumns="repeat(16, 1fr)" gap={4} mb={4}>
+        <GridItem colSpan={2}>
           <ItemTitleForPledge marginTop={26}>担保量</ItemTitleForPledge>
         </GridItem>
 
-        <GridItem colSpan={1}>
+        <GridItem colSpan={3}>
           <ItemTitleValue
             marginTop={26}
             data-testid="collateral-data-currentAmount"
@@ -27,6 +27,7 @@ export default function Collateral() {
             {firstLoadCompleted ? (
               <>
                 {formatPrice(collateral, 'eth').value}
+                {` `}
                 {YAMATO_SYMBOL.COLLATERAL}
               </>
             ) : (
@@ -41,7 +42,7 @@ export default function Collateral() {
           </ItemTitleValue>
         </GridItem>
 
-        <GridItem colSpan={3}>
+        <GridItem colSpan={5}>
           <DepositInput
             collateral={collateral}
             debt={debt}
@@ -49,7 +50,7 @@ export default function Collateral() {
           />
         </GridItem>
 
-        <GridItem colSpan={3}>
+        <GridItem colSpan={6}>
           <WithdrawalInput
             collateral={collateral}
             debt={debt}
@@ -62,7 +63,7 @@ export default function Collateral() {
         <GridItem colSpan={1}>
           <ItemTitleForPledge marginTop={26}>評価額</ItemTitleForPledge>
         </GridItem>
-        <GridItem colSpan={1}>
+        <GridItem colSpan={2}>
           <ItemTitleValue marginTop={26}>
             {firstLoadCompleted ? (
               <>

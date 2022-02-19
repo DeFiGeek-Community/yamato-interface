@@ -135,12 +135,12 @@ export default function BorrowingInput(props: Props) {
             {borrowing > 0 && (
               <VStack spacing={4} align="start">
                 <CustomFormLabel
-                  text={`変動予測値表示 ${
+                  text={`変動予測値 ${
                     formatPrice(
                       addToNum(debt, borrowing - feeResult.fee),
                       'jpy'
                     ).value
-                  }${YAMATO_SYMBOL.YEN}`}
+                  } ${YAMATO_SYMBOL.YEN}`}
                 />
                 <CustomFormLabel
                   text={`担保率 ${formatCollateralizationRatio(
@@ -149,7 +149,7 @@ export default function BorrowingInput(props: Props) {
                   )}%`}
                 />
                 <CustomFormLabel
-                  text={`手数料 ${formatPrice(feeResult.fee, 'jpy').value}${
+                  text={`手数料 ${formatPrice(feeResult.fee, 'jpy').value} ${
                     YAMATO_SYMBOL.YEN
                   }(手数料率 ${feeResult.feeRate.toFixed(2)}%)`}
                 />

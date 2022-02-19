@@ -67,6 +67,7 @@ export default function SweepInput(props: Props) {
                   {firstLoadCompleted ? (
                     <>
                       {formatPrice(sweepReserve, 'jpy').value}
+                      {` `}
                       {YAMATO_SYMBOL.YEN}
                     </>
                   ) : (
@@ -113,6 +114,7 @@ export default function SweepInput(props: Props) {
                   {firstLoadCompleted ? (
                     <>
                       {formatPrice(expectedReward, 'jpy').value}
+                      {` `}
                       {YAMATO_SYMBOL.YEN}
                     </>
                   ) : (

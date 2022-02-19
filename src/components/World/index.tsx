@@ -13,7 +13,7 @@ export default function World() {
     <>
       <HeaderBox1>
         <CategoryTitle>
-          real time TX{' '}
+          Real Time TX{' '}
           <ExternalLink
             href={getExplorerLink(
               chainId ?? 0,
