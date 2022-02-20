@@ -38,7 +38,8 @@ export default function BorrowingInput(props: Props) {
       if (debt + borrowing <= 0) {
         return { fee: 0, feeRate: 0 };
       }
-      const ICR = divideToNum(collateral * rateOfEthJpy, debt + borrowing) * 100;
+      const ICR =
+        divideToNum(collateral * rateOfEthJpy, debt + borrowing) * 100;
       return calcFee(borrowing, ICR);
     } else {
       return { fee: 0, feeRate: 0 };
@@ -60,7 +61,7 @@ export default function BorrowingInput(props: Props) {
         if (MCR > collateralRatio) {
           return `担保率は最低${MCR}%が必要です。`;
         }
-      } else if (value !== ''){
+      } else if (value !== '') {
         return '数値で入力してください。';
       }
 
@@ -87,11 +88,11 @@ export default function BorrowingInput(props: Props) {
           console.debug('borrowing done', res);
         } catch (error) {
           errorToast(error);
-        }  
+        }
 
-      // reset
-      setBorrowing('');
-      formikHelpers.resetForm();
+        // reset
+        setBorrowing('');
+        formikHelpers.resetForm();
       }
     },
     [callback]

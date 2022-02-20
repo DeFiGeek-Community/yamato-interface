@@ -72,7 +72,7 @@ export default function RepayInput(props: Props) {
           console.debug('repayment done', res);
         } catch (error) {
           errorToast(error);
-        }        
+        }
       }
 
       // reset

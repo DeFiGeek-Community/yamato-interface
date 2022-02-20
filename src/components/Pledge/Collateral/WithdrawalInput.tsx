@@ -59,7 +59,7 @@ export default function WithdrawalInput(props: Props) {
       }>
     ) => {
       console.debug('submit withdrawal', values);
-      
+
       if (typeof values.withdrawal === 'number') {
         try {
           // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -68,7 +68,7 @@ export default function WithdrawalInput(props: Props) {
         } catch (error) {
           errorToast(error);
         }
-  
+
         // reset
         setWithdrawal('');
         formikHelpers.resetForm();
@@ -125,10 +125,10 @@ export default function WithdrawalInput(props: Props) {
                   text={`変動予測値 ${
                     formatPrice(subtractToNum(collateral, withdrawal), 'jpy')
                       .value
-                    } ${YAMATO_SYMBOL.COLLATERAL}`}
-                    />
-                    <CustomFormLabel
-                      text={`担保率 ${formatCollateralizationRatio(
+                  } ${YAMATO_SYMBOL.COLLATERAL}`}
+                />
+                <CustomFormLabel
+                  text={`担保率 ${formatCollateralizationRatio(
                     (collateral - withdrawal) * rateOfEthJpy,
                     debt
                   )}%`}
