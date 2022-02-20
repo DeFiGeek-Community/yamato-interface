@@ -39,19 +39,19 @@ export default function RedemptionInput(props: Props) {
   const { callback } = useRedeemCallback();
   const { cjpy } = useWalletState();
 
-  const [redemption, setRedemption] = useState(0);
+  const [redemption, setRedemption] = useState<number | string>();
   const formattedRedeemableCandidate = getRedeemableCandidate(
     redeemableCandidate,
     rateOfEthJpy
   );
 
   const validateRedemption = useCallback(
-    async (value: number) => {
+    async (value: number | string) => {
       if (!account || !callback) {
         return `ウォレットを接続してください。またはネットワークを切り替えてください。`;
       }
 
-      if (value == null || typeof value !== 'number') {
+      if (value !== '' && typeof value !== 'number') {
         return '数値で入力してください。';
       }
       if (value > cjpy) {
@@ -71,34 +71,36 @@ export default function RedemptionInput(props: Props) {
 
   const submitRedemption = useCallback(
     async (
-      values: { redemption: number },
+      values: { redemption: string },
       formikHelpers: FormikHelpers<{
-        redemption: number;
+        redemption: string;
       }>
     ) => {
       console.debug('submit self redemption', values);
 
-      try {
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        const res = await callback!(
-          'selfRedeem',
-          values.redemption,
-          formattedRedeemableCandidate.eth
-        );
-        console.debug('self redemption done', res);
-      } catch (error) {
-        errorToast(error);
+      if (typeof values.redemption === 'number') {
+        try {
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+          const res = await callback!(
+            'selfRedeem',
+            values.redemption,
+            formattedRedeemableCandidate.eth
+          );
+          console.debug('self redemption done', res);
+        } catch (error) {
+          errorToast(error);
+        }
       }
 
       // reset
-      setRedemption(0);
+      setRedemption('');
       formikHelpers.resetForm();
     },
     [formattedRedeemableCandidate, callback]
   );
 
   return (
-    <Formik initialValues={{ redemption: 0 }} onSubmit={submitRedemption}>
+    <Formik initialValues={{ redemption: '' }} onSubmit={submitRedemption}>
       {(formikProps) => (
         <Form>
           <Grid templateColumns="repeat(4, 1fr)" gap={4}>
@@ -125,7 +127,7 @@ export default function RedemptionInput(props: Props) {
                   </FormControl>
                 )}
               </Field>
-              {redemption > 0 && (
+              {typeof redemption === 'number' && redemption > 0 && (
                 <VStack align="start" mt={4}>
                   <CustomFormLabel text="予想担保獲得量" />
                   <Text>
@@ -188,6 +190,7 @@ export default function RedemptionInput(props: Props) {
                 <CustomButton
                   isLoading={formikProps.isSubmitting}
                   type="submit"
+                  isDisabled={typeof redemption !== 'number'}
                 >
                   償還実行
                 </CustomButton>

@@ -31,15 +31,15 @@ export default function RepayInput(props: Props) {
   const { account } = useActiveWeb3React();
   const { callback } = useRepayCallback();
 
-  const [repayment, setRepayment] = useState(0);
+  const [repayment, setRepayment] = useState<number | string>();
 
   const validateRepayment = useCallback(
-    (value: number) => {
+    (value: number | string) => {
       if (!account || !callback) {
         return `ウォレットを接続してください。またはネットワークを切り替えてください。`;
       }
 
-      if (value == null || typeof value !== 'number') {
+      if (value !== '' && typeof value !== 'number') {
         return '数値で入力してください。';
       }
       if (value > debt) {
@@ -58,30 +58,32 @@ export default function RepayInput(props: Props) {
 
   const submitRepayment = useCallback(
     async (
-      values: { repayment: number },
+      values: { repayment: string },
       formikHelpers: FormikHelpers<{
-        repayment: number;
+        repayment: string;
       }>
     ) => {
       console.debug('submit repayment', values);
 
-      try {
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        const res = await callback!(values.repayment);
-        console.debug('repayment done', res);
-      } catch (error) {
-        errorToast(error);
+      if (typeof values.repayment === 'number') {
+        try {
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+          const res = await callback!(values.repayment);
+          console.debug('repayment done', res);
+        } catch (error) {
+          errorToast(error);
+        }        
       }
 
       // reset
-      setRepayment(0);
+      setRepayment('');
       formikHelpers.resetForm();
     },
     [callback]
   );
 
   return (
-    <Formik initialValues={{ repayment: 0 }} onSubmit={submitRepayment}>
+    <Formik initialValues={{ repayment: '' }} onSubmit={submitRepayment}>
       {(formikProps) => (
         <Form>
           <VStack spacing={4} align="start">
@@ -130,11 +132,12 @@ export default function RepayInput(props: Props) {
                 isLoading={formikProps.isSubmitting}
                 type="submit"
                 data-testid="borrowing-act-repay"
+                isDisabled={typeof repayment !== 'number'}
               >
                 返済実行
               </CustomButton>
             </HStack>
-            {repayment > 0 && (
+            {typeof repayment === 'number' && repayment > 0 && (
               <VStack spacing={4} align="start">
                 <CustomFormLabel
                   text={`変動予測値 ${
