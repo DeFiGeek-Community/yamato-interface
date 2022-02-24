@@ -51,26 +51,28 @@ export default function DepositInput(props: Props) {
 
   const submitDeposit = useCallback(
     async (
-      values: { deposit: string },
+      values: { deposit: number | string },
       formikHelpers: FormikHelpers<{
-        deposit: string;
+        deposit: number | string;
       }>
     ) => {
       console.debug('submit deposit', values);
 
-      if (typeof values.deposit === 'number') {
-        if (values.deposit <= 0) {
-          errorToast('預入量が0です。');
-          return;
-        }
+      if (typeof values.deposit !== 'number') {
+        return;
+      }
 
-        try {
-          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-          const res = await callback!(values.deposit);
-          console.debug('deposit done', res);
-        } catch (error) {
-          errorToast(error);
-        }
+      if (values.deposit <= 0) {
+        errorToast('預入量が0です。');
+        return;
+      }
+
+      try {
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        const res = await callback!(values.deposit);
+        console.debug('deposit done', res);
+      } catch (error) {
+        errorToast(error);
       }
 
       // reset
@@ -81,7 +83,10 @@ export default function DepositInput(props: Props) {
   );
 
   return (
-    <Formik initialValues={{ deposit: '' }} onSubmit={submitDeposit}>
+    <Formik
+      initialValues={{ deposit: '' as number | string }}
+      onSubmit={submitDeposit}
+    >
       {(formikProps) => (
         <Form>
           <VStack spacing={4} align="start">

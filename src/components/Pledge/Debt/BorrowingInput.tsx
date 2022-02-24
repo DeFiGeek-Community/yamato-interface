@@ -74,32 +74,37 @@ export default function BorrowingInput(props: Props) {
 
   const submitBorrowing = useCallback(
     async (
-      values: { borrowing: string },
+      values: { borrowing: number | string },
       formikHelpers: FormikHelpers<{
-        borrowing: string;
+        borrowing: number | string;
       }>
     ) => {
       console.debug('submit borrowing', values);
 
-      if (typeof values.borrowing === 'number') {
-        try {
-          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-          const res = await callback!(values.borrowing);
-          console.debug('borrowing done', res);
-        } catch (error) {
-          errorToast(error);
-        }
-
-        // reset
-        setBorrowing('');
-        formikHelpers.resetForm();
+      if (typeof values.borrowing !== 'number') {
+        return;
       }
+
+      try {
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        const res = await callback!(values.borrowing);
+        console.debug('borrowing done', res);
+      } catch (error) {
+        errorToast(error);
+      }
+
+      // reset
+      setBorrowing('');
+      formikHelpers.resetForm();
     },
     [callback]
   );
 
   return (
-    <Formik initialValues={{ borrowing: '' }} onSubmit={submitBorrowing}>
+    <Formik
+      initialValues={{ borrowing: '' as number | string }}
+      onSubmit={submitBorrowing}
+    >
       {(formikProps) => (
         <Form>
           <VStack spacing={4} align="start">

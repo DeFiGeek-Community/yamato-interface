@@ -53,32 +53,37 @@ export default function WithdrawalInput(props: Props) {
 
   const submitWithdrawal = useCallback(
     async (
-      values: { withdrawal: string },
+      values: { withdrawal: number | string },
       formikHelpers: FormikHelpers<{
-        withdrawal: string;
+        withdrawal: number | string;
       }>
     ) => {
       console.debug('submit withdrawal', values);
 
-      if (typeof values.withdrawal === 'number') {
-        try {
-          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-          const res = await callback!(values.withdrawal);
-          console.debug('withdrawal done', res);
-        } catch (error) {
-          errorToast(error);
-        }
-
-        // reset
-        setWithdrawal('');
-        formikHelpers.resetForm();
+      if (typeof values.withdrawal !== 'number') {
+        return;
       }
+
+      try {
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        const res = await callback!(values.withdrawal);
+        console.debug('withdrawal done', res);
+      } catch (error) {
+        errorToast(error);
+      }
+
+      // reset
+      setWithdrawal('');
+      formikHelpers.resetForm();
     },
     [callback]
   );
 
   return (
-    <Formik initialValues={{ withdrawal: '' }} onSubmit={submitWithdrawal}>
+    <Formik
+      initialValues={{ withdrawal: '' as number | string }}
+      onSubmit={submitWithdrawal}
+    >
       {(formikProps) => (
         <Form>
           <VStack spacing={4} align="start">

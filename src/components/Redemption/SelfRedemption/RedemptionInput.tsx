@@ -71,25 +71,27 @@ export default function RedemptionInput(props: Props) {
 
   const submitRedemption = useCallback(
     async (
-      values: { redemption: string },
+      values: { redemption: number | string },
       formikHelpers: FormikHelpers<{
-        redemption: string;
+        redemption: number | string;
       }>
     ) => {
       console.debug('submit self redemption', values);
 
-      if (typeof values.redemption === 'number') {
-        try {
-          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-          const res = await callback!(
-            'selfRedeem',
-            values.redemption,
-            formattedRedeemableCandidate.eth
-          );
-          console.debug('self redemption done', res);
-        } catch (error) {
-          errorToast(error);
-        }
+      if (typeof values.redemption !== 'number') {
+        return;
+      }
+
+      try {
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        const res = await callback!(
+          'selfRedeem',
+          values.redemption,
+          formattedRedeemableCandidate.eth
+        );
+        console.debug('self redemption done', res);
+      } catch (error) {
+        errorToast(error);
       }
 
       // reset
@@ -100,7 +102,10 @@ export default function RedemptionInput(props: Props) {
   );
 
   return (
-    <Formik initialValues={{ redemption: '' }} onSubmit={submitRedemption}>
+    <Formik
+      initialValues={{ redemption: '' as number | string }}
+      onSubmit={submitRedemption}
+    >
       {(formikProps) => (
         <Form>
           <Grid templateColumns="repeat(4, 1fr)" gap={4}>

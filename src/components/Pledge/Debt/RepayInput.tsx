@@ -58,21 +58,23 @@ export default function RepayInput(props: Props) {
 
   const submitRepayment = useCallback(
     async (
-      values: { repayment: string },
+      values: { repayment: number | string },
       formikHelpers: FormikHelpers<{
-        repayment: string;
+        repayment: number | string;
       }>
     ) => {
       console.debug('submit repayment', values);
 
-      if (typeof values.repayment === 'number') {
-        try {
-          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-          const res = await callback!(values.repayment);
-          console.debug('repayment done', res);
-        } catch (error) {
-          errorToast(error);
-        }
+      if (typeof values.repayment !== 'number') {
+        return;
+      }
+
+      try {
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        const res = await callback!(values.repayment);
+        console.debug('repayment done', res);
+      } catch (error) {
+        errorToast(error);
       }
 
       // reset
@@ -83,7 +85,10 @@ export default function RepayInput(props: Props) {
   );
 
   return (
-    <Formik initialValues={{ repayment: '' }} onSubmit={submitRepayment}>
+    <Formik
+      initialValues={{ repayment: '' as number | string }}
+      onSubmit={submitRepayment}
+    >
       {(formikProps) => (
         <Form>
           <VStack spacing={4} align="start">
