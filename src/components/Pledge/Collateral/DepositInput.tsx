@@ -27,15 +27,15 @@ export default function DepositInput(props: Props) {
   const { callback } = useDepositCallback();
   const { eth } = useWalletState();
 
-  const [deposit, setDeposit] = useState(0);
+  const [deposit, setDeposit] = useState<number | string>();
 
   const validateDeposit = useCallback(
-    async (value: number) => {
+    async (value: number | string) => {
       if (!account || !callback) {
         return `ウォレットを接続してください。またはネットワークを切り替えてください。`;
       }
 
-      if (value == null || typeof value !== 'number') {
+      if (value !== '' && typeof value !== 'number') {
         return '数値で入力してください。';
       }
       if (value > eth) {
@@ -51,12 +51,17 @@ export default function DepositInput(props: Props) {
 
   const submitDeposit = useCallback(
     async (
-      values: { deposit: number },
+      values: { deposit: number | string },
       formikHelpers: FormikHelpers<{
-        deposit: number;
+        deposit: number | string;
       }>
     ) => {
       console.debug('submit deposit', values);
+
+      if (typeof values.deposit !== 'number') {
+        return;
+      }
+
       if (values.deposit <= 0) {
         errorToast('預入量が0です。');
         return;
@@ -71,14 +76,17 @@ export default function DepositInput(props: Props) {
       }
 
       // reset
-      setDeposit(0);
+      setDeposit('');
       formikHelpers.resetForm();
     },
     [callback]
   );
 
   return (
-    <Formik initialValues={{ deposit: 0 }} onSubmit={submitDeposit}>
+    <Formik
+      initialValues={{ deposit: '' as number | string }}
+      onSubmit={submitDeposit}
+    >
       {(formikProps) => (
         <Form>
           <VStack spacing={4} align="start">
@@ -114,11 +122,12 @@ export default function DepositInput(props: Props) {
                 isLoading={formikProps.isSubmitting}
                 type="submit"
                 data-testid="collateral-act-deposit"
+                isDisabled={typeof deposit !== 'number'}
               >
                 預入実行
               </CustomButton>
             </HStack>
-            {deposit > 0 && (
+            {typeof deposit === 'number' && deposit > 0 && (
               <VStack spacing={4} align="start">
                 <CustomFormLabel
                   text={`変動予測値 ${

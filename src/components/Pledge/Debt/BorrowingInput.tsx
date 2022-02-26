@@ -31,33 +31,38 @@ export default function BorrowingInput(props: Props) {
   const { account } = useActiveWeb3React();
   const { callback } = useBorrowCallback();
 
-  const [borrowing, setBorrowing] = useState(0);
+  const [borrowing, setBorrowing] = useState<number | string>();
 
   const feeResult = useMemo(() => {
-    if (debt + borrowing <= 0) {
+    if (typeof borrowing === 'number') {
+      if (debt + borrowing <= 0) {
+        return { fee: 0, feeRate: 0 };
+      }
+      const ICR =
+        divideToNum(collateral * rateOfEthJpy, debt + borrowing) * 100;
+      return calcFee(borrowing, ICR);
+    } else {
       return { fee: 0, feeRate: 0 };
     }
-    const ICR = divideToNum(collateral * rateOfEthJpy, debt + borrowing) * 100;
-    return calcFee(borrowing, ICR);
   }, [collateral, debt, borrowing, rateOfEthJpy]);
 
   const validateBorrowing = useCallback(
-    async (value: number) => {
+    async (value: number | string) => {
       if (!account || !callback) {
         return `ウォレットを接続してください。またはネットワークを切り替えてください。`;
       }
 
-      if (value == null || typeof value !== 'number') {
+      if (typeof value === 'number') {
+        const sum = debt + value;
+        if (sum <= 0) {
+          return '数値で入力してください。';
+        }
+        const collateralRatio = ((collateral * rateOfEthJpy) / sum) * 100;
+        if (MCR > collateralRatio) {
+          return `担保率は最低${MCR}%が必要です。`;
+        }
+      } else if (value !== '') {
         return '数値で入力してください。';
-      }
-
-      const sum = debt + value;
-      if (sum <= 0) {
-        return '数値で入力してください。';
-      }
-      const collateralRatio = ((collateral * rateOfEthJpy) / sum) * 100;
-      if (MCR > collateralRatio) {
-        return `担保率は最低${MCR}%が必要です。`;
       }
 
       // Value is correct
@@ -69,12 +74,16 @@ export default function BorrowingInput(props: Props) {
 
   const submitBorrowing = useCallback(
     async (
-      values: { borrowing: number },
+      values: { borrowing: number | string },
       formikHelpers: FormikHelpers<{
-        borrowing: number;
+        borrowing: number | string;
       }>
     ) => {
       console.debug('submit borrowing', values);
+
+      if (typeof values.borrowing !== 'number') {
+        return;
+      }
 
       try {
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -85,14 +94,17 @@ export default function BorrowingInput(props: Props) {
       }
 
       // reset
-      setBorrowing(0);
+      setBorrowing('');
       formikHelpers.resetForm();
     },
     [callback]
   );
 
   return (
-    <Formik initialValues={{ borrowing: 0 }} onSubmit={submitBorrowing}>
+    <Formik
+      initialValues={{ borrowing: '' as number | string }}
+      onSubmit={submitBorrowing}
+    >
       {(formikProps) => (
         <Form>
           <VStack spacing={4} align="start">
@@ -128,11 +140,12 @@ export default function BorrowingInput(props: Props) {
                 isLoading={formikProps.isSubmitting}
                 type="submit"
                 data-testid="borrowing-act-borrow"
+                isDisabled={typeof borrowing !== 'number'}
               >
                 借入実行
               </CustomButton>
             </HStack>
-            {borrowing > 0 && (
+            {typeof borrowing === 'number' && borrowing > 0 && (
               <VStack spacing={4} align="start">
                 <CustomFormLabel
                   text={`変動予測値 ${
