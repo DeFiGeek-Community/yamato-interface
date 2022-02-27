@@ -19,6 +19,9 @@ interface YamatoCurentState {
   sweepablePledges: [Pledge];
 }
 
+/**
+ * Cache to reduce the numbers of communications;
+ */
 let cache: {
   yamatoEntiretyState: YamatoEntiretyState;
   pledge: PledgeState['list'];
@@ -52,7 +55,7 @@ const currentStateQuery = gql`
       lastPrice
       priceChange
     }
-    events(first: 20) {
+    events(first: 20, orderBy: date, orderDirection: desc) {
       id
       date
       category

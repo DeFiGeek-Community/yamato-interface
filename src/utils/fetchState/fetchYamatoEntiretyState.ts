@@ -13,55 +13,19 @@ export async function fetchYamatoEntiretyStateFromContract(contracts: {
   yamatoPriceFeedContract: PriceFeed | null;
   yamatoPriorityRegistryContract: PriorityRegistry | null;
 }) {
-  // Yamato.sol
-  const yamatoMainResults: [
-    BigNumber,
-    BigNumber,
-    number,
-    number,
-    number,
-    number
-  ] = contracts.yamatoMainContract
-    ? await contracts.yamatoMainContract.getStates() // totalColl, totalDebt, MCR, RRR, SRR, GRR
-    : [BigNumber.from(0), BigNumber.from(0), 110, 80, 20, 1];
-  // Pool.sol
-  const yamatoPoolResults: [BigNumber, BigNumber, BigNumber, BigNumber] =
+  // Get states from contracts
+  const yamatoMainResults = await getYamatoMainResults(
+    contracts.yamatoMainContract
+  );
+  const yamatoPoolResults = await getYamatoPoolResults(
     contracts.yamatoPoolContract
-      ? await contracts.yamatoPoolContract.getStates() // redemptionReserve, sweepReserve, dividendReserve, lockedCollateral
-      : [
-          BigNumber.from(0),
-          BigNumber.from(0),
-          BigNumber.from(0),
-          BigNumber.from(0),
-        ];
-  // PriceFeed.sol
-  const yamatoPriceFeedResults = contracts.yamatoPriceFeedContract
-    ? {
-        rateOfEthJpy: Number(
-          formatYen(await contracts.yamatoPriceFeedContract.lastGoodPrice())
-        ),
-      }
-    : {
-        rateOfEthJpy: 0,
-      };
-  // PriorityRegistry.sol
-  const yamatoPriorityRegistryResults = contracts.yamatoPriorityRegistryContract
-    ? {
-        redeemableCandidate: Number(
-          formatYen(
-            await contracts.yamatoPriorityRegistryContract.getRedeemablesCap()
-          )
-        ),
-        sweepableCandidate: Number(
-          formatYen(
-            await contracts.yamatoPriorityRegistryContract.getSweepablesCap()
-          )
-        ),
-      }
-    : {
-        redeemableCandidate: 0,
-        sweepableCandidate: 0,
-      };
+  );
+  const yamatoPriceFeedResults = await getYamatoPriceFeedResults(
+    contracts.yamatoPriceFeedContract
+  );
+  const yamatoPriorityRegistryResults = await getYamatoPriorityRegistryResults(
+    contracts.yamatoPriorityRegistryContract
+  );
 
   // Create response
   const totalCollateral = Number(formatEther(yamatoMainResults[0])); // totalColl in Yamato.sol
@@ -75,9 +39,7 @@ export async function fetchYamatoEntiretyStateFromContract(contracts: {
             totalDebt) *
           100
         : 0,
-    tvl:
-      Number(formatEther(yamatoPoolResults[3])) *
-      yamatoPriceFeedResults.rateOfEthJpy,
+    tvl: totalCollateral * yamatoPriceFeedResults.rateOfEthJpy,
   };
   const pool = {
     redemptionReserve: Number(formatEther(yamatoPoolResults[0])), // redemptionReserve in Pool.sol
@@ -105,20 +67,77 @@ export async function fetchYamatoEntiretyStateFromContract(contracts: {
 export async function fetchRedeemablPledges(
   yamatoPriorityRegistryContract: PriorityRegistry | null
 ) {
-  // PriorityRegistry.sol
-  const yamatoPriorityRegistryResults = yamatoPriorityRegistryContract
+  // Get states from contracts
+  const yamatoPriorityRegistryResults = await getYamatoPriorityRegistryResults(
+    yamatoPriorityRegistryContract
+  );
+
+  // Create response
+  return {
+    redeemableCandidate: yamatoPriorityRegistryResults.redeemableCandidate,
+    isRedeemablePledge: yamatoPriorityRegistryResults.redeemableCandidate > 0,
+  };
+}
+
+/**
+ * private functions
+ */
+
+// Get states from Yamato.sol
+async function getYamatoMainResults(
+  yamatoMainContract: Yamato | null
+): Promise<[BigNumber, BigNumber, number, number, number, number]> {
+  return yamatoMainContract
+    ? await yamatoMainContract.getStates() // totalColl, totalDebt, MCR, RRR, SRR, GRR
+    : [BigNumber.from(0), BigNumber.from(0), 110, 80, 20, 1];
+}
+
+// Get states from Pool.sol
+async function getYamatoPoolResults(
+  yamatoPoolContract: Pool | null
+): Promise<[BigNumber, BigNumber, BigNumber, BigNumber]> {
+  return yamatoPoolContract
+    ? await yamatoPoolContract.getStates() // redemptionReserve, sweepReserve, dividendReserve, lockedCollateral
+    : [
+        BigNumber.from(0),
+        BigNumber.from(0),
+        BigNumber.from(0),
+        BigNumber.from(0),
+      ];
+}
+
+// Get states from PriceFeed.sol
+async function getYamatoPriceFeedResults(
+  yamatoPriceFeedContract: PriceFeed | null
+): Promise<{ rateOfEthJpy: number }> {
+  return yamatoPriceFeedContract
+    ? {
+        rateOfEthJpy: Number(
+          formatYen(await yamatoPriceFeedContract.lastGoodPrice())
+        ),
+      }
+    : {
+        rateOfEthJpy: 0,
+      };
+}
+
+// Get states from PriorityRegistry.sol
+async function getYamatoPriorityRegistryResults(
+  yamatoPriorityRegistryContract: PriorityRegistry | null
+): Promise<{ redeemableCandidate: number; sweepableCandidate: number }> {
+  const results = yamatoPriorityRegistryContract
     ? {
         redeemableCandidate: Number(
           formatYen(await yamatoPriorityRegistryContract.getRedeemablesCap())
         ),
+        sweepableCandidate: Number(
+          formatYen(await yamatoPriorityRegistryContract.getSweepablesCap())
+        ),
       }
     : {
         redeemableCandidate: 0,
+        sweepableCandidate: 0,
       };
 
-  // Create response
-  return {
-    ...yamatoPriorityRegistryResults,
-    isRedeemablePledge: yamatoPriorityRegistryResults.redeemableCandidate > 0,
-  };
+  return results;
 }
