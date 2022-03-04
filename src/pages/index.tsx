@@ -1,6 +1,6 @@
 import { Box, Grid, GridItem } from '@chakra-ui/react';
 import { useWeb3React } from '@web3-react/core';
-import Dashboad from '../components/Dashboad';
+import Dashboard from '../components/Dashboard';
 import Infographics from '../components/Infographics';
 import Pledge from '../components/Pledge';
 import Redemption from '../components/Redemption';
@@ -19,7 +19,7 @@ export default function Index() {
           style={{ maxWidth: '1280px', margin: 'auto' }}
         >
           <GridItem colSpan={3}>
-            <Dashboad />
+            <Dashboard />
 
             <Box className="divider" mt={'20px'} />
 
@@ -52,7 +52,7 @@ export default function Index() {
           <GridItem rowSpan={1} colSpan={3}>
             <Box className="divider" mt={'20px'} />
 
-            <Dashboad />
+            <Dashboard />
           </GridItem>
 
           <GridItem rowSpan={1} colSpan={2}>

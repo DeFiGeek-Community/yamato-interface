@@ -14,7 +14,7 @@ import {
 } from '../CommonItem';
 import { ExternalLink } from '../ExternalLink';
 import TerminologyPopover from '../TerminologyPopover';
-import DashboadItem from './Item';
+import DashboardItem from './Item';
 
 function getMarketRateOfCjpyJpy(rateOfCjpyJpy: [string, number]) {
   if (!rateOfCjpyJpy) {
@@ -37,7 +37,7 @@ function getDeviationRate(rateOfCjpyJpy: [string, number]) {
   })}%`;
 }
 
-export default function Dashboad() {
+export default function Dashboard() {
   const {
     tvl,
     tcr,
@@ -82,19 +82,19 @@ export default function Dashboad() {
         <Grid templateColumns="repeat(2, 1fr)" gap={4}>
           <GridItem colSpan={1}>
             <VStack align="start">
-              <DashboadItem
+              <DashboardItem
                 title={'TVL'}
                 stat={`¥${formatPrice(tvl, 'jpy').value}`}
                 firstLoadCompleted={firstLoadCompleted}
               />
-              <DashboadItem
+              <DashboardItem
                 title={'TCR'}
                 stat={`${tcr.toLocaleString(undefined, {
                   maximumFractionDigits: 2,
                 })}%`}
                 firstLoadCompleted={firstLoadCompleted}
               />
-              <DashboadItem
+              <DashboardItem
                 title={'市場間価格差異'}
                 stat={`${getMarketRateOfCjpyJpy(rateOfCjpyJpy[0])}
                 (${getDeviationRate(rateOfCjpyJpy[0])})`}
@@ -105,8 +105,8 @@ export default function Dashboad() {
                     <ExternalLinkIcon />
                   </ExternalLink>
                 )}
-              </DashboadItem>
-              {/* <DashboadItem
+              </DashboardItem>
+              {/* <DashboardItem
                 title={''}
                 stat={`${getMarketRateOfCjpyJpy(rateOfCjpyJpy[1])}
                 (${getDeviationRate(rateOfCjpyJpy[1])})`}
@@ -117,8 +117,8 @@ export default function Dashboad() {
                     <ExternalLinkIcon />
                   </ExternalLink>
                 )}
-              </DashboadItem>
-              <DashboadItem
+              </DashboardItem>
+              <DashboardItem
                 title={''}
                 stat={`${getMarketRateOfCjpyJpy(rateOfCjpyJpy[2])}
                 (${getDeviationRate(rateOfCjpyJpy[2])})`}
@@ -129,21 +129,21 @@ export default function Dashboad() {
                     <ExternalLinkIcon />
                   </ExternalLink>
                 )}
-              </DashboadItem> */}
+              </DashboardItem> */}
             </VStack>
           </GridItem>
 
           <GridItem colSpan={1}>
             <VStack align="start">
               {/* v1.5 feature
-            <DashboadItem title={'veYMT量'} stat={'（工事中）'} />
-            <DashboadItem title={'総ファーミングスコア'} stat={'（工事中）'} /> */}
-              <DashboadItem
+            <DashboardItem title={'veYMT量'} stat={'（工事中）'} />
+            <DashboardItem title={'総ファーミングスコア'} stat={'（工事中）'} /> */}
+              <DashboardItem
                 title={'ETHプライス'}
                 stat={`¥${formatPrice(rateOfEthJpy, 'jpy').value}`}
                 firstLoadCompleted={firstLoadCompleted}
               />
-              <DashboadItem
+              <DashboardItem
                 title={'CJPY総発行量'}
                 stat={`${formatPrice(totalSupplyOfCjpy, 'jpy').value} ${
                   YAMATO_SYMBOL.YEN
