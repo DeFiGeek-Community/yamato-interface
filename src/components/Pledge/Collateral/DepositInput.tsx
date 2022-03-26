@@ -6,7 +6,7 @@ import {
 } from '@chakra-ui/react';
 import { Formik, Form, Field, FormikHelpers, FieldProps } from 'formik';
 import { useCallback, useState } from 'react';
-import { YAMATO_SYMBOL } from '../../../constants/yamato';
+import { MIN_COLLATERAL, YAMATO_SYMBOL } from '../../../constants/yamato';
 import { useActiveWeb3React } from '../../../hooks/web3';
 import { useDepositCallback } from '../../../hooks/yamato/useDepositCallback';
 import { useWalletState } from '../../../state/wallet/hooks';
@@ -40,6 +40,11 @@ export default function DepositInput(props: Props) {
       }
       if (value > eth) {
         return '残高を超えています。';
+      }
+      if (value < MIN_COLLATERAL - collateral) {
+        return (
+          '最小担保量は' + MIN_COLLATERAL + YAMATO_SYMBOL.COLLATERAL + 'です。'
+        );
       }
 
       // Value is correct
