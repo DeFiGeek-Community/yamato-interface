@@ -43,7 +43,6 @@ export default function WithdrawalInput(props: Props) {
       if (value > collateral) {
         return '担保量を超えています。';
       }
-      console.log(value, typeof value, collateral, MIN_COLLATERAL,collateral - MIN_COLLATERAL,value > collateral - MIN_COLLATERAL);
       if (value > collateral - MIN_COLLATERAL && value !== collateral) {
         return (
           '最小担保量は' + MIN_COLLATERAL + YAMATO_SYMBOL.COLLATERAL + 'です。'
