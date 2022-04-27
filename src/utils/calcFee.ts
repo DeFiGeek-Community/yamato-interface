@@ -4,7 +4,6 @@ export function calcFee(
   borrowingAmount: number,
   ICR: number
 ): { fee: number; feeRate: number } {
-  console.log(borrowingAmount, ICR);
   const ICRperTenk = (ICR / 10) * 1000;
   const feeRate = getFeeRate(ICRperTenk);
 
