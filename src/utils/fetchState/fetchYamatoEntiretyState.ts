@@ -113,7 +113,7 @@ async function getYamatoPriceFeedResults(
   return yamatoPriceFeedContract
     ? {
         rateOfEthJpy: Number(
-          formatYen(await yamatoPriceFeedContract.lastGoodPrice())
+          formatYen(await yamatoPriceFeedContract.getPrice())
         ),
       }
     : {
