@@ -26,7 +26,7 @@ function InputField(props: {
   return (
     <FormControl>
       <CustomFormLabel text={label} />
-      <CustomInput id={name} onChange={onChangeHandler} />
+      <CustomInput type="number" id={name} onChange={onChangeHandler} />
     </FormControl>
   );
 }
