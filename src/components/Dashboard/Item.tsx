@@ -8,7 +8,7 @@ interface Props {
   children?: any;
 }
 
-export default function DashboadItem(props: Props) {
+export default function DashboardItem(props: Props) {
   return (
     <HStack align="start">
       <ItemTitleForPledge width="15rem">{props.title}</ItemTitleForPledge>
