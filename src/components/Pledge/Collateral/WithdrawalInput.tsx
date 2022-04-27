@@ -6,7 +6,7 @@ import {
 } from '@chakra-ui/react';
 import { Formik, Form, Field, FormikHelpers, FieldProps } from 'formik';
 import { useCallback, useState } from 'react';
-import { YAMATO_SYMBOL } from '../../../constants/yamato';
+import { MIN_COLLATERAL, YAMATO_SYMBOL } from '../../../constants/yamato';
 import { useActiveWeb3React } from '../../../hooks/web3';
 import { useWithdrawCallback } from '../../../hooks/yamato/useWithdrawCallback';
 import { subtractToNum } from '../../../utils/bignumber';
@@ -43,7 +43,11 @@ export default function WithdrawalInput(props: Props) {
       if (value > collateral) {
         return '担保量を超えています。';
       }
-
+      if (value > collateral - MIN_COLLATERAL && value !== collateral) {
+        return (
+          '最小担保量は' + MIN_COLLATERAL + YAMATO_SYMBOL.COLLATERAL + 'です。'
+        );
+      }
       // Value is correct
       setWithdrawal(value);
       return undefined;
