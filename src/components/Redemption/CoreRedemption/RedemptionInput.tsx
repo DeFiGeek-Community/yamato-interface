@@ -33,13 +33,19 @@ export default function RedemptionInput(props: Props) {
     () => getRedeemableCandidate(redeemableCandidate, rateOfEthJpy),
     [redeemableCandidate, rateOfEthJpy]
   );
+  const formattedRedemptionReserve = useMemo(
+    () => getRedeemableCandidate(redemptionReserve, rateOfEthJpy),
+    [redemptionReserve, rateOfEthJpy]
+  );
   const expectedReward = useMemo(
     () =>
       getExpectedReward(
-        Math.min(redemptionReserve, formattedRedeemableCandidate.eth),
-        GRR
+        Math.min(redemptionReserve, formattedRedeemableCandidate.cjpy),
+        true,
+        GRR,
+        rateOfEthJpy
       ),
-    [redemptionReserve, formattedRedeemableCandidate, GRR]
+    [redemptionReserve, formattedRedeemableCandidate, GRR, rateOfEthJpy]
   );
 
   const submitRedemption = useCallback(
@@ -59,8 +65,8 @@ export default function RedemptionInput(props: Props) {
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         const res = await callback!(
           'coreRedeem',
-          Math.min(redemptionReserve, formattedRedeemableCandidate.eth),
-          expectedReward
+          Math.min(redemptionReserve, formattedRedeemableCandidate.cjpy),
+          expectedReward.eth
         );
         console.debug('core redemption done', res);
       } catch (error) {
@@ -90,9 +96,9 @@ export default function RedemptionInput(props: Props) {
                 <Text>
                   {firstLoadCompleted ? (
                     <>
-                      {formatPrice(redemptionReserve, 'jpy').value}
+                      {formatPrice(formattedRedemptionReserve.eth, 'eth').value}
                       {` `}
-                      {YAMATO_SYMBOL.YEN}
+                      {YAMATO_SYMBOL.COLLATERAL}
                     </>
                   ) : (
                     <Skeleton
@@ -103,6 +109,11 @@ export default function RedemptionInput(props: Props) {
                       }}
                     />
                   )}
+                </Text>
+                <Text>
+                  ({formatPrice(formattedRedemptionReserve.cjpy, 'jpy').value}
+                  {` `}
+                  {YAMATO_SYMBOL.YEN})
                 </Text>
               </VStack>
             </GridItem>
@@ -145,7 +156,7 @@ export default function RedemptionInput(props: Props) {
                 <Text>
                   {firstLoadCompleted ? (
                     <>
-                      {formatPrice(expectedReward, 'eth').value}
+                      {formatPrice(expectedReward.eth, 'eth').value}
                       {` `}
                       {YAMATO_SYMBOL.COLLATERAL}
                     </>

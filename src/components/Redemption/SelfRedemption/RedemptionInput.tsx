@@ -7,7 +7,7 @@ import {
   VStack,
 } from '@chakra-ui/react';
 import { Formik, Form, Field, FieldProps, FormikHelpers } from 'formik';
-import { useCallback, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { YAMATO_SYMBOL } from '../../../constants/yamato';
 import { useActiveWeb3React } from '../../../hooks/web3';
 import { useRedeemCallback } from '../../../hooks/yamato/useRedemption';
@@ -20,10 +20,7 @@ import {
   CustomFormLabel,
   CustomInput,
 } from '../../CommonItem';
-import {
-  getExpectedCollateral,
-  getRedeemableCandidate,
-} from '../shared/function';
+import { getExpectedReward, getRedeemableCandidate } from '../shared/function';
 
 type Props = {
   redeemableCandidate: number;
@@ -40,9 +37,9 @@ export default function RedemptionInput(props: Props) {
   const { cjpy } = useWalletState();
 
   const [redemption, setRedemption] = useState<number | string>();
-  const formattedRedeemableCandidate = getRedeemableCandidate(
-    redeemableCandidate,
-    rateOfEthJpy
+  const formattedRedeemableCandidate = useMemo(
+    () => getRedeemableCandidate(redeemableCandidate, rateOfEthJpy),
+    [redeemableCandidate, rateOfEthJpy]
   );
 
   const validateRedemption = useCallback(
@@ -138,12 +135,8 @@ export default function RedemptionInput(props: Props) {
                   <Text>
                     {
                       formatPrice(
-                        getExpectedCollateral(
-                          redemption,
-                          formattedRedeemableCandidate.eth,
-                          GRR,
-                          rateOfEthJpy
-                        ),
+                        getExpectedReward(redemption, false, GRR, rateOfEthJpy)
+                          .eth,
                         'eth'
                       ).value
                     }

@@ -24,7 +24,13 @@ export default function SweepInput(props: Props) {
   const { callback } = useSweepCallback();
 
   const expectedReward = useMemo(
-    () => getExpectedReward(Math.min(sweepReserve, sweepableCandiate), GRR),
+    () =>
+      getExpectedReward(
+        Math.min(sweepReserve, sweepableCandiate),
+        true,
+        GRR,
+        1
+      ),
     [sweepReserve, sweepableCandiate, GRR]
   );
 
@@ -113,7 +119,7 @@ export default function SweepInput(props: Props) {
                 <Text>
                   {firstLoadCompleted ? (
                     <>
-                      {formatPrice(expectedReward, 'jpy').value}
+                      {formatPrice(expectedReward.cjpy, 'jpy').value}
                       {` `}
                       {YAMATO_SYMBOL.YEN}
                     </>
