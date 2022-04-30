@@ -16,22 +16,22 @@ export function getExpectedReward(
   return { eth, cjpy: candidateAmount };
 }
 
-export function getRedeemableCandidate(
-  redeemableCandidate: number,
+export function getEthAmountFromCjpy(
+  amountOfCjpy: number,
   rateOfEthJpy: number
 ): { eth: number; cjpy: number } {
-  if (!redeemableCandidate || !rateOfEthJpy) {
+  if (!amountOfCjpy || !rateOfEthJpy) {
     return { eth: 0, cjpy: 0 };
   }
 
-  const eth = convertEthFromCjpy(redeemableCandidate, rateOfEthJpy);
-  return { eth, cjpy: redeemableCandidate };
+  const eth = convertEthFromCjpy(amountOfCjpy, rateOfEthJpy);
+  return { eth, cjpy: amountOfCjpy };
 }
 
-export function convertEthFromCjpy(value: number, rateOfEthJpy: number) {
+export function convertEthFromCjpy(amountOfJpy: number, rateOfEthJpy: number) {
   if (!rateOfEthJpy) {
     return 0;
   }
-  const converted = value / rateOfEthJpy;
+  const converted = amountOfJpy / rateOfEthJpy;
   return converted;
 }

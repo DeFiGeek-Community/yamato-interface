@@ -20,7 +20,7 @@ import {
   CustomFormLabel,
   CustomInput,
 } from '../../CommonItem';
-import { getExpectedReward, getRedeemableCandidate } from '../shared/function';
+import { getExpectedReward, getEthAmountFromCjpy } from '../shared/function';
 
 type Props = {
   redeemableCandidate: number;
@@ -36,10 +36,24 @@ export default function RedemptionInput(props: Props) {
   const { callback } = useRedeemCallback();
   const { cjpy } = useWalletState();
 
+  const isCore = false;
+
   const [redemption, setRedemption] = useState<number | string>();
   const formattedRedeemableCandidate = useMemo(
-    () => getRedeemableCandidate(redeemableCandidate, rateOfEthJpy),
+    () => getEthAmountFromCjpy(redeemableCandidate, rateOfEthJpy),
     [redeemableCandidate, rateOfEthJpy]
+  );
+  const expectedReward = useMemo(
+    () =>
+      typeof redemption === 'number'
+        ? getExpectedReward(
+            Math.min(redemption, formattedRedeemableCandidate.cjpy),
+            isCore,
+            GRR,
+            rateOfEthJpy
+          )
+        : getExpectedReward(0, isCore, GRR, rateOfEthJpy),
+    [redemption, formattedRedeemableCandidate, isCore, GRR, rateOfEthJpy]
   );
 
   const validateRedemption = useCallback(
@@ -84,7 +98,7 @@ export default function RedemptionInput(props: Props) {
         const res = await callback!(
           'selfRedeem',
           values.redemption,
-          formattedRedeemableCandidate.eth
+          expectedReward.eth
         );
         console.debug('self redemption done', res);
       } catch (error) {
@@ -95,7 +109,7 @@ export default function RedemptionInput(props: Props) {
       setRedemption('');
       formikHelpers.resetForm();
     },
-    [formattedRedeemableCandidate, callback]
+    [expectedReward, callback]
   );
 
   return (
@@ -133,13 +147,7 @@ export default function RedemptionInput(props: Props) {
                 <VStack align="start" mt={4}>
                   <CustomFormLabel text="予想担保獲得量" />
                   <Text>
-                    {
-                      formatPrice(
-                        getExpectedReward(redemption, false, GRR, rateOfEthJpy)
-                          .eth,
-                        'eth'
-                      ).value
-                    }
+                    {formatPrice(expectedReward.eth, 'eth').value}
                     {` `}
                     {YAMATO_SYMBOL.COLLATERAL}
                   </Text>
@@ -154,11 +162,11 @@ export default function RedemptionInput(props: Props) {
                   {firstLoadCompleted ? (
                     <>
                       {
-                        formatPrice(formattedRedeemableCandidate.eth, 'eth')
+                        formatPrice(formattedRedeemableCandidate.cjpy, 'jpy')
                           .value
                       }
                       {` `}
-                      {YAMATO_SYMBOL.COLLATERAL}
+                      {YAMATO_SYMBOL.YEN}
                     </>
                   ) : (
                     <Skeleton
@@ -172,9 +180,9 @@ export default function RedemptionInput(props: Props) {
                   )}
                 </Text>
                 <Text>
-                  ({formatPrice(formattedRedeemableCandidate.cjpy, 'jpy').value}
+                  ({formatPrice(formattedRedeemableCandidate.eth, 'eth').value}
                   {` `}
-                  {YAMATO_SYMBOL.YEN})
+                  {YAMATO_SYMBOL.COLLATERAL})
                 </Text>
               </VStack>
             </GridItem>

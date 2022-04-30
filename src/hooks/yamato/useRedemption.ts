@@ -20,7 +20,7 @@ export function useRedeemCallback(): {
     | null
     | ((
         sort: 'selfRedeem' | 'coreRedeem',
-        eth: number,
+        cjpy: number,
         expected: number
       ) => Promise<string>);
   error: string | null;
@@ -39,11 +39,11 @@ export function useRedeemCallback(): {
       state: CallbackState.VALID,
       callback: async function onRedeem(
         sort: 'selfRedeem' | 'coreRedeem',
-        eth: number,
+        cjpy: number,
         expected: number
       ): Promise<string> {
         // payload
-        const value = parseEther(eth.toString());
+        const value = parseEther(cjpy.toString());
         if (value.eq(BIGNUMBER_ZERO)) {
           throw new Error(REVERT_REASON_DESCRIPTION.zeroInput);
         }
@@ -62,12 +62,15 @@ export function useRedeemCallback(): {
         try {
           // send tx
           const params = { ...option, gasLimit: call.gasEstimate };
-          const response = await signer.redeem(value, false, params);
+          const isCore = sort === 'coreRedeem';
+          const response = await signer.redeem(value, isCore, params);
 
           // regist pending tx
           addTransaction(response, {
-            type: TransactionType.SELF_REDEEM,
-            value: eth,
+            type: isCore
+              ? TransactionType.CORE_REDEEM
+              : TransactionType.SELF_REDEEM,
+            value: cjpy,
             expected,
           });
 
