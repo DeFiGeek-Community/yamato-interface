@@ -23,15 +23,17 @@ export default function SweepInput(props: Props) {
   const { account } = useActiveWeb3React();
   const { callback } = useSweepCallback();
 
+  const isCore = true;
+
   const expectedReward = useMemo(
     () =>
       getExpectedReward(
         Math.min(sweepReserve, sweepableCandiate),
-        true,
+        isCore,
         GRR,
         1
       ),
-    [sweepReserve, sweepableCandiate, GRR]
+    [sweepReserve, sweepableCandiate, isCore, GRR]
   );
 
   const submitSweep = useCallback(
@@ -49,7 +51,7 @@ export default function SweepInput(props: Props) {
 
       try {
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        const res = await callback!(sweepableCandiate);
+        const res = await callback!(expectedReward.cjpy);
         console.debug('sweep done', res);
       } catch (error) {
         errorToast(error);
@@ -58,7 +60,7 @@ export default function SweepInput(props: Props) {
       // reset
       formikHelpers.resetForm();
     },
-    [account, sweepableCandiate, callback]
+    [account, expectedReward, callback]
   );
 
   return (
@@ -134,6 +136,11 @@ export default function SweepInput(props: Props) {
                     />
                   )}
                 </Text>
+                <Text>
+                  ({formatPrice(expectedReward.eth, 'eth').value}
+                  {` `}
+                  {YAMATO_SYMBOL.COLLATERAL})
+                </Text>
               </VStack>
             </GridItem>
 
@@ -141,7 +148,7 @@ export default function SweepInput(props: Props) {
               <CustomButton
                 isLoading={formikProps.isSubmitting}
                 type="submit"
-                isDisabled={!expectedReward}
+                isDisabled={!expectedReward.cjpy}
               >
                 代位弁済実行
               </CustomButton>
