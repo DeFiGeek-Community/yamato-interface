@@ -164,8 +164,7 @@ export function estimateGas(
     });
 }
 
-// add 20%
+// add 50%
 export function calculateGasMargin(value: BigNumber): BigNumber {
-  // FIXME: make 3 multiple for debug
-  return value.mul(BigNumber.from(10000 + 20000)).div(BigNumber.from(10000));
+  return value.mul(BigNumber.from(10000 + 5000)).div(BigNumber.from(10000));
 }
