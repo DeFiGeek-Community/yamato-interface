@@ -7,7 +7,7 @@ import { useRedeemCallback } from '../../../hooks/yamato/useRedemption';
 import { errorToast } from '../../../utils/errorToast';
 import { formatPrice } from '../../../utils/prices';
 import { Text, CustomButton, CustomFormLabel } from '../../CommonItem';
-import { getExpectedReward, getRedeemableCandidate } from '../shared/function';
+import { getExpectedReward, getEthAmountFromCjpy } from '../shared/function';
 
 type Props = {
   rateOfEthJpy: number;
@@ -29,17 +29,25 @@ export default function RedemptionInput(props: Props) {
   const { account } = useActiveWeb3React();
   const { callback } = useRedeemCallback();
 
+  const isCore = true;
+
   const formattedRedeemableCandidate = useMemo(
-    () => getRedeemableCandidate(redeemableCandidate, rateOfEthJpy),
+    () => getEthAmountFromCjpy(redeemableCandidate, rateOfEthJpy),
     [redeemableCandidate, rateOfEthJpy]
+  );
+  const formattedRedemptionReserve = useMemo(
+    () => getEthAmountFromCjpy(redemptionReserve, rateOfEthJpy),
+    [redemptionReserve, rateOfEthJpy]
   );
   const expectedReward = useMemo(
     () =>
       getExpectedReward(
-        Math.min(redemptionReserve, formattedRedeemableCandidate.eth),
-        GRR
+        Math.min(redemptionReserve, formattedRedeemableCandidate.cjpy),
+        isCore,
+        GRR,
+        rateOfEthJpy
       ),
-    [redemptionReserve, formattedRedeemableCandidate, GRR]
+    [redemptionReserve, formattedRedeemableCandidate, isCore, GRR, rateOfEthJpy]
   );
 
   const submitRedemption = useCallback(
@@ -59,8 +67,8 @@ export default function RedemptionInput(props: Props) {
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         const res = await callback!(
           'coreRedeem',
-          Math.min(redemptionReserve, formattedRedeemableCandidate.eth),
-          expectedReward
+          expectedReward.cjpy,
+          expectedReward.eth
         );
         console.debug('core redemption done', res);
       } catch (error) {
@@ -70,13 +78,7 @@ export default function RedemptionInput(props: Props) {
       // reset
       formikHelpers.resetForm();
     },
-    [
-      account,
-      formattedRedeemableCandidate,
-      redemptionReserve,
-      expectedReward,
-      callback,
-    ]
+    [account, expectedReward, callback]
   );
 
   return (
@@ -90,7 +92,10 @@ export default function RedemptionInput(props: Props) {
                 <Text>
                   {firstLoadCompleted ? (
                     <>
-                      {formatPrice(redemptionReserve, 'jpy').value}
+                      {
+                        formatPrice(formattedRedemptionReserve.cjpy, 'jpy')
+                          .value
+                      }
                       {` `}
                       {YAMATO_SYMBOL.YEN}
                     </>
@@ -104,6 +109,11 @@ export default function RedemptionInput(props: Props) {
                     />
                   )}
                 </Text>
+                <Text>
+                  ({formatPrice(formattedRedemptionReserve.eth, 'eth').value}
+                  {` `}
+                  {YAMATO_SYMBOL.COLLATERAL})
+                </Text>
               </VStack>
             </GridItem>
 
@@ -114,11 +124,11 @@ export default function RedemptionInput(props: Props) {
                   {firstLoadCompleted ? (
                     <>
                       {
-                        formatPrice(formattedRedeemableCandidate.eth, 'eth')
+                        formatPrice(formattedRedeemableCandidate.cjpy, 'jpy')
                           .value
                       }
                       {` `}
-                      {YAMATO_SYMBOL.COLLATERAL}
+                      {YAMATO_SYMBOL.YEN}
                     </>
                   ) : (
                     <Skeleton
@@ -132,9 +142,9 @@ export default function RedemptionInput(props: Props) {
                   )}
                 </Text>
                 <Text>
-                  ({formatPrice(formattedRedeemableCandidate.cjpy, 'jpy').value}
+                  ({formatPrice(formattedRedeemableCandidate.eth, 'eth').value}
                   {` `}
-                  {YAMATO_SYMBOL.YEN})
+                  {YAMATO_SYMBOL.COLLATERAL})
                 </Text>
               </VStack>
             </GridItem>
@@ -145,7 +155,7 @@ export default function RedemptionInput(props: Props) {
                 <Text>
                   {firstLoadCompleted ? (
                     <>
-                      {formatPrice(expectedReward, 'eth').value}
+                      {formatPrice(expectedReward.eth, 'eth').value}
                       {` `}
                       {YAMATO_SYMBOL.COLLATERAL}
                     </>
@@ -168,7 +178,7 @@ export default function RedemptionInput(props: Props) {
                 colorScheme="teal"
                 isLoading={formikProps.isSubmitting}
                 type="submit"
-                isDisabled={!expectedReward}
+                isDisabled={!expectedReward.eth}
               >
                 Yamato償還実行
               </CustomButton>
