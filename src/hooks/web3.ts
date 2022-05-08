@@ -21,6 +21,7 @@ export function useEagerConnect() {
 
   // gnosisSafe.isSafeApp() races a timeout against postMessage, so it delays pageload if we are not in a safe app;
   // if we are not embedded in an iframe, it is not worth checking
+  // eslint-disable-next-line
   const [triedSafe, setTriedSafe] = useState(!IS_IN_IFRAME);
 
   // first, try connecting to a gnosis safe

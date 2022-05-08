@@ -51,7 +51,7 @@ export default function DepositInput(props: Props) {
       setDeposit(value);
       return undefined;
     },
-    [account, eth, callback]
+    [account, eth, collateral, callback]
   );
 
   const submitDeposit = useCallback(

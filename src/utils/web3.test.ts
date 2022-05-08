@@ -2,7 +2,7 @@ import { BigNumber } from '@ethersproject/bignumber';
 import { ethers } from 'ethers';
 import { parseEther } from './web3';
 
-const ethByWei = '1000000000000000000';
+// const ethByWei = '1000000000000000000';
 
 describe('parseEther', () => {
   it('should pass through to `ehters.utils.parseEther`', () => {
