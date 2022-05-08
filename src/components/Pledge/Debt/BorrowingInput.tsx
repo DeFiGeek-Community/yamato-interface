@@ -148,11 +148,18 @@ export default function BorrowingInput(props: Props) {
             {typeof borrowing === 'number' && borrowing > 0 && (
               <VStack spacing={4} align="start">
                 <CustomFormLabel
-                  text={`変動予測値 ${
-                    formatPrice(
-                      addToNum(debt, borrowing - feeResult.fee),
-                      'jpy'
-                    ).value
+                  text={`受取量 ${
+                    formatPrice(borrowing - feeResult.fee, 'jpy').value
+                  } ${YAMATO_SYMBOL.YEN}`}
+                />
+                <CustomFormLabel
+                  text={`手数料 ${formatPrice(feeResult.fee, 'jpy').value} ${
+                    YAMATO_SYMBOL.YEN
+                  }(手数料率 ${feeResult.feeRate.toFixed(2)}%)`}
+                />
+                <CustomFormLabel
+                  text={`借入量合計 ${
+                    formatPrice(addToNum(debt, borrowing), 'jpy').value
                   } ${YAMATO_SYMBOL.YEN}`}
                 />
                 <CustomFormLabel
@@ -160,11 +167,6 @@ export default function BorrowingInput(props: Props) {
                     collateral * rateOfEthJpy,
                     debt + borrowing
                   )}%`}
-                />
-                <CustomFormLabel
-                  text={`手数料 ${formatPrice(feeResult.fee, 'jpy').value} ${
-                    YAMATO_SYMBOL.YEN
-                  }(手数料率 ${feeResult.feeRate.toFixed(2)}%)`}
                 />
               </VStack>
             )}
