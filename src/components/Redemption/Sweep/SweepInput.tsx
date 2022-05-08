@@ -18,7 +18,13 @@ type Props = {
 };
 
 export default function SweepInput(props: Props) {
-  const { sweepReserve, sweepableCandiate, GRR, firstLoadCompleted } = props;
+  const {
+    rateOfEthJpy,
+    sweepReserve,
+    sweepableCandiate,
+    GRR,
+    firstLoadCompleted,
+  } = props;
 
   const { account } = useActiveWeb3React();
   const { callback } = useSweepCallback();
@@ -31,9 +37,9 @@ export default function SweepInput(props: Props) {
         Math.min(sweepReserve, sweepableCandiate),
         isCore,
         GRR,
-        1
+        rateOfEthJpy
       ),
-    [sweepReserve, sweepableCandiate, isCore, GRR]
+    [sweepReserve, sweepableCandiate, isCore, GRR, rateOfEthJpy]
   );
 
   const submitSweep = useCallback(
