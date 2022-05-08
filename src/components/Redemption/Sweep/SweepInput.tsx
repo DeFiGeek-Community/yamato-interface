@@ -142,11 +142,11 @@ export default function SweepInput(props: Props) {
                     />
                   )}
                 </Text>
-                <Text>
+                {/* <Text>
                   ({formatPrice(expectedReward.eth, 'eth').value}
                   {` `}
                   {YAMATO_SYMBOL.COLLATERAL})
-                </Text>
+                </Text> */}
               </VStack>
             </GridItem>
 
