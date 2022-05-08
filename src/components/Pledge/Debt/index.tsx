@@ -7,7 +7,7 @@ import {
   formatCollateralizationRatio,
   formatPrice,
 } from '../../../utils/prices';
-import { ItemTitleValue, ItemTitleForPledge, Text } from '../../CommonItem';
+import { ItemTitleValue, ItemTitleForPledge } from '../../CommonItem';
 import BorrowInput from './BorrowingInput';
 import RepayInput from './RepayInput';
 

@@ -156,6 +156,7 @@ export default function WalletModal({
     let name = '';
     Object.keys(SUPPORTED_WALLETS).map((key) => {
       if (connector === SUPPORTED_WALLETS[key].connector) {
+        // eslint-disable-next-line
         return (name = SUPPORTED_WALLETS[key].name);
       }
       return true;
