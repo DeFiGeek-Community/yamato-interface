@@ -1,9 +1,19 @@
+import { HStack } from '@chakra-ui/react';
 import { useCallback } from 'react';
 import { ExternalLink as LinkIcon } from 'react-feather';
 import { useDispatch } from 'react-redux';
 import { Button } from 'rebass/styled-components';
 import styled from 'styled-components';
+import MetamaskIcon from '../../../assets/images/metamask.png';
+import TXJPLogo from '../../../assets/images/txjp_logo.png';
+import CJPYLogo from '../../../components/svgs/CjpyLogo';
+import {
+  CJPY_ADDRESSES,
+  TXJP_ADDRESSES,
+  YMT_ADDRESSES,
+} from '../../../constants/addresses';
 import { SUPPORTED_WALLETS } from '../../../constants/web3';
+import { YAMATO_SYMBOL } from '../../../constants/yamato';
 import { useActiveWeb3React } from '../../../hooks/web3';
 import {
   injected,
@@ -90,6 +100,17 @@ const YourAccount = styled.div`
     margin: 0;
     font-weight: 500;
   }
+`;
+
+const TokenSection = styled.button`
+  padding: 1rem;
+  border: 1px solid ${({ theme }) => theme.text1};
+  border-radius: 20px;
+  position: relative;
+  display: grid;
+  grid-row-gap: 12px;
+  margin-bottom: 20px;
+  background-color: ${({ theme }) => theme.bg0};
 `;
 
 const LowerSection = styled.div`
@@ -191,6 +212,77 @@ interface AccountDetailsProps {
   ENSName?: string;
   openOptions: () => void;
 }
+
+interface WatchAssetParams {
+  type: string;
+  options: {
+    address: string;
+    symbol: string;
+    decimals: number;
+    image: string;
+  };
+}
+
+function generateTokenImageURL(address: string) {
+  return 'https://defigeek.xyz/tokens/' + address + '/logo.png';
+}
+
+const getToken = (chainId: number, symbol: string): WatchAssetParams => {
+  switch (symbol) {
+    case YAMATO_SYMBOL.YEN:
+      return {
+        type: 'ERC20',
+        options: {
+          address: CJPY_ADDRESSES[chainId],
+          symbol: YAMATO_SYMBOL.YEN,
+          decimals: 18,
+          image: generateTokenImageURL(CJPY_ADDRESSES[chainId]),
+        },
+      };
+    case YAMATO_SYMBOL.GOVERNANCE:
+      return {
+        type: 'ERC20',
+        options: {
+          address: YMT_ADDRESSES[chainId],
+          symbol: YAMATO_SYMBOL.GOVERNANCE,
+          decimals: 18,
+          image: generateTokenImageURL(YMT_ADDRESSES[chainId]),
+        },
+      };
+    case YAMATO_SYMBOL.TXJP:
+      return {
+        type: 'ERC20',
+        options: {
+          address: TXJP_ADDRESSES[chainId],
+          symbol: YAMATO_SYMBOL.TXJP,
+          decimals: 8,
+          image: generateTokenImageURL(TXJP_ADDRESSES[chainId]),
+        },
+      };
+    default:
+      return {
+        type: 'ERC20',
+        options: {
+          address: YMT_ADDRESSES[chainId],
+          symbol: YAMATO_SYMBOL.GOVERNANCE,
+          decimals: 18,
+          image: generateTokenImageURL(YMT_ADDRESSES[chainId]),
+        },
+      };
+  }
+};
+
+const handeAddToken = (e: any, chainId: number, symbol: string) => {
+  e.stopPropagation();
+  (global.window as any)?.ethereum
+    ?.request({
+      method: 'wallet_watchAsset',
+      params: getToken(chainId, symbol),
+    })
+    .catch((error: any) => {
+      console.error(error);
+    });
+};
 
 export default function AccountDetails({
   pendingTransactions,
@@ -299,6 +391,30 @@ export default function AccountDetails({
           </YourAccount>
         </AccountSection>
       </UpperSection>
+      {chainId != null ? (
+        <>
+          <TokenSection
+            onClick={(e: any) => handeAddToken(e, chainId, YAMATO_SYMBOL.YEN)}
+          >
+            <HStack spacing={4} justify={'center'}>
+              <CJPYLogo width={25} height={25} />
+              <p>add CJPY to your Metamask</p>
+              <img src={MetamaskIcon} width={25} height={25}></img>
+            </HStack>
+          </TokenSection>
+          <TokenSection
+            onClick={(e: any) => handeAddToken(e, chainId, YAMATO_SYMBOL.TXJP)}
+          >
+            <HStack spacing={4} justify={'center'}>
+              <img src={TXJPLogo} width={25} height={25}></img>
+              <p>add TXJP to your Metamask</p>
+              <img src={MetamaskIcon} width={25} height={25}></img>
+            </HStack>
+          </TokenSection>
+        </>
+      ) : (
+        <></>
+      )}
       {!!pendingTransactions.length || !!confirmedTransactions.length ? (
         <LowerSection>
           <RowBetween padding="1rem 0">
