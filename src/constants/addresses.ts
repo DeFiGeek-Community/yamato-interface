@@ -43,6 +43,10 @@ export const WRAPPED_ETHER_ADDRESS: AddressMap = {
   [SupportedChainId.MAINNET]: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
   [SupportedChainId.RINKEBY]: '0xc778417E063141139Fce010982780140Aa0cD5Ab',
 };
+export const TXJP_ADDRESSES: AddressMap = {
+  [SupportedChainId.MAINNET]: '0x961dd84059505d59f82ce4fb87d3c09bec65301d',
+  [SupportedChainId.RINKEBY]: '0x4ecc6088708a723b324c06f8fcfb0bb7753ac7b0',
+};
 
 /**
  * ENS

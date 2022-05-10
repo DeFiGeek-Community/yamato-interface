@@ -6,6 +6,7 @@ export const YAMATO_SYMBOL = {
   YEN: 'CJPY',
   GOVERNANCE: 'YMT',
   GOVERNANCE_LOCK: 'veYMT',
+  TXJP: 'TXJP',
 };
 
 export const LOG_EVENT_NAME: {
