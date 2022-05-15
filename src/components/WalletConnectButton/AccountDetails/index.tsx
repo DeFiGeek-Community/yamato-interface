@@ -4,13 +4,13 @@ import { ExternalLink as LinkIcon } from 'react-feather';
 import { useDispatch } from 'react-redux';
 import { Button } from 'rebass/styled-components';
 import styled from 'styled-components';
-import MetamaskIcon from '../../../assets/images/metamask.png';
+import CJPYLogo from '../../../assets/images/cjpy_logo.png';
+import MetamaskIcon from '../../../assets/images/metamask_logo.png';
 import TXJPLogo from '../../../assets/images/txjp_logo.png';
-import CJPYLogo from '../../../components/svgs/CjpyLogo';
 import {
   CJPY_ADDRESSES,
   TXJP_ADDRESSES,
-  YMT_ADDRESSES,
+  // YMT_ADDRESSES,
 } from '../../../constants/addresses';
 import { SUPPORTED_WALLETS } from '../../../constants/web3';
 import { YAMATO_SYMBOL } from '../../../constants/yamato';
@@ -223,8 +223,8 @@ interface WatchAssetParams {
   };
 }
 
-function generateTokenImageURL(address: string) {
-  return 'https://defigeek.xyz/tokens/' + address + '/logo.png';
+function generateTokenImagePath(imagePath: string) {
+  return window.location.origin + imagePath;
 }
 
 const getToken = (chainId: number, symbol: string): WatchAssetParams => {
@@ -236,19 +236,19 @@ const getToken = (chainId: number, symbol: string): WatchAssetParams => {
           address: CJPY_ADDRESSES[chainId],
           symbol: YAMATO_SYMBOL.YEN,
           decimals: 18,
-          image: generateTokenImageURL(CJPY_ADDRESSES[chainId]),
+          image: generateTokenImagePath(CJPYLogo),
         },
       };
-    case YAMATO_SYMBOL.GOVERNANCE:
-      return {
-        type: 'ERC20',
-        options: {
-          address: YMT_ADDRESSES[chainId],
-          symbol: YAMATO_SYMBOL.GOVERNANCE,
-          decimals: 18,
-          image: generateTokenImageURL(YMT_ADDRESSES[chainId]),
-        },
-      };
+    // case YAMATO_SYMBOL.GOVERNANCE:
+    //   return {
+    //     type: 'ERC20',
+    //     options: {
+    //       address: YMT_ADDRESSES[chainId],
+    //       symbol: YAMATO_SYMBOL.GOVERNANCE,
+    //       decimals: 18,
+    //       image: generateTokenImagePath(YMTLogo),
+    //     },
+    //   };
     case YAMATO_SYMBOL.TXJP:
       return {
         type: 'ERC20',
@@ -256,17 +256,17 @@ const getToken = (chainId: number, symbol: string): WatchAssetParams => {
           address: TXJP_ADDRESSES[chainId],
           symbol: YAMATO_SYMBOL.TXJP,
           decimals: 8,
-          image: generateTokenImageURL(TXJP_ADDRESSES[chainId]),
+          image: generateTokenImagePath(TXJPLogo),
         },
       };
     default:
       return {
         type: 'ERC20',
         options: {
-          address: YMT_ADDRESSES[chainId],
-          symbol: YAMATO_SYMBOL.GOVERNANCE,
-          decimals: 18,
-          image: generateTokenImageURL(YMT_ADDRESSES[chainId]),
+          address: TXJP_ADDRESSES[chainId],
+          symbol: YAMATO_SYMBOL.TXJP,
+          decimals: 8,
+          image: generateTokenImagePath(TXJPLogo),
         },
       };
   }
@@ -397,7 +397,7 @@ export default function AccountDetails({
             onClick={(e: any) => handeAddToken(e, chainId, YAMATO_SYMBOL.YEN)}
           >
             <HStack spacing={4} justify={'center'}>
-              <CJPYLogo width={25} height={25} />
+              <img src={CJPYLogo} width={25} height={25}></img>
               <p>add CJPY to your Metamask</p>
               <img src={MetamaskIcon} width={25} height={25}></img>
             </HStack>
