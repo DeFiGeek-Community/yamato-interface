@@ -1,5 +1,5 @@
 import { AbstractConnector } from '@web3-react/abstract-connector';
-import METAMASK_ICON_URL from '../assets/images/metamask.png';
+import METAMASK_ICON_URL from '../assets/images/metamask_logo.png';
 import INJECTED_ICON_URL from '../assets/svg/arrow-right.svg';
 // import WALLETCONNECT_ICON_URL from '../assets/svg/walletConnectIcon.svg';
 import {

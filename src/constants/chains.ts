@@ -1,5 +1,5 @@
 import ms from 'ms.macro';
-import ethereumLogoUrl from '../assets/images/ethereum-logo.png';
+import ethereumLogoUrl from '../assets/images/ethereum_logo.png';
 import arbitrumLogoUrl from '../assets/svg/arbitrum_logo.svg';
 import optimismLogoUrl from '../assets/svg/optimistic_ethereum.svg';
 

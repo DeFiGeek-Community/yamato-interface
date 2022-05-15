@@ -5,7 +5,7 @@ import { WalletConnectConnector } from '@web3-react/walletconnect-connector';
 import { useEffect, useState } from 'react';
 import { isMobile } from 'react-device-detect';
 import styled from 'styled-components';
-import MetamaskIcon from '../../../assets/images/metamask.png';
+import MetamaskIcon from '../../../assets/images/metamask_logo.png';
 // import { OVERLAY_READY } from '../../connectors/Fortmatic';
 import { SUPPORTED_WALLETS } from '../../../constants/web3';
 import usePrevious from '../../../hooks/usePrevious';
