@@ -223,10 +223,6 @@ interface WatchAssetParams {
   };
 }
 
-function generateTokenImagePath(imagePath: string) {
-  return window.location.origin + imagePath;
-}
-
 const getToken = (chainId: number, symbol: string): WatchAssetParams => {
   switch (symbol) {
     case YAMATO_SYMBOL.YEN:
@@ -236,7 +232,7 @@ const getToken = (chainId: number, symbol: string): WatchAssetParams => {
           address: CJPY_ADDRESSES[chainId],
           symbol: YAMATO_SYMBOL.YEN,
           decimals: 18,
-          image: generateTokenImagePath(CJPYLogo),
+          image: CJPYLogo,
         },
       };
     // case YAMATO_SYMBOL.GOVERNANCE:
@@ -256,7 +252,7 @@ const getToken = (chainId: number, symbol: string): WatchAssetParams => {
           address: TXJP_ADDRESSES[chainId],
           symbol: YAMATO_SYMBOL.TXJP,
           decimals: 8,
-          image: generateTokenImagePath(TXJPLogo),
+          image: TXJPLogo,
         },
       };
     default:
@@ -266,7 +262,7 @@ const getToken = (chainId: number, symbol: string): WatchAssetParams => {
           address: TXJP_ADDRESSES[chainId],
           symbol: YAMATO_SYMBOL.TXJP,
           decimals: 8,
-          image: generateTokenImagePath(TXJPLogo),
+          image: TXJPLogo,
         },
       };
   }
