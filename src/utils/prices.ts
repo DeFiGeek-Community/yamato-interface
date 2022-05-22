@@ -26,6 +26,9 @@ export function formatPrice(
 
   const base = 10 ** decimalDigits;
   const flooredValue = Math.floor(multiplyToNum(value, base)) / base;
+  if (!flooredValue) {
+    return { value: '0', isZeroByRound: false };
+  }
   const fixedValue = flooredValue.toFixed(decimalDigits); // to pad with zero to the right.
   return {
     value: format(fixedValue),
