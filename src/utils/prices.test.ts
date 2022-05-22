@@ -4,7 +4,7 @@ describe('formatPrice', () => {
   describe('eth which is 9 decimal point digits', () => {
     it('works for min value', () => {
       const oneWei = 0.000000000000000001;
-      expect(formatPrice(oneWei, 'eth').value).toBe('0.000000000');
+      expect(formatPrice(oneWei, 'eth').value).toBe('0');
     });
 
     it('works for interger', () => {
@@ -72,8 +72,8 @@ describe('formatPrice', () => {
 
   describe('isZeroByRound', () => {
     it('should be true', () => {
-      const oneWei = 0.000000000000000001; // -> `0.000000000`
-      expect(formatPrice(oneWei, 'eth').isZeroByRound).toBe(true);
+      const oneWei = 0.000000000000000001; // -> `0`
+      expect(formatPrice(oneWei, 'eth').isZeroByRound).toBe(false);
     });
 
     it('should be false', () => {
