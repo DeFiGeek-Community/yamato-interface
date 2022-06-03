@@ -38,14 +38,14 @@ export default function RedemptionInput(props: Props) {
 
   const isCore = false;
 
-  const [redemption, setRedemption] = useState<number | string>();
+  const [redemption, setRedemption] = useState<number | ''>();
   const formattedRedeemableCandidate = useMemo(
     () => getEthAmountFromCjpy(redeemableCandidate, rateOfEthJpy),
     [redeemableCandidate, rateOfEthJpy]
   );
   const expectedReward = useMemo(
     () =>
-      typeof redemption === 'number'
+      redemption
         ? getExpectedReward(
             Math.min(redemption, formattedRedeemableCandidate.cjpy),
             isCore,
@@ -57,13 +57,14 @@ export default function RedemptionInput(props: Props) {
   );
 
   const validateRedemption = useCallback(
-    async (value: number | string) => {
+    async (value: number | '') => {
       if (!account || !callback) {
         return `ウォレットを接続してください。またはネットワークを切り替えてください。`;
       }
 
-      if (value !== '' && typeof value !== 'number') {
-        return '数値で入力してください。';
+      if (!value) {
+        setRedemption(value);
+        return;
       }
       if (value > cjpy) {
         return '残高が足りません。';
@@ -82,14 +83,14 @@ export default function RedemptionInput(props: Props) {
 
   const submitRedemption = useCallback(
     async (
-      values: { redemption: number | string },
+      values: { redemption: number | '' },
       formikHelpers: FormikHelpers<{
-        redemption: number | string;
+        redemption: number | '';
       }>
     ) => {
       console.debug('submit self redemption', values);
 
-      if (typeof values.redemption !== 'number') {
+      if (!values.redemption) {
         return;
       }
 
@@ -114,7 +115,7 @@ export default function RedemptionInput(props: Props) {
 
   return (
     <Formik
-      initialValues={{ redemption: '' as number | string }}
+      initialValues={{ redemption: '' as number | '' }}
       onSubmit={submitRedemption}
     >
       {(formikProps) => (
@@ -196,7 +197,7 @@ export default function RedemptionInput(props: Props) {
                 <CustomButton
                   isLoading={formikProps.isSubmitting}
                   type="submit"
-                  isDisabled={typeof redemption !== 'number'}
+                  isDisabled={!redemption}
                 >
                   償還実行
                 </CustomButton>

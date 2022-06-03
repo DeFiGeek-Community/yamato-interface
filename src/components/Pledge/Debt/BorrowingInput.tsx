@@ -31,10 +31,10 @@ export default function BorrowingInput(props: Props) {
   const { account } = useActiveWeb3React();
   const { callback } = useBorrowCallback();
 
-  const [borrowing, setBorrowing] = useState<number | string>();
+  const [borrowing, setBorrowing] = useState<number | ''>();
 
   const feeResult = useMemo(() => {
-    if (typeof borrowing === 'number') {
+    if (borrowing) {
       if (debt + borrowing <= 0) {
         return { fee: 0, feeRate: 0 };
       }
@@ -47,22 +47,23 @@ export default function BorrowingInput(props: Props) {
   }, [collateral, debt, borrowing, rateOfEthJpy]);
 
   const validateBorrowing = useCallback(
-    async (value: number | string) => {
+    async (value: number | '') => {
       if (!account || !callback) {
         return `ウォレットを接続してください。またはネットワークを切り替えてください。`;
       }
 
-      if (typeof value === 'number') {
-        const sum = debt + value;
-        if (sum <= 0) {
-          return '数値で入力してください。';
-        }
-        const collateralRatio = ((collateral * rateOfEthJpy) / sum) * 100;
-        if (MCR > collateralRatio) {
-          return `担保率は最低${MCR}%が必要です。`;
-        }
-      } else if (value !== '') {
+      if (!value) {
+        setBorrowing(value);
+        return;
+      }
+
+      const sum = debt + value;
+      if (sum <= 0) {
         return '数値で入力してください。';
+      }
+      const collateralRatio = ((collateral * rateOfEthJpy) / sum) * 100;
+      if (MCR > collateralRatio) {
+        return `担保率は最低${MCR}%が必要です。`;
       }
 
       // Value is correct
@@ -74,14 +75,14 @@ export default function BorrowingInput(props: Props) {
 
   const submitBorrowing = useCallback(
     async (
-      values: { borrowing: number | string },
+      values: { borrowing: number | '' },
       formikHelpers: FormikHelpers<{
-        borrowing: number | string;
+        borrowing: number | '';
       }>
     ) => {
       console.debug('submit borrowing', values);
 
-      if (typeof values.borrowing !== 'number') {
+      if (!values.borrowing) {
         return;
       }
 
@@ -102,7 +103,7 @@ export default function BorrowingInput(props: Props) {
 
   return (
     <Formik
-      initialValues={{ borrowing: '' as number | string }}
+      initialValues={{ borrowing: '' as number | '' }}
       onSubmit={submitBorrowing}
     >
       {(formikProps) => (
@@ -140,12 +141,12 @@ export default function BorrowingInput(props: Props) {
                 isLoading={formikProps.isSubmitting}
                 type="submit"
                 data-testid="borrowing-act-borrow"
-                isDisabled={typeof borrowing !== 'number'}
+                isDisabled={!borrowing}
               >
                 借入実行
               </CustomButton>
             </HStack>
-            {typeof borrowing === 'number' && borrowing > 0 && (
+            {borrowing && borrowing > 0 && (
               <VStack spacing={4} align="start">
                 <CustomFormLabel
                   text={`受取量 ${

@@ -31,16 +31,17 @@ export default function RepayInput(props: Props) {
   const { account } = useActiveWeb3React();
   const { callback } = useRepayCallback();
 
-  const [repayment, setRepayment] = useState<number | string>();
+  const [repayment, setRepayment] = useState<number | ''>();
 
   const validateRepayment = useCallback(
-    (value: number | string) => {
+    (value: number | '') => {
       if (!account || !callback) {
         return `ウォレットを接続してください。またはネットワークを切り替えてください。`;
       }
 
-      if (value !== '' && typeof value !== 'number') {
-        return '数値で入力してください。';
+      if (!value) {
+        setRepayment(value);
+        return;
       }
       if (value > debt) {
         return '借入量を超えています。';
@@ -58,14 +59,14 @@ export default function RepayInput(props: Props) {
 
   const submitRepayment = useCallback(
     async (
-      values: { repayment: number | string },
+      values: { repayment: number | '' },
       formikHelpers: FormikHelpers<{
-        repayment: number | string;
+        repayment: number | '';
       }>
     ) => {
       console.debug('submit repayment', values);
 
-      if (typeof values.repayment !== 'number') {
+      if (!values.repayment) {
         return;
       }
 
@@ -86,7 +87,7 @@ export default function RepayInput(props: Props) {
 
   return (
     <Formik
-      initialValues={{ repayment: '' as number | string }}
+      initialValues={{ repayment: '' as number | '' }}
       onSubmit={submitRepayment}
     >
       {(formikProps) => (
@@ -137,12 +138,12 @@ export default function RepayInput(props: Props) {
                 isLoading={formikProps.isSubmitting}
                 type="submit"
                 data-testid="borrowing-act-repay"
-                isDisabled={typeof repayment !== 'number'}
+                isDisabled={!repayment}
               >
                 返済実行
               </CustomButton>
             </HStack>
-            {typeof repayment === 'number' && repayment > 0 && (
+            {repayment && repayment > 0 && (
               <VStack spacing={4} align="start">
                 <CustomFormLabel
                   text={`変動予測値 ${
