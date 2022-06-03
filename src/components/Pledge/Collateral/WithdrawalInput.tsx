@@ -29,16 +29,17 @@ export default function WithdrawalInput(props: Props) {
   const { account } = useActiveWeb3React();
   const { callback } = useWithdrawCallback();
 
-  const [withdrawal, setWithdrawal] = useState<number | string>();
+  const [withdrawal, setWithdrawal] = useState<number | ''>();
 
   const validateWithdrawal = useCallback(
-    (value: number | string) => {
+    (value: number | '') => {
       if (!account || !callback) {
         return `ウォレットを接続してください。またはネットワークを切り替えてください。`;
       }
 
-      if (value !== '' && typeof value !== 'number') {
-        return '数値で入力してください。';
+      if (!value) {
+        setWithdrawal(value);
+        return;
       }
       if (value > collateral) {
         return '担保量を超えています。';
@@ -57,14 +58,14 @@ export default function WithdrawalInput(props: Props) {
 
   const submitWithdrawal = useCallback(
     async (
-      values: { withdrawal: number | string },
+      values: { withdrawal: number | '' },
       formikHelpers: FormikHelpers<{
-        withdrawal: number | string;
+        withdrawal: number | '';
       }>
     ) => {
       console.debug('submit withdrawal', values);
 
-      if (typeof values.withdrawal !== 'number') {
+      if (!values.withdrawal) {
         return;
       }
 
@@ -85,7 +86,7 @@ export default function WithdrawalInput(props: Props) {
 
   return (
     <Formik
-      initialValues={{ withdrawal: '' as number | string }}
+      initialValues={{ withdrawal: '' as number | '' }}
       onSubmit={submitWithdrawal}
     >
       {(formikProps) => (
@@ -123,12 +124,12 @@ export default function WithdrawalInput(props: Props) {
                 isLoading={formikProps.isSubmitting}
                 type="submit"
                 data-testid="collateral-act-withdraw"
-                isDisabled={typeof withdrawal !== 'number'}
+                isDisabled={!withdrawal}
               >
                 引出実行
               </CustomButton>
             </HStack>
-            {typeof withdrawal === 'number' && withdrawal > 0 && (
+            {withdrawal && withdrawal > 0 && (
               <VStack spacing={4} align="start">
                 <CustomFormLabel
                   text={`変動予測値 ${

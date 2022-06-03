@@ -27,16 +27,17 @@ export default function DepositInput(props: Props) {
   const { callback } = useDepositCallback();
   const { eth } = useWalletState();
 
-  const [deposit, setDeposit] = useState<number | string>();
+  const [deposit, setDeposit] = useState<number | ''>();
 
   const validateDeposit = useCallback(
-    async (value: number | string) => {
+    async (value: number | '') => {
       if (!account || !callback) {
         return `ウォレットを接続してください。またはネットワークを切り替えてください。`;
       }
 
-      if (value !== '' && typeof value !== 'number') {
-        return '数値で入力してください。';
+      if (!value) {
+        setDeposit(value);
+        return;
       }
       if (value > eth) {
         return '残高を超えています。';
@@ -56,14 +57,14 @@ export default function DepositInput(props: Props) {
 
   const submitDeposit = useCallback(
     async (
-      values: { deposit: number | string },
+      values: { deposit: number | '' },
       formikHelpers: FormikHelpers<{
-        deposit: number | string;
+        deposit: number | '';
       }>
     ) => {
       console.debug('submit deposit', values);
 
-      if (typeof values.deposit !== 'number') {
+      if (!values.deposit) {
         return;
       }
 
@@ -89,7 +90,7 @@ export default function DepositInput(props: Props) {
 
   return (
     <Formik
-      initialValues={{ deposit: '' as number | string }}
+      initialValues={{ deposit: '' as number | '' }}
       onSubmit={submitDeposit}
     >
       {(formikProps) => (
@@ -127,12 +128,12 @@ export default function DepositInput(props: Props) {
                 isLoading={formikProps.isSubmitting}
                 type="submit"
                 data-testid="collateral-act-deposit"
-                isDisabled={typeof deposit !== 'number'}
+                isDisabled={!deposit}
               >
                 預入実行
               </CustomButton>
             </HStack>
-            {typeof deposit === 'number' && deposit > 0 && (
+            {deposit && deposit > 0 && (
               <VStack spacing={4} align="start">
                 <CustomFormLabel
                   text={`変動予測値 ${
