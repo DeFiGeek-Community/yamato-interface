@@ -1,5 +1,5 @@
 {
- "dashboardItem": {
-    "title": "ETHプライス"
+ "dashboard": {
+    "ethPrice": "ETHプライス"
   }
 }
