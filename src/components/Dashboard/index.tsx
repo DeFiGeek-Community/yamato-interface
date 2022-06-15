@@ -1,6 +1,7 @@
 import { ExternalLinkIcon } from '@chakra-ui/icons';
 import { Grid, GridItem, HStack, VStack } from '@chakra-ui/react';
 import { useCallback, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { CJPY_ADDRESSES } from '../../constants/addresses';
 import { YAMATO_SYMBOL } from '../../constants/yamato';
 import { useActiveWeb3React } from '../../hooks/web3';
@@ -62,6 +63,8 @@ export default function Dashboard() {
     },
     [cjpyAddress]
   );
+
+  const { t } = useTranslation();
 
   return (
     <>
@@ -139,7 +142,7 @@ export default function Dashboard() {
             <DashboardItem title={'veYMT量'} stat={'（工事中）'} />
             <DashboardItem title={'総ファーミングスコア'} stat={'（工事中）'} /> */}
               <DashboardItem
-                title={'ETHプライス'}
+                title={t('dashboard.ethPrice')}
                 stat={`¥${formatPrice(rateOfEthJpy, 'jpy').value}`}
                 firstLoadCompleted={firstLoadCompleted}
               />

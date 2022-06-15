@@ -1,5 +1,6 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
+import './i18n/configs';
 import Web3ReactManager from './components/Web3ReactManager';
 import Index from './pages/index';
 import Tools from './pages/tools';
