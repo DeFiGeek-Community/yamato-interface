@@ -10,7 +10,7 @@ import {
   initialState,
   YamatoEntiretyState,
 } from '../../state/yamato-entirety/reducer';
-import { formatEther } from '../web3';
+import { formatEther, getEnsName } from '../web3';
 
 interface YamatoCurentState {
   worldStates: [WorldState];
@@ -109,7 +109,7 @@ export async function fetchSubgraph(
     res = { ...res, ...transformWorldStates(data.worldStates[0]) };
   }
   if (data.events.length > 0) {
-    res = { ...res, events: transformEvents(data.events) };
+    res = { ...res, events: await transformEvents(data.events) };
   }
   if (data.sweepablePledges.length > 0) {
     res.pledges.sweepableCandidate = transformSweepablePledges(
@@ -169,7 +169,7 @@ function transformMyPledge(pledge: Pledge) {
   };
 }
 
-function transformEvents(events: Event[]) {
+async function transformEvents(events: Event[]) {
   const newState: YamatoEntiretyState['events'] = [];
 
   for (const event of events) {
@@ -178,7 +178,7 @@ function transformEvents(events: Event[]) {
         newState.push({
           id: event.id,
           date: event.date,
-          address: event.address,
+          address: await getEnsName(event.address),
           category: 'deposit',
           value: formatEther(event.ethAmount),
         });
@@ -187,7 +187,7 @@ function transformEvents(events: Event[]) {
         newState.push({
           id: event.id,
           date: event.date,
-          address: event.address,
+          address: await getEnsName(event.address),
           category: 'withdrawal',
           value: formatEther(event.ethAmount),
         });
@@ -196,7 +196,7 @@ function transformEvents(events: Event[]) {
         newState.push({
           id: event.id,
           date: event.date,
-          address: event.address,
+          address: await getEnsName(event.address),
           category: 'borrowing',
           value: formatEther(event.cjpyAmount),
         });
@@ -205,7 +205,7 @@ function transformEvents(events: Event[]) {
         newState.push({
           id: event.id,
           date: event.date,
-          address: event.address,
+          address: await getEnsName(event.address),
           category: 'repay',
           value: formatEther(event.cjpyAmount),
         });
@@ -214,7 +214,7 @@ function transformEvents(events: Event[]) {
         newState.push({
           id: event.id,
           date: event.date,
-          address: event.address,
+          address: await getEnsName(event.address),
           category: !event.isCoreRedemption
             ? 'self_redemption'
             : 'core_redemption',
@@ -225,7 +225,7 @@ function transformEvents(events: Event[]) {
         newState.push({
           id: event.id,
           date: event.date,
-          address: event.address,
+          address: await getEnsName(event.address),
           category: 'sweep',
           value: formatEther(event.gasCompensationAmount),
         });
