@@ -1,5 +1,113 @@
 {
- "dashboard": {
-    "ethPrice": "ETHプライス"
+  "dashboard": {
+    "ethPrice": "ETHプライス",
+    "intermarketPriceVariance": "市場間価格差異",
+    "cjpyTotalSupply": "CJPY総発行量"
+  },
+  "Infographics": {
+    "word1": "CJPY 借入推奨",
+    "word2": "CJPY 買い推奨",
+    "word3": "CJPY 返済推奨",
+    "word4": "償還推奨",
+    "word5": "償還プール",
+    "word6": "弁済プール"
+  },
+  "header": {
+    "tools": "ツール"
+  },
+  "pledgeCollateral": {
+    "word1" : "ウォレットを接続してください。またはネットワークを切り替えてください。",
+    "word2" : "残高を超えています。",
+    "word3" : "最小担保量は",
+    "word4" : "です。",
+    "word5" : "預入量が0です。",
+    "word6" : "預入量入力",
+    "word7" : "預入実行",
+    "word8" : "変動予測値",
+    "word9" : "担保率",
+    "word10" : "担保量",
+    "valuation" : "評価額",
+    "word12" : "担保量を超えています。",
+    "word13" : "引出量入力",
+    "word14" : "引出実行"
+  },
+  "pledgeDebt": {
+    "word1" : "ウォレットを接続してください。またはネットワークを切り替えてください。",
+    "word2" : "数値で入力してください。",
+    "word3" : "担保率は最低",
+    "word4" : "%が必要です。",
+    "word5" : "借入量入力",
+    "word6" : "借入実行",
+    "word7" : "返済量入力",
+    "word8" : "受取量",
+    "word9" : "手数料",
+    "word10" : "手数料率",
+    "word11" : "借入量合計",
+    "word12" : "担保率",
+    "word13": "最大借入可能量",
+    "word14" : "借入量",
+    "word15" : "借入量を超えています。",
+    "word16" : "残高を超えています。",
+    "word17" : "返済実行",
+    "word18" : "変動予測値"
+  },
+  "redemptionCore" : {
+    "word1": "Yamato償還",
+    "word2": "ウォレットを接続してください。またはネットワークを切り替えてください。",
+    "word3": "プール総量",
+    "word4": "償還候補総量",
+    "word5": "実行リワード予測",
+    "word6": "Yamato償還実行"   
+  },
+  "redemptionSelf" : {
+    "word1": "償還",
+    "word2": "ウォレットを接続してください。またはネットワークを切り替えてください。",
+    "word3": "残高が足りません。",
+    "word4": "可能数量を超えています。",
+    "word5": "償還実行量入力",
+    "word6": "予想担保獲得量",
+    "word7": "償還候補総量",
+    "word8": "償還実行"
+  },
+  "redemptionSweep" : {
+    "word1": "Yamato代位弁済",
+    "word2": "ウォレットを接続してください。またはネットワークを切り替えてください。",
+    "word3": "プール総量",
+    "word4": "弁済候補総量",
+    "word5": "実行リワード予測",
+    "word6": "代位弁済実行"
+  },
+  "common": {
+    "terminology": "用語解説",
+    "tvl": "TVL: 総預入額(Total Value Locked)",
+    "tcr": "TCR: 総担保比率(Total Collateral Ratio)",
+    "mcr": "MCR: 最低担保比率(Minimum Collateral Ratio)"
+  },
+  "tools": {
+    "word1": "担保総額(ETH)",
+    "word2": "借入総額(CJPY)",
+    "word3": "CJPY/JPY 交換レート",
+    "word4": "ETH/JPY 交換レート",
+    "word5": "直前の ETH/JPY 交換レート",
+    "word6": "償還プール(CJPY)",
+    "word7": "直前の償還プール(CJPY)",
+    "word8": "弁済プール(CJPY)",
+    "word9": "直前の弁済プール(CJPY)"
+  },
+  "walletConnectButton": {
+    "word1": "獲得予想",
+    "word2": "サポートしているEthereum\nnetworkに切り替えてください。現在はmainnetとrinkebyに対応しています。",
+    "word3": "ウォレットを選んでください。",
+    "word4": "または拡張機能から直接操作してみてください。"
+  },
+  "world": {
+    "word1": "ETHを預けました!",
+    "word2": "ETHを引き出しました!",
+    "word3": "CJPYを借り入れました!",
+    "word4": "CJPYを返済しました!",
+    "word5": "トリガーしました！",
+    "word6": "を行いました！",
+    "word7": "が",
+    "word8": "ログがありません。"
   }
 }
