@@ -142,7 +142,7 @@ export default function Dashboard() {
             <DashboardItem title={'veYMT量'} stat={'（工事中）'} />
             <DashboardItem title={'総ファーミングスコア'} stat={'（工事中）'} /> */}
               <DashboardItem
-                title={t('dashboard.ethPrice')}
+                title={'ETH' + t('dashboard.price')}
                 stat={`¥${formatPrice(rateOfEthJpy, 'jpy').value}`}
                 firstLoadCompleted={firstLoadCompleted}
               />

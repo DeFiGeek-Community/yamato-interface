@@ -3,13 +3,13 @@
     "tvl": "TVL: 総預入額(Total Value Locked)",
     "tcr": "TCR: 総担保比率(Total Collateral Ratio)",
     "intermarketPriceVariance": "市場間価格差異",
-    "ethPrice": "ETHプライス",
-    "cjpyTotalSupply": "CJPY総発行量"
+    "price": "プライス",
+    "totalSupply": "総発行量"
   },
   "infographics": {
-    "word1": "CJPY 借入推奨",
-    "word2": "CJPY 買い推奨",
-    "word3": "CJPY 返済推奨",
+    "word1": "借入推奨",
+    "word2": "買い推奨",
+    "word3": "返済推奨",
     "word4": "償還推奨",
     "tcr": "TCR: 総担保比率(Total Collateral Ratio)",
     "mcr": "MCR: 最低担保比率(Minimum Collateral Ratio)",
@@ -59,12 +59,12 @@
   },
   "redemption": {
     "coreRedemption": {
-      "word1": "Yamato償還",
+      "word1": "償還",
       "word2": "ウォレットを接続してください。またはネットワークを切り替えてください。",
       "word3": "プール総量",
       "word4": "償還候補総量",
       "word5": "実行リワード予測",
-      "word6": "Yamato償還実行" 
+      "word6": "償還実行" 
     },
     "selfRedemption": {
       "word1": "償還",
@@ -77,7 +77,7 @@
       "word8": "償還実行"
     },
     "sweep": {
-      "word1": "Yamato代位弁済",
+      "word1": "代位弁済",
       "word2": "ウォレットを接続してください。またはネットワークを切り替えてください。",
       "word3": "プール総量",
       "word4": "弁済候補総量",
@@ -89,15 +89,14 @@
     "terminology": "用語解説"
   },
   "tools": {
-    "word1": "担保総額(ETH)",
-    "word2": "借入総額(CJPY)",
-    "word3": "CJPY/JPY 交換レート",
-    "word4": "ETH/JPY 交換レート",
-    "word5": "直前の ETH/JPY 交換レート",
-    "word6": "償還プール(CJPY)",
-    "word7": "直前の償還プール(CJPY)",
-    "word8": "弁済プール(CJPY)",
-    "word9": "直前の弁済プール(CJPY)"
+    "word1": "担保総額",
+    "word2": "借入総額",
+    "word3": "交換レート",
+    "word5": "直前の",
+    "word6": "償還プール",
+    "word7": "直前の償還プール",
+    "word8": "弁済プール",
+    "word9": "直前の弁済プール"
   },
   "walletConnectButton": {
     "accountDetails": {
@@ -111,10 +110,10 @@
   },
   "world": {
     "logViewer": {
-      "word1": "ETHを預けました!",
-      "word2": "ETHを引き出しました!",
-      "word3": "CJPYを借り入れました!",
-      "word4": "CJPYを返済しました!",
+      "word1": "を預けました!",
+      "word2": "を引き出しました!",
+      "word3": "を借り入れました!",
+      "word4": "を返済しました!",
       "word5": "トリガーしました！",
       "word6": "を行いました！",
       "word7": "が",
