@@ -69,7 +69,7 @@ export default function SweepInput(props: Props) {
       // reset
       formikHelpers.resetForm();
     },
-    [account, expectedReward, callback]
+    [account, expectedReward, t, callback]
   );
 
   return (

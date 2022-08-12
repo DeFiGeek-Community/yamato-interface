@@ -9,6 +9,7 @@ import {
   Box,
   HStack,
 } from '@chakra-ui/react';
+import { useTranslation } from 'react-i18next';
 import {
   ButtonInHeaderBox1,
   popoverBorderColor,
@@ -24,6 +25,7 @@ export default function TerminologyPopover({
   width?: string;
   children: React.ReactNode;
 }) {
+  const { t } = useTranslation();
   return (
     <Popover isLazy closeOnEsc placement={'bottom-start'}>
       <PopoverTrigger>
@@ -35,7 +37,9 @@ export default function TerminologyPopover({
           borderColor={popoverBorderColor}
           borderWidth={'0.4em 0.4em 0 0.4em'}
         >
-          <ItemTitleForPledge>{title ?? '用語解説'}</ItemTitleForPledge>
+          <ItemTitleForPledge>
+            {title ?? t('terminologyPopover.terminology')}
+          </ItemTitleForPledge>
           <PopoverCloseButton textColor={popoverBorderColor} />
         </PopoverHeader>
         <HStack
