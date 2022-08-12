@@ -18,7 +18,9 @@ export default function Collateral() {
     <>
       <Grid templateColumns="repeat(16, 1fr)" gap={4} mb={4}>
         <GridItem colSpan={2}>
-          <ItemTitleForPledge marginTop={26}>{t('pledge.collateral.collateralVolume')}</ItemTitleForPledge>
+          <ItemTitleForPledge marginTop={26}>
+            {t('pledge.collateral.collateralVolume')}
+          </ItemTitleForPledge>
         </GridItem>
 
         <GridItem colSpan={3}>
@@ -63,7 +65,9 @@ export default function Collateral() {
 
       <Grid templateColumns="repeat(8, 1fr)" gap={4} mb={4}>
         <GridItem colSpan={1}>
-          <ItemTitleForPledge marginTop={26}>{t('pledge.collateral.valuation')}</ItemTitleForPledge>
+          <ItemTitleForPledge marginTop={26}>
+            {t('pledge.collateral.valuation')}
+          </ItemTitleForPledge>
         </GridItem>
         <GridItem colSpan={2}>
           <ItemTitleValue marginTop={26}>

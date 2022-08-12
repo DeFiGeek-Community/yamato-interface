@@ -6,6 +6,7 @@ import {
 } from '@chakra-ui/react';
 import { Formik, Form, Field, FormikHelpers, FieldProps } from 'formik';
 import { useCallback, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { MIN_COLLATERAL, YAMATO_SYMBOL } from '../../../constants/yamato';
 import { useActiveWeb3React } from '../../../hooks/web3';
 import { useDepositCallback } from '../../../hooks/yamato/useDepositCallback';
@@ -29,10 +30,12 @@ export default function DepositInput(props: Props) {
 
   const [deposit, setDeposit] = useState<number | ''>();
 
+  const { t } = useTranslation();
+
   const validateDeposit = useCallback(
     async (value: number | '') => {
       if (!account || !callback) {
-        return `ウォレットを接続してください。またはネットワークを切り替えてください。`;
+        return t('pledge.collateral.alert1');
       }
 
       if (!value) {
@@ -52,7 +55,7 @@ export default function DepositInput(props: Props) {
       setDeposit(value);
       return undefined;
     },
-    [account, eth, collateral, callback]
+    [account, eth, collateral, t, callback]
   );
 
   const submitDeposit = useCallback(
