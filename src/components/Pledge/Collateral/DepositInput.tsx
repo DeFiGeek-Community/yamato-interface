@@ -88,7 +88,7 @@ export default function DepositInput(props: Props) {
       setDeposit('');
       formikHelpers.resetForm();
     },
-    [t,callback]
+    [t, callback]
   );
 
   return (
@@ -113,10 +113,7 @@ export default function DepositInput(props: Props) {
                     isInvalid={!!formikProps.errors.deposit}
                     style={{ maxWidth: '200px' }}
                   >
-                    <CustomFormLabel 
-                      htmlFor="deposit" 
-                      text={t('pledge.collateral.depositVolumeInput')} 
-                    />
+                    <CustomFormLabel htmlFor="deposit" text="預入量入力" />
                     <CustomInput
                       {...field}
                       id="deposit"
@@ -136,17 +133,16 @@ export default function DepositInput(props: Props) {
                 data-testid="collateral-act-deposit"
                 isDisabled={!deposit}
               >
-                {t('pledge.collateral.depositExecution')}
+                預入実行
               </CustomButton>
             </HStack>
             {deposit && deposit > 0 && (
               <VStack spacing={4} align="start">
                 <CustomFormLabel
-                  text={`変動予測値 '${
+                  text={`変動予測値 ${
                     formatPrice(addToNum(collateral, deposit), 'jpy').value
                   } ${YAMATO_SYMBOL.COLLATERAL}`}
                 />
-
                 <CustomFormLabel
                   text={`担保率 ${formatCollateralizationRatio(
                     (collateral + deposit) * rateOfEthJpy,
