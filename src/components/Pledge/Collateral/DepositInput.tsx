@@ -113,7 +113,10 @@ export default function DepositInput(props: Props) {
                     isInvalid={!!formikProps.errors.deposit}
                     style={{ maxWidth: '200px' }}
                   >
-                    <CustomFormLabel htmlFor="deposit" text={t('pledge.collateral.depositVolumeInput')} />
+                    <CustomFormLabel 
+                      htmlFor="deposit" 
+                      text={t('pledge.collateral.depositVolumeInput')} 
+                    />
                     <CustomInput
                       {...field}
                       id="deposit"
@@ -143,6 +146,7 @@ export default function DepositInput(props: Props) {
                     formatPrice(addToNum(collateral, deposit), 'jpy').value
                   } ${YAMATO_SYMBOL.COLLATERAL}`}
                 />
+
                 <CustomFormLabel
                   text={`担保率 ${formatCollateralizationRatio(
                     (collateral + deposit) * rateOfEthJpy,
