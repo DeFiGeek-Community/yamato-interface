@@ -6,6 +6,7 @@ import {
 } from '@chakra-ui/react';
 import { Formik, Form, Field, FormikHelpers, FieldProps } from 'formik';
 import { useCallback, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { MIN_COLLATERAL, YAMATO_SYMBOL } from '../../../constants/yamato';
 import { useActiveWeb3React } from '../../../hooks/web3';
 import { useDepositCallback } from '../../../hooks/yamato/useDepositCallback';
@@ -29,10 +30,12 @@ export default function DepositInput(props: Props) {
 
   const [deposit, setDeposit] = useState<number | ''>();
 
+  const { t } = useTranslation();
+
   const validateDeposit = useCallback(
     async (value: number | '') => {
       if (!account || !callback) {
-        return `ウォレットを接続してください。またはネットワークを切り替えてください。`;
+        return t('pledge.collateral.alert1');
       }
 
       if (!value) {
@@ -40,11 +43,14 @@ export default function DepositInput(props: Props) {
         return;
       }
       if (value > eth) {
-        return '残高を超えています。';
+        return t('pledge.collateral.alert2');
       }
       if (value < MIN_COLLATERAL - collateral) {
         return (
-          '最小担保量は' + MIN_COLLATERAL + YAMATO_SYMBOL.COLLATERAL + 'です。'
+          t('pledge.collateral.alert3') +
+          MIN_COLLATERAL +
+          YAMATO_SYMBOL.COLLATERAL +
+          t('pledge.collateral.alert4')
         );
       }
 
@@ -52,7 +58,7 @@ export default function DepositInput(props: Props) {
       setDeposit(value);
       return undefined;
     },
-    [account, eth, collateral, callback]
+    [account, eth, collateral, t, callback]
   );
 
   const submitDeposit = useCallback(
@@ -69,7 +75,7 @@ export default function DepositInput(props: Props) {
       }
 
       if (values.deposit <= 0) {
-        errorToast('預入量が0です。');
+        errorToast(t('pledge.collateral.alert5'));
         return;
       }
 
@@ -85,7 +91,7 @@ export default function DepositInput(props: Props) {
       setDeposit('');
       formikHelpers.resetForm();
     },
-    [callback]
+    [t, callback]
   );
 
   return (
@@ -110,7 +116,10 @@ export default function DepositInput(props: Props) {
                     isInvalid={!!formikProps.errors.deposit}
                     style={{ maxWidth: '200px' }}
                   >
-                    <CustomFormLabel htmlFor="deposit" text="預入量入力" />
+                    <CustomFormLabel
+                      htmlFor="deposit"
+                      text={t('pledge.collateral.depositVolumeInput')}
+                    />
                     <CustomInput
                       {...field}
                       id="deposit"
@@ -130,18 +139,20 @@ export default function DepositInput(props: Props) {
                 data-testid="collateral-act-deposit"
                 isDisabled={!deposit}
               >
-                預入実行
+                {t('pledge.collateral.depositExecution')}
               </CustomButton>
             </HStack>
             {deposit && deposit > 0 && (
               <VStack spacing={4} align="start">
                 <CustomFormLabel
-                  text={`変動予測値 ${
+                  text={`${t('pledge.collateral.predictedFluctuation')} '${
                     formatPrice(addToNum(collateral, deposit), 'jpy').value
                   } ${YAMATO_SYMBOL.COLLATERAL}`}
                 />
                 <CustomFormLabel
-                  text={`担保率 ${formatCollateralizationRatio(
+                  text={`${t(
+                    'pledge.collateral.collateralRatio'
+                  )} ${formatCollateralizationRatio(
                     (collateral + deposit) * rateOfEthJpy,
                     debt
                   )}%`}

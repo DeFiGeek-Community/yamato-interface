@@ -1,4 +1,5 @@
 import { Grid, GridItem } from '@chakra-ui/react';
+import { useTranslation } from 'react-i18next';
 import { useYamatoStateForPledge } from '../../../state/yamato-entirety/hooks';
 import { ItemTitleForPledge } from '../../CommonItem';
 import SweepInput from './SweepInput';
@@ -12,11 +13,13 @@ export default function Sweep() {
     firstLoadCompleted,
   } = useYamatoStateForPledge();
 
+  const { t } = useTranslation();
+
   return (
     <Grid templateColumns="repeat(6, 1fr)" gap={4}>
       <GridItem colSpan={1}>
         <ItemTitleForPledge width="150px" marginTop={24}>
-          Yamato代位弁済
+          Yamato{t('redemption.sweep.subrogation')}
         </ItemTitleForPledge>
       </GridItem>
 

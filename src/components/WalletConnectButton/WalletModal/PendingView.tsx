@@ -1,4 +1,5 @@
 import { AbstractConnector } from '@web3-react/abstract-connector';
+import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 import { SUPPORTED_WALLETS } from '../../../constants/web3';
 import { injected } from '../../../infrastructures/connectors';
@@ -70,6 +71,7 @@ export default function PendingView({
   tryActivation: (connector: AbstractConnector) => void;
 }) {
   const isMetamask = window?.ethereum?.isMetaMask;
+  const { t } = useTranslation();
 
   return (
     <PendingSection>
@@ -100,7 +102,7 @@ export default function PendingView({
                       margin: '0px 12px 0px',
                     }}
                   >
-                    または拡張機能から直接操作してみてください。
+                    {t('walletConnectButton.walletModal.alert3')}
                   </Text>
                 )}
               </div>

@@ -1,0 +1,123 @@
+{
+  "dashboard": {
+    "tvl": "TVL: 総預入額(Total Value Locked)",
+    "tcr": "TCR: 総担保比率(Total Collateral Ratio)",
+    "intermarketPriceVariance": "市場間価格差異",
+    "price": "プライス",
+    "totalSupply": "総発行量"
+  },
+  "infographics": {
+    "borrowRecommend": "借入推奨",
+    "buyRecommend": "買い推奨",
+    "repaymentRecommend": "返済推奨",
+    "redemptionRecommend": "償還推奨",
+    "tcr": "TCR: 総担保比率(Total Collateral Ratio)",
+    "mcr": "MCR: 最低担保比率(Minimum Collateral Ratio)",
+    "redemptionPool": "償還プール",
+    "liquidationPool": "弁済プール"
+  },
+  "layout": {
+    "tool": "ツール"
+  },
+  "pledge": {
+    "collateral" : {
+      "alert1" : "ウォレットを接続してください。またはネットワークを切り替えてください。",
+      "alert2" : "残高を超えています。",
+      "alert3" : "最小担保量は",
+      "alert4" : "です。",
+      "alert5" : "預入量が0です。",
+      "depositVolumeInput" : "預入量入力",
+      "depositExecution" : "預入実行",
+      "predictedFluctuation" : "変動予測値",
+      "collateralRatio" : "担保率",
+      "collateralVolume" : "担保量",
+      "valuation" : "評価額",
+      "alert6" : "担保量を超えています。",
+      "withdrawalVolumeInput" : "引出量入力",
+      "withdrawalExecution" : "引出実行"
+    },
+    "debt": {
+      "alert1" : "ウォレットを接続してください。またはネットワークを切り替えてください。",
+      "alert2" : "数値で入力してください。",
+      "alert3" : "担保率は最低",
+      "alert4" : "%が必要です。",
+      "borrowVolumeInput" : "借入量入力",
+      "borrowExecution" : "借入実行",
+      "receiptVolume" : "受取量",
+      "fee" : "手数料",
+      "feeRate" : "手数料率",
+      "totalBorrowVolume" : "借入量合計",
+      "maximumBorrowPossibleVolume": "最大借入可能量",
+      "borrowVolume" : "借入量",
+      "collateralRate" : "担保率",
+      "alert5" : "借入量を超えています。",
+      "alert6" : "残高を超えています。",
+      "repaymentVolumeInput" : "返済量入力",
+      "repaymentExecution" : "返済実行",
+      "predictedFluctuation" : "変動予測値"
+    }
+  },
+  "redemption": {
+    "coreRedemption": {
+      "redemption": "償還",
+      "alert1": "ウォレットを接続してください。またはネットワークを切り替えてください。",
+      "totalPoolVolume": "プール総量",
+      "totalContenderRedemption": "償還候補総量",
+      "executionRewardPrediction": "実行リワード予測",
+      "redemptionExecution": "償還実行" 
+    },
+    "selfRedemption": {
+      "redemption": "償還",
+      "alert1": "ウォレットを接続してください。またはネットワークを切り替えてください。",
+      "alert2": "残高が足りません。",
+      "alert3": "可能数量を超えています。",
+      "redemptionExecutionVolumeInput": "償還実行量入力",
+      "predictedCollateralGainVolume": "予想担保獲得量",
+      "totalContenderRedemption": "償還候補総量",
+      "redemptionExecution": "償還実行"
+    },
+    "sweep": {
+      "subrogation": "代位弁済",
+      "alert1": "ウォレットを接続してください。またはネットワークを切り替えてください。",
+      "totalPoolVolume": "プール総量",
+      "totalContenderLiquidation": "弁済候補総量",
+      "executionRewardPrediction": "実行リワード予測",
+      "subrogationExecution": "代位弁済実行"
+    }
+  },
+  "terminologyPopover": {
+    "terminology": "用語解説"
+  },
+  "tools": {
+    "totalCollateralVolume": "担保総額",
+    "totalBorrowVolume": "借入総額",
+    "exchangeRate": "交換レート",
+    "immediately": "直前の",
+    "redemptionPool": "償還プール",
+    "immediatelyRedemptionPool": "直前の償還プール",
+    "liquidationPool": "弁済プール",
+    "immediatelyLiquidationPool": "直前の弁済プール"
+  },
+  "walletConnectButton": {
+    "accountDetails": {
+      "predictedGain": "獲得予想"
+    },
+    "walletModal": {
+      "alert1": "サポートしているEthereum\nnetworkに切り替えてください。現在はmainnetとrinkebyに対応しています。",
+      "alert2": "ウォレットを選んでください。",
+      "alert3": "または拡張機能から直接操作してみてください。"
+    }
+  },
+  "world": {
+    "logViewer": {
+      "alert1": "を預けました!",
+      "alert2": "を引き出しました!",
+      "alert3": "を借り入れました!",
+      "alert4": "を返済しました!",
+      "alert5": "トリガーしました！",
+      "alert6": "を行いました！",
+      "alert7": "が",
+      "alert8": "ログがありません。"
+    }
+  }
+}

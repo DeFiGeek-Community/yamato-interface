@@ -4,6 +4,7 @@ import { UnsupportedChainIdError, useWeb3React } from '@web3-react/core';
 import { WalletConnectConnector } from '@web3-react/walletconnect-connector';
 import { useEffect, useState } from 'react';
 import { isMobile } from 'react-device-detect';
+import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 import MetamaskIcon from '../../../assets/images/metamask_logo.png';
 // import { OVERLAY_READY } from '../../connectors/Fortmatic';
@@ -115,6 +116,8 @@ export default function WalletModal({
   const toggleWalletModal = useWalletModalToggle();
 
   const previousAccount = usePrevious(account);
+
+  const { t } = useTranslation();
 
   // close on connection, when logged out before
   useEffect(() => {
@@ -288,10 +291,7 @@ export default function WalletModal({
           </HeaderRow>
           <ContentWrapper>
             {error instanceof UnsupportedChainIdError ? (
-              <h5>
-                サポートしているEthereum
-                networkに切り替えてください。現在はmainnetとrinkebyに対応しています。
-              </h5>
+              <h5>{t('walletConnectButton.walletModal.alert1')}</h5>
             ) : (
               'Error connecting. Try refreshing the page.'
             )}
@@ -332,7 +332,7 @@ export default function WalletModal({
 
         <ContentWrapper>
           <AutoRow style={{ flexWrap: 'nowrap', marginBottom: '16px' }}>
-            <Text>ウォレットを選んでください。 </Text>
+            <Text>{t('walletConnectButton.walletModal.alert2')} </Text>
           </AutoRow>
           {walletView === WALLET_VIEWS.PENDING ? (
             <PendingView

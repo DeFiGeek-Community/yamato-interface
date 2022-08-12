@@ -8,6 +8,7 @@ import {
 } from '@chakra-ui/react';
 import { Formik, Form, Field, FieldProps, FormikHelpers } from 'formik';
 import { useCallback, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { YAMATO_SYMBOL } from '../../../constants/yamato';
 import { useActiveWeb3React } from '../../../hooks/web3';
 import { useRedeemCallback } from '../../../hooks/yamato/useRedemption';
@@ -36,6 +37,8 @@ export default function RedemptionInput(props: Props) {
   const { callback } = useRedeemCallback();
   const { cjpy } = useWalletState();
 
+  const { t } = useTranslation();
+
   const isCore = false;
 
   const [redemption, setRedemption] = useState<number | ''>();
@@ -59,7 +62,7 @@ export default function RedemptionInput(props: Props) {
   const validateRedemption = useCallback(
     async (value: number | '') => {
       if (!account || !callback) {
-        return `ウォレットを接続してください。またはネットワークを切り替えてください。`;
+        return t('redemption.selfRedemption.alert1');
       }
 
       if (!value) {
@@ -67,18 +70,18 @@ export default function RedemptionInput(props: Props) {
         return;
       }
       if (value > cjpy) {
-        return '残高が足りません。';
+        return t('redemption.selfRedemption.alert2');
       }
 
       if (value > formattedRedeemableCandidate.cjpy) {
-        return '可能数量を超えています。';
+        return t('redemption.selfRedemption.alert3');
       }
 
       // Value is correct
       setRedemption(value);
       return undefined;
     },
-    [account, cjpy, formattedRedeemableCandidate, callback]
+    [account, cjpy, formattedRedeemableCandidate, t, callback]
   );
 
   const submitRedemption = useCallback(
@@ -130,7 +133,9 @@ export default function RedemptionInput(props: Props) {
                   >
                     <CustomFormLabel
                       htmlFor="redemption"
-                      text="償還実行量入力"
+                      text={t(
+                        'redemption.selfRedemption.redemptionExecutionVolumeInput'
+                      )}
                     />
                     <CustomInput
                       {...field}
@@ -146,7 +151,11 @@ export default function RedemptionInput(props: Props) {
               </Field>
               {typeof redemption === 'number' && redemption > 0 && (
                 <VStack align="start" mt={4}>
-                  <CustomFormLabel text="予想担保獲得量" />
+                  <CustomFormLabel
+                    text={t(
+                      'redemption.selfRedemption.predictedCollateralGainVolume'
+                    )}
+                  />
                   <Text>
                     {formatPrice(expectedReward.eth, 'eth').value}
                     {` `}
@@ -158,7 +167,9 @@ export default function RedemptionInput(props: Props) {
 
             <GridItem colSpan={2}>
               <VStack align="start">
-                <CustomFormLabel text="償還候補総量" />
+                <CustomFormLabel
+                  text={t('redemption.selfRedemption.totalContenderRedemption')}
+                />
                 <Text>
                   {firstLoadCompleted ? (
                     <>
@@ -199,7 +210,7 @@ export default function RedemptionInput(props: Props) {
                   type="submit"
                   isDisabled={!redemption}
                 >
-                  償還実行
+                  {t('redemption.selfRedemption.redemptionExecution')}
                 </CustomButton>
               </div>
             </GridItem>

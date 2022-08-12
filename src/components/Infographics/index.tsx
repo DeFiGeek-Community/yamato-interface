@@ -1,5 +1,6 @@
 import { Grid, GridItem, HStack } from '@chakra-ui/react';
 import { useCallback, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useYamatoStateForInfographics } from '../../state/yamato-entirety/hooks';
 import { getEthChangePercent } from '../../utils/prices';
 import {
@@ -48,14 +49,11 @@ export interface InfographicsProps {
 }
 
 export function InfographicsHelp() {
+  const { t } = useTranslation();
   return (
     <TerminologyPopover>
-      <div>
-        <ItemTitleValue>TCR: 総担保比率(Total Collateral Ratio)</ItemTitleValue>
-        <ItemTitleValue>
-          MCR: 最低担保比率(Minimum Collateral Ratio)
-        </ItemTitleValue>
-      </div>
+      <ItemTitleValue>{t('infographics.tcr')}</ItemTitleValue>
+      <ItemTitleValue>{t('infographics.mcr')}</ItemTitleValue>
     </TerminologyPopover>
   );
 }
@@ -63,6 +61,7 @@ export function InfographicsHelp() {
 export function InfographicsContent(props: Partial<InfographicsProps>) {
   const yamatoState = useYamatoStateForInfographics();
   const mixedValues = { ...yamatoState, ...props };
+  const { t } = useTranslation();
 
   const {
     rateOfCjpyJpy,
@@ -139,14 +138,15 @@ export function InfographicsContent(props: Partial<InfographicsProps>) {
     const messages = getSignalMessages(
       cjpyPriceRank,
       ethPriceRank,
-      isRedeemablePledge
+      isRedeemablePledge,
+      t
     );
     return messages.map((message, index) => (
       <ItemTitleValue key={index} style={{ display: 'block' }}>
         {message}
       </ItemTitleValue>
     ));
-  }, [cjpyPriceRank, ethPriceRank, isRedeemablePledge]);
+  }, [cjpyPriceRank, ethPriceRank, isRedeemablePledge, t]);
 
   return (
     <>

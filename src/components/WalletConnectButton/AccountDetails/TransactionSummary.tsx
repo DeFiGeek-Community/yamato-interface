@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { LOG_EVENT_NAME, YAMATO_SYMBOL } from '../../../constants/yamato';
 import {
   BorrowTransactionInfo,
@@ -40,25 +41,32 @@ function RepaySummary({ info }: { info: RepayTransactionInfo }) {
   );
 }
 function SelfRedeemSummary({ info }: { info: SelfRedeemTransactionInfo }) {
+  const { t } = useTranslation();
   return (
     <>
-      {LOG_EVENT_NAME.self_redemption} {info.value} {YAMATO_SYMBOL.YEN} 獲得予想{' '}
-      {info.expected} {YAMATO_SYMBOL.COLLATERAL}
+      {LOG_EVENT_NAME.self_redemption} {info.value} {YAMATO_SYMBOL.YEN}{' '}
+      {t('walletConnectButton.accountDetails.predictedGain')} {info.expected}{' '}
+      {YAMATO_SYMBOL.COLLATERAL}
     </>
   );
 }
 function CoreRedeemSummary({ info }: { info: CoreRedeemTransactionInfo }) {
+  const { t } = useTranslation();
   return (
     <>
-      {LOG_EVENT_NAME.core_redemption} 獲得予想 {info.expected}{' '}
+      {LOG_EVENT_NAME.core_redemption}{' '}
+      {t('walletConnectButton.accountDetails.predictedGain')} {info.expected}{' '}
       {YAMATO_SYMBOL.COLLATERAL}
     </>
   );
 }
 function SweepSummary({ info }: { info: SweepTransactionInfo }) {
+  const { t } = useTranslation();
   return (
     <>
-      {LOG_EVENT_NAME.sweep} 獲得予想 {info.expected} {YAMATO_SYMBOL.YEN}
+      {LOG_EVENT_NAME.sweep}{' '}
+      {t('walletConnectButton.accountDetails.predictedGain')} {info.expected}{' '}
+      {YAMATO_SYMBOL.YEN}
     </>
   );
 }

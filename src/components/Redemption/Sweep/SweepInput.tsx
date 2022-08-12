@@ -1,6 +1,7 @@
 import { Grid, GridItem, Skeleton, VStack } from '@chakra-ui/react';
 import { Formik, Form, FormikHelpers } from 'formik';
 import { useCallback, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { YAMATO_SYMBOL } from '../../../constants/yamato';
 import { useActiveWeb3React } from '../../../hooks/web3';
 import { useSweepCallback } from '../../../hooks/yamato/useSweep';
@@ -29,6 +30,8 @@ export default function SweepInput(props: Props) {
   const { account } = useActiveWeb3React();
   const { callback } = useSweepCallback();
 
+  const { t } = useTranslation();
+
   const isCore = true;
 
   const expectedReward = useMemo(
@@ -50,7 +53,7 @@ export default function SweepInput(props: Props) {
       }>
     ) => {
       if (!account || !callback) {
-        return `ウォレットを接続してください。またはネットワークを切り替えてください。`;
+        return t('redemption.sweep.alert1');
       }
 
       console.debug('submit sweep', values);
@@ -66,7 +69,7 @@ export default function SweepInput(props: Props) {
       // reset
       formikHelpers.resetForm();
     },
-    [account, expectedReward, callback]
+    [account, expectedReward, t, callback]
   );
 
   return (
@@ -76,7 +79,7 @@ export default function SweepInput(props: Props) {
           <Grid templateColumns="repeat(4, 1fr)" gap={4}>
             <GridItem colSpan={1}>
               <VStack align="start">
-                <CustomFormLabel text={'プール総量'} />
+                <CustomFormLabel text={t('redemption.sweep.totalPoolVolume')} />
                 <Text>
                   {firstLoadCompleted ? (
                     <>
@@ -100,7 +103,9 @@ export default function SweepInput(props: Props) {
 
             <GridItem colSpan={1}>
               <VStack align="start">
-                <CustomFormLabel text={'弁済候補総量'} />
+                <CustomFormLabel
+                  text={t('redemption.sweep.totalContenderLiquidation')}
+                />
                 <Text>
                   {firstLoadCompleted ? (
                     <>
@@ -123,7 +128,9 @@ export default function SweepInput(props: Props) {
 
             <GridItem colSpan={1}>
               <VStack align="start">
-                <CustomFormLabel text={'実行リワード予測'} />
+                <CustomFormLabel
+                  text={t('redemption.sweep.executionRewardPrediction')}
+                />
                 <Text>
                   {firstLoadCompleted ? (
                     <>
@@ -156,7 +163,7 @@ export default function SweepInput(props: Props) {
                 type="submit"
                 isDisabled={!expectedReward.cjpy}
               >
-                代位弁済実行
+                {t('redemption.sweep.subrogationExecution')}
               </CustomButton>
             </GridItem>
           </Grid>

@@ -6,6 +6,7 @@ import {
 } from '@chakra-ui/react';
 import { Formik, Form, Field, FormikHelpers, FieldProps } from 'formik';
 import { useCallback, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { MIN_COLLATERAL, YAMATO_SYMBOL } from '../../../constants/yamato';
 import { useActiveWeb3React } from '../../../hooks/web3';
 import { useWithdrawCallback } from '../../../hooks/yamato/useWithdrawCallback';
@@ -30,11 +31,11 @@ export default function WithdrawalInput(props: Props) {
   const { callback } = useWithdrawCallback();
 
   const [withdrawal, setWithdrawal] = useState<number | ''>();
-
+  const { t } = useTranslation();
   const validateWithdrawal = useCallback(
     (value: number | '') => {
       if (!account || !callback) {
-        return `ウォレットを接続してください。またはネットワークを切り替えてください。`;
+        return t('pledge.collateral.alert1');
       }
 
       if (!value) {
@@ -42,18 +43,21 @@ export default function WithdrawalInput(props: Props) {
         return;
       }
       if (value > collateral) {
-        return '担保量を超えています。';
+        return t('pledge.collateral.alert6');
       }
       if (value > collateral - MIN_COLLATERAL && value !== collateral) {
         return (
-          '最小担保量は' + MIN_COLLATERAL + YAMATO_SYMBOL.COLLATERAL + 'です。'
+          t('pledge.collateral.alert3') +
+          MIN_COLLATERAL +
+          YAMATO_SYMBOL.COLLATERAL +
+          t('pledge.collateral.alert4')
         );
       }
       // Value is correct
       setWithdrawal(value);
       return undefined;
     },
-    [account, collateral, callback]
+    [account, collateral, t, callback]
   );
 
   const submitWithdrawal = useCallback(
@@ -106,7 +110,10 @@ export default function WithdrawalInput(props: Props) {
                     isInvalid={!!formikProps.errors.withdrawal}
                     style={{ maxWidth: '200px' }}
                   >
-                    <CustomFormLabel htmlFor="withdrawal" text="引出量入力" />
+                    <CustomFormLabel
+                      htmlFor="withdrawal"
+                      text={t('pledge.collateral.withdrawalVolumeInput')}
+                    />
                     <CustomInput
                       {...field}
                       id="withdrawal"
@@ -126,19 +133,21 @@ export default function WithdrawalInput(props: Props) {
                 data-testid="collateral-act-withdraw"
                 isDisabled={!withdrawal}
               >
-                引出実行
+                {t('pledge.collateral.withdrawalExecution')}
               </CustomButton>
             </HStack>
             {withdrawal && withdrawal > 0 && (
               <VStack spacing={4} align="start">
                 <CustomFormLabel
-                  text={`変動予測値 ${
+                  text={`${t('pledge.collateral.predictedFluctuation')} ${
                     formatPrice(subtractToNum(collateral, withdrawal), 'jpy')
                       .value
                   } ${YAMATO_SYMBOL.COLLATERAL}`}
                 />
                 <CustomFormLabel
-                  text={`担保率 ${formatCollateralizationRatio(
+                  text={`${t(
+                    'pledge.collateral.collateralRatio'
+                  )} ${formatCollateralizationRatio(
                     (collateral - withdrawal) * rateOfEthJpy,
                     debt
                   )}%`}
