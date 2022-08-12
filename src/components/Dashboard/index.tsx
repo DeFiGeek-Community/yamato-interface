@@ -74,9 +74,7 @@ export default function Dashboard() {
           <TerminologyPopover>
             <div>
               <ItemTitleValue>{t('dashboard.tvl')}</ItemTitleValue>
-              <ItemTitleValue>
-                TCR: 総担保比率(Total Collateral Ratio)
-              </ItemTitleValue>
+              <ItemTitleValue>{t('dashboard.tcr')}</ItemTitleValue>
             </div>
           </TerminologyPopover>
         </HStack>
