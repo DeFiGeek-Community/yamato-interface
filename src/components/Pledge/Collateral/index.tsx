@@ -1,4 +1,5 @@
 import { Grid, GridItem, Skeleton } from '@chakra-ui/react';
+import { useTranslation } from 'react-i18next';
 import { YAMATO_SYMBOL } from '../../../constants/yamato';
 import { usePledgeData } from '../../../state/pledge/hooks';
 import { useYamatoStateForPledge } from '../../../state/yamato-entirety/hooks';
@@ -11,12 +12,13 @@ import WithdrawalInput from './WithdrawalInput';
 export default function Collateral() {
   const { rateOfEthJpy, firstLoadCompleted } = useYamatoStateForPledge();
   const { collateral, debt } = usePledgeData();
+  const { t } = useTranslation();
 
   return (
     <>
       <Grid templateColumns="repeat(16, 1fr)" gap={4} mb={4}>
         <GridItem colSpan={2}>
-          <ItemTitleForPledge marginTop={26}>担保量</ItemTitleForPledge>
+          <ItemTitleForPledge marginTop={26}>{t('pledge.collateral.collateralVolume')}</ItemTitleForPledge>
         </GridItem>
 
         <GridItem colSpan={3}>
@@ -61,7 +63,7 @@ export default function Collateral() {
 
       <Grid templateColumns="repeat(8, 1fr)" gap={4} mb={4}>
         <GridItem colSpan={1}>
-          <ItemTitleForPledge marginTop={26}>評価額</ItemTitleForPledge>
+          <ItemTitleForPledge marginTop={26}>{t('pledge.collateral.valuation')}</ItemTitleForPledge>
         </GridItem>
         <GridItem colSpan={2}>
           <ItemTitleValue marginTop={26}>
