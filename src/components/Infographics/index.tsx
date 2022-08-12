@@ -61,6 +61,7 @@ export function InfographicsHelp() {
 export function InfographicsContent(props: Partial<InfographicsProps>) {
   const yamatoState = useYamatoStateForInfographics();
   const mixedValues = { ...yamatoState, ...props };
+  const { t } = useTranslation();
 
   const {
     rateOfCjpyJpy,
@@ -137,14 +138,15 @@ export function InfographicsContent(props: Partial<InfographicsProps>) {
     const messages = getSignalMessages(
       cjpyPriceRank,
       ethPriceRank,
-      isRedeemablePledge
+      isRedeemablePledge,
+      t
     );
     return messages.map((message, index) => (
       <ItemTitleValue key={index} style={{ display: 'block' }}>
         {message}
       </ItemTitleValue>
     ));
-  }, [cjpyPriceRank, ethPriceRank, isRedeemablePledge]);
+  }, [cjpyPriceRank, ethPriceRank, isRedeemablePledge, t]);
 
   return (
     <>

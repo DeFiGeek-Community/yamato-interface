@@ -67,20 +67,21 @@ export function getTcrRate(tcr: number): number {
 export function getSignalMessages(
   cjpyPriceRank: number,
   ethPriceRank: number,
-  isRedeemablePledge: boolean
+  isRedeemablePledge: boolean,
+  t: any
 ): string[] {
   const messages = [];
   if (cjpyPriceRank > 0 && ethPriceRank >= 10) {
-    messages.push('CJPY 借入推奨');
+    messages.push('CJPY ' + t('infographics.borrowRecommend'));
   }
   if (cjpyPriceRank < 0) {
-    messages.push('CJPY 買い推奨');
+    messages.push('CJPY ' + t('infographics.buyRecommend'));
   }
   if (cjpyPriceRank < 0 && ethPriceRank <= -10) {
-    messages.push('CJPY 返済推奨');
+    messages.push('CJPY ' + t('infographics.repaymentRecommend'));
   }
   if (isRedeemablePledge) {
-    messages.push('償還推奨');
+    messages.push(t('infographics.redemptionRecommend'));
   }
   return messages;
 }
