@@ -7,6 +7,7 @@ import {
 } from '@chakra-ui/react';
 import { Formik, Form, Field, FormikHelpers, FieldProps } from 'formik';
 import { useCallback, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { YAMATO_SYMBOL } from '../../../constants/yamato';
 import { useActiveWeb3React } from '../../../hooks/web3';
 import { useRepayCallback } from '../../../hooks/yamato/useRepayCallback';
@@ -33,10 +34,12 @@ export default function RepayInput(props: Props) {
 
   const [repayment, setRepayment] = useState<number | ''>();
 
+  const { t } = useTranslation();
+
   const validateRepayment = useCallback(
     (value: number | '') => {
       if (!account || !callback) {
-        return `ウォレットを接続してください。またはネットワークを切り替えてください。`;
+        return t('pledge.debt.alert1');
       }
 
       if (!value) {
@@ -44,17 +47,17 @@ export default function RepayInput(props: Props) {
         return;
       }
       if (value > debt) {
-        return '借入量を超えています。';
+        return t('pledge.debt.alert5');
       }
       if (value > cjpy) {
-        return '残高を超えています。';
+        return t('pledge.debt.alert6');
       }
 
       // Value is correct
       setRepayment(value);
       return undefined;
     },
-    [account, debt, cjpy, callback]
+    [account, debt, cjpy, t, callback]
   );
 
   const submitRepayment = useCallback(
@@ -107,7 +110,10 @@ export default function RepayInput(props: Props) {
                     isInvalid={!!formikProps.errors.repayment}
                     style={{ maxWidth: '200px' }}
                   >
-                    <CustomFormLabel htmlFor="repayment" text="返済量入力" />
+                    <CustomFormLabel
+                      htmlFor="repayment"
+                      text={t('pledge.debt.repaymentVolumeInput')}
+                    />
                     <CustomInput
                       {...field}
                       id="repayment"
@@ -140,18 +146,20 @@ export default function RepayInput(props: Props) {
                 data-testid="borrowing-act-repay"
                 isDisabled={!repayment}
               >
-                返済実行
+                {t('pledge.debt.repaymentExecution')}
               </CustomButton>
             </HStack>
             {repayment && repayment > 0 && (
               <VStack spacing={4} align="start">
                 <CustomFormLabel
-                  text={`変動予測値 ${
+                  text={`${t('pledge.debt.predictedFluctuation')} ${
                     formatPrice(subtractToNum(debt, repayment), 'jpy').value
                   } ${YAMATO_SYMBOL.YEN}`}
                 />
                 <CustomFormLabel
-                  text={`担保率 ${formatCollateralizationRatio(
+                  text={`${t(
+                    'pledge.debt.collateralRate'
+                  )} ${formatCollateralizationRatio(
                     collateral * rateOfEthJpy,
                     debt - repayment
                   )}%`}

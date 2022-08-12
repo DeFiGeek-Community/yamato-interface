@@ -43,16 +43,16 @@
       "alert4" : "%が必要です。",
       "borrowVolumeInput" : "借入量入力",
       "borrowExecution" : "借入実行",
-      "repaymentVolumeInput" : "返済量入力",
       "receiptVolume" : "受取量",
       "fee" : "手数料",
       "feeRate" : "手数料率",
       "totalBorrowVolume" : "借入量合計",
-      "collateralRate" : "担保率",
       "maximumBorrowPossibleVolume": "最大借入可能量",
       "borrowVolume" : "借入量",
+      "collateralRate" : "担保率",
       "alert5" : "借入量を超えています。",
       "alert6" : "残高を超えています。",
+      "repaymentVolumeInput" : "返済量入力",
       "repaymentExecution" : "返済実行",
       "predictedFluctuation" : "変動予測値"
     }
