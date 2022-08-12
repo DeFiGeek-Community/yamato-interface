@@ -72,10 +72,8 @@ export default function Dashboard() {
         <HStack>
           <CategoryTitle>Yamato Statistics</CategoryTitle>
           <TerminologyPopover>
-            <div>
-              <ItemTitleValue>{t('dashboard.tvl')}</ItemTitleValue>
-              <ItemTitleValue>{t('dashboard.tcr')}</ItemTitleValue>
-            </div>
+            <ItemTitleValue>{t('dashboard.tvl')}</ItemTitleValue>
+            <ItemTitleValue>{t('dashboard.tcr')}</ItemTitleValue>
           </TerminologyPopover>
         </HStack>
       </HeaderBox1>

@@ -52,10 +52,8 @@ export function InfographicsHelp() {
   const { t } = useTranslation();
   return (
     <TerminologyPopover>
-      <div>
-        <ItemTitleValue>{t('infographics.tcr')}</ItemTitleValue>
-        <ItemTitleValue>{t('infographics.mcr')}</ItemTitleValue>
-      </div>
+      <ItemTitleValue>{t('infographics.tcr')}</ItemTitleValue>
+      <ItemTitleValue>{t('infographics.mcr')}</ItemTitleValue>
     </TerminologyPopover>
   );
 }
