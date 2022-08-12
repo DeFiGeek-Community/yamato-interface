@@ -1,4 +1,5 @@
 import { Box } from '@chakra-ui/react';
+import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 import { ItemTitleForInfographics } from '../CommonItem';
 import {
@@ -112,6 +113,7 @@ function renderBattery(reserveRank: number, isDecrease: boolean) {
 }
 
 export default function Pool(props: Props) {
+  const { t } = useTranslation();
   const {
     reserveRankOfRedemption,
     isDecreaseForRedemptionReserve,
@@ -127,7 +129,9 @@ export default function Pool(props: Props) {
         justifyContent="space-around"
         p={1}
       >
-        <ItemTitleForInfographics>償還プール</ItemTitleForInfographics>
+        <ItemTitleForInfographics>
+          {t('infographics.redemptionPool')}
+        </ItemTitleForInfographics>
       </Box>
       <BatteryContainer>
         <BatterySvgWrapper>
@@ -143,7 +147,9 @@ export default function Pool(props: Props) {
         justifyContent="space-around"
         p={1}
       >
-        <ItemTitleForInfographics>弁済プール</ItemTitleForInfographics>
+        <ItemTitleForInfographics>
+          {t('infographics.liquidationPool')}
+        </ItemTitleForInfographics>
       </Box>
       <BatteryContainer>
         <BatterySvgWrapper>

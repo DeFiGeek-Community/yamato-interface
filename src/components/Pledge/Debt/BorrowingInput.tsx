@@ -6,6 +6,7 @@ import {
 } from '@chakra-ui/react';
 import { Formik, Form, Field, FormikHelpers, FieldProps } from 'formik';
 import { useCallback, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { YAMATO_SYMBOL } from '../../../constants/yamato';
 import { useActiveWeb3React } from '../../../hooks/web3';
 import { useBorrowCallback } from '../../../hooks/yamato/useBorrowCallback';
@@ -31,6 +32,8 @@ export default function BorrowingInput(props: Props) {
   const { account } = useActiveWeb3React();
   const { callback } = useBorrowCallback();
 
+  const { t } = useTranslation();
+
   const [borrowing, setBorrowing] = useState<number | ''>();
 
   const feeResult = useMemo(() => {
@@ -49,7 +52,7 @@ export default function BorrowingInput(props: Props) {
   const validateBorrowing = useCallback(
     async (value: number | '') => {
       if (!account || !callback) {
-        return `ウォレットを接続してください。またはネットワークを切り替えてください。`;
+        return t('pledge.debt.alert1');
       }
 
       if (!value) {
@@ -59,18 +62,18 @@ export default function BorrowingInput(props: Props) {
 
       const sum = debt + value;
       if (sum <= 0) {
-        return '数値で入力してください。';
+        return t('pledge.debt.alert2');
       }
       const collateralRatio = ((collateral * rateOfEthJpy) / sum) * 100;
       if (MCR > collateralRatio) {
-        return `担保率は最低${MCR}%が必要です。`;
+        return `${t('pledge.debt.alert3')} ${MCR} ${t('pledge.debt.alert4')}`;
       }
 
       // Value is correct
       setBorrowing(value);
       return undefined;
     },
-    [account, collateral, debt, rateOfEthJpy, MCR, callback]
+    [account, collateral, debt, rateOfEthJpy, MCR, t, callback]
   );
 
   const submitBorrowing = useCallback(
@@ -123,7 +126,10 @@ export default function BorrowingInput(props: Props) {
                     isInvalid={!!formikProps.errors.borrowing}
                     style={{ maxWidth: '200px' }}
                   >
-                    <CustomFormLabel htmlFor="borrowing" text="借入量入力" />
+                    <CustomFormLabel
+                      htmlFor="borrowing"
+                      text={t('pledge.debt.borrowVolumeInput')}
+                    />
                     <CustomInput
                       {...field}
                       id="borrowing"
@@ -143,28 +149,32 @@ export default function BorrowingInput(props: Props) {
                 data-testid="borrowing-act-borrow"
                 isDisabled={!borrowing}
               >
-                借入実行
+                {t('pledge.debt.borrowExecution')}
               </CustomButton>
             </HStack>
             {borrowing && borrowing > 0 && (
               <VStack spacing={4} align="start">
                 <CustomFormLabel
-                  text={`受取量 ${
+                  text={`${t('pledge.debt.receiptVolume')} ${
                     formatPrice(borrowing - feeResult.fee, 'jpy').value
                   } ${YAMATO_SYMBOL.YEN}`}
                 />
                 <CustomFormLabel
-                  text={`手数料 ${formatPrice(feeResult.fee, 'jpy').value} ${
-                    YAMATO_SYMBOL.YEN
-                  }(手数料率 ${feeResult.feeRate.toFixed(2)}%)`}
+                  text={`${t('pledge.debt.fee')} ${
+                    formatPrice(feeResult.fee, 'jpy').value
+                  } ${YAMATO_SYMBOL.YEN}(${t(
+                    'pledge.debt.feeRate'
+                  )} ${feeResult.feeRate.toFixed(2)}%)`}
                 />
                 <CustomFormLabel
-                  text={`借入量合計 ${
+                  text={`${t('pledge.debt.totalBorrowVolume')} ${
                     formatPrice(addToNum(debt, borrowing), 'jpy').value
                   } ${YAMATO_SYMBOL.YEN}`}
                 />
                 <CustomFormLabel
-                  text={`担保率 ${formatCollateralizationRatio(
+                  text={`${t(
+                    'pledge.debt.collateralRate'
+                  )} ${formatCollateralizationRatio(
                     collateral * rateOfEthJpy,
                     debt + borrowing
                   )}%`}

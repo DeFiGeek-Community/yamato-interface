@@ -72,12 +72,8 @@ export default function Dashboard() {
         <HStack>
           <CategoryTitle>Yamato Statistics</CategoryTitle>
           <TerminologyPopover>
-            <div>
-              <ItemTitleValue>TVL: 総預入額(Total Value Locked)</ItemTitleValue>
-              <ItemTitleValue>
-                TCR: 総担保比率(Total Collateral Ratio)
-              </ItemTitleValue>
-            </div>
+            <ItemTitleValue>{t('dashboard.tvl')}</ItemTitleValue>
+            <ItemTitleValue>{t('dashboard.tcr')}</ItemTitleValue>
           </TerminologyPopover>
         </HStack>
       </HeaderBox1>
@@ -98,7 +94,7 @@ export default function Dashboard() {
                 firstLoadCompleted={firstLoadCompleted}
               />
               <DashboardItem
-                title={'市場間価格差異'}
+                title={t('dashboard.intermarketPriceVariance')}
                 stat={`${getMarketRateOfCjpyJpy(rateOfCjpyJpy[0])}
                 (${getDeviationRate(rateOfCjpyJpy[0])})`}
                 firstLoadCompleted={firstLoadCompleted}
@@ -142,12 +138,12 @@ export default function Dashboard() {
             <DashboardItem title={'veYMT量'} stat={'（工事中）'} />
             <DashboardItem title={'総ファーミングスコア'} stat={'（工事中）'} /> */}
               <DashboardItem
-                title={t('dashboard.ethPrice')}
+                title={'ETH' + t('dashboard.price')}
                 stat={`¥${formatPrice(rateOfEthJpy, 'jpy').value}`}
                 firstLoadCompleted={firstLoadCompleted}
               />
               <DashboardItem
-                title={'CJPY総発行量'}
+                title={'CJPY' + t('dashboard.totalSupply')}
                 stat={`${formatPrice(totalSupplyOfCjpy, 'jpy').value} ${
                   YAMATO_SYMBOL.YEN
                 }`}
