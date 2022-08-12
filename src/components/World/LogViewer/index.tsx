@@ -6,7 +6,6 @@ import { LOG_EVENT_NAME } from '../../../constants/yamato';
 import { useYamatoStateForWorld } from '../../../state/yamato-entirety/hooks';
 import { LogEvent, LogEventType } from '../../../state/yamato-entirety/reducer';
 import { formatPrice } from '../../../utils/prices';
-import { shortenAddress } from '../../../utils/web3';
 import { Text } from '../../CommonItem';
 
 function getDescriptor(event: LogEvent) {
@@ -94,7 +93,7 @@ export default function LogViewer() {
               }}
             >
               <span style={{ color, fontWeight: 'bold' }}>{title}</span>
-              <span>: {shortenAddress(event.address)}が</span>
+              <span>: {event.address}が</span>
               <span>{descriptor}</span>
             </Text>
           </Animation>
