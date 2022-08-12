@@ -73,9 +73,9 @@ export default function Dashboard() {
           <CategoryTitle>Yamato Statistics</CategoryTitle>
           <TerminologyPopover>
             <div>
-              <ItemTitleValue>TVL: 総預入額(Total Value Locked)</ItemTitleValue>
+              <ItemTitleValue>{t('dashboard.tvl')}</ItemTitleValue>
               <ItemTitleValue>
-                TCR: 総担保比率(Total Collateral Ratio)
+                {t('dashboard.tcr')}
               </ItemTitleValue>
             </div>
           </TerminologyPopover>
