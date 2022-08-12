@@ -143,7 +143,7 @@ export default function Dashboard() {
                 firstLoadCompleted={firstLoadCompleted}
               />
               <DashboardItem
-                title={t('dashboard.totalSupply')}
+                title={'CJPY' + t('dashboard.totalSupply')}
                 stat={`${formatPrice(totalSupplyOfCjpy, 'jpy').value} ${
                   YAMATO_SYMBOL.YEN
                 }`}
