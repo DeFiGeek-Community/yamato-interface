@@ -98,7 +98,7 @@ export default function Dashboard() {
                 firstLoadCompleted={firstLoadCompleted}
               />
               <DashboardItem
-                title={'市場間価格差異'}
+                title={t('dashboard.intermarketPriceVariance')}
                 stat={`${getMarketRateOfCjpyJpy(rateOfCjpyJpy[0])}
                 (${getDeviationRate(rateOfCjpyJpy[0])})`}
                 firstLoadCompleted={firstLoadCompleted}
@@ -147,7 +147,7 @@ export default function Dashboard() {
                 firstLoadCompleted={firstLoadCompleted}
               />
               <DashboardItem
-                title={'CJPY総発行量'}
+                title={t('dashboard.totalSupply')}
                 stat={`${formatPrice(totalSupplyOfCjpy, 'jpy').value} ${
                   YAMATO_SYMBOL.YEN
                 }`}
