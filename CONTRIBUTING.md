@@ -22,6 +22,8 @@ If you're ready to tackle some open issues, we've collected [some good first iss
 
 3. Create your patch, **including appropriate test cases**.
 
+4. Run the `yarn lint --fix && yarn format` command.
+
 4. Run the full test suite, as described in [test section](#running-tests-locally) below, and ensure that all tests pass.
 
 5. Commit your changes using a descriptive commit message that follows our [commit message conventions](#committing-changes).
