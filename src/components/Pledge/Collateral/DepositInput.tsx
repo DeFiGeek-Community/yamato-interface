@@ -47,7 +47,10 @@ export default function DepositInput(props: Props) {
       }
       if (value < MIN_COLLATERAL - collateral) {
         return (
-          t('pledge.collateral.alert3') + MIN_COLLATERAL + YAMATO_SYMBOL.COLLATERAL + t('pledge.collateral.alert4')
+          t('pledge.collateral.alert3') +
+          MIN_COLLATERAL +
+          YAMATO_SYMBOL.COLLATERAL +
+          t('pledge.collateral.alert4')
         );
       }
 
@@ -72,7 +75,7 @@ export default function DepositInput(props: Props) {
       }
 
       if (values.deposit <= 0) {
-        errorToast(t('pledge.collateral.alert5'));
+        errorToast('預入量が0です。');
         return;
       }
 
@@ -88,7 +91,7 @@ export default function DepositInput(props: Props) {
       setDeposit('');
       formikHelpers.resetForm();
     },
-    [t, callback]
+    [callback]
   );
 
   return (
