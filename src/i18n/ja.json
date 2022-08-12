@@ -1,6 +1,8 @@
 {
   "dashboard": {
     "tvl": "TVL: 総預入額(Total Value Locked)",
+    "tvl_test1": "TVL: 総預入額",
+    "tvl_test2": "(Total Value Locked)",
     "tcr": "TCR: 総担保比率(Total Collateral Ratio)",
     "intermarketPriceVariance": "市場間価格差異",
     "price": "プライス",
