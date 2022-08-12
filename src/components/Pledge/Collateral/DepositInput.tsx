@@ -145,12 +145,14 @@ export default function DepositInput(props: Props) {
             {deposit && deposit > 0 && (
               <VStack spacing={4} align="start">
                 <CustomFormLabel
-                  text={`変動予測値 ${
+                  text={`${t('pledge.collateral.predictedFluctuation')} '${
                     formatPrice(addToNum(collateral, deposit), 'jpy').value
                   } ${YAMATO_SYMBOL.COLLATERAL}`}
                 />
                 <CustomFormLabel
-                  text={`担保率 ${formatCollateralizationRatio(
+                  text={`${t(
+                    'pledge.collateral.collateralRatio'
+                  )} ${formatCollateralizationRatio(
                     (collateral + deposit) * rateOfEthJpy,
                     debt
                   )}%`}
