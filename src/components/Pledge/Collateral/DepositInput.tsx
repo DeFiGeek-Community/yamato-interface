@@ -43,11 +43,11 @@ export default function DepositInput(props: Props) {
         return;
       }
       if (value > eth) {
-        return '残高を超えています。';
+        return t('pledge.collateral.alert2');
       }
       if (value < MIN_COLLATERAL - collateral) {
         return (
-          '最小担保量は' + MIN_COLLATERAL + YAMATO_SYMBOL.COLLATERAL + 'です。'
+          t('pledge.collateral.alert3') + MIN_COLLATERAL + YAMATO_SYMBOL.COLLATERAL + t('pledge.collateral.alert4')
         );
       }
 
@@ -72,7 +72,7 @@ export default function DepositInput(props: Props) {
       }
 
       if (values.deposit <= 0) {
-        errorToast('預入量が0です。');
+        errorToast(t('pledge.collateral.alert5'));
         return;
       }
 
@@ -88,7 +88,7 @@ export default function DepositInput(props: Props) {
       setDeposit('');
       formikHelpers.resetForm();
     },
-    [callback]
+    [t,callback]
   );
 
   return (
@@ -113,7 +113,7 @@ export default function DepositInput(props: Props) {
                     isInvalid={!!formikProps.errors.deposit}
                     style={{ maxWidth: '200px' }}
                   >
-                    <CustomFormLabel htmlFor="deposit" text="預入量入力" />
+                    <CustomFormLabel htmlFor="deposit" text={t('pledge.collateral.depositVolumeInput')} />
                     <CustomInput
                       {...field}
                       id="deposit"
@@ -133,13 +133,13 @@ export default function DepositInput(props: Props) {
                 data-testid="collateral-act-deposit"
                 isDisabled={!deposit}
               >
-                預入実行
+                {t('pledge.collateral.depositExecution')}
               </CustomButton>
             </HStack>
             {deposit && deposit > 0 && (
               <VStack spacing={4} align="start">
                 <CustomFormLabel
-                  text={`変動予測値 ${
+                  text={`変動予測値 '${
                     formatPrice(addToNum(collateral, deposit), 'jpy').value
                   } ${YAMATO_SYMBOL.COLLATERAL}`}
                 />
