@@ -1,5 +1,6 @@
 import { Grid, GridItem, HStack } from '@chakra-ui/react';
 import { useCallback, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useYamatoStateForInfographics } from '../../state/yamato-entirety/hooks';
 import { getEthChangePercent } from '../../utils/prices';
 import {
@@ -48,13 +49,12 @@ export interface InfographicsProps {
 }
 
 export function InfographicsHelp() {
+  const { t } = useTranslation();
   return (
     <TerminologyPopover>
       <div>
-        <ItemTitleValue>TCR: 総担保比率(Total Collateral Ratio)</ItemTitleValue>
-        <ItemTitleValue>
-          MCR: 最低担保比率(Minimum Collateral Ratio)
-        </ItemTitleValue>
+        <ItemTitleValue>{t('infographics.tcr')}</ItemTitleValue>
+        <ItemTitleValue>{t('infographics.mcr')}</ItemTitleValue>
       </div>
     </TerminologyPopover>
   );
