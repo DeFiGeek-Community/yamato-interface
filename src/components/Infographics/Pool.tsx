@@ -129,7 +129,9 @@ export default function Pool(props: Props) {
         justifyContent="space-around"
         p={1}
       >
-        <ItemTitleForInfographics>{t('infographics.redemptionPool')}</ItemTitleForInfographics>
+        <ItemTitleForInfographics>
+          {t('infographics.redemptionPool')}
+        </ItemTitleForInfographics>
       </Box>
       <BatteryContainer>
         <BatterySvgWrapper>
@@ -145,7 +147,9 @@ export default function Pool(props: Props) {
         justifyContent="space-around"
         p={1}
       >
-        <ItemTitleForInfographics>{t('infographics.liquidationPool')}</ItemTitleForInfographics>
+        <ItemTitleForInfographics>
+          {t('infographics.liquidationPool')}
+        </ItemTitleForInfographics>
       </Box>
       <BatteryContainer>
         <BatterySvgWrapper>
