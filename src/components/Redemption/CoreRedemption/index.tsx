@@ -19,7 +19,7 @@ export default function CoreRedemption() {
     <Grid templateColumns="repeat(6, 1fr)" gap={4} mb={12}>
       <GridItem colSpan={1}>
         <ItemTitleForPledge width="150px" marginTop={25}>
-          Yamato {t('redemption.coreRedemption.redemption')}
+          Yamato{t('redemption.coreRedemption.redemption')}
         </ItemTitleForPledge>
       </GridItem>
 
