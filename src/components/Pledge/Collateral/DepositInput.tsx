@@ -75,7 +75,7 @@ export default function DepositInput(props: Props) {
       }
 
       if (values.deposit <= 0) {
-        errorToast('預入量が0です。');
+        errorToast(t('pledge.collateral.alert5'));
         return;
       }
 
@@ -91,7 +91,7 @@ export default function DepositInput(props: Props) {
       setDeposit('');
       formikHelpers.resetForm();
     },
-    [callback]
+    [t, callback]
   );
 
   return (
@@ -116,7 +116,10 @@ export default function DepositInput(props: Props) {
                     isInvalid={!!formikProps.errors.deposit}
                     style={{ maxWidth: '200px' }}
                   >
-                    <CustomFormLabel htmlFor="deposit" text="預入量入力" />
+                    <CustomFormLabel
+                      htmlFor="deposit"
+                      text={t('pledge.collateral.depositVolumeInput')}
+                    />
                     <CustomInput
                       {...field}
                       id="deposit"
@@ -136,7 +139,7 @@ export default function DepositInput(props: Props) {
                 data-testid="collateral-act-deposit"
                 isDisabled={!deposit}
               >
-                預入実行
+                {t('pledge.collateral.depositExecution')}
               </CustomButton>
             </HStack>
             {deposit && deposit > 0 && (
