@@ -1,6 +1,8 @@
 import { Skeleton } from '@chakra-ui/react';
 import { useWeb3React } from '@web3-react/core';
+import { useTranslation } from 'react-i18next';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
+
 import styled from 'styled-components';
 import { LOG_EVENT_NAME } from '../../../constants/yamato';
 import { useYamatoStateForWorld } from '../../../state/yamato-entirety/hooks';
@@ -9,24 +11,32 @@ import { formatPrice } from '../../../utils/prices';
 import { shortenAddress } from '../../../utils/web3';
 import { Text } from '../../CommonItem';
 
-function getDescriptor(event: LogEvent) {
+function getDescriptor(event: LogEvent, t: any) {
   switch (event.category as LogEventType) {
     case 'deposit':
-      return `${formatPrice(event.value, 'eth').value}ETHを預けました！`;
+      return `${formatPrice(event.value, 'eth').value}ETH${t(
+        'world.logViewer.alert1'
+      )}`;
     case 'withdrawal':
-      return `${formatPrice(event.value, 'eth').value}ETHを引き出しました！`;
+      return `${formatPrice(event.value, 'eth').value}ETH${t(
+        'world.logViewer.alert2'
+      )}`;
     case 'borrowing':
-      return `${formatPrice(event.value, 'jpy').value}CJPYを借り入れました！`;
+      return `${formatPrice(event.value, 'jpy').value}CJPY${t(
+        'world.logViewer.alert3'
+      )}`;
     case 'repay':
-      return `${formatPrice(event.value, 'jpy').value}CJPYを返済しました！`;
+      return `${formatPrice(event.value, 'jpy').value}CJPY${t(
+        'world.logViewer.alert4'
+      )}`;
     case 'self_redemption':
-      return `トリガーしました！`;
+      return `${t('world.logViewer.alert5')}`;
     case 'core_redemption':
-      return `トリガーしました！`;
+      return `${t('world.logViewer.alert5')}`;
     case 'sweep':
-      return `トリガーしました！`;
+      return `${t('world.logViewer.alert5')}`;
     default:
-      return `${event.value}を行いました！`;
+      return `${event.value}${t('world.logViewer.alert6')}`;
   }
 }
 
@@ -78,12 +88,12 @@ const Animation = styled.div`
 export default function LogViewer() {
   const { account } = useWeb3React();
   const { events, firstLoadCompleted } = useYamatoStateForWorld();
-
+  const { t } = useTranslation();
   function renderLogEvents(events: LogEvent[]) {
     return events.map((event) => {
       const title = LOG_EVENT_NAME[event.category as LogEventType];
       const color = getColor(event.category as LogEventType);
-      const descriptor = getDescriptor(event);
+      const descriptor = getDescriptor(event, t);
       return (
         <CSSTransition key={event.id} timeout={500} classNames="fade">
           <Animation>
@@ -94,7 +104,10 @@ export default function LogViewer() {
               }}
             >
               <span style={{ color, fontWeight: 'bold' }}>{title}</span>
-              <span>: {shortenAddress(event.address)}が</span>
+              <span>
+                : {shortenAddress(event.address)}
+                {t('world.logViewer.alert7')}
+              </span>
               <span>{descriptor}</span>
             </Text>
           </Animation>
@@ -111,7 +124,7 @@ export default function LogViewer() {
         events.length > 0 ? (
           <TransitionGroup>{renderLogEvents(events)}</TransitionGroup>
         ) : (
-          <Text>ログがありません。</Text>
+          <Text>${t('world.logViewer.alert8')}</Text>
         )
       ) : (
         <>
