@@ -19,6 +19,21 @@ const StyledPollingNumber = styled.div<{
   opacity: ${({ breathe }) => (breathe ? 0.5 : 1)};
 `;
 
+const LanguageButton = styled.button`
+  padding: 0.5rem 1rem;
+  border: 1px solid ${({ theme }) => theme.text1};
+  border-radius: 5px;
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: ${({ theme }) => theme.text2};
+  margin: 0 1rem;
+  background-color: ${({ theme }) => theme.bg1};
+`;
+
+const changeLanguage = (i18next: any, lang: any) => {
+  i18next.changeLanguage(lang);
+}
+
 export default function Header() {
   const { active, account } = useActiveWeb3React();
 
@@ -26,10 +41,6 @@ export default function Header() {
   const [isMounting, setIsMounting] = useState(false);
 
   const { t } = useTranslation();
-
-  function changeLanguage(i18next: any, lang: any) {
-    i18next.changeLanguage(lang);
-  }
 
   useEffect(() => {
     if (!blockNumber) {
@@ -56,32 +67,6 @@ export default function Header() {
           <SvgYamatoLogWithTitle width={422} height={50} />
         </Link>
       </GridItem>
-      <div>
-        <div>
-          <button
-            style={{
-              fontSize: '1.6rem',
-              fontWeight: 'bold',
-              color: '#5BAD92',
-              margin: '2rem',
-            }}
-            onClick={() => changeLanguage(i18next, 'en')}
-          >
-            en
-          </button>
-          <button
-            style={{
-              fontSize: '1.6rem',
-              fontWeight: 'bold',
-              color: '#5BAD92',
-              margin: '2rem',
-            }}
-            onClick={() => changeLanguage(i18next, 'ja')}
-          >
-            ja
-          </button>
-        </div>
-      </div>
       <GridItem
         rowSpan={1}
         colEnd={4}
@@ -90,6 +75,16 @@ export default function Header() {
         }}
       >
         <HStack>
+          <LanguageButton
+            onClick={() => changeLanguage(i18next, 'en')}
+          >
+            EN
+          </LanguageButton>
+          <LanguageButton
+            onClick={() => changeLanguage(i18next, 'ja')}
+          >
+            JA
+          </LanguageButton>
           <Web3Status />
           <VStack>
             <StyledPollingNumber breathe={isMounting}>
