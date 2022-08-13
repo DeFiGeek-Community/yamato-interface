@@ -1,5 +1,6 @@
 import { HStack, VStack } from '@chakra-ui/layout';
 import { Grid, GridItem } from '@chakra-ui/react';
+import i18next from 'i18next';
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
@@ -18,11 +19,27 @@ const StyledPollingNumber = styled.div<{
   opacity: ${({ breathe }) => (breathe ? 0.5 : 1)};
 `;
 
+const LanguageButton = styled.button`
+  padding: 0.5rem 1rem;
+  border: 1px solid ${({ theme }) => theme.text1};
+  border-radius: 5px;
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: ${({ theme }) => theme.text2};
+  margin: 0 1rem;
+  background-color: ${({ theme }) => theme.bg1};
+`;
+
+const changeLanguage = (i18next: any, lang: any) => {
+  i18next.changeLanguage(lang);
+};
+
 export default function Header() {
   const { active, account } = useActiveWeb3React();
 
   const blockNumber = useBlockNumber();
   const [isMounting, setIsMounting] = useState(false);
+
   const { t } = useTranslation();
 
   useEffect(() => {
@@ -50,7 +67,6 @@ export default function Header() {
           <SvgYamatoLogWithTitle width={422} height={50} />
         </Link>
       </GridItem>
-
       <GridItem
         rowSpan={1}
         colEnd={4}
@@ -59,6 +75,12 @@ export default function Header() {
         }}
       >
         <HStack>
+          <LanguageButton onClick={() => changeLanguage(i18next, 'en')}>
+            EN
+          </LanguageButton>
+          <LanguageButton onClick={() => changeLanguage(i18next, 'ja')}>
+            JA
+          </LanguageButton>
           <Web3Status />
           <VStack>
             <StyledPollingNumber breathe={isMounting}>
