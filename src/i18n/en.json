@@ -115,9 +115,47 @@
       "alert3": " borrowed!",
       "alert4": " repaid!",
       "alert5": " Trigger pulled!",
-      "alert6": " executed！",
+      "alert6": " executed!",
       "alert7": " ",
       "alert8": "No logs"
+    }
+  },
+  "constants": {
+    "LOG_EVENT_NAME": {
+      "deposit": "Deposit",
+      "withdrawal": "Withdrawal",
+      "borrowing": "Borrowing",
+      "repay": "Repay",
+      "governance_lock": "YMT Locked",
+      "governance_extension": "YMT extension",
+      "governance_withdrawal": "YMT withdrawal",
+      "self_redemption": "Self redemption",
+      "core_redemption": "Yamato redemption",
+      "sweep": "Yamato Subrogation"
+    },
+    "REVERT_REASON_DESCRIPTION": {
+      "depositShortage": "Collateral is insufficient",
+      "transferFailure": "Transfer failed within the contract.",
+      "underMCR": "Below the minimum collateral rate.",
+      "withdrawLock": "Withdraw is locked.",
+      "notFlashLoan": "This operation cannot be performed on the same block.",
+      "nonPledge": "The pledge has not yet been made.",
+      "noSweepReserve": "Liquidation Pool is empty.",
+      "noRedeemablePledge": "There is no redeemable pledge.",
+      "noSweepablePledge": "There is no pledge that can be repaid.",
+      "zeroRepay": "The repayment amount is 0.",
+      "overDebt": "The volume of repayments exceeds the volume of borrowing.",
+      "overBalance": "The specified amount exceeds the balance held.",
+      "zeroFee": "The commission fee is zero.",
+      "insufficientBorrowing": "Fees exceed the amount borrowed.",
+      "notGoverner": "You are not a governor.",
+      "notTester": "You are not a tester.",
+      "justReverted":"An unknown error has occurred. Or please switch networks.",
+      "walletRejected": "Transmission has been canceled.",
+      "zeroInput": "Input value is 0. Or too small."
+    },
+    "ErrorToastConfig": {
+      "title": "Transaction failed"
     }
   }
 }
