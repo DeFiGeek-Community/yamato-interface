@@ -1,5 +1,6 @@
 import { HStack, VStack } from '@chakra-ui/layout';
 import { Grid, GridItem } from '@chakra-ui/react';
+import i18next from 'i18next';
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
@@ -23,7 +24,12 @@ export default function Header() {
 
   const blockNumber = useBlockNumber();
   const [isMounting, setIsMounting] = useState(false);
+
   const { t } = useTranslation();
+
+  function changeLanguage(i18next: any, lang: any) {
+    i18next.changeLanguage(lang);
+  }
 
   useEffect(() => {
     if (!blockNumber) {
@@ -50,7 +56,32 @@ export default function Header() {
           <SvgYamatoLogWithTitle width={422} height={50} />
         </Link>
       </GridItem>
-
+      <div>
+        <div>
+          <button
+            style={{
+              fontSize: '1.6rem',
+              fontWeight: 'bold',
+              color: '#5BAD92',
+              margin: '2rem',
+            }}
+            onClick={() => changeLanguage(i18next, 'en')}
+          >
+            en
+          </button>
+          <button
+            style={{
+              fontSize: '1.6rem',
+              fontWeight: 'bold',
+              color: '#5BAD92',
+              margin: '2rem',
+            }}
+            onClick={() => changeLanguage(i18next, 'ja')}
+          >
+            ja
+          </button>
+        </div>
+      </div>
       <GridItem
         rowSpan={1}
         colEnd={4}
