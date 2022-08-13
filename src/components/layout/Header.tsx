@@ -32,7 +32,7 @@ const LanguageButton = styled.button`
 
 const changeLanguage = (i18next: any, lang: any) => {
   i18next.changeLanguage(lang);
-}
+};
 
 export default function Header() {
   const { active, account } = useActiveWeb3React();
@@ -75,14 +75,10 @@ export default function Header() {
         }}
       >
         <HStack>
-          <LanguageButton
-            onClick={() => changeLanguage(i18next, 'en')}
-          >
+          <LanguageButton onClick={() => changeLanguage(i18next, 'en')}>
             EN
           </LanguageButton>
-          <LanguageButton
-            onClick={() => changeLanguage(i18next, 'ja')}
-          >
+          <LanguageButton onClick={() => changeLanguage(i18next, 'ja')}>
             JA
           </LanguageButton>
           <Web3Status />
