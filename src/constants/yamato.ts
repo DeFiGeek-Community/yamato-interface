@@ -26,32 +26,31 @@ export const LOG_EVENT_NAME: {
 
 export const REVERT_REASON_DESCRIPTION = {
   // yamato
-  depositShortage: '担保が不足しています。',
-  transferFailure: 'コントラクト内で送金に失敗しました。',
-  underMCR: '最低担保率を下回ります。',
-  withdrawLock: '引き出しがロックされています。',
-  notFlashLoan: '同じブロックでこの操作はできません。',
-  nonPledge: 'まだpledgeが作られていません。',
-  noSweepReserve: '弁済プールが空です。',
-  noRedeemablePledge: '償還できるpledgeがありません。',
-  noSweepablePledge: '弁済できるpledgeがありません。',
-  zeroRepay: '返済量が0です。',
-  overDebt: '返済量が借入量より上回っています。',
-  overBalance: '指定した量が保有残高を超えています。',
-  zeroFee: '手数料が0になっています。',
-  insufficientBorrowing: '手数料が借入量より上回っています。',
+  depositShortage: 'Collateral is insufficient',
+  transferFailure: 'Transfer failed within the contract.',
+  underMCR: 'Below the minimum collateral rate.',
+  withdrawLock: 'Withdraw is locked.',
+  notFlashLoan: 'This operation cannot be performed on the same block.',
+  nonPledge: 'The pledge has not yet been made.',
+  noSweepReserve: 'Liquidation Pool is empty.',
+  noRedeemablePledge: 'There is no redeemable pledge.',
+  noSweepablePledge: 'There is no pledge that can be repaid.',
+  zeroRepay: 'The repayment volume is 0.',
+  overDebt: 'The repayment volume exceeds the borrow balance.',
+  overBalance: 'The specified amount exceeds the balance held.',
+  zeroFee: 'The commission fee is zero.',
+  insufficientBorrowing: 'Fees exceed the amount borrowed.',
   // authority
-  notGoverner: 'あなたはガバナーではありません。',
-  notTester: 'あなたはテスターではありません。',
+  notGoverner: 'You are not a governor.',
+  notTester: 'You are not a tester.',
   // others
-  justReverted:
-    '不明なエラーが発生しました。またはネットワークを切り替えてください。',
-  walletRejected: '送信を取り止めました。',
-  zeroInput: '入力値が0です。または小さすぎます。',
+  justReverted: 'An unknown error has occurred. Or please switch networks.',
+  walletRejected: 'Transmission has been canceled.',
+  zeroInput: 'Input value is 0. Or too small.',
 };
 
 export const ErrorToastConfig: UseToastOptions = {
-  title: 'トランザクションが失敗しました',
+  title: 'Transaction failed',
   status: 'error',
   duration: 15000,
   position: 'top',
