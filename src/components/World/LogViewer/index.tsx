@@ -103,7 +103,9 @@ export default function LogViewer() {
                 display: 'block',
               }}
             >
-              <span style={{ color, fontWeight: 'bold' }}>{title}</span>
+              <span style={{ color, fontWeight: 'bold' }}>
+                {t('constants.LOG_EVENT_NAME.' + event.category)}
+              </span>
               <span>
                 : {shortenAddress(event.address)}
                 {t('world.logViewer.alert7')}
