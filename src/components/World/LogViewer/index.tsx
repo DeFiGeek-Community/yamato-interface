@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 import styled from 'styled-components';
-import { LOG_EVENT_NAME } from '../../../constants/yamato';
 import { useYamatoStateForWorld } from '../../../state/yamato-entirety/hooks';
 import { LogEvent, LogEventType } from '../../../state/yamato-entirety/reducer';
 import { formatPrice } from '../../../utils/prices';
@@ -91,7 +90,6 @@ export default function LogViewer() {
   const { t } = useTranslation();
   function renderLogEvents(events: LogEvent[]) {
     return events.map((event) => {
-      const title = LOG_EVENT_NAME[event.category as LogEventType];
       const color = getColor(event.category as LogEventType);
       const descriptor = getDescriptor(event, t);
       return (
