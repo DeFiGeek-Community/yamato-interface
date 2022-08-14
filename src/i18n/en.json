@@ -26,23 +26,23 @@
       "alert3" : "The minimum collateral amount is",
       "alert4" : "",
       "alert5" : "Deposit valume is zero.",
-      "depositVolumeInput" : "Deposit Volume Input",
-      "depositExecution" : "Deposit Execution",
+      "depositVolumeInput" : "Deposit Volume",
+      "depositExecution" : "Deposit",
       "predictedFluctuation" : "Predicted Fluctuation",
       "collateralRatio" : "Collateral Ratio",
       "collateralVolume" : "Collateral Volume",
       "valuation" : "Valuation",
       "alert6" : "Exceeds the collateral valume.",
-      "withdrawalVolumeInput" : "Withdrawal Volume Input",
-      "withdrawalExecution" : "Withdrawal Execution"
+      "withdrawalVolumeInput" : "Withdrawal Volume",
+      "withdrawalExecution" : "Withdrawal"
     },
     "debt": {
       "alert1" : "Connect your wallet. Or switch networks.",
       "alert2" : "Enter a numeric value.",
       "alert3" : "Lowest collateral rate",
       "alert4" : "% is required",
-      "borrowVolumeInput" : "Borrow Volume Input",
-      "borrowExecution" : "Borrow Execution",
+      "borrowVolumeInput" : "Borrow Volume",
+      "borrowExecution" : "Borrow",
       "receiptVolume" : "Receipt Volume",
       "fee" : "Fee",
       "feeRate" : "Fee Rate",
@@ -52,8 +52,8 @@
       "collateralRate" : "Collateral Rate",
       "alert5" : "Exceeds the borrowing valume.",
       "alert6" : "Exceeded balance",
-      "repaymentVolumeInput" : "Repayment Volume Input",
-      "repaymentExecution" : "Repayment Execution",
+      "repaymentVolumeInput" : "Repayment Volume",
+      "repaymentExecution" : "Repayment",
       "predictedFluctuation" : "Predicted Fluctuation"
     }
   },
@@ -64,17 +64,17 @@
       "totalPoolVolume": "Total Pool Volume",
       "totalContenderRedemption": "Total Contender Redemption",
       "executionRewardPrediction": "Execution Reward Prediction",
-      "redemptionExecution": "Redemption Execution" 
+      "redemptionExecution": " Redemption" 
     },
     "selfRedemption": {
       "redemption": "Redemption",
       "alert1": "Connect your wallet. Or switch networks.",
       "alert2": "Insufficient balance",
       "alert3": "Exceeds possible quantity",
-      "redemptionExecutionVolumeInput": "Redemption Execution Volume Input",
+      "redemptionExecutionVolumeInput": "Redemption Execution Volume",
       "predictedCollateralGainVolume": "Predicted Collateral Gain Volume",
       "totalContenderRedemption": "Total Contender Redemption",
-      "redemptionExecution": "Redemption Execution"
+      "redemptionExecution": "Redemption"
     },
     "sweep": {
       "subrogation": "Subrogation",
@@ -82,7 +82,7 @@
       "totalPoolVolume": "Total Pool Volume",
       "totalContenderLiquidation": "Total Contender Liquidation",
       "executionRewardPrediction": "Execution Reward Prediction",
-      "subrogationExecution": "Subrogation Execution"
+      "subrogationExecution": "Subrogation"
     }
   },
   "terminologyPopover": {
