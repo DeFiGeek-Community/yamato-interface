@@ -46,7 +46,7 @@ export default function Debt() {
       <Grid templateColumns="repeat(8, 1fr)" gap={4} mb={4}>
         <GridItem colSpan={1}>
           <ItemTitleForPledge marginTop={26}>
-            {t('pledge.debt.maximumBorrowPossibleVolume')}
+            {t('pledge.debt.maximumBorrowableAmount')}
           </ItemTitleForPledge>
         </GridItem>
         <GridItem colSpan={2}>
@@ -77,7 +77,7 @@ export default function Debt() {
       <Grid templateColumns="repeat(16, 1fr)" gap={4} mb={4}>
         <GridItem colSpan={2}>
           <ItemTitleForPledge marginTop={26}>
-            {t('pledge.debt.borrowVolume')}
+            {t('pledge.debt.borrowBalance')}
           </ItemTitleForPledge>
         </GridItem>
 

@@ -19,7 +19,7 @@ export default function Collateral() {
       <Grid templateColumns="repeat(16, 1fr)" gap={4} mb={4}>
         <GridItem colSpan={2}>
           <ItemTitleForPledge marginTop={26}>
-            {t('pledge.collateral.collateralVolume')}
+            {t('pledge.collateral.collateralBalance')}
           </ItemTitleForPledge>
         </GridItem>
 

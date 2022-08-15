@@ -112,7 +112,7 @@ export default function WithdrawalInput(props: Props) {
                   >
                     <CustomFormLabel
                       htmlFor="withdrawal"
-                      text={t('pledge.collateral.withdrawalVolumeInput')}
+                      text={t('pledge.collateral.withdrawalAmountInput')}
                     />
                     <CustomInput
                       {...field}
@@ -146,7 +146,7 @@ export default function WithdrawalInput(props: Props) {
                 />
                 <CustomFormLabel
                   text={`${t(
-                    'pledge.collateral.collateralRatio'
+                    'pledge.collateral.collateralRate'
                   )} ${formatCollateralizationRatio(
                     (collateral - withdrawal) * rateOfEthJpy,
                     debt
