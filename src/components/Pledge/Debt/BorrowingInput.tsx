@@ -64,8 +64,8 @@ export default function BorrowingInput(props: Props) {
       if (sum <= 0) {
         return t('pledge.debt.alert2');
       }
-      const collateralRatio = ((collateral * rateOfEthJpy) / sum) * 100;
-      if (MCR > collateralRatio) {
+      const collateralRate = ((collateral * rateOfEthJpy) / sum) * 100;
+      if (MCR > collateralRate) {
         return `${t('pledge.debt.alert3')} ${MCR} ${t('pledge.debt.alert4')}`;
       }
 
@@ -128,7 +128,7 @@ export default function BorrowingInput(props: Props) {
                   >
                     <CustomFormLabel
                       htmlFor="borrowing"
-                      text={t('pledge.debt.borrowVolumeInput')}
+                      text={t('pledge.debt.borrowAmountInput')}
                     />
                     <CustomInput
                       {...field}
@@ -155,7 +155,7 @@ export default function BorrowingInput(props: Props) {
             {borrowing && borrowing > 0 && (
               <VStack spacing={4} align="start">
                 <CustomFormLabel
-                  text={`${t('pledge.debt.receiptVolume')} ${
+                  text={`${t('pledge.debt.receiptAmount')} ${
                     formatPrice(borrowing - feeResult.fee, 'jpy').value
                   } ${YAMATO_SYMBOL.YEN}`}
                 />
@@ -167,7 +167,7 @@ export default function BorrowingInput(props: Props) {
                   )} ${feeResult.feeRate.toFixed(2)}%)`}
                 />
                 <CustomFormLabel
-                  text={`${t('pledge.debt.totalBorrowVolume')} ${
+                  text={`${t('pledge.debt.totalBorrowAmount')} ${
                     formatPrice(addToNum(debt, borrowing), 'jpy').value
                   } ${YAMATO_SYMBOL.YEN}`}
                 />

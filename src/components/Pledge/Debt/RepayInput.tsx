@@ -112,7 +112,7 @@ export default function RepayInput(props: Props) {
                   >
                     <CustomFormLabel
                       htmlFor="repayment"
-                      text={t('pledge.debt.repaymentVolumeInput')}
+                      text={t('pledge.debt.repaymentAmountInput')}
                     />
                     <CustomInput
                       {...field}
