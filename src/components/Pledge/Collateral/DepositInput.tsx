@@ -118,7 +118,7 @@ export default function DepositInput(props: Props) {
                   >
                     <CustomFormLabel
                       htmlFor="deposit"
-                      text={t('pledge.collateral.depositVolumeInput')}
+                      text={t('pledge.collateral.depositAmountInput')}
                     />
                     <CustomInput
                       {...field}
@@ -145,13 +145,13 @@ export default function DepositInput(props: Props) {
             {deposit && deposit > 0 && (
               <VStack spacing={4} align="start">
                 <CustomFormLabel
-                  text={`${t('pledge.collateral.predictedFluctuation')} '${
+                  text={`${t('pledge.collateral.predictedFluctuation')} ${
                     formatPrice(addToNum(collateral, deposit), 'jpy').value
                   } ${YAMATO_SYMBOL.COLLATERAL}`}
                 />
                 <CustomFormLabel
                   text={`${t(
-                    'pledge.collateral.collateralRatio'
+                    'pledge.collateral.collateralRate'
                   )} ${formatCollateralizationRatio(
                     (collateral + deposit) * rateOfEthJpy,
                     debt

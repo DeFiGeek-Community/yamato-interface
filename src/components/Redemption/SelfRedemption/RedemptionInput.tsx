@@ -134,7 +134,7 @@ export default function RedemptionInput(props: Props) {
                     <CustomFormLabel
                       htmlFor="redemption"
                       text={t(
-                        'redemption.selfRedemption.redemptionExecutionVolumeInput'
+                        'redemption.selfRedemption.redemptionAmountInput'
                       )}
                     />
                     <CustomInput
@@ -153,7 +153,7 @@ export default function RedemptionInput(props: Props) {
                 <VStack align="start" mt={4}>
                   <CustomFormLabel
                     text={t(
-                      'redemption.selfRedemption.predictedCollateralGainVolume'
+                      'redemption.selfRedemption.predictedCollateralGainAmount'
                     )}
                   />
                   <Text>

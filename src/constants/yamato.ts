@@ -26,6 +26,7 @@ export const LOG_EVENT_NAME: {
 
 export const REVERT_REASON_DESCRIPTION = {
   // yamato
+  default: 'Unknown error occurred',
   depositShortage: 'Collateral is insufficient',
   transferFailure: 'Transfer failed within the contract.',
   underMCR: 'Below the minimum collateral rate.',
