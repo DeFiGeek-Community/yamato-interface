@@ -39,7 +39,7 @@ function swapErrorToUserReadableMessage(error: any): string {
   if (reason?.indexOf('execution reverted: ') === 0)
     reason = reason.substr('execution reverted: '.length);
 
-  const defaultMessage = `不明なエラーが発生しました${
+  const defaultMessage = `${REVERT_REASON_DESCRIPTION.default}${
     reason ? `: "${reason}"` : ''
   } `;
 

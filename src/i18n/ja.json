@@ -134,6 +134,7 @@
       "sweep": "Yamato代位弁済"
     },
     "REVERT_REASON_DESCRIPTION": {
+      "default": "不明なエラーが発生しました",
       "depositShortage": "担保が不足しています。",
       "transferFailure": "コントラクト内で送金に失敗しました。",
       "underMCR": "最低担保率を下回ります。",

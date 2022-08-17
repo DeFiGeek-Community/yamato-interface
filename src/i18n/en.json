@@ -91,7 +91,7 @@
   "tools": {
     "totalCollateralVolume": "Total Collateral Volume",
     "totalBorrowVolume": "Total Borrow Volume",
-    "exchangeRate": "Exchange Rate",
+    "exchangeRate": " Exchange Rate",
     "immediately": "Immediately",
     "redemptionPool": "Redemption Pool",
     "immediatelyRedemptionPool": "Immediately Redemption Pool",
@@ -134,6 +134,7 @@
       "sweep": "Yamato Subrogation"
     },
     "REVERT_REASON_DESCRIPTION": {
+      "default": "Unknown error occurred",
       "depositShortage": "Collateral is insufficient",
       "transferFailure": "Transfer failed within the contract.",
       "underMCR": "Below the minimum collateral rate.",
