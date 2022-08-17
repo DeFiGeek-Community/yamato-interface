@@ -91,7 +91,7 @@
   "tools": {
     "totalCollateralVolume": "Total Collateral Volume",
     "totalBorrowVolume": "Total Borrow Volume",
-    "exchangeRate": "Exchange Rate",
+    "exchangeRate": " Exchange Rate",
     "immediately": "Immediately",
     "redemptionPool": "Redemption Pool",
     "immediatelyRedemptionPool": "Immediately Redemption Pool",
