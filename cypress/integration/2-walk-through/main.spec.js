@@ -113,12 +113,14 @@ describe(
       const actionTriggerSelector = '[data-testid=collateral-act-withdraw]';
       const stateLabelSelector =
         '[data-testid=collateral-data-withdrawalLabel]';
+      // !!FIXME!! stateLabelSelector does not work now
       const visitWaitMillisec = 10000;
       const txWaitMilliSec = 50000;
 
       cy.visit('/');
       cy.wait(visitWaitMillisec);
 
+      // !!FIXME!! UI does not lock the pledge.
       if (cy.get(stateLabelSelector).contains('ロックタイムカウントダウン')) {
         cy.get(actionTriggerSelector).should('be.disabled');
       } else {
