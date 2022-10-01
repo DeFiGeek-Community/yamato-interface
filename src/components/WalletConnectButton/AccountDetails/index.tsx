@@ -104,7 +104,9 @@ const YourAccount = styled.div`
 
 const TokenSection = styled.button`
   padding: 1rem;
+  margin: 0 4rem;
   border: 1px solid ${({ theme }) => theme.text1};
+  border-bottom: 5px solid ${({ theme }) => theme.text1};
   border-radius: 20px;
   position: relative;
   display: grid;
