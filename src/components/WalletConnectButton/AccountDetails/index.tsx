@@ -198,6 +198,19 @@ const WalletAction = styled(Button)`
   }
 `;
 
+function renderTokenButton(chainId: number, logo: string, currency: string) {
+  return (
+    <TokenSection onClick={(e: any) => handeAddToken(e, chainId, currency)}>
+      <HStack spacing={4} justify={'center'}>
+        <span>Add {currency}</span>
+        <img src={logo} width={25} height={25}></img>
+        <span>to your Metamask</span>
+        <img src={MetamaskIcon} width={25} height={25}></img>
+      </HStack>
+    </TokenSection>
+  );
+}
+
 function renderTransactions(transactions: string[]) {
   return (
     <TransactionListWrapper>
@@ -391,24 +404,8 @@ export default function AccountDetails({
       </UpperSection>
       {chainId != null ? (
         <>
-          <TokenSection
-            onClick={(e: any) => handeAddToken(e, chainId, YAMATO_SYMBOL.YEN)}
-          >
-            <HStack spacing={4} justify={'center'}>
-              <img src={CJPYLogo} width={25} height={25}></img>
-              <p>add CJPY to your Metamask</p>
-              <img src={MetamaskIcon} width={25} height={25}></img>
-            </HStack>
-          </TokenSection>
-          <TokenSection
-            onClick={(e: any) => handeAddToken(e, chainId, YAMATO_SYMBOL.TXJP)}
-          >
-            <HStack spacing={4} justify={'center'}>
-              <img src={TXJPLogo} width={25} height={25}></img>
-              <p>add TXJP to your Metamask</p>
-              <img src={MetamaskIcon} width={25} height={25}></img>
-            </HStack>
-          </TokenSection>
+          {renderTokenButton(chainId, CJPYLogo, YAMATO_SYMBOL.YEN)}
+          {renderTokenButton(chainId, TXJPLogo, YAMATO_SYMBOL.TXJP)}
         </>
       ) : (
         <></>
