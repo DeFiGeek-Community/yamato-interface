@@ -50,6 +50,7 @@
     "react-feather": "^2.0.9",
     "react-helmet": "^6.1.0",
     "react-i18next": "^11.17.2",
+    "react-icons": "^4.7.1",
     "react-redux": "^7.2.4",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",

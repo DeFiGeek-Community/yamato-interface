@@ -1,8 +1,17 @@
 import { HStack, VStack } from '@chakra-ui/layout';
-import { Grid, GridItem } from '@chakra-ui/react';
+import {
+  Grid,
+  GridItem,
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+  PopoverArrow,
+  PopoverBody,
+} from '@chakra-ui/react';
 import i18next from 'i18next';
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { BsGlobe2 } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { useActiveWeb3React } from '../../hooks/web3';
@@ -20,19 +29,50 @@ const StyledPollingNumber = styled.div<{
 `;
 
 const LanguageButton = styled.button`
-  padding: 0.5rem 1rem;
-  border: 1px solid ${({ theme }) => theme.text1};
-  border-radius: 5px;
+  margin: 0 1rem;
+`;
+
+const GlobeIcon = styled(BsGlobe2)`
+  font-size: 3rem;
+  color: ${({ theme }) => theme.bg1};
+`;
+
+const LanguageListButton = styled.button`
   font-size: 1.6rem;
   font-weight: bold;
-  color: ${({ theme }) => theme.text2};
-  margin: 0 1rem;
-  background-color: ${({ theme }) => theme.bg1};
+  color: ${({ theme }) => theme.text1};
 `;
 
 const changeLanguage = (i18next: any, lang: any) => {
   i18next.changeLanguage(lang);
 };
+
+export function LangugeChange() {
+  return (
+    <Popover trigger="hover">
+      <PopoverTrigger>
+        <LanguageButton>
+          <GlobeIcon />
+        </LanguageButton>
+      </PopoverTrigger>
+      <PopoverContent>
+        <PopoverArrow />
+        <PopoverBody>
+          <>
+            <VStack>
+              <LanguageListButton onClick={() => changeLanguage(i18next, 'en')}>
+                english
+              </LanguageListButton>
+              <LanguageListButton onClick={() => changeLanguage(i18next, 'ja')}>
+                日本語
+              </LanguageListButton>
+            </VStack>
+          </>
+        </PopoverBody>
+      </PopoverContent>
+    </Popover>
+  );
+}
 
 export default function Header() {
   const { active, account } = useActiveWeb3React();
@@ -75,12 +115,7 @@ export default function Header() {
         }}
       >
         <HStack>
-          <LanguageButton onClick={() => changeLanguage(i18next, 'en')}>
-            EN
-          </LanguageButton>
-          <LanguageButton onClick={() => changeLanguage(i18next, 'ja')}>
-            JA
-          </LanguageButton>
+          <LangugeChange />
           <Web3Status />
           <VStack>
             <StyledPollingNumber breathe={isMounting}>
