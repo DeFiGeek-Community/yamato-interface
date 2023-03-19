@@ -1,7 +1,7 @@
 import { BigNumber } from '@ethersproject/bignumber';
 import { PopulatedTransaction } from '@ethersproject/contracts';
 import { REVERT_REASON_DESCRIPTION } from '../../constants/yamato';
-import { Yamato } from '../../infrastructures/abis/types';
+import { YamatoV3 } from '../../infrastructures/abis/types';
 
 type MethodName =
   | 'deposit'
@@ -126,7 +126,7 @@ export function estimateGas(
   methodName: MethodName,
   value: BigNumber,
   option: PopulatedTransaction,
-  signer: Yamato
+  signer: YamatoV3
 ) {
   let method: Promise<BigNumber> | null = null;
   switch (methodName) {

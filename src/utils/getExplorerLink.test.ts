@@ -22,8 +22,8 @@ describe('#getExplorerLink', () => {
     );
   });
   it('enum', () => {
-    expect(getExplorerLink(4, 'abc', ExplorerDataType.ADDRESS)).toEqual(
-      'https://rinkeby.etherscan.io/address/abc'
+    expect(getExplorerLink(5, 'abc', ExplorerDataType.ADDRESS)).toEqual(
+      'https://goerli.etherscan.io/address/abc'
     );
   });
 });

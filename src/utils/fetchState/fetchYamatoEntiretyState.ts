@@ -3,12 +3,12 @@ import {
   Pool,
   PriceFeed,
   PriorityRegistry,
-  Yamato,
+  YamatoV3,
 } from '../../infrastructures/abis/types';
 import { formatCjpy, formatEther, formatYen } from '../web3';
 
 export async function fetchYamatoEntiretyStateFromContract(contracts: {
-  yamatoMainContract: Yamato | null;
+  yamatoMainContract: YamatoV3 | null;
   yamatoPoolContract: Pool | null;
   yamatoPriceFeedContract: PriceFeed | null;
   yamatoPriorityRegistryContract: PriorityRegistry | null;
@@ -85,7 +85,7 @@ export async function fetchRedeemablPledges(
 
 // Get states from Yamato.sol
 async function getYamatoMainResults(
-  yamatoMainContract: Yamato | null
+  yamatoMainContract: YamatoV3 | null
 ): Promise<[BigNumber, BigNumber, number, number, number, number]> {
   return yamatoMainContract
     ? await yamatoMainContract.getStates() // totalColl, totalDebt, MCR, RRR, SRR, GRR

@@ -95,8 +95,19 @@ export async function fetchCjpyPriceFromUniswap(
   };
 
   // Query
-  const data = await request(endpoint, query, variables);
-
+  // const data = await request(endpoint, query, variables);
+  const data = {
+    "asToken0": [
+      {
+        "token0Price":1
+      }
+    ],
+    "asToken1": [
+      {
+        "token1Price":1
+      }
+    ]
+  }
   // Create response
   if (version === 'v2') {
     if (data.asToken0.length > 0) {
@@ -108,9 +119,11 @@ export async function fetchCjpyPriceFromUniswap(
   }
   // v3
   if (data.asToken0.length > 0) {
-    return getMidPrice(data.asToken0, 'token0Price');
+    // return getMidPrice(data.asToken0, 'token0Price');
+    return Number(data.asToken0[0].token0Price);
   } else if (data.asToken1.length > 0) {
-    return getMidPrice(data.asToken1, 'token1Price');
+    // return getMidPrice(data.asToken0, 'token1Price');
+    return Number(data.asToken1[0].token1Price);
   }
   return null;
 }

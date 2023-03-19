@@ -5,7 +5,7 @@ import optimismLogoUrl from '../assets/svg/optimistic_ethereum.svg';
 
 export enum SupportedChainId {
   MAINNET = 1,
-  RINKEBY = 4,
+  GOERLI = 5,
 
   ARBITRUM_ONE = 42161,
   ARBITRUM_RINKEBY = 421611,
@@ -15,7 +15,7 @@ export enum SupportedChainId {
 
 export const ALL_SUPPORTED_CHAIN_IDS: SupportedChainId[] = [
   SupportedChainId.MAINNET,
-  SupportedChainId.RINKEBY,
+  SupportedChainId.GOERLI,
 
   SupportedChainId.ARBITRUM_ONE,
   SupportedChainId.ARBITRUM_RINKEBY,
@@ -25,7 +25,7 @@ export const ALL_SUPPORTED_CHAIN_IDS: SupportedChainId[] = [
 
 export const L1_CHAIN_IDS = [
   SupportedChainId.MAINNET,
-  SupportedChainId.RINKEBY,
+  SupportedChainId.GOERLI,
 ] as const;
 
 export type SupportedL1ChainId = typeof L1_CHAIN_IDS[number];
@@ -101,12 +101,12 @@ export const CHAIN_INFO: ChainInfo = {
     logoUrl: ethereumLogoUrl,
     nativeCurrency: { name: 'ETH', symbol: 'ETH', decimals: 18 },
   },
-  [SupportedChainId.RINKEBY]: {
+  [SupportedChainId.GOERLI]: {
     docs: 'https://docs.uniswap.org/',
-    explorer: 'https://rinkeby.etherscan.io/',
+    explorer: 'https://goerli.etherscan.io/',
     infoLink: 'https://info.uniswap.org/#/',
-    label: 'Rinkeby',
-    nativeCurrency: { name: 'Rinkeby ETH', symbol: 'rinkETH', decimals: 18 },
+    label: 'Goerli',
+    nativeCurrency: { name: 'Goerli ETH', symbol: 'goerliETH', decimals: 18 },
   },
   [SupportedChainId.OPTIMISM]: {
     blockWaitMsBeforeWarning: ms`10m`,
