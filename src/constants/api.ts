@@ -37,11 +37,9 @@ export const SUBGRAPH_UNISWAP_V3_URLS: Record<number, string> = {
   [SupportedChainId.MAINNET]:
     'https://api.thegraph.com/subgraphs/name/uniswap/uniswap-v3',
 
-    [SupportedChainId.GOERLI]:
-    '',
+  [SupportedChainId.GOERLI]: '',
 
-    [SupportedChainId.SEPOLIA]:
-    '',
+  [SupportedChainId.SEPOLIA]: '',
 
   [SupportedChainId.ARBITRUM_ONE]:
     'https://api.thegraph.com/subgraphs/name/ianlapham/uniswap-arbitrum-one',
