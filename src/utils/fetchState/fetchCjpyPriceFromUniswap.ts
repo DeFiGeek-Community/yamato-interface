@@ -8,6 +8,7 @@ import {
   SUBGRAPH_UNISWAP_V2_URLS,
   SUBGRAPH_UNISWAP_V3_URLS,
 } from '../../constants/api';
+import { SupportedChainId } from '../../constants/chains';
 import { Pool } from '../../infrastructures/subgraph/uniswap/generated-v3';
 
 const v3Query = gql`
@@ -94,36 +95,24 @@ export async function fetchCjpyPriceFromUniswap(
     tokenAddress1: WRAPPED_ETHER_ADDRESS[activeChainId].toLowerCase(),
   };
 
-  // Query
-  // const data = await request(endpoint, query, variables);
-  const data = {
-    "asToken0": [
-      {
-        "token0Price":1
+  if (activeChainId === SupportedChainId.MAINNET) {
+    // Query
+    const data = await request(endpoint, query, variables);
+    // Create response
+    if (version === 'v2') {
+      if (data.asToken0.length > 0) {
+        return Number(data.asToken0[0].token0Price);
+      } else if (data.asToken1.length > 0) {
+        return Number(data.asToken1[0].token1Price);
       }
-    ],
-    "asToken1": [
-      {
-        "token1Price":1
-      }
-    ]
-  }
-  // Create response
-  if (version === 'v2') {
-    if (data.asToken0.length > 0) {
-      return Number(data.asToken0[0].token0Price);
-    } else if (data.asToken1.length > 0) {
-      return Number(data.asToken1[0].token1Price);
+      return null;
     }
-    return null;
-  }
-  // v3
-  if (data.asToken0.length > 0) {
-    // return getMidPrice(data.asToken0, 'token0Price');
-    return Number(data.asToken0[0].token0Price);
-  } else if (data.asToken1.length > 0) {
-    // return getMidPrice(data.asToken0, 'token1Price');
-    return Number(data.asToken1[0].token1Price);
+    // v3
+    if (data.asToken0.length > 0) {
+      return getMidPrice(data.asToken0, 'token0Price');
+    } else if (data.asToken1.length > 0) {
+      return getMidPrice(data.asToken0, 'token1Price');
+    }
   }
   return null;
 }
