@@ -20,19 +20,19 @@ import {
   // ArgentWalletDetector,
   YamatoV3,
   Pool,
-  PriceFeed,
+  PriceFeedV3,
   YMT,
   VeYMT,
   EnsPublicResolver,
   EnsRegistrar,
   CJPY,
   UniswapInterfaceMulticall,
-  PriorityRegistry,
+  PriorityRegistryV6,
 } from '../infrastructures/abis/types';
 import CJPY_ABI from '../infrastructures/abis/yamato/CJPY.json';
 import YAMATO_POOL_ABI from '../infrastructures/abis/yamato/PoolV2.json';
-import YAMATO_PRICE_FEED_ABI from '../infrastructures/abis/yamato/PriceFeed.json';
-import YAMATO_PRIORITY_REGISTRY_ABI from '../infrastructures/abis/yamato/PriorityRegistryV5.json';
+import YAMATO_PRICE_FEED_ABI from '../infrastructures/abis/yamato/PriceFeedV3.json';
+import YAMATO_PRIORITY_REGISTRY_ABI from '../infrastructures/abis/yamato/PriorityRegistryV6.json';
 import YMT_ABI from '../infrastructures/abis/yamato/YMT.json';
 import YAMATO_MAIN_ABI from '../infrastructures/abis/yamato/YamatoV3.json';
 import VEYMT_ABI from '../infrastructures/abis/yamato/veYMT.json';
@@ -84,13 +84,13 @@ export function useYamatoPoolContract() {
   return useContract<Pool>(YAMATO_POOL_ADDRESSES, YAMATO_POOL_ABI);
 }
 export function useYamatoPriceFeedContract() {
-  return useContract<PriceFeed>(
+  return useContract<PriceFeedV3>(
     YAMATO_PRICE_FEED_ADDRESSES,
     YAMATO_PRICE_FEED_ABI
   );
 }
 export function useYamatoPriorityRegistryContract() {
-  return useContract<PriorityRegistry>(
+  return useContract<PriorityRegistryV6>(
     YAMATO_PRIORITY_REGISTRY_ADDRESSES,
     YAMATO_PRIORITY_REGISTRY_ABI
   );
