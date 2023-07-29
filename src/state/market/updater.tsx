@@ -16,19 +16,16 @@ export default function Updater(): null {
 
   useInterval(
     () => {
-      if (!isUseMock) {
+      if (isUseMock) {
+        dispatchFetchRateOfCjpyEth('uniswap(v3)', rateOfEthJpy);
+        dispatchFetchRateOfCjpyEth('uniswap(v2)', rateOfEthJpy);
+      } else {
         fetchCjpyPriceFromUniswap('v3', chainId, active).then((data) =>
           dispatchFetchRateOfCjpyEth('uniswap(v3)', data)
         );
-        fetchCjpyPriceFromUniswap('v2', chainId, active).then((data) => {
-          dispatchFetchRateOfCjpyEth('uniswap(v2)', data);
-        });
-      } else {
-        dispatchFetchRateOfCjpyEth('uniswap(v3)', rateOfEthJpy);
-        dispatchFetchRateOfCjpyEth('uniswap(v2)', rateOfEthJpy);
       }
     },
-    5000,
+    10000,
     true
   );
 

@@ -36,21 +36,16 @@ export const SUBGRAPH_YAMATO_URLS: Record<number, string> = {
 export const SUBGRAPH_UNISWAP_V3_URLS: Record<number, string> = {
   [SupportedChainId.MAINNET]:
     'https://api.thegraph.com/subgraphs/name/uniswap/uniswap-v3',
-
   [SupportedChainId.GOERLI]: '',
-
   [SupportedChainId.SEPOLIA]: '',
-
   [SupportedChainId.ARBITRUM_ONE]:
     'https://api.thegraph.com/subgraphs/name/ianlapham/uniswap-arbitrum-one',
-
   [SupportedChainId.OPTIMISM]:
     'https://api.thegraph.com/subgraphs/name/ianlapham/uniswap-optimism-dev',
 };
 
 export const SUBGRAPH_UNISWAP_V2_URLS: Record<number, string> = {
-  [SupportedChainId.MAINNET]:
-    'https://api.thegraph.com/subgraphs/name/uniswap/uniswap-v2',
+  [SupportedChainId.MAINNET]:'',
   [SupportedChainId.GOERLI]: '',
   [SupportedChainId.SEPOLIA]: '',
   [SupportedChainId.ARBITRUM_ONE]:
