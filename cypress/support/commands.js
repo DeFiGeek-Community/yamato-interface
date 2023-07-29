@@ -97,8 +97,8 @@ export function connectWallet() {
           options && options.onBeforeLoad && options.onBeforeLoad(win);
           win.localStorage.clear();
           const provider = new JsonRpcProvider(
-            `https://rinkeby.infura.io/v3/${INFURA_KEY}`,
-            4
+            `https://goerli.infura.io/v3/${INFURA_KEY}`,
+            5
           );
           const signer = new Wallet(TEST_PRIVATE_KEY, provider);
           win.ethereum = new CustomizedBridge(signer, provider);

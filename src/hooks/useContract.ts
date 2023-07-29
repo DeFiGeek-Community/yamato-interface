@@ -18,23 +18,23 @@ import ENS_PUBLIC_RESOLVER_ABI from '../infrastructures/abis/external/ens-public
 import ENS_ABI from '../infrastructures/abis/external/ens-registrar.json';
 import {
   // ArgentWalletDetector,
-  Yamato,
+  YamatoV3,
   Pool,
-  PriceFeed,
+  PriceFeedV3,
   YMT,
   VeYMT,
   EnsPublicResolver,
   EnsRegistrar,
   CJPY,
   UniswapInterfaceMulticall,
-  PriorityRegistry,
+  PriorityRegistryV6,
 } from '../infrastructures/abis/types';
 import CJPY_ABI from '../infrastructures/abis/yamato/CJPY.json';
 import YAMATO_POOL_ABI from '../infrastructures/abis/yamato/PoolV2.json';
-import YAMATO_PRICE_FEED_ABI from '../infrastructures/abis/yamato/PriceFeed.json';
-import YAMATO_PRIORITY_REGISTRY_ABI from '../infrastructures/abis/yamato/PriorityRegistryV5.json';
+import YAMATO_PRICE_FEED_ABI from '../infrastructures/abis/yamato/PriceFeedV3.json';
+import YAMATO_PRIORITY_REGISTRY_ABI from '../infrastructures/abis/yamato/PriorityRegistryV6.json';
 import YMT_ABI from '../infrastructures/abis/yamato/YMT.json';
-import YAMATO_MAIN_ABI from '../infrastructures/abis/yamato/YamatoV2.json';
+import YAMATO_MAIN_ABI from '../infrastructures/abis/yamato/YamatoV3.json';
 import VEYMT_ABI from '../infrastructures/abis/yamato/veYMT.json';
 import { getContract } from '../utils/web3';
 import { useActiveWeb3React } from './web3';
@@ -78,19 +78,19 @@ export function useContract<T extends Contract = Contract>(
  * Yamato
  */
 export function useYamatoMainContract() {
-  return useContract<Yamato>(YAMATO_MAIN_ADDRESSES, YAMATO_MAIN_ABI);
+  return useContract<YamatoV3>(YAMATO_MAIN_ADDRESSES, YAMATO_MAIN_ABI);
 }
 export function useYamatoPoolContract() {
   return useContract<Pool>(YAMATO_POOL_ADDRESSES, YAMATO_POOL_ABI);
 }
 export function useYamatoPriceFeedContract() {
-  return useContract<PriceFeed>(
+  return useContract<PriceFeedV3>(
     YAMATO_PRICE_FEED_ADDRESSES,
     YAMATO_PRICE_FEED_ABI
   );
 }
 export function useYamatoPriorityRegistryContract() {
-  return useContract<PriorityRegistry>(
+  return useContract<PriorityRegistryV6>(
     YAMATO_PRIORITY_REGISTRY_ADDRESSES,
     YAMATO_PRIORITY_REGISTRY_ABI
   );

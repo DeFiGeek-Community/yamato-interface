@@ -2,7 +2,8 @@ import { SupportedChainId } from '../constants/chains';
 
 const ETHERSCAN_PREFIXES: { [chainId: number]: string } = {
   [SupportedChainId.MAINNET]: '',
-  [SupportedChainId.RINKEBY]: 'rinkeby.',
+  [SupportedChainId.GOERLI]: 'goerli.',
+  [SupportedChainId.SEPOLIA]: 'sepolia.',
   [SupportedChainId.OPTIMISM]: 'optimistic.',
   [SupportedChainId.OPTIMISTIC_KOVAN]: 'kovan-optimistic.',
 };

@@ -1,17 +1,17 @@
 import { BigNumber } from 'ethers';
 import {
   Pool,
-  PriceFeed,
-  PriorityRegistry,
-  Yamato,
+  PriceFeedV3,
+  PriorityRegistryV6,
+  YamatoV3,
 } from '../../infrastructures/abis/types';
 import { formatCjpy, formatEther, formatYen } from '../web3';
 
 export async function fetchYamatoEntiretyStateFromContract(contracts: {
-  yamatoMainContract: Yamato | null;
+  yamatoMainContract: YamatoV3 | null;
   yamatoPoolContract: Pool | null;
-  yamatoPriceFeedContract: PriceFeed | null;
-  yamatoPriorityRegistryContract: PriorityRegistry | null;
+  yamatoPriceFeedContract: PriceFeedV3 | null;
+  yamatoPriorityRegistryContract: PriorityRegistryV6 | null;
 }) {
   // Get states from contracts
   const yamatoMainResults = await getYamatoMainResults(
@@ -65,7 +65,7 @@ export async function fetchYamatoEntiretyStateFromContract(contracts: {
 }
 
 export async function fetchRedeemablPledges(
-  yamatoPriorityRegistryContract: PriorityRegistry | null
+  yamatoPriorityRegistryContract: PriorityRegistryV6 | null
 ) {
   // Get states from contracts
   const yamatoPriorityRegistryResults = await getYamatoPriorityRegistryResults(
@@ -85,7 +85,7 @@ export async function fetchRedeemablPledges(
 
 // Get states from Yamato.sol
 async function getYamatoMainResults(
-  yamatoMainContract: Yamato | null
+  yamatoMainContract: YamatoV3 | null
 ): Promise<[BigNumber, BigNumber, number, number, number, number]> {
   return yamatoMainContract
     ? await yamatoMainContract.getStates() // totalColl, totalDebt, MCR, RRR, SRR, GRR
@@ -106,9 +106,9 @@ async function getYamatoPoolResults(
       ];
 }
 
-// Get states from PriceFeed.sol
+// Get states from PriceFeedV3.sol
 async function getYamatoPriceFeedResults(
-  yamatoPriceFeedContract: PriceFeed | null
+  yamatoPriceFeedContract: PriceFeedV3 | null
 ): Promise<{ rateOfEthJpy: number }> {
   return yamatoPriceFeedContract
     ? {
@@ -121,9 +121,9 @@ async function getYamatoPriceFeedResults(
       };
 }
 
-// Get states from PriorityRegistry.sol
+// Get states from PriorityRegistryV6.sol
 async function getYamatoPriorityRegistryResults(
-  yamatoPriorityRegistryContract: PriorityRegistry | null
+  yamatoPriorityRegistryContract: PriorityRegistryV6 | null
 ): Promise<{ redeemableCandidate: number; sweepableCandidate: number }> {
   const results = yamatoPriorityRegistryContract
     ? {

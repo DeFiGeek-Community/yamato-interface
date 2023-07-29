@@ -1,9 +1,9 @@
-import { Yamato } from '../../infrastructures/abis/types';
+import { YamatoV3 } from '../../infrastructures/abis/types';
 import { formatCjpy, formatEther } from '../web3';
 
 export async function fetchPledgeStateFromContract(
   account: string | null | undefined,
-  contracts: { yamatoMainContract: Yamato | null }
+  contracts: { yamatoMainContract: YamatoV3 | null }
 ) {
   if (!account || !contracts.yamatoMainContract) {
     return {
@@ -15,7 +15,7 @@ export async function fetchPledgeStateFromContract(
   }
 
   const indivisualStates =
-    await contracts.yamatoMainContract.getIndivisualStates(account); // coll, debt, isCreated, withdrawLock, depositAndBorrowLock
+    await contracts.yamatoMainContract.getIndividualStates(account); // coll, debt, isCreated, withdrawLock, depositAndBorrowLock
 
   return {
     [account.toLowerCase()]: {

@@ -1,12 +1,12 @@
 import { Interface } from 'ethers/lib/utils';
-import { Yamato } from '../../infrastructures/abis/types';
+import { YamatoV3 } from '../../infrastructures/abis/types';
 import YAMATO_MAIN_ABI from '../../infrastructures/abis/yamato/Yamato.json';
 import { LogEvent } from '../../state/yamato-entirety/reducer';
 import { formatCjpy, formatEther } from '../web3';
 
 export async function fetchEventLogs(
   blockNumber: number | undefined,
-  yamatoMainContract: Yamato | null
+  yamatoMainContract: YamatoV3 | null
 ): Promise<LogEvent[]> {
   if (!blockNumber || !yamatoMainContract) {
     return [];

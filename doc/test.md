@@ -12,7 +12,7 @@ As we are concerned about the lack of ETH, we would appreciate it if you could t
 
 The following test nets are currently in use:
 
-- Rinkeby
+- Goerli
 
 ## DOM element identification for test
 

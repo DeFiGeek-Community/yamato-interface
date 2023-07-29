@@ -41,6 +41,13 @@ export default function Footer() {
           >
             <Text>GitHub </Text>
           </a>
+          <a
+            href={ReferenceList.document}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Text>Document </Text>
+          </a>
         </FooterItem>
       </VStack>
     </HStack>

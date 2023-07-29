@@ -124,7 +124,7 @@ export default function LogViewer() {
         events.length > 0 ? (
           <TransitionGroup>{renderLogEvents(events)}</TransitionGroup>
         ) : (
-          <Text>${t('world.logViewer.alert8')}</Text>
+          <Text>{t('world.logViewer.alert8')}</Text>
         )
       ) : (
         <>
