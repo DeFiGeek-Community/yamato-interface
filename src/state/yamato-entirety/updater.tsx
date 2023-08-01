@@ -49,8 +49,8 @@ export default function Updater(): null {
   const yamatoPriceFeedContract = useYamatoPriceFeedContract();
   const yamatoPriorityRegistryContract = useYamatoPriorityRegistryContract();
   const cjpyContract = useCjpyContract();
-  const ymtContract = useYmtContract();
-  const veYmtContract = useVeYmtContract();
+  // const ymtContract = useYmtContract();
+  // const veYmtContract = useVeYmtContract();
 
   const blockNumber = useBlockNumber();
 
@@ -90,8 +90,8 @@ export default function Updater(): null {
         rateOfEthJpy: res.rateOfEthJpy,
         tokenParams: await fetchTotalSupply({
           cjpyContract,
-          ymtContract,
-          veYmtContract,
+          ymtContract: null,
+          veYmtContract: null,
         }),
         eventParams: await fetchEventLogs(blockNumber, yamatoMainContract),
       };
@@ -110,12 +110,12 @@ export default function Updater(): null {
     chainId,
     blockNumber,
     cjpyContract,
-    veYmtContract,
+    // veYmtContract,
     yamatoMainContract,
     yamatoPoolContract,
     yamatoPriceFeedContract,
     yamatoPriorityRegistryContract,
-    ymtContract,
+    // ymtContract,
   ]);
 
   const polling = useCallback(async () => {

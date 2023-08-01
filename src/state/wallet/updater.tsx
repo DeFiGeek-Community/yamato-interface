@@ -23,8 +23,8 @@ export default function Updater(): null {
   const { active, account, library } = useActiveWeb3React();
 
   const cjpyContract = useCjpyContract();
-  const ymtContract = useYmtContract();
-  const veYmtContract = useVeYmtContract();
+  // const ymtContract = useYmtContract();
+  // const veYmtContract = useVeYmtContract();
 
   const dispatchFetchWallet = useFetchWallet();
 
@@ -40,8 +40,8 @@ export default function Updater(): null {
         try {
           const wallet = await fetchTokenBalanceOf(account, {
             cjpyContract,
-            ymtContract,
-            veYmtContract,
+            ymtContract: null,
+            veYmtContract: null,
           });
           walletParams = {
             eth: await getEthBalance(account, library),
