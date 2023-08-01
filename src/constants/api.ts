@@ -45,7 +45,7 @@ export const SUBGRAPH_UNISWAP_V3_URLS: Record<number, string> = {
 };
 
 export const SUBGRAPH_UNISWAP_V2_URLS: Record<number, string> = {
-  [SupportedChainId.MAINNET]:'',
+  [SupportedChainId.MAINNET]: '',
   [SupportedChainId.GOERLI]: '',
   [SupportedChainId.SEPOLIA]: '',
   [SupportedChainId.ARBITRUM_ONE]:

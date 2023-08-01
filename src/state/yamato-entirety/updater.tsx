@@ -2,12 +2,12 @@ import { useCallback } from 'react';
 import { isEnableSubgraph } from '../../constants/api';
 import {
   useCjpyContract,
-  useVeYmtContract,
+  // useVeYmtContract,
   useYamatoMainContract,
   useYamatoPoolContract,
   useYamatoPriceFeedContract,
   useYamatoPriorityRegistryContract,
-  useYmtContract,
+  // useYmtContract,
 } from '../../hooks/useContract';
 import useInterval from '../../hooks/useInterval';
 import { useActiveWeb3React } from '../../hooks/web3';
@@ -49,8 +49,8 @@ export default function Updater(): null {
   const yamatoPriceFeedContract = useYamatoPriceFeedContract();
   const yamatoPriorityRegistryContract = useYamatoPriorityRegistryContract();
   const cjpyContract = useCjpyContract();
-  const ymtContract = useYmtContract();
-  const veYmtContract = useVeYmtContract();
+  // const ymtContract = useYmtContract();
+  // const veYmtContract = useVeYmtContract();
 
   const blockNumber = useBlockNumber();
 
@@ -90,8 +90,8 @@ export default function Updater(): null {
         rateOfEthJpy: res.rateOfEthJpy,
         tokenParams: await fetchTotalSupply({
           cjpyContract,
-          ymtContract,
-          veYmtContract,
+          ymtContract: null,
+          veYmtContract: null,
         }),
         eventParams: await fetchEventLogs(blockNumber, yamatoMainContract),
       };
@@ -110,12 +110,12 @@ export default function Updater(): null {
     chainId,
     blockNumber,
     cjpyContract,
-    veYmtContract,
+    // veYmtContract,
     yamatoMainContract,
     yamatoPoolContract,
     yamatoPriceFeedContract,
     yamatoPriorityRegistryContract,
-    ymtContract,
+    // ymtContract,
   ]);
 
   const polling = useCallback(async () => {
@@ -142,7 +142,7 @@ export default function Updater(): null {
     dispatch(fetchEvents({ events: eventParams }));
   }, [fetch, dispatch]);
 
-  useInterval(polling, 5000, true);
+  useInterval(polling, 60000, true);
 
   return null;
 }

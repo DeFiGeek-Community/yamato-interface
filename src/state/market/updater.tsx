@@ -25,7 +25,7 @@ export default function Updater(): null {
         );
       }
     },
-    10000,
+    60000,
     true
   );
 
