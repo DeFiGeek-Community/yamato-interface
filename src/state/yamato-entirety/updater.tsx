@@ -2,12 +2,12 @@ import { useCallback } from 'react';
 import { isEnableSubgraph } from '../../constants/api';
 import {
   useCjpyContract,
-  useVeYmtContract,
+  // useVeYmtContract,
   useYamatoMainContract,
   useYamatoPoolContract,
   useYamatoPriceFeedContract,
   useYamatoPriorityRegistryContract,
-  useYmtContract,
+  // useYmtContract,
 } from '../../hooks/useContract';
 import useInterval from '../../hooks/useInterval';
 import { useActiveWeb3React } from '../../hooks/web3';
@@ -142,7 +142,7 @@ export default function Updater(): null {
     dispatch(fetchEvents({ events: eventParams }));
   }, [fetch, dispatch]);
 
-  useInterval(polling, 5000, true);
+  useInterval(polling, 60000, true);
 
   return null;
 }
