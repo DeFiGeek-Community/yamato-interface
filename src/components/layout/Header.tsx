@@ -11,7 +11,7 @@ import {
 import i18next from 'i18next';
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { BsGlobe2 } from 'react-icons/bs';
+import { BsTranslate } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { useActiveWeb3React } from '../../hooks/web3';
@@ -32,7 +32,7 @@ const LanguageButton = styled.button`
   margin: 0 1rem;
 `;
 
-const GlobeIcon = styled(BsGlobe2)`
+const TranslateIcon = styled(BsTranslate)`
   font-size: 3rem;
   color: ${({ theme }) => theme.bg1};
 `;
@@ -52,7 +52,7 @@ export function LangugeChange() {
     <Popover trigger="hover">
       <PopoverTrigger>
         <LanguageButton>
-          <GlobeIcon />
+          <TranslateIcon />
         </LanguageButton>
       </PopoverTrigger>
       <PopoverContent>
