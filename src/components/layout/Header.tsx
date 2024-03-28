@@ -129,7 +129,7 @@ export default function Header() {
             >
               <Text fontWeight="bold">HOME</Text>
             </Link>
-            <Link href="/" _hover={{ textDecoration: 'none' }}>
+            <Link href="https://ve-interface.vercel.app/" _hover={{ textDecoration: 'none' }}>
               <Text fontWeight="bold">veYMT</Text>
             </Link>
           </HStack>
