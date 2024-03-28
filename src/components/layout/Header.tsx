@@ -141,7 +141,7 @@ export default function Header() {
                 {active && account && `block:${blockNumber}`}
               </StyledPollingNumber>
               <Link
-                href="/tools/"
+                href="/#/tools/"
                 style={{
                   fontSize: '1.6rem',
                   fontWeight: 'bold',
