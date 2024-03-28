@@ -1,18 +1,20 @@
 import { HStack, VStack } from '@chakra-ui/layout';
 import {
-  Grid,
-  GridItem,
   Popover,
   PopoverTrigger,
   PopoverContent,
   PopoverArrow,
   PopoverBody,
+  Link,
+  Box,
+  Container,
+  Text,
+  Flex,
 } from '@chakra-ui/react';
 import i18next from 'i18next';
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { BsTranslate } from 'react-icons/bs';
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { useActiveWeb3React } from '../../hooks/web3';
 import { useBlockNumber } from '../../state/application/hooks';
@@ -97,43 +99,61 @@ export default function Header() {
   }, [blockNumber]);
 
   return (
-    <Grid
-      templateRows="repeat(1, 1fr)"
-      templateColumns="repeat(2, 1fr)"
-      gap={4}
+    <Box
+      px={{ base: 0, md: 4 }}
+      position={'sticky'}
+      top={'0'}
+      zIndex={100}
+      bg={'#fcfaf2'}
+      opacity={0.975}
     >
-      <GridItem rowSpan={1} colSpan={1}>
-        <Link to="/">
-          <SvgYamatoLogWithTitle width={422} height={50} />
-        </Link>
-      </GridItem>
-      <GridItem
-        rowSpan={1}
-        colEnd={4}
-        style={{
-          margin: 'auto',
-        }}
-      >
-        <HStack>
-          <LangugeChange />
-          <Web3Status />
-          <VStack>
-            <StyledPollingNumber breathe={isMounting}>
-              {active && account && `block:${blockNumber}`}
-            </StyledPollingNumber>
+      <Container maxW="container.2xl" px={{ base: 2, md: 9 }}>
+        <Flex
+          as="header"
+          py="4"
+          justifyContent="space-between"
+          alignItems="center"
+        >
+          <HStack fontSize="16px" color="#818181" style={{ gap: '1.9rem' }}>
+            <Link href="/">
+              <SvgYamatoLogWithTitle width={200} height={30} />
+            </Link>
             <Link
-              to="/tools/"
+              href="/"
+              _hover={{ textDecoration: 'none' }}
               style={{
-                fontSize: '1.6rem',
-                fontWeight: 'bold',
-                color: '#5BAD92',
+                pointerEvents: 'none',
+                opacity: 0.6,
+                marginLeft: '2rem',
               }}
             >
-              {t('layout.tool')}
+              <Text fontWeight="bold">HOME</Text>
             </Link>
-          </VStack>
-        </HStack>
-      </GridItem>
-    </Grid>
+            <Link href="/" _hover={{ textDecoration: 'none' }}>
+              <Text fontWeight="bold">veYMT</Text>
+            </Link>
+          </HStack>
+          <HStack>
+            <LangugeChange />
+            <Web3Status />
+            <VStack>
+              <StyledPollingNumber breathe={isMounting}>
+                {active && account && `block:${blockNumber}`}
+              </StyledPollingNumber>
+              <Link
+                to="/tools/"
+                style={{
+                  fontSize: '1.6rem',
+                  fontWeight: 'bold',
+                  color: '#5BAD92',
+                }}
+              >
+                {t('layout.tool')}
+              </Link>
+            </VStack>
+          </HStack>
+        </Flex>
+      </Container>
+    </Box>
   );
 }
