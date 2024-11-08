@@ -17,6 +17,7 @@ import { formatPrice } from '../../utils/prices';
 import { shortenAddress } from '../../utils/web3';
 import { Text } from '../CommonItem';
 import Loader from '../Loader';
+import CurrencyToggle from './CurrencyToggle';
 import Row from './Row';
 import WalletModal from './WalletModal';
 
@@ -143,50 +144,7 @@ function Web3StatusInner() {
   if (account) {
     return (
       <>
-        <CurrencyToggleButton ref={buttonRef} onClick={handleCurrencyToggle}>
-          <CJPYLogo width="35px" />
-          <FlexText
-            style={{
-              fontSize: '2rem',
-              lineHeight: '2.2rem',
-              display: 'flex',
-              flexDirection: 'column',
-              marginLeft: '0.5rem',
-            }}
-          >
-            <span
-              style={{
-                fontSize: '1rem',
-                color: '#888888',
-                lineHeight: '1rem',
-              }}
-            >
-              Balance
-            </span>
-            <span>
-              <span
-                style={{
-                  fontSize: '1.6rem',
-                }}
-              >
-                {formatPrice(cjpy, 'jpy').value}
-              </span>{' '}
-              CJPY
-            </span>
-          </FlexText>
-        </CurrencyToggleButton>
-        {isDropdownOpen && (
-          <DropdownMenu style={{ left: dropdownLeft }}>
-            <DropdownItem onClick={() => handleCurrencySelect('CJPY')}>
-              <CJPYLogo width="30px" />
-              <span style={{ marginLeft: '1rem' }}>CJPY</span>
-            </DropdownItem>
-            <DropdownItem onClick={() => handleCurrencySelect('CUSD')}>
-              <CJPYLogo width="30px" />
-              <span style={{ marginLeft: '1rem' }}>CUSD</span>
-            </DropdownItem>
-          </DropdownMenu>
-        )}
+        <CurrencyToggle/>
         {chainId && chainId !== 1 && (
           <WalletText
             style={{
