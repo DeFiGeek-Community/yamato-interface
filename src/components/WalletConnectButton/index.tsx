@@ -1,5 +1,5 @@
 import { UnsupportedChainIdError, useWeb3React } from '@web3-react/core';
-import { useMemo } from 'react';
+import { useMemo, useState, useRef, useEffect } from 'react';
 import { Button as RebassButton } from 'rebass/styled-components';
 import styled from 'styled-components';
 import CJPYLogo from '../../components/svgs/CjpyLogo';
@@ -19,6 +19,7 @@ import { Text } from '../CommonItem';
 import Loader from '../Loader';
 import Row from './Row';
 import WalletModal from './WalletModal';
+
 
 const WalletButton = styled(RebassButton)`
   color: ${({ theme }) => theme.text0};
@@ -40,7 +41,7 @@ export const WalletText = styled(Text)`
   color: ${({ theme }) => theme.text2};
 `;
 
-const FlexText = styled(WalletText)`
+export const FlexText = styled(WalletText)`
   flex: 1 1 auto;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -71,6 +72,32 @@ const CurrencyToggleButton = styled.div`
   }
 `;
 
+const DropdownMenu = styled.div`
+  position: absolute;
+  top: 100%;
+  background-color: white;
+  border: 1px solid ${({ theme }) => theme.text3};
+  background-color: ${({ theme }) => theme.bg0};
+  font-size: 1.6rem;
+  font-weight: bold;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  width: 200px;
+  padding: 0.5rem;
+`;
+
+const DropdownItem = styled.div`
+  color: ${({ theme }) => theme.text3};
+  display: flex;
+  align-items: center;
+  padding: 0.5rem;
+  cursor: pointer;
+  &:hover {
+    background-color: #f2f2f2;
+  }
+`;
+
 // we want the latest one to come first, so return negative if a is after b
 function newTransactionsFirst(a: TransactionDetails, b: TransactionDetails) {
   return b.addedTime - a.addedTime;
@@ -92,15 +119,31 @@ function Web3StatusInner() {
     .filter((tx) => !tx.receipt)
     .map((tx) => tx.hash);
   const hasPendingTransactions = !!pending.length;
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [dropdownLeft, setDropdownLeft] = useState(0);
+  const buttonRef = useRef<HTMLDivElement>(null);
+
   // 通貨を切り替える関数を定義
   const handleCurrencyToggle = () => {
-    // 通貨を切り替えるロジックをここに実装
-    console.log('Currency toggled');
+    setIsDropdownOpen(!isDropdownOpen);
   };
+
+  const handleCurrencySelect = (currency: string) => {
+    console.log(`Selected currency: ${currency}`);
+    setIsDropdownOpen(false);
+  };
+
+  useEffect(() => {
+    if (buttonRef.current) {
+      const rect = buttonRef.current.getBoundingClientRect();
+      setDropdownLeft(rect.left);
+    }
+  }, [isDropdownOpen]);
+
   if (account) {
     return (
       <>
-        <CurrencyToggleButton onClick={handleCurrencyToggle}>
+        <CurrencyToggleButton ref={buttonRef} onClick={handleCurrencyToggle}>
           <CJPYLogo width="35px" />
           <FlexText
             style={{
@@ -123,7 +166,7 @@ function Web3StatusInner() {
             <span>
               <span
                 style={{
-                  fontSize: '1.6rem', // フォントサイズを少し小さく
+                  fontSize: '1.6rem',
                 }}
               >
                 {formatPrice(cjpy, 'jpy').value}
@@ -132,6 +175,18 @@ function Web3StatusInner() {
             </span>
           </FlexText>
         </CurrencyToggleButton>
+        {isDropdownOpen && (
+          <DropdownMenu style={{ left: dropdownLeft }}>
+            <DropdownItem onClick={() => handleCurrencySelect('CJPY')}>
+              <CJPYLogo width="30px" />
+              <span style={{ marginLeft: '1rem' }}>CJPY</span>
+            </DropdownItem>
+            <DropdownItem onClick={() => handleCurrencySelect('CUSD')}>
+              <CJPYLogo width="30px" />
+              <span style={{ marginLeft: '1rem' }}>CUSD</span>
+            </DropdownItem>
+          </DropdownMenu>
+        )}
         {chainId && chainId !== 1 && (
           <WalletText
             style={{
