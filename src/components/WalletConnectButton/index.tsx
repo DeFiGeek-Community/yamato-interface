@@ -21,16 +21,23 @@ import Row from './Row';
 import WalletModal from './WalletModal';
 
 const WalletButton = styled(RebassButton)`
-  color: ${({ theme }) => theme.text1};
-  padding: 0;
+  color: ${({ theme }) => theme.text0};
+  background-color: ${({ theme }) => theme.text3};
+  padding: 0.6rem 2.5rem;
   margin-right: 1rem;
+  border-radius: 26px;
+  transition: box-shadow 0.3s;
+
+  &:hover {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  }
 `;
 
 export const WalletText = styled(Text)`
   font-weight: bold;
   font-size: 1.6rem;
   line-height: 1.8rem;
-  color: ${({ theme }) => theme.text3};
+  color: ${({ theme }) => theme.text2};
 `;
 
 const FlexText = styled(WalletText)`
@@ -46,6 +53,22 @@ const FlexText = styled(WalletText)`
   font-size: 1.6rem;
   line-height: 1.8rem;
   color: ${({ theme }) => theme.text3};
+`;
+
+const CurrencyToggleButton = styled.div`
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 0rem 1rem;
+  border-radius: 26px;
+  border: 1px solid ${({ theme }) => theme.text3};
+  background-color: transparent;
+  transition: box-shadow 0.3s, background-color 0.3s;
+
+  &:hover {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    // background-color: #f0f0f0;
+  }
 `;
 
 // we want the latest one to come first, so return negative if a is after b
@@ -69,15 +92,52 @@ function Web3StatusInner() {
     .filter((tx) => !tx.receipt)
     .map((tx) => tx.hash);
   const hasPendingTransactions = !!pending.length;
-
+  // 通貨を切り替える関数を定義
+  const handleCurrencyToggle = () => {
+    // 通貨を切り替えるロジックをここに実装
+    console.log('Currency toggled');
+  };
   if (account) {
     return (
       <>
+        <CurrencyToggleButton onClick={handleCurrencyToggle}>
+          <CJPYLogo width="35px" />
+          <FlexText
+            style={{
+              fontSize: '2rem',
+              lineHeight: '2.2rem',
+              display: 'flex',
+              flexDirection: 'column',
+              marginLeft: '0.5rem',
+            }}
+          >
+            <span
+              style={{
+                fontSize: '1rem',
+                color: '#888888',
+                lineHeight: '1rem',
+              }}
+            >
+              Balance
+            </span>
+            <span>
+              <span
+                style={{
+                  fontSize: '1.6rem', // フォントサイズを少し小さく
+                }}
+              >
+                {formatPrice(cjpy, 'jpy').value}
+              </span>{' '}
+              CJPY
+            </span>
+          </FlexText>
+        </CurrencyToggleButton>
         {chainId && chainId !== 1 && (
           <WalletText
             style={{
               color: 'orange',
-              marginRight: '1rem',
+              marginLeft: '1rem',
+              marginRight: '0.5rem',
             }}
           >
             {CHAIN_INFO[chainId].label}
@@ -92,33 +152,24 @@ function Web3StatusInner() {
             }}
           >
             {hasPendingTransactions ? (
-              <FlexText style={{ fontSize: '1.8rem', lineHeight: '2.1rem' }}>
+              <WalletText style={{ fontSize: '1.4rem', lineHeight: '1.8rem' }}>
                 <Row>
                   <span>{pending?.length} Pending...</span>
                   <div style={{ marginTop: '0.2rem', marginLeft: '0.2rem' }}>
                     <Loader stroke="#5BAD92" />
                   </div>
                 </Row>
-              </FlexText>
+              </WalletText>
             ) : (
-              <FlexText
-                style={{ fontSize: '1.8rem', lineHeight: '2.1rem' }}
+              <WalletText
+                style={{ fontSize: '1.5rem', lineHeight: '1.8rem' }}
                 data-testid="wallet-data-connectedAs"
               >
                 Connected As
                 <br />
                 {ENSName || shortenAddress(account)}
-              </FlexText>
+              </WalletText>
             )}
-            <CJPYLogo width="35px" />
-            <FlexText
-              style={{
-                fontSize: '3rem',
-                lineHeight: '3.5rem',
-              }}
-            >
-              CJPY {formatPrice(cjpy, 'jpy').value}
-            </FlexText>
           </span>
         </WalletButton>
       </>
@@ -141,8 +192,8 @@ function Web3StatusInner() {
         <WalletText
           data-testid="wallet-data-connectWallet"
           style={{
-            fontSize: '2rem',
-            lineHeight: '2.3rem',
+            fontSize: '1.6rem',
+            lineHeight: '3.3rem',
           }}
         >
           Connect Wallet
