@@ -12,23 +12,12 @@ import {
   Flex,
 } from '@chakra-ui/react';
 import i18next from 'i18next';
-import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { BsTranslate } from 'react-icons/bs';
+import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
-import { useActiveWeb3React } from '../../hooks/web3';
-import { useBlockNumber } from '../../state/application/hooks';
 import Web3Status from '../WalletConnectButton';
 import SvgYamatoLogWithTitle from '../svgs/YamatoLogoWithTitle';
-
-const StyledPollingNumber = styled.div<{
-  breathe: boolean;
-}>`
-  font-size: 1rem;
-  color: #5bad92;
-  transition: opacity 0.25s ease;
-  opacity: ${({ breathe }) => (breathe ? 0.5 : 1)};
-`;
 
 const LanguageButton = styled.button`
   margin: 0 1rem;
@@ -77,27 +66,13 @@ export function LangugeChange() {
 }
 
 export default function Header() {
-  const { active, account } = useActiveWeb3React();
-
-  const blockNumber = useBlockNumber();
-  const [isMounting, setIsMounting] = useState(false);
+  const location = useLocation();
 
   const { t } = useTranslation();
 
-  useEffect(() => {
-    if (!blockNumber) {
-      return;
-    }
+  const isActiveLink = (path: string) => location.pathname === path;
 
-    setIsMounting(true);
-    const mountingTimer = setTimeout(() => setIsMounting(false), 1000);
-
-    // this will clear Timeout when component unmount like in willComponentUnmount
-    return () => {
-      clearTimeout(mountingTimer);
-    };
-  }, [blockNumber]);
-
+  console.log(location.pathname);
   return (
     <Box
       px={{ base: 0, md: 4 }}
@@ -115,42 +90,41 @@ export default function Header() {
           alignItems="center"
         >
           <HStack fontSize="16px" color="#818181" style={{ gap: '1.9rem' }}>
-            <Link href="/">
+            <Link href="/#/">
               <SvgYamatoLogWithTitle width={200} height={30} />
             </Link>
             <Link
-              href="/"
-              _hover={{ textDecoration: 'none' }}
-              style={{
-                pointerEvents: 'none',
-                opacity: 0.6,
-                marginLeft: '2rem',
-              }}
+              href="/#/"
+              style={
+                isActiveLink('/')
+                  ? {
+                      fontWeight: 'bold',
+                      pointerEvents: 'none',
+                      opacity: 0.6,
+                      marginLeft: '2rem',
+                    }
+                  : { marginLeft: '2rem' }
+              }
             >
               <Text fontWeight="bold">HOME</Text>
             </Link>
-            <Link href="https://ve-interface.vercel.app/" _hover={{ textDecoration: 'none' }}>
+            <Link
+              href="/#/tools/"
+              style={
+                isActiveLink('/tools/')
+                  ? { fontWeight: 'bold', pointerEvents: 'none', opacity: 0.6 }
+                  : { fontWeight: 'bold' }
+              }
+            >
+              {t('layout.tool')}
+            </Link>
+            <Link href="https://ve-interface.vercel.app/">
               <Text fontWeight="bold">veYMT</Text>
             </Link>
           </HStack>
           <HStack>
             <LangugeChange />
             <Web3Status />
-            <VStack>
-              <StyledPollingNumber breathe={isMounting}>
-                {active && account && `block:${blockNumber}`}
-              </StyledPollingNumber>
-              <Link
-                href="/#/tools/"
-                style={{
-                  fontSize: '1.6rem',
-                  fontWeight: 'bold',
-                  color: '#5BAD92',
-                }}
-              >
-                {t('layout.tool')}
-              </Link>
-            </VStack>
           </HStack>
         </Flex>
       </Container>
