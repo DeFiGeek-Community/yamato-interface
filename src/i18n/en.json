@@ -17,7 +17,8 @@
     "liquidationPool": " Liquidation Pool"
   },
   "layout": {
-    "tool": "tool"
+    "home": "Home",
+    "tool": "Tool"
   },
   "pledge": {
     "collateral" : {
