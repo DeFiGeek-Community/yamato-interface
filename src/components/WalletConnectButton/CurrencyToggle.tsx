@@ -1,5 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 import styled from 'styled-components';
+import CEURLogo from '../../components/svgs/CeurLogo';
 import CJPYLogo from '../../components/svgs/CjpyLogo';
 import CUSDLogo from '../../components/svgs/CusdLogo';
 import { useWalletState } from '../../state/wallet/hooks';
@@ -16,7 +17,7 @@ const CurrencyToggleButton = styled.div`
   background-color: transparent;
   transition: box-shadow 0.3s, background-color 0.3s;
   &:hover {
-    background-color: #F2F2F2;
+    background-color: #f2f2f2;
   }
 `;
 
@@ -47,13 +48,13 @@ const DropdownItem = styled.div`
 
 interface Currency {
   name: string;
-  logo: React.ComponentType<{ width?: string, height?: string }>;
+  logo: React.ComponentType<{ width?: string; height?: string }>;
 }
 
 const currencies: Currency[] = [
   { name: 'CJPY', logo: CJPYLogo },
   { name: 'CUSD', logo: CUSDLogo },
-  // 他の通貨を追加する場合はここに追加
+  { name: 'CEUR', logo: CEURLogo },
 ];
 
 const CurrencyToggle: React.FC = () => {
@@ -118,7 +119,10 @@ const CurrencyToggle: React.FC = () => {
           {currencies.map((currency) => {
             const LogoComponent = currency.logo;
             return (
-              <DropdownItem key={currency.name} onClick={() => handleCurrencySelect(currency.name)}>
+              <DropdownItem
+                key={currency.name}
+                onClick={() => handleCurrencySelect(currency.name)}
+              >
                 <LogoComponent width="30px" height="30px" />
                 <span style={{ marginLeft: '1rem' }}>{currency.name}</span>
               </DropdownItem>
