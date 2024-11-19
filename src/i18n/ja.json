@@ -103,7 +103,7 @@
       "predictedGain": "獲得予想"
     },
     "walletModal": {
-      "alert1": "サポートしているEthereum\nnetworkに切り替えてください。現在はmainnetとgoerliに対応しています。",
+      "alert1": "サポートしているEthereum\nnetworkに切り替えてください。現在はmainnetとsepoliaに対応しています。",
       "alert2": "ウォレットを選んでください。",
       "alert3": "または拡張機能から直接操作してみてください。"
     }

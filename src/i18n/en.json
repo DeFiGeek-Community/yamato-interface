@@ -103,7 +103,7 @@
       "predictedGain": "Predicted Gain"
     },
     "walletModal": {
-      "alert1": "Please switch to a supported Ethereum network. Currently mainnet and goerli are supported.",
+      "alert1": "Please switch to a supported Ethereum network. Currently mainnet and sepolia are supported.",
       "alert2": "Please select a wallet.",
       "alert3": "Or try operating directly from the extension."
     }
