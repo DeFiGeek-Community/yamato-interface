@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Switch, Route, useLocation } from 'react-router-dom';
+import { Switch, Route, useLocation, useHistory } from 'react-router-dom';
 import './i18n/configs';
 import Web3ReactManager from './components/Web3ReactManager';
 import { useCurrency } from './context/CurrencyContext';
@@ -15,7 +15,8 @@ import YamatoEntiretyUpdater from './state/yamato-entirety/updater';
 
 function App() {
   const location = useLocation();
-  const { setCurrency } = useCurrency();
+  const history = useHistory();
+  const { currency, setCurrency } = useCurrency();
 
   useEffect(() => {
     // パスに基づいて通貨を設定（小文字に変換）
@@ -28,6 +29,18 @@ function App() {
       setCurrency('CEUR');
     }
   }, [location.pathname, setCurrency]);
+
+  useEffect(() => {
+    if(currency){
+      handleCurrencyChange(currency);
+    }
+  }, [currency]);
+
+
+  const handleCurrencyChange = (currency: string) => {
+    setCurrency(currency);
+    history.push(`/${currency.toLowerCase()}`);
+  };
 
   return (
     <Web3ReactManager>
