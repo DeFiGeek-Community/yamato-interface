@@ -6,6 +6,7 @@ import { Provider } from 'react-redux';
 import { HashRouter } from 'react-router-dom';
 import App from './App';
 import { NetworkContextName } from './constants/misc';
+import { CurrencyProvider } from './context/CurrencyContext';
 import reportWebVitals from './reportWebVitals';
 import store from './state';
 import ThemeProvider, { ThemedGlobalStyle } from './theme';
@@ -26,8 +27,10 @@ ReactDOM.render(
           <ThemeProvider>
             <ChakraProvider>
               <Provider store={store}>
-                <ThemedGlobalStyle />
-                <App />
+                <CurrencyProvider>
+                  <ThemedGlobalStyle />
+                  <App />
+                </CurrencyProvider>
               </Provider>
             </ChakraProvider>
           </ThemeProvider>

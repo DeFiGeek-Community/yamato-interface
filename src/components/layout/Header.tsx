@@ -72,7 +72,6 @@ export default function Header() {
 
   const isActiveLink = (path: string) => location.pathname === path;
 
-  console.log(location.pathname);
   return (
     <Box
       px={{ base: 0, md: 4 }}

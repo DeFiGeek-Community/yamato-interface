@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import CEURLogo from '../../components/svgs/CeurLogo';
 import CJPYLogo from '../../components/svgs/CjpyLogo';
 import CUSDLogo from '../../components/svgs/CusdLogo';
+import { useCurrency } from '../../context/CurrencyContext';
 import { useWalletState } from '../../state/wallet/hooks';
 import { formatPrice } from '../../utils/prices';
 import { FlexText } from './index';
@@ -16,6 +17,7 @@ const CurrencyToggleButton = styled.div`
   border: 1px solid ${({ theme }) => theme.text3};
   background-color: transparent;
   transition: box-shadow 0.3s, background-color 0.3s;
+  height: 48px;
   &:hover {
     background-color: #f2f2f2;
   }
@@ -59,6 +61,7 @@ const currencies: Currency[] = [
 
 const CurrencyToggle: React.FC = () => {
   const { cjpy } = useWalletState();
+  const { currency, setCurrency } = useCurrency();
 
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [dropdownLeft, setDropdownLeft] = useState(0);
@@ -68,8 +71,9 @@ const CurrencyToggle: React.FC = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
 
-  const handleCurrencySelect = (currency: string) => {
-    console.log(`Selected currency: ${currency}`);
+  const handleCurrencySelect = (selectedCurrency: string) => {
+    setCurrency(selectedCurrency); // 選択された通貨を更新
+    console.log(`Selected currency: ${selectedCurrency}`);
     setIsDropdownOpen(false);
   };
 
@@ -80,10 +84,12 @@ const CurrencyToggle: React.FC = () => {
     }
   }, [isDropdownOpen]);
 
+  const CurrentLogoComponent = currencies.find(c => c.name === currency)?.logo || CJPYLogo;
+
   return (
     <>
       <CurrencyToggleButton ref={buttonRef} onClick={handleCurrencyToggle}>
-        <CJPYLogo width="35px" />
+        <CurrentLogoComponent width="35px" height="35px" />
         <FlexText
           style={{
             fontSize: '2rem',
@@ -110,7 +116,7 @@ const CurrencyToggle: React.FC = () => {
             >
               {formatPrice(cjpy, 'jpy').value}
             </span>{' '}
-            CJPY
+            {currency}
           </span>
         </FlexText>
       </CurrencyToggleButton>
