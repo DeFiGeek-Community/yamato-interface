@@ -1,40 +1,102 @@
 import { constructSameAddressMap } from '../utils/constructSameAddressMap';
 import { SupportedChainId } from './chains';
 
-type AddressMap = { [chainId: number]: string };
+export type AddressMap = { [chainId: number]: string };
+export type TokenAddressMap = { [token: string]: AddressMap };
 
 /**
  * Yamato
  * TODO: Consider L2 and Upgradability. Probably access CurrencyOS.yamatoes and get addresses dynamically.
  */
-export const YAMATO_MAIN_ADDRESSES: AddressMap = {
-  [SupportedChainId.MAINNET]: '0x02Fe72b2E9fF717EbF3049333B184E9Cd984f257',
-  [SupportedChainId.GOERLI]: '0x5f4F8cc76DAC7b6820e2eF8b62bE636BF7fb53A2',
-  [SupportedChainId.SEPOLIA]: '0xEc8023Bd4BF08993C96F1f23dbE858b42F6A393F',
+export const YAMATO_MAIN_ADDRESSES: TokenAddressMap = {
+  CJPY: {
+    [SupportedChainId.MAINNET]: '0x02Fe72b2E9fF717EbF3049333B184E9Cd984f257',
+    [SupportedChainId.GOERLI]: '0x5f4F8cc76DAC7b6820e2eF8b62bE636BF7fb53A2',
+    [SupportedChainId.SEPOLIA]: '0xEc8023Bd4BF08993C96F1f23dbE858b42F6A393F',
+  },
+  CUSD: {
+    [SupportedChainId.MAINNET]: '0x02Fe72b2E9fF717EbF3049333B184E9Cd984f257',
+    [SupportedChainId.GOERLI]: '0x5f4F8cc76DAC7b6820e2eF8b62bE636BF7fb53A2',
+    [SupportedChainId.SEPOLIA]: '0xEc8023Bd4BF08993C96F1f23dbE858b42F6A393F',
+  },
+  CUER: {
+    [SupportedChainId.MAINNET]: '0x02Fe72b2E9fF717EbF3049333B184E9Cd984f257',
+    [SupportedChainId.GOERLI]: '0x5f4F8cc76DAC7b6820e2eF8b62bE636BF7fb53A2',
+    [SupportedChainId.SEPOLIA]: '0xEc8023Bd4BF08993C96F1f23dbE858b42F6A393F',
+  },
 };
-export const YAMATO_POOL_ADDRESSES: AddressMap = {
-  [SupportedChainId.MAINNET]: '0x9C1F0E3D4BD4A513721C028e1D4610CD17745f0B',
-  [SupportedChainId.GOERLI]: '0x4a62A594FB6A1ea28241dBC6aCcAbC0330292769',
-  [SupportedChainId.SEPOLIA]: '0x9650a8a61bac0Db321173aa8D749CaFd318BF417',
+export const YAMATO_POOL_ADDRESSES: TokenAddressMap = {
+  CJPY: {
+    [SupportedChainId.MAINNET]: '0x9C1F0E3D4BD4A513721C028e1D4610CD17745f0B',
+    [SupportedChainId.GOERLI]: '0x4a62A594FB6A1ea28241dBC6aCcAbC0330292769',
+    [SupportedChainId.SEPOLIA]: '0x9650a8a61bac0Db321173aa8D749CaFd318BF417',
+  },
+  CUSD: {
+    [SupportedChainId.MAINNET]: '0x9C1F0E3D4BD4A513721C028e1D4610CD17745f0B',
+    [SupportedChainId.GOERLI]: '0x4a62A594FB6A1ea28241dBC6aCcAbC0330292769',
+    [SupportedChainId.SEPOLIA]: '0x9650a8a61bac0Db321173aa8D749CaFd318BF417',
+  },
+  CUER: {
+    [SupportedChainId.MAINNET]: '0x9C1F0E3D4BD4A513721C028e1D4610CD17745f0B',
+    [SupportedChainId.GOERLI]: '0x4a62A594FB6A1ea28241dBC6aCcAbC0330292769',
+    [SupportedChainId.SEPOLIA]: '0x9650a8a61bac0Db321173aa8D749CaFd318BF417',
+  },
 };
-export const YAMATO_PRIORITY_REGISTRY_ADDRESSES: AddressMap = {
-  [SupportedChainId.MAINNET]: '0x0c9Bdf09de9EaCbE692dB2c17a75bfdB5FF4190B',
-  [SupportedChainId.GOERLI]: '0xd55B6E565630E6C579F3Bcd75D65A0f72d4a1324',
-  [SupportedChainId.SEPOLIA]: '0x01b3D06Df287AE66467B083ba632F0AEF1260388',
+
+export const YAMATO_PRIORITY_REGISTRY_ADDRESSES: TokenAddressMap = {
+  CJPY: {
+    [SupportedChainId.MAINNET]: '0x0c9Bdf09de9EaCbE692dB2c17a75bfdB5FF4190B',
+    [SupportedChainId.GOERLI]: '0xd55B6E565630E6C579F3Bcd75D65A0f72d4a1324',
+    [SupportedChainId.SEPOLIA]: '0x01b3D06Df287AE66467B083ba632F0AEF1260388',
+  },
+  CUSD: {
+    [SupportedChainId.MAINNET]: '0x0c9Bdf09de9EaCbE692dB2c17a75bfdB5FF4190B',
+    [SupportedChainId.GOERLI]: '0xd55B6E565630E6C579F3Bcd75D65A0f72d4a1324',
+    [SupportedChainId.SEPOLIA]: '0x01b3D06Df287AE66467B083ba632F0AEF1260388',
+  },
+  CUER: {
+    [SupportedChainId.MAINNET]: '0x0c9Bdf09de9EaCbE692dB2c17a75bfdB5FF4190B',
+    [SupportedChainId.GOERLI]: '0xd55B6E565630E6C579F3Bcd75D65A0f72d4a1324',
+    [SupportedChainId.SEPOLIA]: '0x01b3D06Df287AE66467B083ba632F0AEF1260388',
+  },
 };
-export const YAMATO_PRICE_FEED_ADDRESSES: AddressMap = {
-  [SupportedChainId.MAINNET]: '0x3f4E4Dad0AC01Da50A774F3389b70506c96FfF2f',
-  [SupportedChainId.GOERLI]: '0xD2472CeBde868565bdFAd66e5A697b14654FcdE4',
-  [SupportedChainId.SEPOLIA]: '0xdaC81f657Fb347C2A3C5Dc480F1b1c725b06A599',
+export const YAMATO_PRICE_FEED_ADDRESSES: TokenAddressMap = {
+  CJPY: {
+    [SupportedChainId.MAINNET]: '0x3f4E4Dad0AC01Da50A774F3389b70506c96FfF2f',
+    [SupportedChainId.GOERLI]: '0xD2472CeBde868565bdFAd66e5A697b14654FcdE4',
+    [SupportedChainId.SEPOLIA]: '0xdaC81f657Fb347C2A3C5Dc480F1b1c725b06A599',
+  },
+  CUSD: {
+    [SupportedChainId.MAINNET]: '0x3f4E4Dad0AC01Da50A774F3389b70506c96FfF2f',
+    [SupportedChainId.GOERLI]: '0xD2472CeBde868565bdFAd66e5A697b14654FcdE4',
+    [SupportedChainId.SEPOLIA]: '0xdaC81f657Fb347C2A3C5Dc480F1b1c725b06A599',
+  },
+  CUER: {
+    [SupportedChainId.MAINNET]: '0x3f4E4Dad0AC01Da50A774F3389b70506c96FfF2f',
+    [SupportedChainId.GOERLI]: '0xD2472CeBde868565bdFAd66e5A697b14654FcdE4',
+    [SupportedChainId.SEPOLIA]: '0xdaC81f657Fb347C2A3C5Dc480F1b1c725b06A599',
+  },
 };
 
 /**
  * Token
  */
-export const CJPY_ADDRESSES: AddressMap = {
-  [SupportedChainId.MAINNET]: '0x1cfa5641c01406aB8AC350dEd7d735ec41298372',
-  [SupportedChainId.GOERLI]: '0x24611d7080f8510ff147e952C76F3482D77f40D4',
-  [SupportedChainId.SEPOLIA]: '0xDED5F78d4fB19e935eb45dFf9912eB132F046782',
+export const CJPY_ADDRESSES: TokenAddressMap = {
+  CJPY: {
+    [SupportedChainId.MAINNET]: '0x1cfa5641c01406aB8AC350dEd7d735ec41298372',
+    [SupportedChainId.GOERLI]: '0x24611d7080f8510ff147e952C76F3482D77f40D4',
+    [SupportedChainId.SEPOLIA]: '0xDED5F78d4fB19e935eb45dFf9912eB132F046782',
+  },
+  CUSD: {
+    [SupportedChainId.MAINNET]: '0x1cfa5641c01406aB8AC350dEd7d735ec41298372',
+    [SupportedChainId.GOERLI]: '0x24611d7080f8510ff147e952C76F3482D77f40D4',
+    [SupportedChainId.SEPOLIA]: '0xDED5F78d4fB19e935eb45dFf9912eB132F046782',
+  },
+  CUER: {
+    [SupportedChainId.MAINNET]: '0x1cfa5641c01406aB8AC350dEd7d735ec41298372',
+    [SupportedChainId.GOERLI]: '0x24611d7080f8510ff147e952C76F3482D77f40D4',
+    [SupportedChainId.SEPOLIA]: '0xDED5F78d4fB19e935eb45dFf9912eB132F046782',
+  },
 };
 export const YMT_ADDRESSES: AddressMap = {
   [SupportedChainId.MAINNET]: '0x0000000000000000000000000000000000000000',
