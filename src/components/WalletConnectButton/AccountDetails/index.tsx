@@ -14,6 +14,7 @@ import {
 } from '../../../constants/addresses';
 import { SUPPORTED_WALLETS } from '../../../constants/web3';
 import { YAMATO_SYMBOL } from '../../../constants/yamato';
+import { useCurrency } from '../../../context/CurrencyContext';
 import { useActiveWeb3React } from '../../../hooks/web3';
 import {
   injected,
@@ -198,9 +199,9 @@ const WalletAction = styled(Button)`
   }
 `;
 
-function renderTokenButton(chainId: number, logo: string, currency: string) {
+function renderTokenButton(chainId: number, logo: string, symbol: string, currency: string) {
   return (
-    <TokenSection onClick={(e: any) => handeAddToken(e, chainId, currency)}>
+    <TokenSection onClick={(e: any) => handeAddToken(e, chainId, symbol, currency)}>
       <HStack spacing={4} justify={'center'}>
         <span>Add {currency}</span>
         <img src={logo} width={25} height={25}></img>
@@ -238,13 +239,13 @@ interface WatchAssetParams {
   };
 }
 
-const getToken = (chainId: number, symbol: string): WatchAssetParams => {
+const getToken = (chainId: number, symbol: string, currency: string): WatchAssetParams => {
   switch (symbol) {
     case YAMATO_SYMBOL.YEN:
       return {
         type: 'ERC20',
         options: {
-          address: CJPY_ADDRESSES[chainId],
+          address: CJPY_ADDRESSES[currency][chainId],
           symbol: YAMATO_SYMBOL.YEN,
           decimals: 18,
           image: CJPYLogo,
@@ -283,12 +284,12 @@ const getToken = (chainId: number, symbol: string): WatchAssetParams => {
   }
 };
 
-const handeAddToken = (e: any, chainId: number, symbol: string) => {
+const handeAddToken = (e: any, chainId: number, symbol: string, currency: string) => {
   e.stopPropagation();
   (global.window as any)?.ethereum
     ?.request({
       method: 'wallet_watchAsset',
-      params: getToken(chainId, symbol),
+      params: getToken(chainId, symbol, currency),
     })
     .catch((error: any) => {
       console.error(error);
@@ -302,6 +303,7 @@ export default function AccountDetails({
   openOptions,
 }: AccountDetailsProps) {
   const { chainId, account, connector } = useActiveWeb3React();
+  const { currency } = useCurrency();
   const dispatch = useDispatch<AppDispatch>();
 
   function formatConnectorName() {
@@ -404,8 +406,8 @@ export default function AccountDetails({
       </UpperSection>
       {chainId != null ? (
         <>
-          {renderTokenButton(chainId, CJPYLogo, YAMATO_SYMBOL.YEN)}
-          {renderTokenButton(chainId, TXJPLogo, YAMATO_SYMBOL.TXJP)}
+          {renderTokenButton(chainId, CJPYLogo, YAMATO_SYMBOL.YEN, currency)}
+          {renderTokenButton(chainId, TXJPLogo, YAMATO_SYMBOL.TXJP, currency)}
         </>
       ) : (
         <></>

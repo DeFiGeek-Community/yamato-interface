@@ -1,6 +1,4 @@
 import { Contract } from '@ethersproject/contracts';
-// import ARGENT_WALLET_DETECTOR_ABI from 'abis/argent-wallet-detector.json';
-// import EIP_2612 from 'abis/eip_2612.json';
 import { abi as MulticallABI } from '@uniswap/v3-periphery/artifacts/contracts/lens/UniswapInterfaceMulticall.sol/UniswapInterfaceMulticall.json';
 import { useMemo } from 'react';
 import {
@@ -13,11 +11,12 @@ import {
   VEYMT_ADDRESSES,
   MULTICALL_ADDRESS,
   YAMATO_PRIORITY_REGISTRY_ADDRESSES,
+  TokenAddressMap,
 } from '../constants/addresses';
+import { useCurrency } from '../context/CurrencyContext';
 import ENS_PUBLIC_RESOLVER_ABI from '../infrastructures/abis/external/ens-public-resolver.json';
 import ENS_ABI from '../infrastructures/abis/external/ens-registrar.json';
 import {
-  // ArgentWalletDetector,
   YamatoV3,
   Pool,
   PriceFeedV3,
@@ -41,17 +40,25 @@ import { useActiveWeb3React } from './web3';
 
 // returns null on errors
 export function useContract<T extends Contract = Contract>(
-  addressOrAddressMap: string | { [chainId: number]: string } | undefined,
+  addressOrAddressMap: string | TokenAddressMap | undefined, // TokenAddressMapに変更
   ABI: any,
   withSignerIfPossible = true
 ): T | null {
+  const { currency } = useCurrency(); // 現在の通貨を取得
   const { library, account, chainId } = useActiveWeb3React();
 
   return useMemo(() => {
     if (!addressOrAddressMap || !ABI || !library || !chainId) return null;
     let address: string | undefined;
-    if (typeof addressOrAddressMap === 'string') address = addressOrAddressMap;
-    else address = addressOrAddressMap[chainId];
+
+    // 通貨に基づいてアドレスを選択
+    if (typeof addressOrAddressMap === 'object') {
+      const tokenAddressMap = addressOrAddressMap[currency];
+      address = tokenAddressMap ? tokenAddressMap[chainId] : undefined;
+    } else {
+      address = addressOrAddressMap;
+    }
+
     if (!address) return null;
     try {
       return getContract(
@@ -71,6 +78,7 @@ export function useContract<T extends Contract = Contract>(
     chainId,
     withSignerIfPossible,
     account,
+    currency,
   ]) as T;
 }
 
@@ -109,14 +117,6 @@ export function useVeYmtContract() {
   return useContract<VeYMT>(VEYMT_ADDRESSES, VEYMT_ABI);
 }
 
-// export function useArgentWalletDetectorContract() {
-//   return useContract<ArgentWalletDetector>(
-//     ARGENT_WALLET_DETECTOR_ADDRESS,
-//     ARGENT_WALLET_DETECTOR_ABI,
-//     false
-//   );
-// }
-
 /**
  * ENS
  */
@@ -137,10 +137,6 @@ export function useENSResolverContract(
     withSignerIfPossible
   );
 }
-
-// export function useEIP2612Contract(tokenAddress?: string): Contract | null {
-//   return useContract(tokenAddress, EIP_2612, false);
-// }
 
 export function useMulticall2Contract() {
   return useContract<UniswapInterfaceMulticall>(

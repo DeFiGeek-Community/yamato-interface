@@ -1,5 +1,6 @@
 import { ExternalLinkIcon } from '@chakra-ui/icons';
 import { YAMATO_MAIN_ADDRESSES } from '../../constants/addresses';
+import { useCurrency } from '../../context/CurrencyContext';
 import { useActiveWeb3React } from '../../hooks/web3';
 import { ExplorerDataType, getExplorerLink } from '../../utils/getExplorerLink';
 import { CategoryTitle, ConentBox, HeaderBox1 } from '../CommonItem';
@@ -8,6 +9,7 @@ import LogViewer from './LogViewer';
 
 export default function World() {
   const { chainId } = useActiveWeb3React();
+  const { currency } = useCurrency();
 
   return (
     <>
@@ -17,7 +19,7 @@ export default function World() {
           <ExternalLink
             href={getExplorerLink(
               chainId ?? 0,
-              YAMATO_MAIN_ADDRESSES[chainId ?? 0],
+              YAMATO_MAIN_ADDRESSES[currency]?.[chainId ?? 0],
               ExplorerDataType.ADDRESS
             )}
           >

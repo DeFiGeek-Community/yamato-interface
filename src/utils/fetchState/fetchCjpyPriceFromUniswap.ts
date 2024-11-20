@@ -78,7 +78,8 @@ const v2Query = gql`
 export async function fetchCjpyPriceFromUniswap(
   version: 'v2' | 'v3',
   chainId: number | undefined,
-  active: boolean
+  active: boolean,
+  currency: string,
 ) {
   // Construct param
   const activeChainId = active
@@ -91,7 +92,7 @@ export async function fetchCjpyPriceFromUniswap(
 
   const query = version === 'v2' ? v2Query : v3Query;
   const variables = {
-    tokenAddress0: CJPY_ADDRESSES[activeChainId].toLowerCase(),
+    tokenAddress0: CJPY_ADDRESSES[currency][activeChainId].toLowerCase(),
     tokenAddress1: WRAPPED_ETHER_ADDRESS[activeChainId].toLowerCase(),
   };
 
