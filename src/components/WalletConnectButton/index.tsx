@@ -1,5 +1,5 @@
 import { UnsupportedChainIdError, useWeb3React } from '@web3-react/core';
-import { useMemo, useState, useRef, useEffect } from 'react';
+import { useMemo } from 'react';
 import { Button as RebassButton } from 'rebass/styled-components';
 import styled from 'styled-components';
 import { CHAIN_INFO } from '../../constants/chains';
@@ -11,7 +11,6 @@ import {
   useAllTransactions,
 } from '../../state/transactions/hooks';
 import { TransactionDetails } from '../../state/transactions/reducer';
-import { useWalletState } from '../../state/wallet/hooks';
 import { shortenAddress } from '../../utils/web3';
 import { Text } from '../CommonItem';
 import Loader from '../Loader';
