@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import CEURLogo from '../../components/svgs/CeurLogo';
 import CJPYLogo from '../../components/svgs/CjpyLogo';
@@ -11,7 +11,6 @@ import { FlexText } from './index';
 const CurrencyToggleButton = styled.div`
   display: flex;
   align-items: center;
-  cursor: pointer;
   padding: 0rem 1rem;
   border-radius: 26px;
   border: 1px solid ${({ theme }) => theme.text3};

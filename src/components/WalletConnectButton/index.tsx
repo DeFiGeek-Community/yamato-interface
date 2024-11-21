@@ -54,7 +54,6 @@ export const FlexText = styled(WalletText)`
   color: ${({ theme }) => theme.text3};
 `;
 
-// we want the latest one to come first, so return negative if a is after b
 function newTransactionsFirst(a: TransactionDetails, b: TransactionDetails) {
   return b.addedTime - a.addedTime;
 }

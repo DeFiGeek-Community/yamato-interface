@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { Switch, Route, useLocation, useHistory } from 'react-router-dom';
 import './i18n/configs';
 import Web3ReactManager from './components/Web3ReactManager';
@@ -30,17 +30,16 @@ function App() {
     }
   }, [location.pathname, setCurrency]);
 
-  useEffect(() => {
-    if(currency){
-      handleCurrencyChange(currency);
-    }
-  }, [currency]);
-
-
-  const handleCurrencyChange = (currency: string) => {
+  const handleCurrencyChange = useCallback((currency: string) => {
     setCurrency(currency);
     history.push(`/${currency.toLowerCase()}`);
-  };
+  }, [setCurrency, history]);
+
+  useEffect(() => {
+    if (currency) {
+      handleCurrencyChange(currency);
+    }
+  }, [currency, handleCurrencyChange]);
 
   return (
     <Web3ReactManager>

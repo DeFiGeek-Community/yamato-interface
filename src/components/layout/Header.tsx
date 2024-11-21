@@ -105,7 +105,8 @@ export default function Header() {
                   : { marginLeft: '2rem' }
               }
             >
-              <Text fontWeight="bold">HOME</Text>
+              <Text fontWeight="bold">              {t('layout.home')}
+              </Text>
             </Link>
             <Link
               href="/#/tools/"
@@ -116,9 +117,6 @@ export default function Header() {
               }
             >
               {t('layout.tool')}
-            </Link>
-            <Link href="https://ve-interface.vercel.app/">
-              <Text fontWeight="bold">veYMT</Text>
             </Link>
           </HStack>
           <HStack>

@@ -17,6 +17,7 @@
     "liquidationPool": "弁済プール"
   },
   "layout": {
+    "home": "ホーム",
     "tool": "ツール"
   },
   "pledge": {
