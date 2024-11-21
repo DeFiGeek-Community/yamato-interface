@@ -16,6 +16,7 @@ const CurrencyToggleButton = styled.div`
   border: 1px solid ${({ theme }) => theme.text3};
   background-color: transparent;
   transition: box-shadow 0.3s, background-color 0.3s;
+  cursor: pointer;
   height: 48px;
   &:hover {
     background-color: #f2f2f2;
