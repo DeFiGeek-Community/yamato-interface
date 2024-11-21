@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import CEURLogo from '../../components/svgs/CeurLogo';
 import CJPYLogo from '../../components/svgs/CjpyLogo';
