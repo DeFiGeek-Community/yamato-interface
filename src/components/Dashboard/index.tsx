@@ -3,7 +3,7 @@ import { Grid, GridItem, HStack, VStack } from '@chakra-ui/react';
 import { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { CJPY_ADDRESSES } from '../../constants/addresses';
-import { YAMATO_SYMBOL } from '../../constants/yamato';
+import { useCurrency } from '../../context/CurrencyContext';
 import { useActiveWeb3React } from '../../hooks/web3';
 import { useYamatoStateForDashboard } from '../../state/yamato-entirety/hooks';
 import { formatPrice } from '../../utils/prices';
@@ -47,7 +47,7 @@ export default function Dashboard() {
     rateOfCjpyJpy,
     firstLoadCompleted,
   } = useYamatoStateForDashboard();
-
+  const { currency } = useCurrency();
   const { chainId } = useActiveWeb3React();
   const cjpyAddress = useMemo(
     () => (chainId != null ? CJPY_ADDRESSES[chainId] : ''),
@@ -143,9 +143,9 @@ export default function Dashboard() {
                 firstLoadCompleted={firstLoadCompleted}
               />
               <DashboardItem
-                title={'CJPY' + t('dashboard.totalSupply')}
+                title={currency + t('dashboard.totalSupply')}
                 stat={`${formatPrice(totalSupplyOfCjpy, 'jpy').value} ${
-                  YAMATO_SYMBOL.YEN
+                  currency
                 }`}
                 firstLoadCompleted={firstLoadCompleted}
               />

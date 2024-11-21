@@ -2,7 +2,7 @@ import { Grid, GridItem, Skeleton, VStack } from '@chakra-ui/react';
 import { Formik, Form, FormikHelpers } from 'formik';
 import { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { YAMATO_SYMBOL } from '../../../constants/yamato';
+import { useCurrency } from '../../../context/CurrencyContext';
 import { useActiveWeb3React } from '../../../hooks/web3';
 import { useSweepCallback } from '../../../hooks/yamato/useSweep';
 import { errorToast } from '../../../utils/errorToast';
@@ -26,7 +26,7 @@ export default function SweepInput(props: Props) {
     GRR,
     firstLoadCompleted,
   } = props;
-
+  const { currency } = useCurrency();
   const { account } = useActiveWeb3React();
   const { callback } = useSweepCallback();
 
@@ -85,7 +85,7 @@ export default function SweepInput(props: Props) {
                     <>
                       {formatPrice(sweepReserve, 'jpy').value}
                       {` `}
-                      {YAMATO_SYMBOL.YEN}
+                      {currency}
                     </>
                   ) : (
                     <Skeleton
@@ -110,7 +110,7 @@ export default function SweepInput(props: Props) {
                   {firstLoadCompleted ? (
                     <>
                       {formatPrice(sweepableCandiate, 'jpy').value}{' '}
-                      {YAMATO_SYMBOL.YEN}
+                      {currency}
                     </>
                   ) : (
                     <Skeleton
@@ -136,7 +136,7 @@ export default function SweepInput(props: Props) {
                     <>
                       {formatPrice(expectedReward.cjpy, 'jpy').value}
                       {` `}
-                      {YAMATO_SYMBOL.YEN}
+                      {currency}
                     </>
                   ) : (
                     <Skeleton

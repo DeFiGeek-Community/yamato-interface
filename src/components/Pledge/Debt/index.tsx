@@ -1,6 +1,6 @@
 import { Grid, GridItem, Skeleton } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
-import { YAMATO_SYMBOL } from '../../../constants/yamato';
+import { useCurrency } from '../../../context/CurrencyContext';
 import { usePledgeData } from '../../../state/pledge/hooks';
 import { useWalletState } from '../../../state/wallet/hooks';
 import { useYamatoStateForPledge } from '../../../state/yamato-entirety/hooks';
@@ -36,6 +36,7 @@ function getBorrowableAmount(
 }
 
 export default function Debt() {
+  const { currency } = useCurrency();
   const { rateOfEthJpy, MCR, firstLoadCompleted } = useYamatoStateForPledge();
   const { collateral, debt } = usePledgeData();
   const { cjpy } = useWalletState();
@@ -60,7 +61,7 @@ export default function Debt() {
                   ).value
                 }
                 {` `}
-                {YAMATO_SYMBOL.YEN}
+                {currency}
               </>
             ) : (
               <Skeleton
@@ -90,7 +91,7 @@ export default function Debt() {
               <>
                 {formatPrice(debt, 'jpy').value}
                 {` `}
-                {YAMATO_SYMBOL.YEN}
+                {currency}
               </>
             ) : (
               <Skeleton

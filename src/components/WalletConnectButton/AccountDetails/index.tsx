@@ -241,12 +241,12 @@ interface WatchAssetParams {
 
 const getToken = (chainId: number, symbol: string, currency: string): WatchAssetParams => {
   switch (symbol) {
-    case YAMATO_SYMBOL.YEN:
+    case currency:
       return {
         type: 'ERC20',
         options: {
           address: CJPY_ADDRESSES[currency][chainId],
-          symbol: YAMATO_SYMBOL.YEN,
+          symbol: currency,
           decimals: 18,
           image: CJPYLogo,
         },
@@ -406,7 +406,7 @@ export default function AccountDetails({
       </UpperSection>
       {chainId != null ? (
         <>
-          {renderTokenButton(chainId, CJPYLogo, YAMATO_SYMBOL.YEN, currency)}
+          {renderTokenButton(chainId, CJPYLogo, currency, currency)}
           {renderTokenButton(chainId, TXJPLogo, YAMATO_SYMBOL.TXJP, currency)}
         </>
       ) : (

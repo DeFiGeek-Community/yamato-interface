@@ -10,6 +10,7 @@ import { Formik, Form, Field, FieldProps, FormikHelpers } from 'formik';
 import { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { YAMATO_SYMBOL } from '../../../constants/yamato';
+import { useCurrency } from '../../../context/CurrencyContext';
 import { useActiveWeb3React } from '../../../hooks/web3';
 import { useRedeemCallback } from '../../../hooks/yamato/useRedemption';
 import { useWalletState } from '../../../state/wallet/hooks';
@@ -32,6 +33,7 @@ type Props = {
 
 export default function RedemptionInput(props: Props) {
   const { redeemableCandidate, rateOfEthJpy, GRR, firstLoadCompleted } = props;
+  const { currency } = useCurrency();
 
   const { account } = useActiveWeb3React();
   const { callback } = useRedeemCallback();
@@ -141,7 +143,7 @@ export default function RedemptionInput(props: Props) {
                       {...field}
                       id="redemption"
                       type="number"
-                      placeholder={YAMATO_SYMBOL.YEN}
+                      placeholder={currency}
                     />
                     <FormErrorMessage>
                       {form.errors.redemption}
@@ -178,7 +180,7 @@ export default function RedemptionInput(props: Props) {
                           .value
                       }
                       {` `}
-                      {YAMATO_SYMBOL.YEN}
+                      {currency}
                     </>
                   ) : (
                     <Skeleton

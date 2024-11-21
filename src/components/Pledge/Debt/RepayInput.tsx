@@ -8,7 +8,7 @@ import {
 import { Formik, Form, Field, FormikHelpers, FieldProps } from 'formik';
 import { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { YAMATO_SYMBOL } from '../../../constants/yamato';
+import { useCurrency } from '../../../context/CurrencyContext';
 import { useActiveWeb3React } from '../../../hooks/web3';
 import { useRepayCallback } from '../../../hooks/yamato/useRepayCallback';
 import { subtractToNum } from '../../../utils/bignumber';
@@ -28,6 +28,7 @@ type Props = {
 
 export default function RepayInput(props: Props) {
   const { collateral, debt, rateOfEthJpy, cjpy } = props;
+  const { currency } = useCurrency();
 
   const { account } = useActiveWeb3React();
   const { callback } = useRepayCallback();
@@ -118,7 +119,7 @@ export default function RepayInput(props: Props) {
                       {...field}
                       id="repayment"
                       type="number"
-                      placeholder={YAMATO_SYMBOL.YEN}
+                      placeholder={currency}
                       data-testid="borrowing-data-repayAmount"
                     />
                     {debt > 0 && cjpy > 0 && (
@@ -154,7 +155,7 @@ export default function RepayInput(props: Props) {
                 <CustomFormLabel
                   text={`${t('pledge.debt.predictedFluctuation')} ${
                     formatPrice(subtractToNum(debt, repayment), 'jpy').value
-                  } ${YAMATO_SYMBOL.YEN}`}
+                  } ${currency}`}
                 />
                 <CustomFormLabel
                   text={`${t(

@@ -3,6 +3,7 @@ import { Formik, Form, FormikHelpers } from 'formik';
 import { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { YAMATO_SYMBOL } from '../../../constants/yamato';
+import { useCurrency } from '../../../context/CurrencyContext';
 import { useActiveWeb3React } from '../../../hooks/web3';
 import { useRedeemCallback } from '../../../hooks/yamato/useRedemption';
 import { errorToast } from '../../../utils/errorToast';
@@ -26,6 +27,7 @@ export default function RedemptionInput(props: Props) {
     GRR,
     firstLoadCompleted,
   } = props;
+  const { currency } = useCurrency();
 
   const { account } = useActiveWeb3React();
   const { callback } = useRedeemCallback();
@@ -102,7 +104,7 @@ export default function RedemptionInput(props: Props) {
                           .value
                       }
                       {` `}
-                      {YAMATO_SYMBOL.YEN}
+                      {currency}
                     </>
                   ) : (
                     <Skeleton
@@ -135,7 +137,7 @@ export default function RedemptionInput(props: Props) {
                           .value
                       }
                       {` `}
-                      {YAMATO_SYMBOL.YEN}
+                      {currency}
                     </>
                   ) : (
                     <Skeleton

@@ -7,7 +7,7 @@ import {
 import { Formik, Form, Field, FormikHelpers, FieldProps } from 'formik';
 import { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { YAMATO_SYMBOL } from '../../../constants/yamato';
+import { useCurrency } from '../../../context/CurrencyContext';
 import { useActiveWeb3React } from '../../../hooks/web3';
 import { useBorrowCallback } from '../../../hooks/yamato/useBorrowCallback';
 import { addToNum, divideToNum } from '../../../utils/bignumber';
@@ -28,6 +28,7 @@ type Props = {
 
 export default function BorrowingInput(props: Props) {
   const { collateral, debt, rateOfEthJpy, MCR } = props;
+  const { currency } = useCurrency();
 
   const { account } = useActiveWeb3React();
   const { callback } = useBorrowCallback();
@@ -134,7 +135,7 @@ export default function BorrowingInput(props: Props) {
                       {...field}
                       id="borrowing"
                       type="number"
-                      placeholder={YAMATO_SYMBOL.YEN}
+                      placeholder={currency}
                       data-testid="borrowing-data-borrowAmount"
                     />
                     <FormErrorMessage>
@@ -157,19 +158,19 @@ export default function BorrowingInput(props: Props) {
                 <CustomFormLabel
                   text={`${t('pledge.debt.receiptAmount')} ${
                     formatPrice(borrowing - feeResult.fee, 'jpy').value
-                  } ${YAMATO_SYMBOL.YEN}`}
+                  } ${currency}`}
                 />
                 <CustomFormLabel
                   text={`${t('pledge.debt.fee')} ${
                     formatPrice(feeResult.fee, 'jpy').value
-                  } ${YAMATO_SYMBOL.YEN}(${t(
+                  } ${currency}(${t(
                     'pledge.debt.feeRate'
                   )} ${feeResult.feeRate.toFixed(2)}%)`}
                 />
                 <CustomFormLabel
                   text={`${t('pledge.debt.totalBorrowAmount')} ${
                     formatPrice(addToNum(debt, borrowing), 'jpy').value
-                  } ${YAMATO_SYMBOL.YEN}`}
+                  } ${currency}`}
                 />
                 <CustomFormLabel
                   text={`${t(
