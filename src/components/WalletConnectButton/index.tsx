@@ -2,7 +2,6 @@ import { UnsupportedChainIdError, useWeb3React } from '@web3-react/core';
 import { useMemo } from 'react';
 import { Button as RebassButton } from 'rebass/styled-components';
 import styled from 'styled-components';
-import CJPYLogo from '../../components/svgs/CjpyLogo';
 import { CHAIN_INFO } from '../../constants/chains';
 import { NetworkContextName } from '../../constants/misc';
 import useENSName from '../../hooks/ens/useENSName';
@@ -12,28 +11,35 @@ import {
   useAllTransactions,
 } from '../../state/transactions/hooks';
 import { TransactionDetails } from '../../state/transactions/reducer';
-import { useWalletState } from '../../state/wallet/hooks';
-import { formatPrice } from '../../utils/prices';
 import { shortenAddress } from '../../utils/web3';
 import { Text } from '../CommonItem';
 import Loader from '../Loader';
+import CurrencyToggle from './CurrencyToggle';
 import Row from './Row';
 import WalletModal from './WalletModal';
 
+
 const WalletButton = styled(RebassButton)`
-  color: ${({ theme }) => theme.text1};
-  padding: 0;
+  color: ${({ theme }) => theme.text0};
+  background-color: ${({ theme }) => theme.text3};
+  padding: 0.6rem 2.5rem;
   margin-right: 1rem;
+  border-radius: 26px;
+  transition: box-shadow 0.3s;
+
+  &:hover {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  }
 `;
 
 export const WalletText = styled(Text)`
   font-weight: bold;
   font-size: 1.6rem;
   line-height: 1.8rem;
-  color: ${({ theme }) => theme.text3};
+  color: ${({ theme }) => theme.text2};
 `;
 
-const FlexText = styled(WalletText)`
+export const FlexText = styled(WalletText)`
   flex: 1 1 auto;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -48,6 +54,7 @@ const FlexText = styled(WalletText)`
   color: ${({ theme }) => theme.text3};
 `;
 
+
 // we want the latest one to come first, so return negative if a is after b
 function newTransactionsFirst(a: TransactionDetails, b: TransactionDetails) {
   return b.addedTime - a.addedTime;
@@ -57,7 +64,6 @@ function Web3StatusInner() {
   const { account, chainId, error } = useWeb3React();
 
   const { ENSName } = useENSName(account ?? undefined);
-  const { cjpy } = useWalletState();
 
   const toggleWalletModal = useWalletModalToggle();
   const allTransactions = useAllTransactions();
@@ -73,11 +79,13 @@ function Web3StatusInner() {
   if (account) {
     return (
       <>
+        <CurrencyToggle/>
         {chainId && chainId !== 1 && (
           <WalletText
             style={{
               color: 'orange',
-              marginRight: '1rem',
+              marginLeft: '1rem',
+              marginRight: '0.5rem',
             }}
           >
             {CHAIN_INFO[chainId].label}
@@ -92,33 +100,24 @@ function Web3StatusInner() {
             }}
           >
             {hasPendingTransactions ? (
-              <FlexText style={{ fontSize: '1.8rem', lineHeight: '2.1rem' }}>
+              <WalletText style={{ fontSize: '1.4rem', lineHeight: '1.8rem' }}>
                 <Row>
                   <span>{pending?.length} Pending...</span>
                   <div style={{ marginTop: '0.2rem', marginLeft: '0.2rem' }}>
                     <Loader stroke="#5BAD92" />
                   </div>
                 </Row>
-              </FlexText>
+              </WalletText>
             ) : (
-              <FlexText
-                style={{ fontSize: '1.8rem', lineHeight: '2.1rem' }}
+              <WalletText
+                style={{ fontSize: '1.5rem', lineHeight: '1.8rem' }}
                 data-testid="wallet-data-connectedAs"
               >
                 Connected As
                 <br />
                 {ENSName || shortenAddress(account)}
-              </FlexText>
+              </WalletText>
             )}
-            <CJPYLogo width="35px" />
-            <FlexText
-              style={{
-                fontSize: '3rem',
-                lineHeight: '3.5rem',
-              }}
-            >
-              CJPY {formatPrice(cjpy, 'jpy').value}
-            </FlexText>
           </span>
         </WalletButton>
       </>
@@ -141,8 +140,8 @@ function Web3StatusInner() {
         <WalletText
           data-testid="wallet-data-connectWallet"
           style={{
-            fontSize: '2rem',
-            lineHeight: '2.3rem',
+            fontSize: '1.6rem',
+            lineHeight: '3.3rem',
           }}
         >
           Connect Wallet

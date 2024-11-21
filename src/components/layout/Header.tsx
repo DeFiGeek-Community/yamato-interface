@@ -1,32 +1,23 @@
 import { HStack, VStack } from '@chakra-ui/layout';
 import {
-  Grid,
-  GridItem,
   Popover,
   PopoverTrigger,
   PopoverContent,
   PopoverArrow,
   PopoverBody,
+  Link,
+  Box,
+  Container,
+  Text,
+  Flex,
 } from '@chakra-ui/react';
 import i18next from 'i18next';
-import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { BsTranslate } from 'react-icons/bs';
-import { Link } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
-import { useActiveWeb3React } from '../../hooks/web3';
-import { useBlockNumber } from '../../state/application/hooks';
 import Web3Status from '../WalletConnectButton';
 import SvgYamatoLogWithTitle from '../svgs/YamatoLogoWithTitle';
-
-const StyledPollingNumber = styled.div<{
-  breathe: boolean;
-}>`
-  font-size: 1rem;
-  color: #5bad92;
-  transition: opacity 0.25s ease;
-  opacity: ${({ breathe }) => (breathe ? 0.5 : 1)};
-`;
 
 const LanguageButton = styled.button`
   margin: 0 1rem;
@@ -75,65 +66,66 @@ export function LangugeChange() {
 }
 
 export default function Header() {
-  const { active, account } = useActiveWeb3React();
-
-  const blockNumber = useBlockNumber();
-  const [isMounting, setIsMounting] = useState(false);
+  const location = useLocation();
 
   const { t } = useTranslation();
 
-  useEffect(() => {
-    if (!blockNumber) {
-      return;
-    }
+  const isActiveLink = (path: string) => location.pathname === path;
 
-    setIsMounting(true);
-    const mountingTimer = setTimeout(() => setIsMounting(false), 1000);
-
-    // this will clear Timeout when component unmount like in willComponentUnmount
-    return () => {
-      clearTimeout(mountingTimer);
-    };
-  }, [blockNumber]);
-
+  console.log(location.pathname);
   return (
-    <Grid
-      templateRows="repeat(1, 1fr)"
-      templateColumns="repeat(2, 1fr)"
-      gap={4}
+    <Box
+      px={{ base: 0, md: 4 }}
+      position={'sticky'}
+      top={'0'}
+      zIndex={100}
+      bg={'#fcfaf2'}
+      opacity={0.975}
     >
-      <GridItem rowSpan={1} colSpan={1}>
-        <Link to="/">
-          <SvgYamatoLogWithTitle width={422} height={50} />
-        </Link>
-      </GridItem>
-      <GridItem
-        rowSpan={1}
-        colEnd={4}
-        style={{
-          margin: 'auto',
-        }}
-      >
-        <HStack>
-          <LangugeChange />
-          <Web3Status />
-          <VStack>
-            <StyledPollingNumber breathe={isMounting}>
-              {active && account && `block:${blockNumber}`}
-            </StyledPollingNumber>
+      <Container maxW="container.2xl" px={{ base: 2, md: 9 }}>
+        <Flex
+          as="header"
+          py="4"
+          justifyContent="space-between"
+          alignItems="center"
+        >
+          <HStack fontSize="16px" color="#818181" style={{ gap: '1.9rem' }}>
+            <Link href="/#/">
+              <SvgYamatoLogWithTitle width={200} height={30} />
+            </Link>
             <Link
-              to="/tools/"
-              style={{
-                fontSize: '1.6rem',
-                fontWeight: 'bold',
-                color: '#5BAD92',
-              }}
+              href="/#/"
+              style={
+                isActiveLink('/')
+                  ? {
+                      fontWeight: 'bold',
+                      pointerEvents: 'none',
+                      opacity: 0.6,
+                      marginLeft: '2rem',
+                    }
+                  : { marginLeft: '2rem' }
+              }
+            >
+              <Text fontWeight="bold">              {t('layout.home')}
+              </Text>
+            </Link>
+            <Link
+              href="/#/tools/"
+              style={
+                isActiveLink('/tools/')
+                  ? { fontWeight: 'bold', pointerEvents: 'none', opacity: 0.6 }
+                  : { fontWeight: 'bold' }
+              }
             >
               {t('layout.tool')}
             </Link>
-          </VStack>
-        </HStack>
-      </GridItem>
-    </Grid>
+          </HStack>
+          <HStack>
+            <LangugeChange />
+            <Web3Status />
+          </HStack>
+        </Flex>
+      </Container>
+    </Box>
   );
 }
