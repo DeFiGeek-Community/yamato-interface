@@ -1,6 +1,10 @@
 import { Box, HStack } from '@chakra-ui/react';
-import { useMemo } from 'react';
+import React, { useMemo } from 'react';
+import { useCurrency } from '../../context/CurrencyContext';
 import Arrow from '../svgs/ArrowYen';
+import CeurLogo from '../svgs/CeurLogo';
+import CjpyLogo from '../svgs/CjpyLogo';
+import CusdLogo from '../svgs/CusdLogo';
 import {
   Spring0,
   SpringMinus1,
@@ -23,7 +27,7 @@ import {
   SpringPlus7,
   SpringPlus8,
   SpringPlus9,
-} from '../svgs/spring-with-props';
+} from '../svgs/spring-components';
 import { getBrightnessPerEth } from './functions';
 
 interface Props {
@@ -32,53 +36,141 @@ interface Props {
   colorCodePerTcr: number;
 }
 
-function switchSpring(cjpyPriceRank: number, colorCode: number) {
+const SwitchSpring: React.FC<{ cjpyPriceRank: number; colorCode: number; children?: React.ReactNode }> = ({ cjpyPriceRank, colorCode, children }) => {
   const springColor = `hsl(${colorCode},100%,76%)`;
   switch (cjpyPriceRank) {
     case -10:
-      return <SpringMinus10 springcolor={springColor} />;
+      return (
+        <SpringMinus10 springcolor={springColor}>
+          {children}
+        </SpringMinus10>
+      );
     case -9:
-      return <SpringMinus9 springcolor={springColor} />;
+      return (
+        <SpringMinus9 springcolor={springColor}>
+          {children}
+        </SpringMinus9>
+      );
     case -8:
-      return <SpringMinus8 springcolor={springColor} />;
+      return (
+        <SpringMinus8 springcolor={springColor}>
+          {children}
+        </SpringMinus8>
+      );
     case -7:
-      return <SpringMinus7 springcolor={springColor} />;
+      return (
+        <SpringMinus7 springcolor={springColor}>
+          {children}
+        </SpringMinus7>
+      );
     case -6:
-      return <SpringMinus6 springcolor={springColor} />;
+      return (
+        <SpringMinus6 springcolor={springColor}>
+          {children}
+        </SpringMinus6>
+      );
     case -5:
-      return <SpringMinus5 springcolor={springColor} />;
+      return (
+        <SpringMinus5 springcolor={springColor}>
+          {children}
+        </SpringMinus5>
+      );
     case -4:
-      return <SpringMinus4 springcolor={springColor} />;
+      return (
+        <SpringMinus4 springcolor={springColor}>
+          {children}
+        </SpringMinus4>
+      );
     case -3:
-      return <SpringMinus3 springcolor={springColor} />;
+      return (
+        <SpringMinus3 springcolor={springColor}>
+          {children}
+        </SpringMinus3>
+      );
     case -2:
-      return <SpringMinus2 springcolor={springColor} />;
+      return (
+        <SpringMinus2 springcolor={springColor}>
+          {children}
+        </SpringMinus2>
+      );
     case -1:
-      return <SpringMinus1 springcolor={springColor} />;
+      return (
+        <SpringMinus1 springcolor={springColor}>
+          {children}
+        </SpringMinus1>
+      );
     case 0:
-      return <Spring0 springcolor={springColor} />;
+      return (
+        <Spring0 springcolor={springColor}>
+          {children}
+        </Spring0>
+      );
     case 1:
-      return <SpringPlus1 springcolor={springColor} />;
+      return (
+        <SpringPlus1 springcolor={springColor}>
+          {children}
+        </SpringPlus1>
+      );
     case 2:
-      return <SpringPlus2 springcolor={springColor} />;
+      return (
+        <SpringPlus2 springcolor={springColor}>
+          {children}
+        </SpringPlus2>
+      );
     case 3:
-      return <SpringPlus3 springcolor={springColor} />;
+      return (
+        <SpringPlus3 springcolor={springColor}>
+          {children}
+        </SpringPlus3>
+      );
     case 4:
-      return <SpringPlus4 springcolor={springColor} />;
+      return (
+        <SpringPlus4 springcolor={springColor}>
+          {children}
+        </SpringPlus4>
+      );
     case 5:
-      return <SpringPlus5 springcolor={springColor} />;
+      return (
+        <SpringPlus5 springcolor={springColor}>
+          {children}
+        </SpringPlus5>
+      );
     case 6:
-      return <SpringPlus6 springcolor={springColor} />;
+      return (
+        <SpringPlus6 springcolor={springColor}>
+          {children}
+        </SpringPlus6>
+      );
     case 7:
-      return <SpringPlus7 springcolor={springColor} />;
+      return (
+        <SpringPlus7 springcolor={springColor}>
+          {children}
+        </SpringPlus7>
+      );
     case 8:
-      return <SpringPlus8 springcolor={springColor} />;
+      return (
+        <SpringPlus8 springcolor={springColor}>
+          {children}
+        </SpringPlus8>
+      );
     case 9:
-      return <SpringPlus9 springcolor={springColor} />;
+      return (
+        <SpringPlus9 springcolor={springColor}>
+          {children}
+        </SpringPlus9>
+      );
     case 10:
-      return <SpringPlus10 springcolor={springColor} />;
+      return (
+        <SpringPlus10 springcolor={springColor}>
+          {children}
+        </SpringPlus10>
+      );
     default:
-      return <Spring0 springcolor={springColor} />;
+      return (
+        <Spring0 springcolor={springColor}>
+          {children}
+        </Spring0>
+      );
   }
 }
 
@@ -95,6 +187,7 @@ function switchBackgroundColor(ethPriceRank: number) {
 
 export default function CjpyPrice(props: Props) {
   const { cjpyPriceRank, ethPriceRank, colorCodePerTcr } = props;
+  const { currency } = useCurrency();
 
   const background = useMemo(
     () => switchBackgroundColor(ethPriceRank),
@@ -112,7 +205,20 @@ export default function CjpyPrice(props: Props) {
           <Arrow />
         </div>
         <div style={{ margin: 'auto auto auto 0' }}>
-          {switchSpring(cjpyPriceRank, colorCodePerTcr)}
+          <SwitchSpring
+            cjpyPriceRank={cjpyPriceRank}
+            colorCode={colorCodePerTcr}
+          >
+            {currency == "CJPY" ? (
+              <CjpyLogo width={"45px"} height={"45px"} />
+            ) : currency == "CUSD" ? (
+              <CusdLogo width={"45px"} height={"45px"} />
+            ) : currency == "CEUR" ? (
+              <CeurLogo width={"45px"} height={"45px"} />
+            ) : (
+              <CjpyLogo width={"45px"} height={"45px"} />
+            )}
+          </SwitchSpring>
         </div>
       </HStack>
     </Box>
