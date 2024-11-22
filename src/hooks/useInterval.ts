@@ -27,3 +27,4 @@ export default function useInterval(
     return undefined;
   }, [delay, leading]);
 }
+export {}
