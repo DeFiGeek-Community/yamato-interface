@@ -1,8 +1,6 @@
-import React, { useEffect, useCallback } from 'react';
-import { Switch, Route, useLocation, useHistory } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import './i18n/configs';
 import Web3ReactManager from './components/Web3ReactManager';
-import { useCurrency } from './context/CurrencyContext';
 import Index from './pages/index';
 import Tools from './pages/tools';
 import ApplicationUpdater from './state/application/updater';
@@ -14,33 +12,6 @@ import WalletUpdater from './state/wallet/updater';
 import YamatoEntiretyUpdater from './state/yamato-entirety/updater';
 
 function App() {
-  const location = useLocation();
-  const history = useHistory();
-  const { currency, setCurrency } = useCurrency();
-
-  useEffect(() => {
-    // パスに基づいて通貨を設定（小文字に変換）
-    const path = location.pathname.toLowerCase();
-    if (path.includes('/cjpy')) {
-      setCurrency('CJPY');
-    } else if (path.includes('/cusd')) {
-      setCurrency('CUSD');
-    } else if (path.includes('/ceur')) {
-      setCurrency('CEUR');
-    }
-  }, [location.pathname, setCurrency]);
-
-  const handleCurrencyChange = useCallback((currency: string) => {
-    setCurrency(currency);
-    history.push(`/${currency.toLowerCase()}`);
-  }, [setCurrency, history]);
-
-  useEffect(() => {
-    if (currency) {
-      handleCurrencyChange(currency);
-    }
-  }, [currency, handleCurrencyChange]);
-
   return (
     <Web3ReactManager>
       <>
