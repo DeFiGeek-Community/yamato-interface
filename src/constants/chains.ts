@@ -11,6 +11,7 @@ export enum SupportedChainId {
   ARBITRUM_RINKEBY = 421611,
   OPTIMISM = 10,
   OPTIMISTIC_KOVAN = 69,
+  LOCALHOST = 31337,
 }
 
 export const ALL_SUPPORTED_CHAIN_IDS: SupportedChainId[] = [
@@ -22,6 +23,8 @@ export const ALL_SUPPORTED_CHAIN_IDS: SupportedChainId[] = [
   SupportedChainId.ARBITRUM_RINKEBY,
   SupportedChainId.OPTIMISM,
   SupportedChainId.OPTIMISTIC_KOVAN,
+
+  SupportedChainId.LOCALHOST,
 ];
 
 export const L1_CHAIN_IDS = [
@@ -144,6 +147,14 @@ export const CHAIN_INFO: ChainInfo = {
       decimals: 18,
     },
     statusPage: 'https://optimism.io/status',
+  },
+  [SupportedChainId.LOCALHOST]: {
+    docs: '',
+    explorer: '',
+    infoLink: '',
+    label: 'Localhost',
+    rpcUrls: ['http://127.0.0.1:8545/'],
+    nativeCurrency: { name: 'Local ETH', symbol: 'ETH', decimals: 18 },
   },
 };
 
