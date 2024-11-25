@@ -1,6 +1,7 @@
 import { Grid, GridItem, HStack } from '@chakra-ui/react';
 import { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useCurrency } from '../../context/CurrencyContext';
 import { useYamatoStateForInfographics } from '../../state/yamato-entirety/hooks';
 import { getEthChangePercent } from '../../utils/prices';
 import {
@@ -179,11 +180,12 @@ export function InfographicsContent(props: Partial<InfographicsProps>) {
 }
 
 export default function Infographics(props: Partial<InfographicsProps>) {
+  const { currency } = useCurrency();
   return (
     <>
       <HeaderBox1>
         <HStack>
-          <CategoryTitle>CJPY Now</CategoryTitle>
+          <CategoryTitle>{currency} Now</CategoryTitle>
           <InfographicsHelp />
         </HStack>
       </HeaderBox1>
