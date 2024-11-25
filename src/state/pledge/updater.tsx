@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useCallback } from 'react';
 import { isEnableSubgraph } from '../../constants/api';
 import { useCurrency } from '../../context/CurrencyContext';
 import { useYamatoMainContract } from '../../hooks/useContract';
@@ -27,7 +27,7 @@ export default function Updater(): null {
 
   const dispatchFetchMyPledge = useFetchMyPledge();
 
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     let params;
     if (!isUseMock) {
       try {
@@ -45,12 +45,16 @@ export default function Updater(): null {
     }
 
     dispatchFetchMyPledge(params);
-  };
+  }, [account, yamatoMainContract, dispatchFetchMyPledge]);
 
-  useEffect(() => {
+  const resetData = useCallback(() => {
     dispatchFetchMyPledge(initialPledgeParams);
     fetchData();
-  }, [currency]);
+  }, [dispatchFetchMyPledge, fetchData]);
+
+  useEffect(() => {
+    resetData();
+  }, [currency, resetData]);
 
   useInterval(fetchData, isEnableSubgraph ? 1000 : 10000, true);
 

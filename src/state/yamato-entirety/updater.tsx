@@ -150,10 +150,14 @@ export default function Updater(): null {
     }
   }, [fetch, handleFetchResults]);
 
-  useEffect(() => {
+  const resetData = useCallback(() => {
     dispatch(reset());
     fetchData();
-  }, [currency, dispatch, fetchData]);
+  }, [dispatch, fetchData]);
+
+  useEffect(() => {
+    resetData();
+  }, [currency, resetData]);
 
   useInterval(fetchData, 60000, true);
 
