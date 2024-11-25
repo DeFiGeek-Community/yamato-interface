@@ -4,13 +4,14 @@ import { useTranslation } from 'react-i18next';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 import styled from 'styled-components';
+import { useCurrency } from '../../../context/CurrencyContext';
 import { useYamatoStateForWorld } from '../../../state/yamato-entirety/hooks';
 import { LogEvent, LogEventType } from '../../../state/yamato-entirety/reducer';
 import { formatPrice } from '../../../utils/prices';
 import { shortenAddress } from '../../../utils/web3';
 import { Text } from '../../CommonItem';
 
-function getDescriptor(event: LogEvent, t: any) {
+function getDescriptor(event: LogEvent, t: any, currency: string) {
   switch (event.category as LogEventType) {
     case 'deposit':
       return `${formatPrice(event.value, 'eth').value}ETH${t(
@@ -21,11 +22,11 @@ function getDescriptor(event: LogEvent, t: any) {
         'world.logViewer.alert2'
       )}`;
     case 'borrowing':
-      return `${formatPrice(event.value, 'jpy').value}CJPY${t(
+      return `${formatPrice(event.value, 'jpy').value}${currency}${t(
         'world.logViewer.alert3'
       )}`;
     case 'repay':
-      return `${formatPrice(event.value, 'jpy').value}CJPY${t(
+      return `${formatPrice(event.value, 'jpy').value}${currency}${t(
         'world.logViewer.alert4'
       )}`;
     case 'self_redemption':
@@ -88,10 +89,12 @@ export default function LogViewer() {
   const { account } = useWeb3React();
   const { events, firstLoadCompleted } = useYamatoStateForWorld();
   const { t } = useTranslation();
-  function renderLogEvents(events: LogEvent[]) {
+  const { currency } = useCurrency();
+
+  function renderLogEvents(events: LogEvent[], currency: string) {
     return events.map((event) => {
       const color = getColor(event.category as LogEventType);
-      const descriptor = getDescriptor(event, t);
+      const descriptor = getDescriptor(event, t, currency);
       return (
         <CSSTransition key={event.id} timeout={500} classNames="fade">
           <Animation>
@@ -122,7 +125,7 @@ export default function LogViewer() {
     >
       {firstLoadCompleted ? (
         events.length > 0 ? (
-          <TransitionGroup>{renderLogEvents(events)}</TransitionGroup>
+          <TransitionGroup>{renderLogEvents(events, currency)}</TransitionGroup>
         ) : (
           <Text>{t('world.logViewer.alert8')}</Text>
         )
