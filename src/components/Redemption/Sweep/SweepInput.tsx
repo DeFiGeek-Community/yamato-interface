@@ -109,8 +109,7 @@ export default function SweepInput(props: Props) {
                 <Text>
                   {firstLoadCompleted ? (
                     <>
-                      {formatPrice(sweepableCandiate, 'jpy').value}{' '}
-                      {currency}
+                      {formatPrice(sweepableCandiate, 'jpy').value} {currency}
                     </>
                   ) : (
                     <Skeleton

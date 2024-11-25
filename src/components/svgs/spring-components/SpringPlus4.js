@@ -5,9 +5,7 @@ const CombinedPlus4 = ({ children, springcolor }) => {
   return (
     <div style={{ position: 'relative', width: '46px', height: '315px' }}>
       <SpringPlus4 springcolor={springcolor} />
-      <div style={{ position: 'absolute', top: '107px' }}>
-        {children}
-      </div>
+      <div style={{ position: 'absolute', top: '107px' }}>{children}</div>
     </div>
   );
 };

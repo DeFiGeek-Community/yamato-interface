@@ -121,17 +121,20 @@ export default function Updater(): null {
     // ymtContract,
   ]);
 
-  const handleFetchResults = useCallback((res) => {
-    const yamatoParams = res.yamatoParams;
-    const rateOfEthJpy = res.rateOfEthJpy;
-    const tokenParams = res.tokenParams;
-    const eventParams = res.eventParams;
+  const handleFetchResults = useCallback(
+    (res) => {
+      const yamatoParams = res.yamatoParams;
+      const rateOfEthJpy = res.rateOfEthJpy;
+      const tokenParams = res.tokenParams;
+      const eventParams = res.eventParams;
 
-    dispatch(fetchYamatoState(yamatoParams));
-    dispatch(fetchRateOfEthJpy({ rateOfEthJpy }));
-    dispatch(fetchTokenState(tokenParams));
-    dispatch(fetchEvents({ events: eventParams }));
-  }, [dispatch]);
+      dispatch(fetchYamatoState(yamatoParams));
+      dispatch(fetchRateOfEthJpy({ rateOfEthJpy }));
+      dispatch(fetchTokenState(tokenParams));
+      dispatch(fetchEvents({ events: eventParams }));
+    },
+    [dispatch]
+  );
 
   const fetchData = useCallback(async () => {
     if (!isUseMock) {

@@ -144,9 +144,9 @@ export default function Dashboard() {
               />
               <DashboardItem
                 title={currency + t('dashboard.totalSupply')}
-                stat={`${formatPrice(totalSupplyOfCjpy, 'jpy').value} ${
-                  currency
-                }`}
+                stat={`${
+                  formatPrice(totalSupplyOfCjpy, 'jpy').value
+                } ${currency}`}
                 firstLoadCompleted={firstLoadCompleted}
               />
             </VStack>

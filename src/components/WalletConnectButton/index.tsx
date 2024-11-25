@@ -18,7 +18,6 @@ import CurrencyToggle from './CurrencyToggle';
 import Row from './Row';
 import WalletModal from './WalletModal';
 
-
 const WalletButton = styled(RebassButton)`
   color: ${({ theme }) => theme.text0};
   background-color: ${({ theme }) => theme.text3};
@@ -77,7 +76,7 @@ function Web3StatusInner() {
   if (account) {
     return (
       <>
-        <CurrencyToggle/>
+        <CurrencyToggle />
         {chainId && chainId !== 1 && (
           <WalletText
             style={{

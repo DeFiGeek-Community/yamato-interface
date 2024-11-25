@@ -22,8 +22,8 @@ export default function Updater(): null {
         dispatchFetchRateOfCjpyEth('uniswap(v3)', rateOfEthJpy);
         dispatchFetchRateOfCjpyEth('uniswap(v2)', rateOfEthJpy);
       } else {
-        fetchCjpyPriceFromUniswap('v3', chainId, active, currency).then((data) =>
-          dispatchFetchRateOfCjpyEth('uniswap(v3)', data)
+        fetchCjpyPriceFromUniswap('v3', chainId, active, currency).then(
+          (data) => dispatchFetchRateOfCjpyEth('uniswap(v3)', data)
         );
       }
     },

@@ -5,9 +5,7 @@ const CombinedMinus1 = ({ children, springcolor }) => {
   return (
     <div style={{ position: 'relative', width: '46px', height: '315px' }}>
       <SvgSpringMinus1 springcolor={springcolor} />
-      <div style={{ position: 'absolute', top: '143px' }}>
-      {children}
-      </div>
+      <div style={{ position: 'absolute', top: '143px' }}>{children}</div>
     </div>
   );
 };

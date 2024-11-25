@@ -84,7 +84,8 @@ const CurrencyToggle: React.FC = () => {
     }
   }, [isDropdownOpen]);
 
-  const CurrentLogoComponent = currencies.find(c => c.name === currency)?.logo || CJPYLogo;
+  const CurrentLogoComponent =
+    currencies.find((c) => c.name === currency)?.logo || CJPYLogo;
 
   return (
     <>

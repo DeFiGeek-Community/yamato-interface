@@ -199,9 +199,16 @@ const WalletAction = styled(Button)`
   }
 `;
 
-function renderTokenButton(chainId: number, logo: string, symbol: string, currency: string) {
+function renderTokenButton(
+  chainId: number,
+  logo: string,
+  symbol: string,
+  currency: string
+) {
   return (
-    <TokenSection onClick={(e: any) => handeAddToken(e, chainId, symbol, currency)}>
+    <TokenSection
+      onClick={(e: any) => handeAddToken(e, chainId, symbol, currency)}
+    >
       <HStack spacing={4} justify={'center'}>
         <span>Add {currency}</span>
         <img src={logo} width={25} height={25}></img>
@@ -239,7 +246,11 @@ interface WatchAssetParams {
   };
 }
 
-const getToken = (chainId: number, symbol: string, currency: string): WatchAssetParams => {
+const getToken = (
+  chainId: number,
+  symbol: string,
+  currency: string
+): WatchAssetParams => {
   switch (symbol) {
     case currency:
       return {
@@ -284,7 +295,12 @@ const getToken = (chainId: number, symbol: string, currency: string): WatchAsset
   }
 };
 
-const handeAddToken = (e: any, chainId: number, symbol: string, currency: string) => {
+const handeAddToken = (
+  e: any,
+  chainId: number,
+  symbol: string,
+  currency: string
+) => {
   e.stopPropagation();
   (global.window as any)?.ethereum
     ?.request({

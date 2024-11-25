@@ -79,7 +79,7 @@ export async function fetchCjpyPriceFromUniswap(
   version: 'v2' | 'v3',
   chainId: number | undefined,
   active: boolean,
-  currency: string,
+  currency: string
 ) {
   // Construct param
   const activeChainId = active

@@ -44,7 +44,7 @@ export const SUBGRAPH_UNISWAP_V3_URLS: Record<number, string> = {
     'https://api.thegraph.com/subgraphs/name/ianlapham/uniswap-arbitrum-one',
   [SupportedChainId.OPTIMISM]:
     'https://api.thegraph.com/subgraphs/name/ianlapham/uniswap-optimism-dev',
-    [SupportedChainId.LOCALHOST]: '',
+  [SupportedChainId.LOCALHOST]: '',
 };
 
 export const SUBGRAPH_UNISWAP_V2_URLS: Record<number, string> = {
@@ -55,5 +55,5 @@ export const SUBGRAPH_UNISWAP_V2_URLS: Record<number, string> = {
     'https://api.thegraph.com/subgraphs/name/ianlapham/uniswap-arbitrum-one',
   [SupportedChainId.OPTIMISM]:
     'https://api.thegraph.com/subgraphs/name/ianlapham/uniswap-optimism-dev',
-    [SupportedChainId.LOCALHOST]: '',
+  [SupportedChainId.LOCALHOST]: '',
 };
