@@ -1,5 +1,6 @@
-import { useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
 import { isEnableSubgraph } from '../../constants/api';
+import { useCurrency } from '../../context/CurrencyContext';
 import {
   useCjpyContract,
   // useVeYmtContract,
@@ -30,6 +31,7 @@ import {
   fetchRateOfEthJpy,
   fetchTokenState,
   fetchYamatoState,
+  reset,
 } from './actions';
 import { initialState } from './reducer';
 
@@ -42,6 +44,7 @@ const initialTokenParams = initialState.token;
 
 export default function Updater(): null {
   const { active, account, chainId } = useActiveWeb3React();
+  const { currency } = useCurrency();
 
   const dispatch = useAppDispatch();
   const yamatoMainContract = useYamatoMainContract();
@@ -118,31 +121,38 @@ export default function Updater(): null {
     // ymtContract,
   ]);
 
-  const polling = useCallback(async () => {
-    let yamatoParams;
-    let rateOfEthJpy: number;
-    let tokenParams;
-    let eventParams;
-    if (!isUseMock) {
-      const res = await fetch();
-      yamatoParams = res.yamatoParams;
-      rateOfEthJpy = res.rateOfEthJpy;
-      tokenParams = res.tokenParams;
-      eventParams = res.eventParams;
-    } else {
-      yamatoParams = mockYamatoEntirety.yamatoParams;
-      rateOfEthJpy = mockYamatoEntirety.rateOfEthJpy;
-      tokenParams = mockTokenTotalSupply;
-      eventParams = mockLogs();
-    }
+  const handleFetchResults = useCallback((res) => {
+    const yamatoParams = res.yamatoParams;
+    const rateOfEthJpy = res.rateOfEthJpy;
+    const tokenParams = res.tokenParams;
+    const eventParams = res.eventParams;
 
     dispatch(fetchYamatoState(yamatoParams));
     dispatch(fetchRateOfEthJpy({ rateOfEthJpy }));
     dispatch(fetchTokenState(tokenParams));
     dispatch(fetchEvents({ events: eventParams }));
-  }, [fetch, dispatch]);
+  }, [dispatch]);
 
-  useInterval(polling, 60000, true);
+  const fetchData = useCallback(async () => {
+    if (!isUseMock) {
+      const res = await fetch();
+      handleFetchResults(res);
+    } else {
+      handleFetchResults({
+        yamatoParams: mockYamatoEntirety.yamatoParams,
+        rateOfEthJpy: mockYamatoEntirety.rateOfEthJpy,
+        tokenParams: mockTokenTotalSupply,
+        eventParams: mockLogs(),
+      });
+    }
+  }, [fetch, handleFetchResults]);
+
+  useEffect(() => {
+    dispatch(reset());
+    fetchData();
+  }, [currency, dispatch, fetchData]);
+
+  useInterval(fetchData, 60000, true);
 
   return null;
 }
