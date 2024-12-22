@@ -1,6 +1,7 @@
 import { Grid, GridItem, HStack, Stack, FormControl } from '@chakra-ui/react';
 import { Formik, Form } from 'formik';
 import { useTranslation } from 'react-i18next';
+import { useCurrency } from '../../context/CurrencyContext';
 import {
   CategoryTitle,
   ConentBox,
@@ -34,6 +35,21 @@ function InputField(props: {
 
 export default function InfographicsTool() {
   const { t } = useTranslation();
+  const { currency } = useCurrency() as {
+    currency: keyof typeof rateOfCurrency;
+  };
+
+  const rateOfCurrency = {
+    CJPY: 'CJPY/JPY',
+    CUSD: 'CUSD/USD',
+    CEUR: 'CEUR/EUR',
+  };
+  const rateOfEth = {
+    CJPY: 'ETH/JPY',
+    CUSD: 'ETH/USD',
+    CEUR: 'ETH/EUR',
+  };
+
   return (
     <Formik initialValues={{}} onSubmit={() => undefined}>
       {(formik) => (
@@ -62,12 +78,14 @@ export default function InfographicsTool() {
                   />
                   <InputField
                     name="totalDebt"
-                    label={t('tools.totalBorrowVolume') + '(CJPY)'}
+                    label={t('tools.totalBorrowVolume') + `(${currency})`}
                     formik={formik}
                   />
                   <InputField
                     name="rateOfCjpyJpy"
-                    label={'CJPY/JPY' + t('tools.exchangeRate')}
+                    label={
+                      `${rateOfCurrency[currency]}` + t('tools.exchangeRate')
+                    }
                     formik={formik}
                     onChange={(e: any) => {
                       const val = parseFloat(e.target.value);
@@ -81,36 +99,40 @@ export default function InfographicsTool() {
                   />
                   <InputField
                     name="rateOfEthJpy"
-                    label={'ETH/JPY' + t('tools.exchangeRate')}
+                    label={`${rateOfEth[currency]}` + t('tools.exchangeRate')}
                     formik={formik}
                   />
                   <InputField
                     name="prevRateOfEthJpy"
                     label={
                       t('tools.immediately') +
-                      ' ETH/JPY ' +
+                      ` ${rateOfEth[currency]} ` +
                       t('tools.exchangeRate')
                     }
                     formik={formik}
                   />
                   <InputField
                     name="redemptionReserve"
-                    label={t('tools.redemptionPool') + '(CJPY)'}
+                    label={t('tools.redemptionPool') + `(${currency})`}
                     formik={formik}
                   />
                   <InputField
                     name="prevRedemptionReserve"
-                    label={t('tools.immediatelyRedemptionPool') + '(CJPY)'}
+                    label={
+                      t('tools.immediatelyRedemptionPool') + `(${currency})`
+                    }
                     formik={formik}
                   />
                   <InputField
                     name="sweepReserve"
-                    label={t('tools.liquidationPool') + '(CJPY)'}
+                    label={t('tools.liquidationPool') + `(${currency})`}
                     formik={formik}
                   />
                   <InputField
                     name="prevSweepReserve"
-                    label={t('tools.immediatelyLiquidationPool') + '(CJPY)'}
+                    label={
+                      t('tools.immediatelyLiquidationPool') + `(${currency})`
+                    }
                     formik={formik}
                   />
                 </Stack>
