@@ -106,8 +106,7 @@ export default function Header() {
                   : { marginLeft: '2rem' }
               }
             >
-              <Text fontWeight="bold">              {t('layout.home')}
-              </Text>
+              <Text fontWeight="bold"> {t('layout.home')}</Text>
             </Link>
             <Link
               href="/#/tools/"
