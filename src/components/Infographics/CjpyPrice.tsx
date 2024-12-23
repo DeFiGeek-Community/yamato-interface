@@ -1,7 +1,9 @@
 import { Box, HStack } from '@chakra-ui/react';
 import React, { useMemo } from 'react';
 import { useCurrency } from '../../context/CurrencyContext';
-import Arrow from '../svgs/ArrowYen';
+import ArrowDollar from '../svgs/ArrowDollar';
+import ArrowEuro from '../svgs/ArrowEuro';
+import ArrowYen from '../svgs/ArrowYen';
 import CeurLogo from '../svgs/CeurLogo';
 import CjpyLogo from '../svgs/CjpyLogo';
 import CusdLogo from '../svgs/CusdLogo';
@@ -119,8 +121,16 @@ export default function CjpyPrice(props: Props) {
       }}
     >
       <HStack>
-        <div style={{ margin: 'auto 0.5rem auto auto' }}>
-          <Arrow />
+        <div style={{ margin: 'auto auto auto 0.5rem' }}>
+          {currency == 'CJPY' ? (
+            <ArrowYen />
+          ) : currency == 'CUSD' ? (
+            <ArrowDollar />
+          ) : currency == 'CEUR' ? (
+            <ArrowEuro />
+          ) : (
+            <ArrowYen />
+          )}
         </div>
         <div style={{ margin: 'auto auto auto 0' }}>
           <SwitchSpring
