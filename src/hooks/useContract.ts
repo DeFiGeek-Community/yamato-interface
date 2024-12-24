@@ -14,6 +14,7 @@ import {
   VEYMT_ADDRESSES,
   MULTICALL_ADDRESS,
   YAMATO_PRIORITY_REGISTRY_ADDRESSES,
+  ZERO_ADDRESS,
 } from '../constants/addresses';
 import CURVE_POOL_ABI from '../infrastructures/abis/curve/curveTwocryptoOptimized.json';
 import ENS_PUBLIC_RESOLVER_ABI from '../infrastructures/abis/external/ens-public-resolver.json';
@@ -55,7 +56,7 @@ export function useContract<T extends Contract = Contract>(
     let address: string | undefined;
     if (typeof addressOrAddressMap === 'string') address = addressOrAddressMap;
     else address = addressOrAddressMap[chainId];
-    if (!address) return null;
+    if (!address || address === ZERO_ADDRESS) return null;
     try {
       return getContract(
         address,
