@@ -2,6 +2,7 @@ import { constructSameAddressMap } from '../utils/constructSameAddressMap';
 import { SupportedChainId } from './chains';
 
 type AddressMap = { [chainId: number]: string };
+export const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000';
 
 /**
  * Yamato
@@ -37,13 +38,13 @@ export const CJPY_ADDRESSES: AddressMap = {
   [SupportedChainId.SEPOLIA]: '0xDED5F78d4fB19e935eb45dFf9912eB132F046782',
 };
 export const YMT_ADDRESSES: AddressMap = {
-  [SupportedChainId.MAINNET]: '0x0000000000000000000000000000000000000000',
-  [SupportedChainId.GOERLI]: '0x0000000000000000000000000000000000000000',
+  [SupportedChainId.MAINNET]: ZERO_ADDRESS,
+  [SupportedChainId.GOERLI]: ZERO_ADDRESS,
   [SupportedChainId.SEPOLIA]: '0x67bE87A96bF2306D0bc42c60EdAc51637b882eB9',
 };
 export const VEYMT_ADDRESSES: AddressMap = {
-  [SupportedChainId.MAINNET]: '0x0000000000000000000000000000000000000000',
-  [SupportedChainId.GOERLI]: '0x0000000000000000000000000000000000000000',
+  [SupportedChainId.MAINNET]: ZERO_ADDRESS,
+  [SupportedChainId.GOERLI]: ZERO_ADDRESS,
   [SupportedChainId.SEPOLIA]: '0xfF62eFe9097467Fb2B2adD94B2334764a57bD197',
 };
 export const WRAPPED_ETHER_ADDRESS: AddressMap = {
@@ -54,7 +55,7 @@ export const WRAPPED_ETHER_ADDRESS: AddressMap = {
 export const TXJP_ADDRESSES: AddressMap = {
   [SupportedChainId.MAINNET]: '0x961dd84059505d59f82ce4fb87d3c09bec65301d',
   [SupportedChainId.GOERLI]: '0xeb50368411ABC751fFc3216A4f7df7038592d182',
-  [SupportedChainId.SEPOLIA]: '0x0000000000000000000000000000000000000000',
+  [SupportedChainId.SEPOLIA]: ZERO_ADDRESS,
 };
 
 /**
@@ -63,7 +64,7 @@ export const TXJP_ADDRESSES: AddressMap = {
 export const ENS_REGISTRAR_ADDRESSES: AddressMap = {
   [SupportedChainId.MAINNET]: '0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e',
   [SupportedChainId.GOERLI]: '0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e',
-  [SupportedChainId.SEPOLIA]: '0x0000000000000000000000000000000000000000',
+  [SupportedChainId.SEPOLIA]: ZERO_ADDRESS,
 };
 
 /**
@@ -80,6 +81,6 @@ export const MULTICALL_ADDRESS: AddressMap = {
 };
 export const CURVE_POOL_ADDRESS = {
   [SupportedChainId.MAINNET]: '0x592878b920101946Fb5915aB97961bC546f211CC',
-  [SupportedChainId.GOERLI]: '0x0000000000000000000000000000000000000000',
-  [SupportedChainId.SEPOLIA]: '0x0000000000000000000000000000000000000000',
+  [SupportedChainId.GOERLI]: ZERO_ADDRESS,
+  [SupportedChainId.SEPOLIA]: ZERO_ADDRESS,
 };
