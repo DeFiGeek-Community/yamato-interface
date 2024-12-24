@@ -1,7 +1,7 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { fetchRateOfCjpyEth } from './actions';
 
-export type PriceSource = 'uniswap(v3)' | 'uniswap(v2)';
+export type PriceSource = 'uniswap(v3)' | 'uniswap(v2)' | 'curve(ETH/CJPY)';
 
 /**
  * State gotten from External Markets such as DEX and statistical sites.
