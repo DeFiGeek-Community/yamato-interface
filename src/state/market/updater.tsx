@@ -31,7 +31,7 @@ export default function Updater(): null {
 
         // Curve
         fetchCjpyPriceFromCurve(curvePoolContract).then((data) =>
-          dispatchFetchRateOfCjpyEth('curve(ETH/CJPY)', data)
+          dispatchFetchRateOfCjpyEth('Curve', data)
         );
       }
     },
