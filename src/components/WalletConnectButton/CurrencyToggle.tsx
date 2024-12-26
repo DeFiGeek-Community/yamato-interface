@@ -20,7 +20,7 @@ const CurrencyToggle: React.FC = () => {
 
   return (
     <>
-      <CurrencyToggleButton >
+      <CurrencyToggleButton>
         <CJPYLogo width="35px" />
         <FlexText
           style={{

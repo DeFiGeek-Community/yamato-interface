@@ -18,7 +18,6 @@ import CurrencyToggle from './CurrencyToggle';
 import Row from './Row';
 import WalletModal from './WalletModal';
 
-
 const WalletButton = styled(RebassButton)`
   color: ${({ theme }) => theme.text0};
   background-color: ${({ theme }) => theme.text3};
@@ -54,7 +53,6 @@ export const FlexText = styled(WalletText)`
   color: ${({ theme }) => theme.text3};
 `;
 
-
 // we want the latest one to come first, so return negative if a is after b
 function newTransactionsFirst(a: TransactionDetails, b: TransactionDetails) {
   return b.addedTime - a.addedTime;
@@ -79,7 +77,7 @@ function Web3StatusInner() {
   if (account) {
     return (
       <>
-        <CurrencyToggle/>
+        <CurrencyToggle />
         {chainId && chainId !== 1 && (
           <WalletText
             style={{
