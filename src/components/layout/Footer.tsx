@@ -1,6 +1,5 @@
-import { Box, HStack, VStack, Link as Link } from "@chakra-ui/react";
+import { Box, HStack, VStack, Link, Text } from "@chakra-ui/react";
 import { Organizer, ReferenceList } from "../../constants/about";
-import { Text } from "@/components/CommonItem";
 import CommunityLogoBlack from "@/svgs/CommunityLogoBlack";
 
 export default function Footer() {
