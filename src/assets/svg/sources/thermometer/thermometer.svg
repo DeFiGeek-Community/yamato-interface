@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="81.178665"
+   height="117.77953"
+   viewBox="0 0 81.178665 117.77953"
+   fill="none"
+   version="1.1"
+   id="svg40"
+   sodipodi:docname="thermometer(+MCR130%).svg"
+   inkscape:version="1.1 (c68e22c387, 2021-05-23)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview42"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     showgrid="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:zoom="8.0000002"
+     inkscape:cx="42.374999"
+     inkscape:cy="65.749998"
+     inkscape:window-width="2077"
+     inkscape:window-height="1040"
+     inkscape:window-x="476"
+     inkscape:window-y="124"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="g893" />
+  <defs
+     id="defs38">
+    <filter
+       id="filter0_d"
+       x="0.110229"
+       y="0.110229"
+       width="38.889801"
+       height="118.78"
+       filterUnits="userSpaceOnUse"
+       color-interpolation-filters="sRGB">
+      <feFlood
+         flood-opacity="0"
+         result="BackgroundImageFix"
+         id="feFlood16" />
+      <feColorMatrix
+         in="SourceAlpha"
+         type="matrix"
+         values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+         result="hardAlpha"
+         id="feColorMatrix18" />
+      <feOffset
+         dx="1"
+         dy="1"
+         id="feOffset20" />
+      <feComposite
+         in2="hardAlpha"
+         operator="out"
+         id="feComposite22" />
+      <feColorMatrix
+         type="matrix"
+         values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"
+         id="feColorMatrix24" />
+      <feBlend
+         mode="normal"
+         in2="BackgroundImageFix"
+         result="effect1_dropShadow"
+         id="feBlend26" />
+      <feBlend
+         mode="normal"
+         in="SourceGraphic"
+         in2="effect1_dropShadow"
+         result="shape"
+         id="feBlend28" />
+    </filter>
+    <linearGradient
+       id="paint0_linear"
+       x1="17"
+       y1="1"
+       x2="17"
+       y2="101"
+       gradientUnits="userSpaceOnUse">
+      <stop
+         offset="0.390404"
+         stop-color="#FF8585"
+         id="stop31" />
+      <stop
+         offset="0.683086"
+         stop-color="#E483FF"
+         id="stop33" />
+      <stop
+         offset="0.76125"
+         stop-color="#838CFF"
+         id="stop35" />
+    </linearGradient>
+    <filter
+       id="filter0_d-5"
+       x="8.1102304"
+       y="21.110201"
+       width="38.889801"
+       height="118.78"
+       filterUnits="userSpaceOnUse"
+       color-interpolation-filters="sRGB">
+      <feFlood
+         flood-opacity="0"
+         result="BackgroundImageFix"
+         id="feFlood995" />
+      <feColorMatrix
+         in="SourceAlpha"
+         type="matrix"
+         values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+         result="hardAlpha"
+         id="feColorMatrix997" />
+      <feOffset
+         dx="1"
+         dy="1"
+         id="feOffset999" />
+      <feComposite
+         in2="hardAlpha"
+         operator="out"
+         id="feComposite1001" />
+      <feColorMatrix
+         type="matrix"
+         values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"
+         id="feColorMatrix1003" />
+      <feBlend
+         mode="normal"
+         in2="BackgroundImageFix"
+         result="effect1_dropShadow"
+         id="feBlend1005" />
+      <feBlend
+         mode="normal"
+         in="SourceGraphic"
+         in2="effect1_dropShadow"
+         result="shape"
+         id="feBlend1007" />
+    </filter>
+    <linearGradient
+       id="paint0_linear-9"
+       x1="25"
+       y1="22"
+       x2="25"
+       y2="122"
+       gradientUnits="userSpaceOnUse">
+      <stop
+         offset="0.392115"
+         stop-color="#FF9898"
+         id="stop1010" />
+      <stop
+         offset="0.684512"
+         stop-color="#E483FF"
+         id="stop1012" />
+      <stop
+         offset="0.762896"
+         stop-color="#838CFF"
+         id="stop1014" />
+    </linearGradient>
+  </defs>
+  <g
+     style="fill:none"
+     id="g893"
+     transform="translate(-0.11023498,-0.11023498)">
+    <path
+       d="m 2.14691,100.501 c 0,8.284 6.71573,15 14.99999,15 8.2843,0 15,-6.716 15,-15"
+       fill="#868bff"
+       id="path859" />
+    <path
+       d="M 32,1 H 2 v 100 h 30 z"
+       fill="url(#paint0_linear)"
+       id="path861"
+       style="fill:url(#paint0_linear)" />
+    <path
+       d="M 32,0.86567411 H 2 V 10.865674 h 30 z"
+       fill="#fcfaf2"
+       id="path863"
+       style="stroke-width:1" />
+    <line
+       x1="27.5"
+       y1="10.869293"
+       x2="36.5"
+       y2="10.869293"
+       stroke="#cfcfcf"
+       stroke-width="3"
+       stroke-linecap="round"
+       id="line865" />
+    <path
+       d="m 2,2 v 98.508 C 2,109.064 8.71573,116 17,116 c 8.2843,0 15,-6.936 15,-15.492 V 2"
+       stroke="#cfcfcf"
+       stroke-width="3.77953"
+       stroke-linecap="round"
+       id="path867" />
+    <line
+       x1="27.5"
+       y1="74.494797"
+       x2="36.5"
+       y2="74.494797"
+       stroke="#cfcfcf"
+       stroke-width="3"
+       stroke-linecap="round"
+       id="line869" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:8px;line-height:1.25;font-family:Helvetica;-inkscape-font-specification:'Helvetica Bold';letter-spacing:-0.65px;word-spacing:0px;fill:#818181;fill-opacity:1;stroke-width:1"
+       x="38.13612"
+       y="77.43"
+       id="text2305"><tspan
+         sodipodi:role="line"
+         id="tspan2303"
+         x="38.13612"
+         y="77.43"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:8px;font-family:Roboto;-inkscape-font-specification:'Roboto Bold';stroke-width:1"
+         dx="0"
+         dy="0"
+         rotate="0 0 0 0 0 0 0 0 0">MCR 130%</tspan></text>
+  </g>
+</svg>
