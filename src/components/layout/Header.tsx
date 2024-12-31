@@ -1,13 +1,8 @@
+import { HStack, Link, Box, Container, Flex } from "@chakra-ui/react";
 import {
-  HStack,
   NativeSelectField,
   NativeSelectRoot,
-  Link,
-  Box,
-  Container,
-  Text,
-  Flex,
-} from "@chakra-ui/react";
+} from "@/components/ui/native-select";
 import i18next, { i18n } from "i18next";
 import { useTranslation } from "react-i18next";
 import { useRouter } from "next/router";
@@ -20,7 +15,7 @@ const changeLanguage = (i18next: i18n, lang: string) => {
 
 export function LangugeChange() {
   return (
-    <NativeSelectRoot>
+    <NativeSelectRoot bg={"brand.whitelight"}>
       <NativeSelectField
         placeholder="Language"
         value={i18next.language}
@@ -41,36 +36,37 @@ export default function Header() {
   const isActiveLink = (path: string) => location.pathname === path;
 
   return (
-    <Box position="sticky" opacity={0.975}>
-      <Container>
-        <Flex as="header" justifyContent="space-between" alignItems="center">
-          <HStack color="#818181">
-            <Link href="/#/">
-              <SvgYamatoLogWithTitle width={200} height={30} />
-            </Link>
-            <Link
-              href="/#/"
-              fontWeight={isActiveLink("/") ? "bold" : "normal"}
-              pointerEvents={isActiveLink("/") ? "none" : "auto"}
-              opacity={isActiveLink("/") ? 0.6 : 1}
-              ml={8}
-            >
-              <Text fontWeight="bold"> {t("layout.home")}</Text>
-            </Link>
-            <Link
+    <Container>
+      <Flex justifyContent="space-between" wrap="wrap">
+        <HStack>
+          <Link href="/#/">
+            <SvgYamatoLogWithTitle width={300} height={75} />
+          </Link>
+          {/* <Link
+            href="/#/"
+            fontWeight={isActiveLink("/") ? "bold" : "normal"}
+            pointerEvents={isActiveLink("/") ? "none" : "auto"}
+            opacity={isActiveLink("/") ? 0.6 : 1}
+            ml={8}
+          >
+            <Text fontWeight="bold"> {t("layout.home")}</Text>
+          </Link> */}
+          {/* <Link
               href="/#/tools/"
               fontWeight={isActiveLink("/tools/") ? "bold" : "normal"}
               pointerEvents={isActiveLink("/tools/") ? "none" : "auto"}
               opacity={isActiveLink("/tools/") ? 0.6 : 1}
             >
               {t("layout.tool")}
-            </Link>
-          </HStack>
-          <HStack>
-            <LangugeChange /> <ConnectButton />
-          </HStack>
-        </Flex>
-      </Container>
-    </Box>
+            </Link> */}
+        </HStack>
+        <HStack>
+          <Box>
+            <LangugeChange />
+          </Box>{" "}
+          <ConnectButton label={t("layout.walletconnect")} />
+        </HStack>
+      </Flex>
+    </Container>
   );
 }

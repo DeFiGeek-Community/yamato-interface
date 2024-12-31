@@ -18,7 +18,8 @@
   },
   "layout": {
     "home": "ホーム",
-    "tool": "ツール"
+    "tool": "ツール",
+    "walletconnect": "ウォレット接続"
   },
   "pledge": {
     "collateral": {

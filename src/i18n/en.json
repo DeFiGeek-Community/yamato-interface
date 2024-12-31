@@ -18,7 +18,8 @@
   },
   "layout": {
     "home": "home",
-    "tool": "tool"
+    "tool": "tool",
+    "walletconnect": "Connect wallet"
   },
   "pledge": {
     "collateral": {

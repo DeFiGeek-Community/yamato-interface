@@ -5,14 +5,14 @@ import Header from "./Header";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <>
-      <Box>
+    <Box>
+      <Box bg="brand.white">
         <Header />
       </Box>
-      <Box>{children}</Box>
-      <Box>
+      <Box bg="brand.whitelight">{children}</Box>
+      <Box bg="brand.white">
         <Footer />
       </Box>
-    </>
+    </Box>
   );
 }

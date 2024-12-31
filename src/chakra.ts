@@ -10,6 +10,8 @@ const chakraConfig = defineConfig({
         colors: {
           brand: {
             white: { value: "#FCFAF2" },
+            whitelight: { value: "#FFFEFC" },
+            whitedark: { value: "#DEDBCC" },
             green: { value: "#5BAD92" },
             greenlight: { value: "#84C7B1" },
             greendark: { value: "#3E9A7C" },
