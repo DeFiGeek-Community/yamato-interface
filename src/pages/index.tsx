@@ -1,6 +1,5 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import styles from "../styles/Home.module.css";
 import Layout from "@/components/layout";
 import "@/i18n/configs";
 import MyPledge from "@/components/pledge";
@@ -14,13 +13,13 @@ const Home: NextPage = () => {
         <title>Yamato Protocol</title>
         <link href="/favicon.ico" rel="icon" />
       </Head>
-      <Layout>
-        <main className={styles.main}>
+      <main>
+        <Layout>
           <YamatoStatistics />
           <MyPledge />
           <YamatoFunctions />
-        </main>
-      </Layout>
+        </Layout>
+      </main>
     </div>
   );
 };
