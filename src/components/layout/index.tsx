@@ -1,5 +1,4 @@
-import { Box } from "@chakra-ui/react";
-import BackgroundImage from "@/assets/images/background_main.webp";
+import { Box, Container } from "@chakra-ui/react";
 import Footer from "./Footer";
 import Header from "./Header";
 
@@ -9,8 +8,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <Box bg="brand.white">
         <Header />
       </Box>
-      <Box bg="brand.greenlight" p="2">
-        {children}
+      <Box bg="brand.greensuperlight" p="2">
+        <Container>{children}</Container>
       </Box>
       <Box bg="brand.white">
         <Footer />

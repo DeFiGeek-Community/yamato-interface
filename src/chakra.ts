@@ -14,6 +14,7 @@ const chakraConfig = defineConfig({
             whitedark: { value: "#DEDBCC" },
             green: { value: "#5BAD92" },
             greenlight: { value: "#84C7B1" },
+            greensuperlight: {value: "#B2DECE"},
             greendark: { value: "#3E9A7C" },
             pink: { value: "#F9AEA5" },
             pinklight: { value: "#FFCCC5" },
