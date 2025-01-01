@@ -18,14 +18,8 @@ const MyPledge = () => {
       </Heading>
 
       {/* Collateral Section */}
-      <Card.Root
-        mb={4}
-        bg="brand.whitelight"
-        variant="outline"
-        borderRadius="md"
-        shadow="md"
-      >
-        <Card.Header bg="brand.green">
+      <Card.Root mb={4} bg="brand.whitelight" borderRadius="md" shadow="md">
+        <Card.Header bg="brand.green" borderRadius="md">
           <Text fontSize="lg" fontWeight="bold" color="white" mb="2">
             担保
           </Text>
@@ -34,25 +28,25 @@ const MyPledge = () => {
           <HStack mb={4}>
             <Card.Root bg="brand.white" flex="1" borderRadius="md" shadow="md">
               <Card.Header>
-                <Text>現在の担保量</Text>
+                <Text fontWeight="bold">現在の担保量</Text>
               </Card.Header>
               <Card.Body>
-                <Text fontWeight="bold">0 ETH</Text>
+                <Text>0 ETH</Text>
               </Card.Body>
             </Card.Root>
             <Card.Root bg="brand.white" flex="1" borderRadius="md" shadow="md">
               <Card.Header>
-                <Text>評価額</Text>
+                <Text fontWeight="bold">評価額</Text>
               </Card.Header>
               <Card.Body>
-                <Text fontWeight="bold">¥0</Text>
+                <Text>¥0</Text>
               </Card.Body>
             </Card.Root>
           </HStack>
           <HStack>
             <Card.Root flex="1" bg="brand.white" borderRadius="md" shadow="md">
               <Card.Header>
-                <Text>預入量入力</Text>
+                <Text fontWeight="bold">預入量入力</Text>
               </Card.Header>
               <Card.Body>
                 <Input
@@ -68,7 +62,7 @@ const MyPledge = () => {
             </Card.Root>
             <Card.Root flex="1" bg="brand.white" borderRadius="md" shadow="md">
               <Card.Header>
-                <Text>引出量入力</Text>
+                <Text fontWeight="bold">引出量入力</Text>
               </Card.Header>
               <Card.Body>
                 <Input
@@ -88,7 +82,7 @@ const MyPledge = () => {
 
       {/* Debt Section */}
       <Card.Root mb={4} bg="brand.whitelight" borderRadius="md" shadow="md">
-        <Card.Header bg="brand.pink">
+        <Card.Header bg="brand.pink" borderRadius="md">
           <Text fontSize="lg" fontWeight="bold" color="white" mb="2">
             負債
           </Text>
@@ -97,33 +91,33 @@ const MyPledge = () => {
           <HStack mb={4}>
             <Card.Root bg="brand.white" flex="1" borderRadius="md" shadow="md">
               <Card.Header>
-                <Text>最大借入可能量</Text>
+                <Text fontWeight="bold">最大借入可能量</Text>
               </Card.Header>
               <Card.Body>
-                <Text fontWeight="bold">0 ETH</Text>
+                <Text>0 ETH</Text>
               </Card.Body>
             </Card.Root>
             <Card.Root bg="brand.white" flex="1" borderRadius="md" shadow="md">
               <Card.Header>
-                <Text>借入量</Text>
+                <Text fontWeight="bold">借入量</Text>
               </Card.Header>
               <Card.Body>
-                <Text fontWeight="bold">¥0</Text>
+                <Text>¥0</Text>
               </Card.Body>
             </Card.Root>
             <Card.Root bg="brand.white" flex="1" borderRadius="md" shadow="md">
               <Card.Header>
-                <Text>担保率</Text>
+                <Text fontWeight="bold">担保率</Text>
               </Card.Header>
               <Card.Body>
-                <Text fontWeight="bold">¥0</Text>
+                <Text>¥0</Text>
               </Card.Body>
             </Card.Root>
           </HStack>
           <HStack>
             <Card.Root flex="1" bg="brand.white" borderRadius="md" shadow="md">
               <Card.Header>
-                <Text>借入量入力</Text>
+                <Text fontWeight="bold">借入量入力</Text>
               </Card.Header>
               <Card.Body>
                 <Input
@@ -139,7 +133,7 @@ const MyPledge = () => {
             </Card.Root>
             <Card.Root flex="1" bg="brand.white" borderRadius="md" shadow="md">
               <Card.Header>
-                <Text>返済量入力</Text>
+                <Text fontWeight="bold">返済量入力</Text>
               </Card.Header>
               <Card.Body>
                 <Input

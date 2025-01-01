@@ -19,24 +19,25 @@ const YamatoFunctions = () => {
 
       {/* Redemption Section */}
       <Card.Root mb={4} bg="brand.whitelight" borderRadius="md" shadow="md">
-        <Card.Header bg="brand.green">
+        <Card.Header bg="brand.green" borderRadius="md">
           <Text fontSize="lg" fontWeight="bold" color="white" mb="2">
             償還
           </Text>
         </Card.Header>
         <Card.Body>
           <HStack mb={4}>
-            <Card.Root bg="brand.white" borderRadius="md" shadow="md">
+            <Card.Root flex="1" bg="brand.white" borderRadius="md" shadow="md">
               <Card.Header>
-                <Text>償還候補総量</Text>
+                <Text fontWeight="bold">償還候補総量</Text>
               </Card.Header>
               <Card.Body>
-                <Text>0 CJPY (0 ETH)</Text>
+                <Text>0 CJPY</Text>
+                <Text> (0 ETH)</Text>
               </Card.Body>
             </Card.Root>
-            <Card.Root bg="brand.white" borderRadius="md" shadow="md">
+            <Card.Root flex="1" bg="brand.white" borderRadius="md" shadow="md">
               <Card.Header>
-                <Text>プール総量</Text>
+                <Text fontWeight="bold">プール総量</Text>
               </Card.Header>
               <Card.Body>
                 <Text>827,733.5089 CJPY</Text>
@@ -45,25 +46,25 @@ const YamatoFunctions = () => {
             </Card.Root>
           </HStack>
           <HStack>
-            <Card.Root bg="brand.white" borderRadius="md" shadow="md">
+            <Card.Root flex="1" bg="brand.white" borderRadius="md" shadow="md">
               <Card.Header>
-                <Text fontWeight={"bold"}>ユーザー償還</Text>
+                <Text fontWeight="bold">ユーザー償還</Text>
               </Card.Header>
               <Card.Body>
                 <Input
                   placeholder="Enter amount"
                   mb="2"
                   bg="brand.whitelight"
-                  borderColor="brand.blue"
+                  borderColor="brand.green"
                 />
                 <Button bg="brand.greendark" color="white">
                   償還実行
                 </Button>
               </Card.Body>
             </Card.Root>
-            <Card.Root bg="brand.white" borderRadius="md" shadow="md">
+            <Card.Root flex="1" bg="brand.white" borderRadius="md" shadow="md">
               <Card.Header>
-                <Text fontWeight={"bold"}>Yamato償還</Text>
+                <Text fontWeight="bold">Yamato償還</Text>
               </Card.Header>
               <Card.Body>
                 <Text>実行リワード予測</Text>
@@ -76,25 +77,25 @@ const YamatoFunctions = () => {
           </HStack>
         </Card.Body>
       </Card.Root>
-      <Card.Root mb={4} bg="brand.whitelight" borderRadius="md" shadow="md">
-        <Card.Header bg="brand.pink">
+      <Card.Root bg="brand.whitelight" borderRadius="md" shadow="md">
+        <Card.Header bg="brand.pink" borderRadius="md">
           <Text fontSize="lg" fontWeight="bold" color="white" mb="2">
             Yamato代位弁済
           </Text>
         </Card.Header>
         <Card.Body>
           <HStack mb={4}>
-            <Card.Root bg="brand.white" borderRadius="md" shadow="md">
+            <Card.Root flex="1" bg="brand.white" borderRadius="md" shadow="md">
               <Card.Header>
-                <Text>弁済候補総量</Text>
+                <Text fontWeight="bold">弁済候補総量</Text>
               </Card.Header>
               <Card.Body>
                 <Text>0 CJPY</Text>
               </Card.Body>
             </Card.Root>
-            <Card.Root bg="brand.white" borderRadius="md" shadow="md">
+            <Card.Root flex="1" bg="brand.white" borderRadius="md" shadow="md">
               <Card.Header>
-                <Text>プール総量</Text>
+                <Text fontWeight="bold">プール総量</Text>
               </Card.Header>
               <Card.Body>
                 <Text>365,694.0789 CJPY</Text>
@@ -103,7 +104,7 @@ const YamatoFunctions = () => {
           </HStack>
           <Card.Root bg="brand.white" borderRadius="md" shadow="md">
             <Card.Header>
-              <Text fontWeight={"bold"}>Yamato償還</Text>
+              <Text fontWeight="bold">Yamato代位弁済</Text>
             </Card.Header>
             <Card.Body>
               <Text>実行リワード予測</Text>
