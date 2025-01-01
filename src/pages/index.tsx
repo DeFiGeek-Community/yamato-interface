@@ -4,6 +4,7 @@ import styles from "../styles/Home.module.css";
 import Layout from "@/components/layout";
 import "@/i18n/configs";
 import MyPledge from "@/components/pledge";
+import YamatoStatistics from "@/components/dashboard";
 
 const Home: NextPage = () => {
   return (
@@ -14,6 +15,7 @@ const Home: NextPage = () => {
       </Head>
       <Layout>
         <main className={styles.main}>
+          <YamatoStatistics />
           <MyPledge />
 
           <p className={styles.description}>
