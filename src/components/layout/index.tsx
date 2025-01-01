@@ -9,7 +9,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <Box bg="brand.white">
         <Header />
       </Box>
-      <Box bg="brand.whitelight">{children}</Box>
+      <Box bg="brand.greenlight">{children}</Box>
       <Box bg="brand.white">
         <Footer />
       </Box>
