@@ -5,6 +5,7 @@ import Layout from "@/components/layout";
 import "@/i18n/configs";
 import MyPledge from "@/components/pledge";
 import YamatoStatistics from "@/components/dashboard";
+import YamatoFunctions from "@/components/functions";
 
 const Home: NextPage = () => {
   return (
@@ -17,7 +18,7 @@ const Home: NextPage = () => {
         <main className={styles.main}>
           <YamatoStatistics />
           <MyPledge />
-
+          <YamatoFunctions />
           <p className={styles.description}>
             Get started by editing{" "}
             <code className={styles.code}>pages/index.tsx</code>
