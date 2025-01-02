@@ -5,6 +5,7 @@ import "@/i18n/configs";
 import MyPledge from "@/components/pledge";
 import YamatoStatistics from "@/components/dashboard";
 import YamatoFunctions from "@/components/functions";
+import { Grid, GridItem } from "@chakra-ui/react";
 
 const Home: NextPage = () => {
   return (
@@ -15,9 +16,17 @@ const Home: NextPage = () => {
       </Head>
       <main>
         <Layout>
-          <YamatoStatistics />
-          <MyPledge />
-          <YamatoFunctions />
+          <Grid>
+            <GridItem>
+              <YamatoStatistics />
+            </GridItem>
+            <GridItem>
+              <MyPledge />
+            </GridItem>
+            <GridItem>
+              <YamatoFunctions />
+            </GridItem>
+          </Grid>
         </Layout>
       </main>
     </div>

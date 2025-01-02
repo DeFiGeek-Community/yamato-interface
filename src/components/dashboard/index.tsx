@@ -13,9 +13,9 @@ import { RxQuestionMarkCircled } from "react-icons/rx";
 
 const YamatoStatistics = () => {
   return (
-    <Box bg="brand.white" borderRadius="lg" p={4} m={4} shadow="lg">
+    <Box bg="brand.white" borderRadius="lg" p={2} m={2} shadow="lg">
       {/* Header */}
-      <Flex alignItems="center" mb={4}>
+      <Flex alignItems="center" mb={2}>
         <Heading fontWeight="bold" color="brand.greendark" pr={2}>
           Yamato Statistics
         </Heading>
@@ -29,12 +29,12 @@ const YamatoStatistics = () => {
         templateColumns={{
           base: "1fr", // モバイル画面: 1列
           sm: "1fr 1fr", // 小画面: 2列
-          lg: "1fr 1fr 1fr", // 大画面: 3列
+          lg: "1fr 1fr 1fr 1fr 1fr", // 大画面: 5列
         }}
         gap={4}
       >
         {/* TVL */}
-        <GridItem bg="brand.whitelight" p={4} borderRadius="md" shadow="md">
+        <GridItem bg="brand.whitelight" p={2} borderRadius="md" shadow="md">
           <Text fontWeight="bold" fontSize="lg">
             TVL
           </Text>
@@ -42,7 +42,7 @@ const YamatoStatistics = () => {
         </GridItem>
 
         {/* ETH価格 */}
-        <GridItem bg="brand.whitelight" p={4} borderRadius="md" shadow="md">
+        <GridItem bg="brand.whitelight" p={2} borderRadius="md" shadow="md">
           <Text fontWeight="bold" fontSize="lg">
             ETH価格
           </Text>
@@ -50,7 +50,7 @@ const YamatoStatistics = () => {
         </GridItem>
 
         {/* TCR */}
-        <GridItem bg="brand.whitelight" p={4} borderRadius="md" shadow="md">
+        <GridItem bg="brand.whitelight" p={2} borderRadius="md" shadow="md">
           <Text fontWeight="bold" fontSize="lg">
             TCR
           </Text>
@@ -58,7 +58,7 @@ const YamatoStatistics = () => {
         </GridItem>
 
         {/* CJPY総発行量 */}
-        <GridItem bg="brand.whitelight" p={4} borderRadius="md" shadow="md">
+        <GridItem bg="brand.whitelight" p={2} borderRadius="md" shadow="md">
           <Text fontWeight="bold" fontSize="lg">
             CJPY総発行量
           </Text>
@@ -66,7 +66,7 @@ const YamatoStatistics = () => {
         </GridItem>
 
         {/* 市場間価格差異 */}
-        <GridItem bg="brand.whitelight" p={4} borderRadius="md" shadow="md">
+        <GridItem bg="brand.whitelight" p={2} borderRadius="md" shadow="md">
           <Text fontWeight="bold" fontSize="lg">
             市場間価格差異
           </Text>

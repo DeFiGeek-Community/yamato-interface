@@ -27,19 +27,20 @@ const YamatoFunctions = () => {
         <Card.Body>
           <HStack mb={4}>
             <Card.Root flex="1" bg="brand.white" borderRadius="md" shadow="md">
-              <Card.Header>
-                <Text fontWeight="bold">償還候補総量</Text>
-              </Card.Header>
               <Card.Body>
+                <Card.Title>
+                  <Text fontWeight="bold">償還候補総量</Text>
+                </Card.Title>{" "}
                 <Text>0 CJPY</Text>
                 <Text> (0 ETH)</Text>
               </Card.Body>
             </Card.Root>
             <Card.Root flex="1" bg="brand.white" borderRadius="md" shadow="md">
-              <Card.Header>
-                <Text fontWeight="bold">プール総量</Text>
-              </Card.Header>
               <Card.Body>
+                {" "}
+                <Card.Title>
+                  <Text fontWeight="bold">プール総量</Text>
+                </Card.Title>
                 <Text>827,733.5089 CJPY</Text>
                 <Text> (1.572880122 ETH)</Text>
               </Card.Body>
@@ -47,29 +48,31 @@ const YamatoFunctions = () => {
           </HStack>
           <HStack>
             <Card.Root flex="1" bg="brand.white" borderRadius="md" shadow="md">
-              <Card.Header>
-                <Text fontWeight="bold">ユーザー償還</Text>
-              </Card.Header>
               <Card.Body>
+                {" "}
+                <Card.Title>
+                  <Text fontWeight="bold">ユーザー償還</Text>
+                </Card.Title>
                 <Input
                   placeholder="Enter amount"
                   mb="2"
                   bg="brand.whitelight"
                   borderColor="brand.green"
                 />
-                <Button bg="brand.greendark" color="white">
+                <Button bg="brand.greendark" color="white" fontWeight="bold">
                   償還実行
                 </Button>
               </Card.Body>
             </Card.Root>
             <Card.Root flex="1" bg="brand.white" borderRadius="md" shadow="md">
-              <Card.Header>
-                <Text fontWeight="bold">Yamato償還</Text>
-              </Card.Header>
               <Card.Body>
+                {" "}
+                <Card.Title>
+                  <Text fontWeight="bold">Yamato償還</Text>
+                </Card.Title>
                 <Text>実行リワード予測</Text>
                 <Text>0 ETH</Text>
-                <Button bg="brand.greendark" color="white">
+                <Button bg="brand.greendark" color="white" fontWeight="bold">
                   償還実行
                 </Button>
               </Card.Body>
@@ -86,30 +89,29 @@ const YamatoFunctions = () => {
         <Card.Body>
           <HStack mb={4}>
             <Card.Root flex="1" bg="brand.white" borderRadius="md" shadow="md">
-              <Card.Header>
-                <Text fontWeight="bold">弁済候補総量</Text>
-              </Card.Header>
               <Card.Body>
+                <Card.Title>
+                  <Text fontWeight="bold">弁済候補総量</Text>
+                </Card.Title>
                 <Text>0 CJPY</Text>
               </Card.Body>
             </Card.Root>
             <Card.Root flex="1" bg="brand.white" borderRadius="md" shadow="md">
-              <Card.Header>
-                <Text fontWeight="bold">プール総量</Text>
-              </Card.Header>
               <Card.Body>
+                <Card.Title>
+                  <Text fontWeight="bold">プール総量</Text>
+                </Card.Title>
                 <Text>365,694.0789 CJPY</Text>
               </Card.Body>
             </Card.Root>
           </HStack>
           <Card.Root bg="brand.white" borderRadius="md" shadow="md">
-            <Card.Header>
-              <Text fontWeight="bold">Yamato代位弁済</Text>
-            </Card.Header>
             <Card.Body>
-              <Text>実行リワード予測</Text>
-              <Text>0 CJPY</Text>
-              <Button bg="brand.pinkdark" color="white">
+              <Card.Title>
+                <Text fontWeight="bold">Yamato代位弁済</Text>
+              </Card.Title>
+              <Text>実行リワード予測: 0 CJPY</Text>
+              <Button bg="brand.pinkdark" color="white" fontWeight="bold">
                 弁済実行
               </Button>
             </Card.Body>
