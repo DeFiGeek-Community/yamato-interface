@@ -12,20 +12,20 @@ import {
 
 const YamatoFunctions = () => {
   return (
-    <Box p={4} m={4} bg="brand.white" borderRadius="md" shadow="lg">
-      <Heading fontWeight="bold" mb={4}>
+    <Box p={2} m={2} bg="brand.white" borderRadius="md" shadow="lg">
+      <Heading fontWeight="bold" mb={2}>
         Functions
       </Heading>
 
       {/* Redemption Section */}
-      <Card.Root mb={4} bg="brand.whitelight" borderRadius="md" shadow="md">
+      <Card.Root mb={2} bg="brand.whitelight" borderRadius="md" shadow="md">
         <Card.Header bg="brand.green" borderRadius="md">
           <Text fontSize="lg" fontWeight="bold" color="white" mb="2">
             償還
           </Text>
         </Card.Header>
         <Card.Body>
-          <HStack mb={4}>
+          <HStack mb={2}>
             <Card.Root flex="1" bg="brand.white" borderRadius="md" shadow="md">
               <Card.Body>
                 <Card.Title>
@@ -87,7 +87,7 @@ const YamatoFunctions = () => {
           </Text>
         </Card.Header>
         <Card.Body>
-          <HStack mb={4}>
+          <HStack mb={2}>
             <Card.Root flex="1" bg="brand.white" borderRadius="md" shadow="md">
               <Card.Body>
                 <Card.Title>

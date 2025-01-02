@@ -17,7 +17,7 @@ const Home: NextPage = () => {
       <main>
         <Layout>
           <Grid>
-            <GridItem>
+            <GridItem colSpan={{ base: 1, md: 2 }}>
               <YamatoStatistics />
             </GridItem>
             <GridItem>
