@@ -1,7 +1,16 @@
-import { HStack, Link, Box, Container, Flex } from "@chakra-ui/react";
+import {
+  HStack,
+  Text,
+  Link,
+  Box,
+  Container,
+  Flex,
+  VStack,
+} from "@chakra-ui/react";
 import { useTranslation } from "react-i18next";
 import { useRouter } from "next/router";
 import SvgYamatoLogWithTitle from "@/svgs/YamatoLogoWithTitle";
+import CJPYLogo from "@/svgs/CjpyLogo";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 
 export default function Header() {
@@ -36,9 +45,31 @@ export default function Header() {
               {t("layout.tool")}
             </Link> */}
         </HStack>
-        <Box>
+        <HStack>
+          <Box
+            borderRadius={"full"}
+            borderColor={"brand.green"}
+            borderWidth="1px"
+            px="2"
+          >
+            <HStack>
+              <CJPYLogo width="35px" />
+              <VStack gap={0} align={"left"}>
+                <Text fontSize={"sm"} color={"gray"}>
+                  balance
+                </Text>
+                <Text
+                  fontWeight={"bold"}
+                  color={"brand.greendark"}
+                  textStyle="lg"
+                >
+                  100 CJPY
+                </Text>
+              </VStack>
+            </HStack>
+          </Box>
           <ConnectButton label={t("layout.walletconnect")} />
-        </Box>
+        </HStack>
       </Flex>
     </Container>
   );
