@@ -25,7 +25,7 @@ export function LangugeChange() {
 
 export default function Footer() {
   return (
-    <Flex justify="space-between" align="center">
+    <Flex justify="space-between" align="center" wrap="wrap">
       <Box />
       <Box display="flex" alignItems="center">
         <CommunityLogoBlack width="5rem" height="5rem" />
