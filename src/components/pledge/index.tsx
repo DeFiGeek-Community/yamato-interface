@@ -5,7 +5,7 @@ import {
   Button,
   Card,
   Heading,
-  HStack,
+  Grid,
 } from "@chakra-ui/react";
 
 const MyPledge = () => {
@@ -23,8 +23,14 @@ const MyPledge = () => {
           </Text>
         </Card.Header>
         <Card.Body>
-          <HStack mb={2}>
-            <Card.Root bg="brand.white" flex="1" borderRadius="md" shadow="md">
+          <Grid
+            templateColumns={{
+              base: "1fr",
+              md: "1fr 1fr",
+            }}
+            gap={2}
+          >
+            <Card.Root bg="brand.white" borderRadius="md" shadow="md">
               <Card.Body>
                 <Card.Title>
                   <Text fontWeight="bold">現在の担保量</Text>
@@ -32,7 +38,7 @@ const MyPledge = () => {
                 <Text>0 ETH</Text>
               </Card.Body>
             </Card.Root>
-            <Card.Root bg="brand.white" flex="1" borderRadius="md" shadow="md">
+            <Card.Root bg="brand.white" borderRadius="md" shadow="md">
               <Card.Body>
                 <Card.Title>
                   <Text fontWeight="bold">評価額</Text>
@@ -40,9 +46,7 @@ const MyPledge = () => {
                 <Text>¥0</Text>
               </Card.Body>
             </Card.Root>
-          </HStack>
-          <HStack>
-            <Card.Root flex="1" bg="brand.white" borderRadius="md" shadow="md">
+            <Card.Root bg="brand.white" borderRadius="md" shadow="md">
               <Card.Body>
                 <Card.Title>
                   <Text fontWeight="bold">預入量入力</Text>
@@ -58,7 +62,7 @@ const MyPledge = () => {
                 </Button>
               </Card.Body>
             </Card.Root>
-            <Card.Root flex="1" bg="brand.white" borderRadius="md" shadow="md">
+            <Card.Root bg="brand.white" borderRadius="md" shadow="md">
               <Card.Body>
                 <Card.Title>
                   <Text fontWeight="bold">引出量入力</Text>
@@ -74,7 +78,7 @@ const MyPledge = () => {
                 </Button>
               </Card.Body>
             </Card.Root>
-          </HStack>
+          </Grid>
         </Card.Body>
       </Card.Root>
 
@@ -86,8 +90,15 @@ const MyPledge = () => {
           </Text>
         </Card.Header>
         <Card.Body>
-          <HStack mb={2}>
-            <Card.Root bg="brand.white" flex="1" borderRadius="md" shadow="md">
+          <Grid
+            templateColumns={{
+              base: "1fr",
+              md: "1fr 1fr 1fr",
+            }}
+            gap={2}
+            mb={2}
+          >
+            <Card.Root bg="brand.white" borderRadius="md" shadow="md">
               <Card.Body>
                 <Card.Title>
                   <Text fontWeight="bold">最大借入可能量</Text>
@@ -95,7 +106,7 @@ const MyPledge = () => {
                 <Text>0 ETH</Text>
               </Card.Body>
             </Card.Root>
-            <Card.Root bg="brand.white" flex="1" borderRadius="md" shadow="md">
+            <Card.Root bg="brand.white" borderRadius="md" shadow="md">
               <Card.Body>
                 <Card.Title>
                   <Text fontWeight="bold">借入量</Text>
@@ -103,7 +114,7 @@ const MyPledge = () => {
                 <Text>¥0</Text>
               </Card.Body>
             </Card.Root>
-            <Card.Root bg="brand.white" flex="1" borderRadius="md" shadow="md">
+            <Card.Root bg="brand.white" borderRadius="md" shadow="md">
               <Card.Body>
                 <Card.Title>
                   <Text fontWeight="bold">担保率</Text>
@@ -111,9 +122,15 @@ const MyPledge = () => {
                 <Text>¥0</Text>
               </Card.Body>
             </Card.Root>
-          </HStack>
-          <HStack>
-            <Card.Root flex="1" bg="brand.white" borderRadius="md" shadow="md">
+          </Grid>
+          <Grid
+            templateColumns={{
+              base: "1fr",
+              md: "1fr 1fr",
+            }}
+            gap={2}
+          >
+            <Card.Root bg="brand.white" borderRadius="md" shadow="md">
               <Card.Body>
                 <Card.Title>
                   <Text fontWeight="bold">借入量入力</Text>
@@ -129,7 +146,7 @@ const MyPledge = () => {
                 </Button>
               </Card.Body>
             </Card.Root>
-            <Card.Root flex="1" bg="brand.white" borderRadius="md" shadow="md">
+            <Card.Root bg="brand.white" borderRadius="md" shadow="md">
               <Card.Body>
                 <Card.Title>
                   <Text fontWeight="bold">返済量入力</Text>
@@ -145,7 +162,7 @@ const MyPledge = () => {
                 </Button>
               </Card.Body>
             </Card.Root>
-          </HStack>
+          </Grid>
         </Card.Body>
       </Card.Root>
     </Box>

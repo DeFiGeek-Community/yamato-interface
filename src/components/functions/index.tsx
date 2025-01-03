@@ -1,13 +1,11 @@
 import {
   Box,
-  Container,
-  Flex,
   Text,
   Input,
   Button,
   Card,
   Heading,
-  HStack,
+  Grid,
 } from "@chakra-ui/react";
 
 const YamatoFunctions = () => {
@@ -25,19 +23,24 @@ const YamatoFunctions = () => {
           </Text>
         </Card.Header>
         <Card.Body>
-          <HStack mb={2}>
-            <Card.Root flex="1" bg="brand.white" borderRadius="md" shadow="md">
+          <Grid
+            templateColumns={{
+              base: "1fr",
+              md: "1fr 1fr",
+            }}
+            gap={2}
+          >
+            <Card.Root bg="brand.white" borderRadius="md" shadow="md">
               <Card.Body>
                 <Card.Title>
                   <Text fontWeight="bold">償還候補総量</Text>
-                </Card.Title>{" "}
+                </Card.Title>
                 <Text>0 CJPY</Text>
                 <Text> (0 ETH)</Text>
               </Card.Body>
             </Card.Root>
-            <Card.Root flex="1" bg="brand.white" borderRadius="md" shadow="md">
+            <Card.Root bg="brand.white" borderRadius="md" shadow="md">
               <Card.Body>
-                {" "}
                 <Card.Title>
                   <Text fontWeight="bold">プール総量</Text>
                 </Card.Title>
@@ -45,11 +48,8 @@ const YamatoFunctions = () => {
                 <Text> (1.572880122 ETH)</Text>
               </Card.Body>
             </Card.Root>
-          </HStack>
-          <HStack>
-            <Card.Root flex="1" bg="brand.white" borderRadius="md" shadow="md">
+            <Card.Root bg="brand.white" borderRadius="md" shadow="md">
               <Card.Body>
-                {" "}
                 <Card.Title>
                   <Text fontWeight="bold">ユーザー償還</Text>
                 </Card.Title>
@@ -64,9 +64,8 @@ const YamatoFunctions = () => {
                 </Button>
               </Card.Body>
             </Card.Root>
-            <Card.Root flex="1" bg="brand.white" borderRadius="md" shadow="md">
+            <Card.Root bg="brand.white" borderRadius="md" shadow="md">
               <Card.Body>
-                {" "}
                 <Card.Title>
                   <Text fontWeight="bold">Yamato償還</Text>
                 </Card.Title>
@@ -77,7 +76,7 @@ const YamatoFunctions = () => {
                 </Button>
               </Card.Body>
             </Card.Root>
-          </HStack>
+          </Grid>
         </Card.Body>
       </Card.Root>
       <Card.Root bg="brand.whitelight" borderRadius="md" shadow="md">
@@ -87,8 +86,15 @@ const YamatoFunctions = () => {
           </Text>
         </Card.Header>
         <Card.Body>
-          <HStack mb={2}>
-            <Card.Root flex="1" bg="brand.white" borderRadius="md" shadow="md">
+          <Grid
+            templateColumns={{
+              base: "1fr",
+              md: "1fr 1fr",
+            }}
+            gap={2}
+            mb="2"
+          >
+            <Card.Root bg="brand.white" borderRadius="md" shadow="md">
               <Card.Body>
                 <Card.Title>
                   <Text fontWeight="bold">弁済候補総量</Text>
@@ -96,7 +102,7 @@ const YamatoFunctions = () => {
                 <Text>0 CJPY</Text>
               </Card.Body>
             </Card.Root>
-            <Card.Root flex="1" bg="brand.white" borderRadius="md" shadow="md">
+            <Card.Root bg="brand.white" borderRadius="md" shadow="md">
               <Card.Body>
                 <Card.Title>
                   <Text fontWeight="bold">プール総量</Text>
@@ -104,7 +110,7 @@ const YamatoFunctions = () => {
                 <Text>365,694.0789 CJPY</Text>
               </Card.Body>
             </Card.Root>
-          </HStack>
+          </Grid>
           <Card.Root bg="brand.white" borderRadius="md" shadow="md">
             <Card.Body>
               <Card.Title>

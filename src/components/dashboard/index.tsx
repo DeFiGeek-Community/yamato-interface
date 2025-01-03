@@ -27,11 +27,11 @@ const YamatoStatistics = () => {
       {/* Statistics Grid */}
       <Grid
         templateColumns={{
-          base: "1fr", // モバイル画面: 1列
-          sm: "1fr 1fr", // 小画面: 2列
-          lg: "1fr 1fr 1fr 1fr 1fr", // 大画面: 5列
+          base: "1fr",
+          sm: "1fr 1fr",
+          lg: "1fr 1fr 1fr 1fr 1fr",
         }}
-        gap={4}
+        gap={2}
       >
         {/* TVL */}
         <GridItem bg="brand.whitelight" p={2} borderRadius="md" shadow="md">
