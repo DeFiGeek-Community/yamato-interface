@@ -13,7 +13,7 @@ export default function Header() {
 
   return (
     <Container>
-      <Flex justifyContent="space-between" align="center">
+      <Flex justifyContent="space-between" align="center" wrap="wrap" p="2">
         <HStack>
           <Link href="/#/">
             <SvgYamatoLogWithTitle width={300} height={75} />
