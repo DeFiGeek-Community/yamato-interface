@@ -8,6 +8,7 @@ import { RainbowKitProvider, lightTheme } from "@rainbow-me/rainbowkit";
 import { ChakraProvider } from "@chakra-ui/react";
 import { config as WagmiConfig } from "@/wagmi";
 import { config as ChakraConfig } from "@/chakra";
+import { ReloadContextProvider } from "@/providers/ReloadContextProvider";
 
 const client = new QueryClient();
 
@@ -22,7 +23,9 @@ function MyApp({ Component, pageProps }: AppProps) {
             })}
             showRecentTransactions={true}
           >
-            <Component {...pageProps} />
+            <ReloadContextProvider>
+              <Component {...pageProps} />
+            </ReloadContextProvider>
           </RainbowKitProvider>
         </QueryClientProvider>
       </WagmiProvider>
