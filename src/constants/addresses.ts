@@ -1,6 +1,7 @@
+import { Address } from 'viem';
 import { SupportedChainId } from './chains';
 
-type AddressMap = { [chainId: number]: string };
+type AddressMap = { [chainId: number]: Address };
 export const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000';
 
 /**

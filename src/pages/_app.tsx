@@ -9,6 +9,8 @@ import { ChakraProvider } from "@chakra-ui/react";
 import { config as WagmiConfig } from "@/wagmi";
 import { config as ChakraConfig } from "@/chakra";
 import { ReloadContextProvider } from "@/providers/ReloadContextProvider";
+import { AppDataProvider } from "@/providers/AppDataProvider";
+import { WalletBalanceProvider } from "@/providers/WalletBalanceProvider";
 
 const client = new QueryClient();
 
@@ -24,7 +26,11 @@ function MyApp({ Component, pageProps }: AppProps) {
             showRecentTransactions={true}
           >
             <ReloadContextProvider>
-              <Component {...pageProps} />
+              <AppDataProvider>
+                <WalletBalanceProvider>
+                  <Component {...pageProps} />
+                </WalletBalanceProvider>
+              </AppDataProvider>
             </ReloadContextProvider>
           </RainbowKitProvider>
         </QueryClientProvider>

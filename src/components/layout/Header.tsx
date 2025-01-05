@@ -12,9 +12,11 @@ import { useRouter } from "next/router";
 import SvgYamatoLogWithTitle from "@/svgs/YamatoLogoWithTitle";
 import CJPYLogo from "@/svgs/CjpyLogo";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
+import { useWalletBalanceContext } from "@/contexts/WalletBalanceContext";
 
 export default function Header() {
   const location = useRouter();
+  const { cjpyBalance } = useWalletBalanceContext();
 
   const { t } = useTranslation();
 
@@ -63,7 +65,7 @@ export default function Header() {
                   color={"brand.greendark"}
                   textStyle="lg"
                 >
-                  100 CJPY
+                  {cjpyBalance} CJPY
                 </Text>
               </VStack>
             </HStack>
