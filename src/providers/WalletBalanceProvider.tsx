@@ -47,7 +47,7 @@ export const WalletBalanceProvider: React.FC<{ children: React.ReactNode }> = ({
         ]
       : [],
   });
-  console.log(cjpyData, ethData);
+
   const reloadBalances = useCallback(() => {
     ethRefetch();
     cjpyRefetch();
