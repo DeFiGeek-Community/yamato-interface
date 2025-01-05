@@ -3,7 +3,7 @@ import Head from "next/head";
 import Layout from "@/components/layout";
 import "@/i18n/configs";
 import MyPledge from "@/components/pledge";
-import YamatoStatistics from "@/components/dashboard";
+import YamatoStatistics from "@/components/statistics";
 import YamatoFunctions from "@/components/functions";
 import { Grid, GridItem } from "@chakra-ui/react";
 

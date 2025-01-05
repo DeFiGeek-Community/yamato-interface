@@ -1,5 +1,5 @@
 {
-  "dashboard": {
+  "statistics": {
     "tvl": "TVL(Total Value Locked)",
     "tcr": "TCR(Total Collateral Ratio)",
     "intermarketPriceVariance": "Intermarket Price Variance",
