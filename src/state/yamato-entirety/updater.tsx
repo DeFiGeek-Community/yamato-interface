@@ -149,7 +149,6 @@ export default function Updater(): null {
   useEffect(() => {
     if (active && account && chainId) {
       polling();
-      console.log("polling/ update")
     }
   }, [active, account, chainId, polling]);
 
