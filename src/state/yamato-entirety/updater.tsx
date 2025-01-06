@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
 import { isEnableSubgraph } from '../../constants/api';
 import {
   useCjpyContract,
@@ -143,6 +143,14 @@ export default function Updater(): null {
   }, [fetch, dispatch]);
 
   useInterval(polling, 60000, true);
+
+
+  // ウォレットが接続されたときにデータを取得
+  useEffect(() => {
+    if (active && account && chainId) {
+      polling();
+    }
+  }, [active, account, chainId, polling]);
 
   return null;
 }
