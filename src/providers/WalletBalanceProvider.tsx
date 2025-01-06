@@ -1,10 +1,5 @@
-import React, { useState, useEffect, useRef, useCallback } from "react";
-import {
-  useAccount,
-  useBalance,
-  useReadContract,
-  useReadContracts,
-} from "wagmi";
+import React, { useState, useEffect, useCallback } from "react";
+import { useAccount, useBalance, useReadContracts } from "wagmi";
 import { formatUnits } from "viem";
 import { useAppData } from "@/contexts/AppDataContext";
 import { WalletBalanceContext } from "@/contexts/WalletBalanceContext";
