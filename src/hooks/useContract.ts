@@ -6,14 +6,17 @@ import {
   YAMATO_MAIN_ADDRESSES,
   YAMATO_POOL_ADDRESSES,
   YAMATO_PRICE_FEED_ADDRESSES,
+  CURVE_POOL_ADDRESS,
   CJPY_ADDRESSES,
   YMT_ADDRESSES,
   VEYMT_ADDRESSES,
   MULTICALL_ADDRESS,
   YAMATO_PRIORITY_REGISTRY_ADDRESSES,
   TokenAddressMap,
+  ZERO_ADDRESS,
 } from '../constants/addresses';
 import { useCurrency } from '../context/CurrencyContext';
+import CURVE_POOL_ABI from '../infrastructures/abis/curve/curveTwocryptoOptimized.json';
 import ENS_PUBLIC_RESOLVER_ABI from '../infrastructures/abis/external/ens-public-resolver.json';
 import ENS_ABI from '../infrastructures/abis/external/ens-registrar.json';
 import {
@@ -25,6 +28,7 @@ import {
   EnsPublicResolver,
   EnsRegistrar,
   CJPY,
+  CurveTwocryptoOptimized,
   UniswapInterfaceMulticall,
   PriorityRegistryV6,
 } from '../infrastructures/abis/types';
@@ -59,7 +63,7 @@ export function useContract<T extends Contract = Contract>(
       address = addressOrAddressMap;
     }
 
-    if (!address) return null;
+    if (!address || address === ZERO_ADDRESS) return null;
     try {
       return getContract(
         address,
@@ -101,6 +105,16 @@ export function useYamatoPriorityRegistryContract() {
   return useContract<PriorityRegistryV6>(
     YAMATO_PRIORITY_REGISTRY_ADDRESSES,
     YAMATO_PRIORITY_REGISTRY_ABI
+  );
+}
+
+/**
+ * POOL
+ */
+export function useCurvePoolContract() {
+  return useContract<CurveTwocryptoOptimized>(
+    CURVE_POOL_ADDRESS,
+    CURVE_POOL_ABI
   );
 }
 

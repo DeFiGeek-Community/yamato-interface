@@ -161,5 +161,13 @@ export default function Updater(): null {
 
   useInterval(fetchData, 60000, true);
 
+
+  // ウォレットが接続されたときにデータを取得
+  useEffect(() => {
+    if (active && account && chainId) {
+      resetData();
+    }
+  }, [active, account, chainId, resetData]);
+
   return null;
 }

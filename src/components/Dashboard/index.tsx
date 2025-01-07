@@ -59,6 +59,9 @@ export default function Dashboard() {
       if (exchangeName.includes('uniswap')) {
         return `https://app.uniswap.org/#/swap?inputCurrency=eth&outputCurrency=${cjpyAddress}`;
       }
+      if (exchangeName.includes('Curve')) {
+        return `https://curve.fi/#/ethereum/pools/factory-twocrypto-5/swap`;
+      }
       return '';
     },
     [cjpyAddress]

@@ -3,6 +3,7 @@ import { SupportedChainId } from './chains';
 
 export type AddressMap = { [chainId: number]: string };
 export type TokenAddressMap = { [token: string]: AddressMap };
+export const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000';
 
 /**
  * Yamato
@@ -114,14 +115,14 @@ export const CJPY_ADDRESSES: TokenAddressMap = {
   },
 };
 export const YMT_ADDRESSES: AddressMap = {
-  [SupportedChainId.MAINNET]: '0x0000000000000000000000000000000000000000',
-  [SupportedChainId.GOERLI]: '0x0000000000000000000000000000000000000000',
+  [SupportedChainId.MAINNET]: ZERO_ADDRESS,
+  [SupportedChainId.GOERLI]: ZERO_ADDRESS,
   [SupportedChainId.SEPOLIA]: '0x67bE87A96bF2306D0bc42c60EdAc51637b882eB9',
   [SupportedChainId.LOCALHOST]: '0x1fA02b2d6A771842690194Cf62D91bdd92BfE28d',
 };
 export const VEYMT_ADDRESSES: AddressMap = {
-  [SupportedChainId.MAINNET]: '0x0000000000000000000000000000000000000000',
-  [SupportedChainId.GOERLI]: '0x0000000000000000000000000000000000000000',
+  [SupportedChainId.MAINNET]: ZERO_ADDRESS,
+  [SupportedChainId.GOERLI]: ZERO_ADDRESS,
   [SupportedChainId.SEPOLIA]: '0xfF62eFe9097467Fb2B2adD94B2334764a57bD197',
   [SupportedChainId.LOCALHOST]: '0xdbC43Ba45381e02825b14322cDdd15eC4B3164E6',
 };
@@ -134,8 +135,8 @@ export const WRAPPED_ETHER_ADDRESS: AddressMap = {
 export const TXJP_ADDRESSES: AddressMap = {
   [SupportedChainId.MAINNET]: '0x961dd84059505d59f82ce4fb87d3c09bec65301d',
   [SupportedChainId.GOERLI]: '0xeb50368411ABC751fFc3216A4f7df7038592d182',
-  [SupportedChainId.SEPOLIA]: '0x0000000000000000000000000000000000000000',
-  [SupportedChainId.LOCALHOST]: '0x0000000000000000000000000000000000000000',
+  [SupportedChainId.SEPOLIA]: ZERO_ADDRESS,
+  [SupportedChainId.LOCALHOST]: ZERO_ADDRESS,
 };
 
 /**
@@ -144,8 +145,8 @@ export const TXJP_ADDRESSES: AddressMap = {
 export const ENS_REGISTRAR_ADDRESSES: AddressMap = {
   [SupportedChainId.MAINNET]: '0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e',
   [SupportedChainId.GOERLI]: '0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e',
-  [SupportedChainId.SEPOLIA]: '0x0000000000000000000000000000000000000000',
-  [SupportedChainId.LOCALHOST]: '0x0000000000000000000000000000000000000000',
+  [SupportedChainId.SEPOLIA]: ZERO_ADDRESS,
+  [SupportedChainId.LOCALHOST]: ZERO_ADDRESS,
 };
 
 /**
@@ -159,4 +160,9 @@ export const MULTICALL_ADDRESS: AddressMap = {
   [SupportedChainId.ARBITRUM_ONE]: '0xadF885960B47eA2CD9B55E6DAc6B42b7Cb2806dB',
   [SupportedChainId.ARBITRUM_RINKEBY]:
     '0xa501c031958F579dB7676fF1CE78AD305794d579',
+};
+export const CURVE_POOL_ADDRESS = {
+  [SupportedChainId.MAINNET]: '0x592878b920101946Fb5915aB97961bC546f211CC',
+  [SupportedChainId.GOERLI]: ZERO_ADDRESS,
+  [SupportedChainId.SEPOLIA]: ZERO_ADDRESS,
 };
