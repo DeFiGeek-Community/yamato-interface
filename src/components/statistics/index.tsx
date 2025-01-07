@@ -10,8 +10,14 @@ import {
 import { Tooltip } from "@/components/ui/tooltip";
 import { LuExternalLink } from "react-icons/lu";
 import { RxQuestionMarkCircled } from "react-icons/rx";
+import { useYamatoStatistics } from "@/hooks/statistics";
+import { useAppData } from "@/contexts/AppDataContext";
+import { formatUnits } from "viem";
 
 const YamatoStatistics = () => {
+  const { data } = useYamatoStatistics();
+  const { ethPrice } = useAppData();
+
   return (
     <Box bg="brand.white" borderRadius="lg" p={2} m={2} shadow="lg">
       {/* Header */}
@@ -38,7 +44,7 @@ const YamatoStatistics = () => {
           <Text fontWeight="bold" fontSize="lg">
             TVL
           </Text>
-          <Text>¥531,659,729.12</Text>
+          <Text>¥ {data?.tvl}</Text>
         </GridItem>
 
         {/* ETH価格 */}
@@ -46,7 +52,7 @@ const YamatoStatistics = () => {
           <Text fontWeight="bold" fontSize="lg">
             ETH価格
           </Text>
-          <Text>¥523,802.9176</Text>
+          <Text>¥ {formatUnits(ethPrice, 18)}</Text>
         </GridItem>
 
         {/* TCR */}
@@ -54,7 +60,7 @@ const YamatoStatistics = () => {
           <Text fontWeight="bold" fontSize="lg">
             TCR
           </Text>
-          <Text>285.95%</Text>
+          <Text>{data?.tcr} %</Text>
         </GridItem>
 
         {/* CJPY総発行量 */}
@@ -62,7 +68,7 @@ const YamatoStatistics = () => {
           <Text fontWeight="bold" fontSize="lg">
             CJPY総発行量
           </Text>
-          <Text>185,924,891.5616 CJPY</Text>
+          <Text>{data?.cjpyTotalSupply} CJPY</Text>
         </GridItem>
 
         {/* 市場間価格差異 */}
@@ -70,10 +76,12 @@ const YamatoStatistics = () => {
           <Text fontWeight="bold" fontSize="lg">
             市場間価格差異
           </Text>
-          <Link href="https://example.com" fontWeight="semibold">
-            Curve: ¥0.9002 (-9.98%)
-            <LuExternalLink />
-          </Link>
+          {data?.marketPriceDiff.map((item, index) => (
+            <Link href="https://example.com" fontWeight="semibold" key={index}>
+              {item.poolname}: ¥ {item.value} ({item.value} %)
+              <LuExternalLink />
+            </Link>
+          ))}
         </GridItem>
       </Grid>
     </Box>

@@ -2,10 +2,11 @@ import { createContext, useContext } from "react";
 
 export interface AppDataContextType {
   chainId: number;
+  ethPrice: bigint;
 }
 
 export const AppDataContext = createContext<AppDataContextType | undefined>(
-  undefined,
+  undefined
 );
 
 export const useAppData = () => {
