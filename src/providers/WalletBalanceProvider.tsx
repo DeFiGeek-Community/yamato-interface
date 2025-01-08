@@ -13,8 +13,8 @@ export const WalletBalanceProvider: React.FC<{ children: React.ReactNode }> = ({
   const { chainId } = useAppData();
   const { address } = useAccount();
 
-  const [cjpyBalance, setCjpyBalance] = useState<string | null>("0");
-  const [ethBalance, setEthBalance] = useState<string | null>("0");
+  const [cjpyBalance, setCjpyBalance] = useState<string>("0");
+  const [ethBalance, setEthBalance] = useState<string>("0");
 
   const { reloadKey } = useReload();
 

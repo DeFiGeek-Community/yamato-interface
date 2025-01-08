@@ -1,8 +1,8 @@
 import { createContext, useContext } from "react";
 
 export type WalletBalanceContextType = {
-  ethBalance: string | null;
-  cjpyBalance: string | null;
+  ethBalance: string;
+  cjpyBalance: string;
   reloadBalances: () => void;
 };
 

@@ -13,6 +13,7 @@ import SvgYamatoLogWithTitle from "@/svgs/YamatoLogoWithTitle";
 import CJPYLogo from "@/svgs/CjpyLogo";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { useWalletBalanceContext } from "@/contexts/WalletBalanceContext";
+import { roundDecimal } from "@/utils";
 
 export default function Header() {
   const location = useRouter();
@@ -65,7 +66,7 @@ export default function Header() {
                   color={"brand.greendark"}
                   textStyle="lg"
                 >
-                  {cjpyBalance} CJPY
+                  {roundDecimal(cjpyBalance)} CJPY
                 </Text>
               </VStack>
             </HStack>
