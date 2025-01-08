@@ -1,13 +1,20 @@
-import { YAMATO_MAIN_ADDRESSES } from "@/constants/addresses";
+import {
+  CURVE_POOL_ADDRESS,
+  YAMATO_MAIN_ADDRESSES,
+} from "@/constants/addresses";
 import { useAppData } from "@/contexts/AppDataContext";
 import { useReadContract } from "wagmi";
-import yamatoABI from "@/constants/abis/yamato/Yamato.json";
+import YAMATO_ABI from "@/constants/abis/yamato/Yamato.json";
+import CURVE_POOL_ABI from "@/constants/abis/curve/curveTwocryptoOptimized.json";
 import { formatUnits } from "viem";
 import { roundDecimal } from "@/utils";
+import { CURVE_POOL_URLS } from "@/constants/api";
 
 type MarketPriceDiff = {
   poolname: string;
-  value: number;
+  marketLink: string;
+  value: string;
+  deviation: string;
 };
 
 type YamatoStatistics = {
@@ -29,22 +36,42 @@ export const useYamatoStatistics = () => {
 
   const { data: yamatoData } = useReadContract({
     address: YAMATO_MAIN_ADDRESSES[chainId],
-    abi: yamatoABI,
+    abi: YAMATO_ABI,
     functionName: "getStates",
-  }) as { data: bigint[]; refetch: any };
+  }) as { data: bigint[] };
 
-  if (yamatoData && ethPrice) {
-    const tcr = roundDecimal(
-      formatUnits(
-        ((yamatoData[0] * ethPrice) / yamatoData[1]) * BigInt(100),
-        18
-      )
-    );
+  const { data: curveData } = useReadContract({
+    address: CURVE_POOL_ADDRESS[chainId],
+    abi: CURVE_POOL_ABI,
+    functionName: "price_scale",
+  }) as { data: bigint };
 
-    data.tvl = roundDecimal(formatUnits(yamatoData[0] * ethPrice, 18 * 2));
-    data.tcr = tcr;
-    data.cjpyTotalSupply = roundDecimal(formatUnits(yamatoData[1], 18));
-    data.marketPriceDiff = [{ poolname: "Curve", value: 0.01 }];
+  if (ethPrice) {
+    if (yamatoData) {
+      const tcr = roundDecimal(
+        formatUnits(
+          ((yamatoData[0] * ethPrice) / yamatoData[1]) * BigInt(100),
+          18
+        )
+      );
+
+      data.tvl = roundDecimal(formatUnits(yamatoData[0] * ethPrice, 18 * 2));
+      data.tcr = tcr;
+      data.cjpyTotalSupply = roundDecimal(formatUnits(yamatoData[1], 18));
+      data.marketPriceDiff = [];
+    }
+
+    if (curveData) {
+      const price = ethPrice * curveData;
+      data.marketPriceDiff.push({
+        poolname: "Curve",
+        marketLink: CURVE_POOL_URLS[chainId],
+        value: roundDecimal(formatUnits(price, 18 * 2), 4),
+        deviation: roundDecimal(
+          formatUnits((price - BigInt(Math.pow(10, 36))) * BigInt(100), 36)
+        ),
+      });
+    }
   }
 
   return {

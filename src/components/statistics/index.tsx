@@ -78,8 +78,13 @@ const YamatoStatistics = () => {
             市場間価格差異
           </Text>
           {data?.marketPriceDiff.map((item, index) => (
-            <Link href="https://example.com" fontWeight="semibold" key={index}>
-              {item.poolname}: ¥ {item.value} ({item.value} %)
+            <Link
+              href={item.marketLink}
+              target="_blank"
+              fontWeight="semibold"
+              key={index}
+            >
+              {item.poolname}: ¥ {item.value} ({item.deviation} %)
               <LuExternalLink />
             </Link>
           ))}

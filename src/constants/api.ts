@@ -1,11 +1,6 @@
-import { SupportedChainId } from './chains';
+import { SupportedChainId } from "./chains";
 
 const INFURA_KEY = process.env.REACT_APP_INFURA_KEY;
-if (typeof INFURA_KEY === 'undefined') {
-  throw new Error(
-    `REACT_APP_INFURA_KEY must be a defined environment variable`
-  );
-}
 
 // default is mainnet.
 export const DEFAULT_CHAINID = Number(
@@ -24,32 +19,36 @@ export const NETWORK_URLS: { [key in SupportedChainId]: string } = {
 const ENABLE_SUBGRAPH = process.env.REACT_APP_ENABLE_SUBGRAPH;
 // default will be true.
 export const isEnableSubgraph =
-  typeof ENABLE_SUBGRAPH === 'undefined' || ENABLE_SUBGRAPH === 'true';
+  typeof ENABLE_SUBGRAPH === "undefined" || ENABLE_SUBGRAPH === "true";
 export const SUBGRAPH_YAMATO_URLS: Record<number, string> = {
-  [SupportedChainId.MAINNET]: '',
+  [SupportedChainId.MAINNET]: "",
   [SupportedChainId.GOERLI]:
-    'https://api.thegraph.com/subgraphs/name/subgraph-account/yamato_test_subgraph',
+    "https://api.thegraph.com/subgraphs/name/subgraph-account/yamato_test_subgraph",
   [SupportedChainId.SEPOLIA]:
-    'https://api.studio.thegraph.com/query/35420/yamato-subgraph/version/latest',
+    "https://api.studio.thegraph.com/query/35420/yamato-subgraph/version/latest",
 };
 
 export const SUBGRAPH_UNISWAP_V3_URLS: Record<number, string> = {
   [SupportedChainId.MAINNET]:
-    'https://api.thegraph.com/subgraphs/name/uniswap/uniswap-v3',
-  [SupportedChainId.GOERLI]: '',
-  [SupportedChainId.SEPOLIA]: '',
+    "https://api.thegraph.com/subgraphs/name/uniswap/uniswap-v3",
+  [SupportedChainId.GOERLI]: "",
+  [SupportedChainId.SEPOLIA]: "",
   [SupportedChainId.ARBITRUM_ONE]:
-    'https://api.thegraph.com/subgraphs/name/ianlapham/uniswap-arbitrum-one',
+    "https://api.thegraph.com/subgraphs/name/ianlapham/uniswap-arbitrum-one",
   [SupportedChainId.OPTIMISM]:
-    'https://api.thegraph.com/subgraphs/name/ianlapham/uniswap-optimism-dev',
+    "https://api.thegraph.com/subgraphs/name/ianlapham/uniswap-optimism-dev",
 };
 
 export const SUBGRAPH_UNISWAP_V2_URLS: Record<number, string> = {
-  [SupportedChainId.MAINNET]: '',
-  [SupportedChainId.GOERLI]: '',
-  [SupportedChainId.SEPOLIA]: '',
+  [SupportedChainId.MAINNET]: "",
+  [SupportedChainId.GOERLI]: "",
+  [SupportedChainId.SEPOLIA]: "",
   [SupportedChainId.ARBITRUM_ONE]:
-    'https://api.thegraph.com/subgraphs/name/ianlapham/uniswap-arbitrum-one',
+    "https://api.thegraph.com/subgraphs/name/ianlapham/uniswap-arbitrum-one",
   [SupportedChainId.OPTIMISM]:
-    'https://api.thegraph.com/subgraphs/name/ianlapham/uniswap-optimism-dev',
+    "https://api.thegraph.com/subgraphs/name/ianlapham/uniswap-optimism-dev",
+};
+
+export const CURVE_POOL_URLS: Record<number, string> = {
+  [SupportedChainId.MAINNET]: `https://curve.fi/#/ethereum/pools/factory-twocrypto-5/swap`,
 };
