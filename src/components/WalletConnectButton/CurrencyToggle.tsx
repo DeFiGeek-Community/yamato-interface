@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import CEURLogo from '../../components/svgs/CeurLogo';
 import CJPYLogo from '../../components/svgs/CjpyLogo';
@@ -60,6 +61,7 @@ const currencies: Currency[] = [
 ];
 
 const CurrencyToggle: React.FC = () => {
+  const history = useHistory();
   const { cjpy } = useWalletState();
   const { currency, setCurrency } = useCurrency();
 
@@ -72,8 +74,9 @@ const CurrencyToggle: React.FC = () => {
   };
 
   const handleCurrencySelect = (selectedCurrency: string) => {
-    setCurrency(selectedCurrency); // 選択された通貨を更新
-    console.log(`Selected currency: ${selectedCurrency}`);
+    setCurrency(selectedCurrency);
+    const newPath = `/${selectedCurrency.toLowerCase()}`;
+    history.push(newPath);
     setIsDropdownOpen(false);
   };
 
