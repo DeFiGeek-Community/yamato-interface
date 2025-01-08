@@ -13,6 +13,7 @@ import { RxQuestionMarkCircled } from "react-icons/rx";
 import { useYamatoStatistics } from "@/hooks/statistics";
 import { useAppData } from "@/contexts/AppDataContext";
 import { formatUnits } from "viem";
+import { roundDecimal } from "@/utils";
 
 const YamatoStatistics = () => {
   const { data } = useYamatoStatistics();
@@ -52,7 +53,7 @@ const YamatoStatistics = () => {
           <Text fontWeight="bold" fontSize="lg">
             ETH価格
           </Text>
-          <Text>¥ {formatUnits(ethPrice, 18)}</Text>
+          <Text>¥ {roundDecimal(formatUnits(ethPrice, 18))}</Text>
         </GridItem>
 
         {/* TCR */}

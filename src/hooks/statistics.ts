@@ -4,6 +4,7 @@ import { useReadContract } from "wagmi";
 import yamatoABI from "@/constants/abis/yamato/Yamato.json";
 import { useEffect, useState } from "react";
 import { formatUnits } from "viem";
+import { roundDecimal } from "@/utils";
 
 type MarketPriceDiff = {
   poolname: string;
@@ -34,14 +35,16 @@ export const useYamatoStatistics = () => {
 
   useEffect(() => {
     if (yamatoData && ethPrice) {
-      const tcr = formatUnits(
-        ((yamatoData[0] * ethPrice) / yamatoData[1]) * BigInt(100),
-        18
+      const tcr = roundDecimal(
+        formatUnits(
+          ((yamatoData[0] * ethPrice) / yamatoData[1]) * BigInt(100),
+          18
+        )
       );
       setData({
-        tvl: formatUnits(yamatoData[0] * ethPrice, 18 * 2),
-        tcr: tcr.toString(),
-        cjpyTotalSupply: formatUnits(yamatoData[1], 18),
+        tvl: roundDecimal(formatUnits(yamatoData[0] * ethPrice, 18 * 2)),
+        tcr: tcr,
+        cjpyTotalSupply: roundDecimal(formatUnits(yamatoData[1], 18)),
         marketPriceDiff: [{ poolname: "Curve", value: 0.01 }],
       });
     }
