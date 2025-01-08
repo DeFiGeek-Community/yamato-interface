@@ -13,7 +13,7 @@ import { RxQuestionMarkCircled } from "react-icons/rx";
 import { useYamatoStatistics } from "@/hooks/statistics";
 import { useAppData } from "@/contexts/AppDataContext";
 import { formatUnits } from "viem";
-import { roundDecimal } from "@/utils";
+import { formatPriceForDisplay } from "@/utils";
 
 const YamatoStatistics = () => {
   const { data } = useYamatoStatistics();
@@ -45,7 +45,7 @@ const YamatoStatistics = () => {
           <Text fontWeight="bold" fontSize="lg">
             TVL
           </Text>
-          <Text>¥ {data?.tvl}</Text>
+          <Text>¥ {formatPriceForDisplay(data?.tvl)}</Text>
         </GridItem>
 
         {/* ETH価格 */}
@@ -53,7 +53,7 @@ const YamatoStatistics = () => {
           <Text fontWeight="bold" fontSize="lg">
             ETH価格
           </Text>
-          <Text>¥ {roundDecimal(formatUnits(ethPrice, 18))}</Text>
+          <Text>¥ {formatPriceForDisplay(formatUnits(ethPrice, 18))}</Text>
         </GridItem>
 
         {/* TCR */}
@@ -61,7 +61,7 @@ const YamatoStatistics = () => {
           <Text fontWeight="bold" fontSize="lg">
             TCR
           </Text>
-          <Text>{data?.tcr} %</Text>
+          <Text>{formatPriceForDisplay(data?.tcr)} %</Text>
         </GridItem>
 
         {/* CJPY総発行量 */}
@@ -69,7 +69,7 @@ const YamatoStatistics = () => {
           <Text fontWeight="bold" fontSize="lg">
             CJPY総発行量
           </Text>
-          <Text>{data?.cjpyTotalSupply} CJPY</Text>
+          <Text>{formatPriceForDisplay(data?.cjpyTotalSupply)} CJPY</Text>
         </GridItem>
 
         {/* 市場間価格差異 */}
@@ -84,7 +84,8 @@ const YamatoStatistics = () => {
               fontWeight="semibold"
               key={index}
             >
-              {item.poolname}: ¥ {item.value} ({item.deviation} %)
+              {item.poolname}: ¥ {formatPriceForDisplay(item.value)} (
+              {formatPriceForDisplay(item.deviation)} %)
               <LuExternalLink />
             </Link>
           ))}

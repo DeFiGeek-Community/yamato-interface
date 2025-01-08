@@ -7,7 +7,6 @@ import { useReadContract } from "wagmi";
 import YAMATO_ABI from "@/constants/abis/yamato/Yamato.json";
 import CURVE_POOL_ABI from "@/constants/abis/curve/curveTwocryptoOptimized.json";
 import { formatUnits } from "viem";
-import { roundDecimal } from "@/utils";
 import { CURVE_POOL_URLS } from "@/constants/api";
 
 type MarketPriceDiff = {
@@ -48,16 +47,14 @@ export const useYamatoStatistics = () => {
 
   if (ethPrice) {
     if (yamatoData) {
-      const tcr = roundDecimal(
-        formatUnits(
-          ((yamatoData[0] * ethPrice) / yamatoData[1]) * BigInt(100),
-          18
-        )
+      const tcr = formatUnits(
+        ((yamatoData[0] * ethPrice) / yamatoData[1]) * BigInt(100),
+        18
       );
 
-      data.tvl = roundDecimal(formatUnits(yamatoData[0] * ethPrice, 18 * 2));
+      data.tvl = formatUnits(yamatoData[0] * ethPrice, 18 * 2);
       data.tcr = tcr;
-      data.cjpyTotalSupply = roundDecimal(formatUnits(yamatoData[1], 18));
+      data.cjpyTotalSupply = formatUnits(yamatoData[1], 18);
       data.marketPriceDiff = [];
     }
 
@@ -66,9 +63,10 @@ export const useYamatoStatistics = () => {
       data.marketPriceDiff.push({
         poolname: "Curve",
         marketLink: CURVE_POOL_URLS[chainId],
-        value: roundDecimal(formatUnits(price, 18 * 2), 4),
-        deviation: roundDecimal(
-          formatUnits((price - BigInt(Math.pow(10, 36))) * BigInt(100), 36)
+        value: formatUnits(price, 18 * 2),
+        deviation: formatUnits(
+          (price - BigInt(Math.pow(10, 36))) * BigInt(100),
+          36
         ),
       });
     }
