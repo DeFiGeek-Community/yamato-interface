@@ -1,3 +1,5 @@
+import { usePledge } from "@/hooks/pledge";
+import { formatWithComma } from "@/utils";
 import {
   Box,
   Text,
@@ -9,6 +11,7 @@ import {
 } from "@chakra-ui/react";
 
 const MyPledge = () => {
+  const { pledge } = usePledge();
   return (
     <Box p={2} m={2} bg="brand.white" borderRadius="md" shadow="lg">
       <Heading fontWeight="bold" mb={2}>
@@ -35,7 +38,7 @@ const MyPledge = () => {
                 <Card.Title>
                   <Text fontWeight="bold">現在の担保量</Text>
                 </Card.Title>
-                <Text>0 ETH</Text>
+                <Text>{formatWithComma(pledge.collateral)} ETH</Text>
               </Card.Body>
             </Card.Root>
             <Card.Root bg="brand.white" borderRadius="md" shadow="md">
@@ -43,7 +46,7 @@ const MyPledge = () => {
                 <Card.Title>
                   <Text fontWeight="bold">評価額</Text>
                 </Card.Title>
-                <Text>¥0</Text>
+                <Text>¥ {formatWithComma(pledge.valuation)}</Text>
               </Card.Body>
             </Card.Root>
             <Card.Root bg="brand.white" borderRadius="md" shadow="md">
@@ -102,24 +105,24 @@ const MyPledge = () => {
               <Card.Body>
                 <Card.Title>
                   <Text fontWeight="bold">最大借入可能量</Text>
-                </Card.Title>{" "}
-                <Text>0 ETH</Text>
+                </Card.Title>
+                <Text>{formatWithComma(pledge.maxBorrowable)} CJPY</Text>
               </Card.Body>
             </Card.Root>
             <Card.Root bg="brand.white" borderRadius="md" shadow="md">
               <Card.Body>
                 <Card.Title>
                   <Text fontWeight="bold">借入量</Text>
-                </Card.Title>{" "}
-                <Text>¥0</Text>
+                </Card.Title>
+                <Text>{formatWithComma(pledge.debt)} CJPY</Text>
               </Card.Body>
             </Card.Root>
             <Card.Root bg="brand.white" borderRadius="md" shadow="md">
               <Card.Body>
                 <Card.Title>
                   <Text fontWeight="bold">担保率</Text>
-                </Card.Title>{" "}
-                <Text>¥0</Text>
+                </Card.Title>
+                <Text>{formatWithComma(pledge.collateralRate)} %</Text>
               </Card.Body>
             </Card.Root>
           </Grid>
@@ -134,7 +137,7 @@ const MyPledge = () => {
               <Card.Body>
                 <Card.Title>
                   <Text fontWeight="bold">借入量入力</Text>
-                </Card.Title>{" "}
+                </Card.Title>
                 <Input
                   placeholder="Enter amount"
                   mb="2"
@@ -150,7 +153,7 @@ const MyPledge = () => {
               <Card.Body>
                 <Card.Title>
                   <Text fontWeight="bold">返済量入力</Text>
-                </Card.Title>{" "}
+                </Card.Title>
                 <Input
                   placeholder="Enter amount"
                   mb="2"
