@@ -41,3 +41,5 @@ export function formatWithComma(
   }
   return `${intPart}.${fracPart}`;
 }
+
+export const minBigInt = (a: bigint, b: bigint): bigint => (a < b ? a : b);
