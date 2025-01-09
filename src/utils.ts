@@ -8,7 +8,7 @@ export function roundDecimal(value: number | string, decimals = 2): string {
   return numVal.toFixed(decimals);
 }
 
-export function formatPriceForDisplay(
+export function formatWithComma(
   value: number | string,
   isRound: boolean = true,
   decimals: number = 2
