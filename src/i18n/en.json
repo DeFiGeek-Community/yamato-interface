@@ -18,7 +18,9 @@
   },
   "layout": {
     "home": "Home",
-    "tool": "Tool"
+    "tool": "Tool",
+    "ve": "veYMT",
+    "vote": "Vote"
   },
   "pledge": {
     "collateral" : {

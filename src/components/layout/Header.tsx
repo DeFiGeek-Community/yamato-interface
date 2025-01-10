@@ -16,6 +16,7 @@ import { useTranslation } from 'react-i18next';
 import { BsTranslate } from 'react-icons/bs';
 import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
+import { VE_INTERFACE_URL } from '../../constants/yamato';
 import Web3Status from '../WalletConnectButton';
 import SvgYamatoLogWithTitle from '../svgs/YamatoLogoWithTitle';
 
@@ -116,6 +117,18 @@ export default function Header() {
               }
             >
               {t('layout.tool')}
+            </Link>
+            <Link
+              href={`${VE_INTERFACE_URL}yamato/`}
+              style={{ fontWeight: 'bold' }}
+            >
+              {t('layout.ve')}
+            </Link>
+            <Link
+              href={`${VE_INTERFACE_URL}yamato/weight/`}
+              style={{ fontWeight: 'bold' }}
+            >
+              {t('layout.vote')}
             </Link>
           </HStack>
           <HStack>
