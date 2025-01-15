@@ -41,7 +41,7 @@ export async function fetchEventLogs(
   // Get logs
   const logs = await yamatoMainContract.queryFilter(
     eventFilter,
-    blockNumber - 5000,
+    blockNumber - 500000,
     'latest'
   );
   if (logs.length === 0) {
