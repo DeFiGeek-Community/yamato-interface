@@ -13,6 +13,7 @@ import {
   MULTICALL_ADDRESS,
   YAMATO_PRIORITY_REGISTRY_ADDRESSES,
   TokenAddressMap,
+  AddressMap,
   ZERO_ADDRESS,
 } from '../constants/addresses';
 import { useCurrency } from '../context/CurrencyContext';
@@ -44,7 +45,7 @@ import { useActiveWeb3React } from './web3';
 
 // returns null on errors
 export function useContract<T extends Contract = Contract>(
-  addressOrAddressMap: string | TokenAddressMap | undefined, // TokenAddressMapに変更
+  addressOrAddressMap: string | TokenAddressMap | AddressMap | undefined,
   ABI: any,
   withSignerIfPossible = true
 ): T | null {
@@ -60,11 +61,15 @@ export function useContract<T extends Contract = Contract>(
     let address: string | undefined;
 
     // 通貨に基づいてアドレスを選択
-    if (typeof addressOrAddressMap === 'object') {
-      const tokenAddressMap = addressOrAddressMap[currency];
+    if (typeof addressOrAddressMap === 'string') {
+      address = addressOrAddressMap;
+    } else if (addressOrAddressMap as TokenAddressMap) {
+      const tokenAddressMap = (addressOrAddressMap as TokenAddressMap)[
+        currency
+      ];
       address = tokenAddressMap ? tokenAddressMap[effectiveChainId] : undefined;
     } else {
-      address = addressOrAddressMap;
+      address = (addressOrAddressMap as AddressMap)[effectiveChainId];
     }
 
     if (!address || address === ZERO_ADDRESS) return null;

@@ -161,8 +161,20 @@ export const MULTICALL_ADDRESS: AddressMap = {
   [SupportedChainId.ARBITRUM_RINKEBY]:
     '0xa501c031958F579dB7676fF1CE78AD305794d579',
 };
-export const CURVE_POOL_ADDRESS = {
-  [SupportedChainId.MAINNET]: '0x592878b920101946Fb5915aB97961bC546f211CC',
-  [SupportedChainId.GOERLI]: ZERO_ADDRESS,
-  [SupportedChainId.SEPOLIA]: ZERO_ADDRESS,
+export const CURVE_POOL_ADDRESS: TokenAddressMap = {
+  CJPY: {
+    [SupportedChainId.MAINNET]: '0x592878b920101946Fb5915aB97961bC546f211CC',
+    [SupportedChainId.GOERLI]: ZERO_ADDRESS,
+    [SupportedChainId.SEPOLIA]: ZERO_ADDRESS,
+  },
+  CUSD: {
+    [SupportedChainId.MAINNET]: ZERO_ADDRESS,
+    [SupportedChainId.GOERLI]: ZERO_ADDRESS,
+    [SupportedChainId.SEPOLIA]: ZERO_ADDRESS,
+  },
+  CEUR: {
+    [SupportedChainId.MAINNET]: ZERO_ADDRESS,
+    [SupportedChainId.GOERLI]: ZERO_ADDRESS,
+    [SupportedChainId.SEPOLIA]: ZERO_ADDRESS,
+  },
 };

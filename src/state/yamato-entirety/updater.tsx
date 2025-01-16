@@ -45,6 +45,7 @@ const initialTokenParams = initialState.token;
 export default function Updater(): null {
   const { active, account, chainId } = useActiveWeb3React();
   const { currency } = useCurrency();
+  const effectiveChainId = chainId ?? 1;
 
   const dispatch = useAppDispatch();
   const yamatoMainContract = useYamatoMainContract();
@@ -61,7 +62,7 @@ export default function Updater(): null {
     // from Subgraph
     if (isEnableSubgraph) {
       try {
-        const res = await fetchSubgraph(chainId, account, active);
+        const res = await fetchSubgraph(effectiveChainId, account, active);
         const res2 = await fetchRedeemablPledges(
           yamatoPriorityRegistryContract
         );
@@ -110,7 +111,7 @@ export default function Updater(): null {
   }, [
     active,
     account,
-    chainId,
+    effectiveChainId,
     blockNumber,
     cjpyContract,
     // veYmtContract,
