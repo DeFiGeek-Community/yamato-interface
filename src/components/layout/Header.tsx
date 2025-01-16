@@ -91,7 +91,9 @@ export default function Header() {
         >
           <HStack fontSize="16px" color="#818181" style={{ gap: '1.9rem' }}>
             <Link href="/#/">
-              <SvgYamatoLogWithTitle width={200} height={30} />
+              <Box display={{ base: 'none', md: 'block' }}>
+                <SvgYamatoLogWithTitle width={200} height={30} />
+              </Box>
             </Link>
             <Link
               href="/#/"

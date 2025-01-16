@@ -45,7 +45,7 @@ const ContentWrapper = styled.div`
   background-color: ${({ theme }) => theme.bg0};
   padding: 2rem;
   border-radius: 20px;
-  ${({ theme }) => theme.mediaWidth.upToMedium`padding: 0 1rem 1rem 1rem`};
+  ${({ theme }) => theme.mediaWidth.upToMedium`padding: 1rem`};
 `;
 
 const UpperSection = styled.div`
@@ -331,7 +331,7 @@ export default function WalletModal({
         )}
 
         <ContentWrapper>
-          <AutoRow style={{ flexWrap: 'nowrap', marginBottom: '16px' }}>
+          <AutoRow style={{ flexWrap: 'nowrap', marginBottom: '16px', marginTop: '5px', marginLeft: '10px', }}>
             <Text>{t('walletConnectButton.walletModal.alert2')} </Text>
           </AutoRow>
           {walletView === WALLET_VIEWS.PENDING ? (
