@@ -52,13 +52,17 @@ export function useContract<T extends Contract = Contract>(
   const { library, account, chainId } = useActiveWeb3React();
 
   return useMemo(() => {
-    if (!addressOrAddressMap || !ABI || !library || !chainId) return null;
+    if (!addressOrAddressMap || !ABI || !library) return null;
+
+    // chainIdがnullの場合は1（Ethereum Mainnet）を使用
+    const effectiveChainId = chainId ?? 1;
+
     let address: string | undefined;
 
     // 通貨に基づいてアドレスを選択
     if (typeof addressOrAddressMap === 'object') {
       const tokenAddressMap = addressOrAddressMap[currency];
-      address = tokenAddressMap ? tokenAddressMap[chainId] : undefined;
+      address = tokenAddressMap ? tokenAddressMap[effectiveChainId] : undefined;
     } else {
       address = addressOrAddressMap;
     }

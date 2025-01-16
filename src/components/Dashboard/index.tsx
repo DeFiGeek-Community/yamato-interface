@@ -81,7 +81,14 @@ export default function Dashboard() {
         </HStack>
       </HeaderBox1>
       <ConentBox>
-        <Grid templateColumns="repeat(2, 1fr)" gap={4}>
+        <Grid
+          templateColumns={{
+            base: '1fr', // モバイル
+            md: 'repeat(2, 1fr)', // 768px以上
+          }}
+          gap={4}
+        >
+          {' '}
           <GridItem colSpan={1}>
             <VStack align="start">
               <DashboardItem
@@ -134,7 +141,6 @@ export default function Dashboard() {
               </DashboardItem> */}
             </VStack>
           </GridItem>
-
           <GridItem colSpan={1}>
             <VStack align="start">
               {/* v1.5 feature
