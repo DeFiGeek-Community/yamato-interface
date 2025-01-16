@@ -18,24 +18,34 @@ import CurrencyToggle from './CurrencyToggle';
 import Row from './Row';
 import WalletModal from './WalletModal';
 
-const WalletButton = styled(RebassButton)`
-  color: ${({ theme }) => theme.text0};
-  background-color: ${({ theme }) => theme.text3};
-  padding: 0.6rem 2.5rem;
-  margin-right: 1rem;
-  border-radius: 26px;
-  transition: box-shadow 0.3s;
-
-  &:hover {
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-  }
-`;
-
+// 先にWalletTextを宣言
 export const WalletText = styled(Text)`
   font-weight: bold;
   font-size: 1.6rem;
   line-height: 1.8rem;
   color: ${({ theme }) => theme.text2};
+`;
+
+const WalletButton = styled(RebassButton)`
+  color: ${({ theme }) => theme.text0};
+  background-color: ${({ theme }) => theme.text3};
+  padding: 1.2rem 2.5rem;
+  margin-right: 1rem;
+  border-radius: 26px;
+  transition: box-shadow 0.3s;
+  min-width: 120px;
+
+  &:hover {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  }
+
+`;
+
+const ResponsiveWalletText = styled(WalletText)`
+  font-size: 1.6rem;
+  line-height: 1.8rem;
+  padding: 0.4rem 0;
+
 `;
 
 export const FlexText = styled(WalletText)`
@@ -133,17 +143,12 @@ function Web3StatusInner() {
       <WalletButton
         id="connect-wallet"
         onClick={toggleWalletModal}
-        // faded={!account}
       >
-        <WalletText
+        <ResponsiveWalletText
           data-testid="wallet-data-connectWallet"
-          style={{
-            fontSize: '1.6rem',
-            lineHeight: '3.3rem',
-          }}
         >
           Connect Wallet
-        </WalletText>
+        </ResponsiveWalletText>
       </WalletButton>
     );
   }
