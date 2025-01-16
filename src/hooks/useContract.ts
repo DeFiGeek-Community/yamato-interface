@@ -53,14 +53,14 @@ export function useContract<T extends Contract = Contract>(
 
   return useMemo(() => {
     if (!addressOrAddressMap || !ABI || !library) return null;
-    
+
     // chainIdがnullの場合は1（Ethereum Mainnet）を使用
     const effectiveChainId = chainId ?? 1;
-    
+
     let address: string | undefined;
     if (typeof addressOrAddressMap === 'string') address = addressOrAddressMap;
     else address = addressOrAddressMap[effectiveChainId];
-    
+
     if (!address || address === ZERO_ADDRESS) return null;
     try {
       return getContract(
