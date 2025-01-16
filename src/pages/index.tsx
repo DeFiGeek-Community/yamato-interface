@@ -41,12 +41,10 @@ export default function Index() {
       ) : (
         <Grid
           templateColumns="repeat(3, 1fr)"
-          templateRows="repeat(4, 1fr)"
           gap={8}
           style={{
             maxWidth: '960px',
             margin: 'auto',
-            height: 'calc(100vh - 4rem - 7rem - 6.6rem )',
           }}
         >
           <GridItem rowSpan={1} colSpan={3}>
