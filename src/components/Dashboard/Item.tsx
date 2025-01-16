@@ -21,20 +21,11 @@ interface Props {
 
 export default function DashboardItem(props: Props) {
   return (
-    <HStack 
-      align="center" 
-      width="100%"
-      spacing={4}
-      justify="flex-start"
-    >
-      <StyledItemTitleForPledge>
-        {props.title}
-      </StyledItemTitleForPledge>
+    <HStack align="center" width="100%" spacing={4} justify="flex-start">
+      <StyledItemTitleForPledge>{props.title}</StyledItemTitleForPledge>
       {props.firstLoadCompleted ? (
         <HStack spacing={1}>
-          <StyledItemTitleValue>
-            {props.stat}
-          </StyledItemTitleValue>
+          <StyledItemTitleValue>{props.stat}</StyledItemTitleValue>
           {props.children}
         </HStack>
       ) : (

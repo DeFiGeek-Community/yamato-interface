@@ -45,11 +45,11 @@ export default function Footer() {
     <HStack
       justify="space-between"
       alignItems="center"
-      style={{ 
+      style={{
         padding: '8px 16px',
         width: '100%',
         flexWrap: 'wrap',
-        gap: '1rem'
+        gap: '1rem',
       }}
     >
       <Spacer />

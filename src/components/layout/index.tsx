@@ -34,13 +34,11 @@ export default function Layout({
           flexDirection: 'column',
         }}
       >
-        <Box style={{ width: '100%', marginBottom: 'auto' }}>
-          {children}
-        </Box>
+        <Box style={{ width: '100%', marginBottom: 'auto' }}>{children}</Box>
       </Box>
 
-      <Box 
-        style={{ 
+      <Box
+        style={{
           backgroundColor: '#FCFAF2',
           flexShrink: 0,
         }}
