@@ -27,12 +27,14 @@ export default function Layout({
 
       <Box
         style={{
-          padding: '20px',
           backgroundImage: `url(${BackgroundImage})`,
           flex: 1,
           display: 'flex',
           flexDirection: 'column',
         }}
+        px={{ base: 2, sm: 6 }}
+        pt={{ base: 2, sm: 4 }}
+        pb={{ base: 8 }}  // 下部のパディングを大きく設定
       >
         <Box style={{ width: '100%', marginBottom: 'auto' }}>{children}</Box>
       </Box>
