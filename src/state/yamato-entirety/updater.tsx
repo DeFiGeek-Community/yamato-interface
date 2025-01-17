@@ -144,7 +144,6 @@ export default function Updater(): null {
 
   useInterval(polling, 60000, true);
 
-
   // ウォレットが接続されたときにデータを取得
   useEffect(() => {
     if (active && account && chainId) {

@@ -7,7 +7,8 @@ export async function fetchCjpyPriceFromCurve(
   if (!curvePoolContract) return null;
 
   try {
-    const price: BigNumber = await curvePoolContract.price_scale();
+    const ONE_ETH = BigNumber.from('1000000000000000000'); // 1 ETH in wei (18 decimals)
+    const price: BigNumber = await curvePoolContract.get_dy(1, 0, ONE_ETH);
     if (price.isZero()) return null;
 
     const formattedPrice = Number(

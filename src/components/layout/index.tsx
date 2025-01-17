@@ -12,25 +12,41 @@ export default function Layout({
   children: React.ReactNode;
 }) {
   return (
-    <>
+    <Box
+      style={{
+        minHeight: '100vh',
+        display: 'flex',
+        flexDirection: 'column',
+      }}
+    >
       <Helmet title={title ?? 'Yamato Protocol Interface'} />
 
-      <Box style={{ backgroundColor: '#FCFAF2' }}>
+      <Box style={{ backgroundColor: '#FCFAF2', flexShrink: 0 }}>
         <Header />
       </Box>
 
       <Box
         style={{
-          padding: '20px',
           backgroundImage: `url(${BackgroundImage})`,
+          flex: 1,
+          display: 'flex',
+          flexDirection: 'column',
         }}
+        px={{ base: 2, sm: 6 }}
+        pt={{ base: 2, sm: 4 }}
+        pb={{ base: 8 }} // 下部のパディングを大きく設定
       >
-        {children}
+        <Box style={{ width: '100%', marginBottom: 'auto' }}>{children}</Box>
       </Box>
 
-      <Box style={{ backgroundColor: '#FCFAF2' }}>
+      <Box
+        style={{
+          backgroundColor: '#FCFAF2',
+          flexShrink: 0,
+        }}
+      >
         <Footer />
       </Box>
-    </>
+    </Box>
   );
 }
