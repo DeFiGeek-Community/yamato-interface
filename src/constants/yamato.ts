@@ -2,7 +2,7 @@ import { UseToastOptions } from '@chakra-ui/toast';
 import { LogEventType } from '../state/yamato-entirety/reducer';
 
 export const VE_INTERFACE_URL =
-  'https://ve-interface-git-v2-ve-interface.vercel.app/';
+  'https://v2-ve.yamato.fi/';
 
 export const YAMATO_SYMBOL = {
   COLLATERAL: 'ETH',
