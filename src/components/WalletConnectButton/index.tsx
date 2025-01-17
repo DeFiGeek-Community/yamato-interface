@@ -38,14 +38,12 @@ const WalletButton = styled(RebassButton)`
   &:hover {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
   }
-
 `;
 
 const ResponsiveWalletText = styled(WalletText)`
   font-size: 1.6rem;
   line-height: 1.8rem;
   padding: 0.4rem 0;
-
 `;
 
 export const FlexText = styled(WalletText)`
@@ -108,17 +106,17 @@ function Web3StatusInner() {
             }}
           >
             {hasPendingTransactions ? (
-              <WalletText style={{ fontSize: '1.4rem', lineHeight: '1.8rem' }}>
+              <WalletText style={{ fontSize: '1.4rem', lineHeight: '2.8rem' }}>
                 <Row>
                   <span>{pending?.length} Pending...</span>
-                  <div style={{ marginTop: '0.2rem', marginLeft: '0.2rem' }}>
-                    <Loader stroke="#5BAD92" />
+                  <div style={{ marginTop: '0.2rem', marginLeft: '0.4rem' }}>
+                    <Loader stroke="#FFFFFF" />
                   </div>
                 </Row>
               </WalletText>
             ) : (
               <WalletText
-                style={{ fontSize: '1.5rem', lineHeight: '1.8rem' }}
+                style={{ fontSize: '1.5rem', lineHeight: '1.4rem' }}
                 data-testid="wallet-data-connectedAs"
               >
                 Connected As
@@ -133,20 +131,15 @@ function Web3StatusInner() {
   } else if (error) {
     return (
       <WalletButton onClick={toggleWalletModal}>
-        <FlexText>
+        <ResponsiveWalletText>
           {error instanceof UnsupportedChainIdError ? 'Wrong Network' : 'Error'}
-        </FlexText>
+        </ResponsiveWalletText>
       </WalletButton>
     );
   } else {
     return (
-      <WalletButton
-        id="connect-wallet"
-        onClick={toggleWalletModal}
-      >
-        <ResponsiveWalletText
-          data-testid="wallet-data-connectWallet"
-        >
+      <WalletButton id="connect-wallet" onClick={toggleWalletModal}>
+        <ResponsiveWalletText data-testid="wallet-data-connectWallet">
           Connect Wallet
         </ResponsiveWalletText>
       </WalletButton>

@@ -41,8 +41,8 @@ export default function Index() {
       ) : (
         <Grid
           templateColumns={{
-            base: "1fr",
-            md: "repeat(3, 1fr)"
+            base: '1fr',
+            md: 'repeat(3, 1fr)',
           }}
           gap={8}
           style={{
@@ -50,29 +50,29 @@ export default function Index() {
             margin: 'auto',
           }}
         >
-          <GridItem 
+          <GridItem
             colSpan={{
               base: 1,
-              md: 3 
+              md: 3,
             }}
           >
             <Box className="divider" mt={'20px'} />
             <Dashboard />
           </GridItem>
 
-          <GridItem 
+          <GridItem
             colSpan={{
               base: 1,
-              md: 2
+              md: 2,
             }}
           >
             <World />
           </GridItem>
 
-          <GridItem 
+          <GridItem
             colSpan={{
               base: 1,
-              md: 1
+              md: 1,
             }}
           >
             <Infographics />

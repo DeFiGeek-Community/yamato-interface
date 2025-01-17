@@ -331,7 +331,14 @@ export default function WalletModal({
         )}
 
         <ContentWrapper>
-          <AutoRow style={{ flexWrap: 'nowrap', marginBottom: '16px', marginTop: '5px', marginLeft: '10px', }}>
+          <AutoRow
+            style={{
+              flexWrap: 'nowrap',
+              marginBottom: '16px',
+              marginTop: '5px',
+              marginLeft: '10px',
+            }}
+          >
             <Text>{t('walletConnectButton.walletModal.alert2')} </Text>
           </AutoRow>
           {walletView === WALLET_VIEWS.PENDING ? (
