@@ -38,14 +38,12 @@ const WalletButton = styled(RebassButton)`
   &:hover {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
   }
-
 `;
 
 const ResponsiveWalletText = styled(WalletText)`
   font-size: 1.6rem;
   line-height: 1.8rem;
   padding: 0.4rem 0;
-
 `;
 
 export const FlexText = styled(WalletText)`
@@ -140,13 +138,8 @@ function Web3StatusInner() {
     );
   } else {
     return (
-      <WalletButton
-        id="connect-wallet"
-        onClick={toggleWalletModal}
-      >
-        <ResponsiveWalletText
-          data-testid="wallet-data-connectWallet"
-        >
+      <WalletButton id="connect-wallet" onClick={toggleWalletModal}>
+        <ResponsiveWalletText data-testid="wallet-data-connectWallet">
           Connect Wallet
         </ResponsiveWalletText>
       </WalletButton>

@@ -3,8 +3,8 @@ import styled from 'styled-components';
 import { ItemTitleValue, ItemTitleForPledge } from '../CommonItem';
 
 const StyledItemTitleForPledge = styled(ItemTitleForPledge)`
-  width: min(180px, 40%);  // 最大180pxまたは親要素の40%
-  min-width: 120px;        // 最小幅を設定
+  width: min(180px, 40%); // 最大180pxまたは親要素の40%
+  min-width: 120px; // 最小幅を設定
   white-space: nowrap;
 `;
 
