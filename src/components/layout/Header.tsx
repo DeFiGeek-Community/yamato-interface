@@ -121,13 +121,13 @@ export default function Header() {
               {t('layout.tool')}
             </Link>
             <Link
-              href={`${VE_INTERFACE_URL}yamato/`}
+              href={`${VE_INTERFACE_URL}yamato`}
               style={{ fontWeight: 'bold' }}
             >
               {t('layout.ve')}
             </Link>
             <Link
-              href={`${VE_INTERFACE_URL}yamato/weight/`}
+              href={`${VE_INTERFACE_URL}yamato/weight`}
               style={{ fontWeight: 'bold' }}
             >
               {t('layout.vote')}
