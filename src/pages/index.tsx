@@ -6,6 +6,7 @@ import MyPledge from "@/components/pledge";
 import YamatoStatistics from "@/components/statistics";
 import YamatoFunctions from "@/components/functions";
 import { Grid, GridItem } from "@chakra-ui/react";
+import YamatoWorldLogEvents from "@/components/world";
 
 const Home: NextPage = () => {
   return (
@@ -16,16 +17,31 @@ const Home: NextPage = () => {
       </Head>
       <main>
         <Layout>
-          <Grid>
-            <GridItem colSpan={{ base: 1, md: 2 }}>
-              <YamatoStatistics />
-            </GridItem>
-            <GridItem>
-              <MyPledge />
-            </GridItem>
-            <GridItem>
-              <YamatoFunctions />
-            </GridItem>
+          <Grid
+            templateColumns={{
+              base: "1fr",
+              md: "3fr 1fr",
+            }}
+          >
+            <Grid>
+              <GridItem colSpan={{ base: 1, md: 2 }}>
+                <YamatoStatistics />
+              </GridItem>
+              <GridItem>
+                <MyPledge />
+              </GridItem>
+              <GridItem>
+                <YamatoFunctions />
+              </GridItem>
+            </Grid>
+            <Grid>
+              <GridItem>
+                <YamatoWorldLogEvents />
+              </GridItem>
+              <GridItem>
+                <YamatoWorldLogEvents />
+              </GridItem>
+            </Grid>
           </Grid>
         </Layout>
       </main>

@@ -124,16 +124,16 @@
   },
   "constants": {
     "LOG_EVENT_NAME": {
-      "deposit": "預入",
-      "withdrawal": "引出",
-      "borrowing": "借入",
-      "repay": "返済",
+      "Deposited": "預入",
+      "Withdrawn": "引出",
+      "Borrowed": "借入",
+      "Repaid": "返済",
       "governance_lock": "YMTロック",
       "governance_extension": "YMT延長",
       "governance_withdrawal": "YMT引出",
       "self_redemption": "償還",
       "core_redemption": "Yamato償還",
-      "sweep": "Yamato代位弁済"
+      "Swept": "Yamato代位弁済"
     },
     "REVERT_REASON_DESCRIPTION": {
       "default": "不明なエラーが発生しました",

@@ -9,7 +9,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <Header />
       </Box>
       <Box bg="brand.greensuperlight" p="2">
-        <Container>{children}</Container>
+        {children}
       </Box>
       <Box bg="brand.white">
         <Footer />
