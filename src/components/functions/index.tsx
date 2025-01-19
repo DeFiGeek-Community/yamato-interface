@@ -1,4 +1,4 @@
-import { useFunctions } from "@/hooks/functions";
+import { useYamatoFunctions } from "@/hooks/functions";
 import { formatWithComma } from "@/utils";
 import {
   Box,
@@ -11,7 +11,7 @@ import {
 } from "@chakra-ui/react";
 
 const YamatoFunctions = () => {
-  const { functions } = useFunctions();
+  const { functions } = useYamatoFunctions();
 
   return (
     <Box p={2} m={2} bg="brand.white" borderRadius="md" shadow="lg">
