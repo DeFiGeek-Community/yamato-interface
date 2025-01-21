@@ -9,7 +9,7 @@ import CURVE_POOL_ABI from "@/constants/abis/curve/curveTwocryptoOptimized.json"
 import { formatUnits } from "viem";
 import { CURVE_POOL_URLS } from "@/constants/api";
 
-type MarketPriceDiff = {
+export type MarketPriceDiff = {
   poolname: string;
   marketLink: string;
   value: string;

@@ -2,6 +2,7 @@ import { createContext, useContext } from "react";
 
 export interface AppDataContextType {
   chainId: number;
+  prevEthPrice: bigint;
   ethPrice: bigint;
 }
 

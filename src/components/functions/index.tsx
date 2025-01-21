@@ -11,7 +11,7 @@ import {
 } from "@chakra-ui/react";
 
 const YamatoFunctions = () => {
-  const { functions } = useYamatoFunctions();
+  const { functionsData } = useYamatoFunctions();
 
   return (
     <Box p={2} m={2} bg="brand.white" borderRadius="md" shadow="lg">
@@ -40,11 +40,11 @@ const YamatoFunctions = () => {
                   <Text fontWeight="bold">償還候補総量</Text>
                 </Card.Title>
                 <Text>
-                  {formatWithComma(functions.redeemableCandidate)} CJPY
+                  {formatWithComma(functionsData.redeemableCandidate)} CJPY
                 </Text>
                 <Text>
                   {" "}
-                  ({formatWithComma(functions.redeemableCandidateEth)} ETH)
+                  ({formatWithComma(functionsData.redeemableCandidateEth)} ETH)
                 </Text>
               </Card.Body>
             </Card.Root>
@@ -53,10 +53,12 @@ const YamatoFunctions = () => {
                 <Card.Title>
                   <Text fontWeight="bold">プール総量</Text>
                 </Card.Title>
-                <Text>{formatWithComma(functions.redemptionReserve)} CJPY</Text>
+                <Text>
+                  {formatWithComma(functionsData.redemptionReserve)} CJPY
+                </Text>
                 <Text>
                   {" "}
-                  ({formatWithComma(functions.redemptionReserveEth)} ETH)
+                  ({formatWithComma(functionsData.redemptionReserveEth)} ETH)
                 </Text>
               </Card.Body>
             </Card.Root>
@@ -82,7 +84,9 @@ const YamatoFunctions = () => {
                   <Text fontWeight="bold">Yamato償還</Text>
                 </Card.Title>
                 <Text>実行リワード予測</Text>
-                <Text>{formatWithComma(functions.redemptionReward)} ETH</Text>
+                <Text>
+                  {formatWithComma(functionsData.redemptionReward)} ETH
+                </Text>
                 <Button bg="brand.greendark" color="white" fontWeight="bold">
                   償還実行
                 </Button>
@@ -112,7 +116,7 @@ const YamatoFunctions = () => {
                   <Text fontWeight="bold">弁済候補総量</Text>
                 </Card.Title>
                 <Text>
-                  {formatWithComma(functions.sweepableCandidate)} CJPY
+                  {formatWithComma(functionsData.sweepableCandidate)} CJPY
                 </Text>
               </Card.Body>
             </Card.Root>
@@ -121,7 +125,7 @@ const YamatoFunctions = () => {
                 <Card.Title>
                   <Text fontWeight="bold">プール総量</Text>
                 </Card.Title>
-                <Text>{formatWithComma(functions.sweepReserve)} CJPY</Text>
+                <Text>{formatWithComma(functionsData.sweepReserve)} CJPY</Text>
               </Card.Body>
             </Card.Root>
           </Grid>
@@ -131,7 +135,8 @@ const YamatoFunctions = () => {
                 <Text fontWeight="bold">Yamato代位弁済</Text>
               </Card.Title>
               <Text>
-                実行リワード予測: {formatWithComma(functions.sweepReward)} CJPY
+                実行リワード予測: {formatWithComma(functionsData.sweepReward)}{" "}
+                CJPY
               </Text>
               <Button bg="brand.pinkdark" color="white" fontWeight="bold">
                 弁済実行

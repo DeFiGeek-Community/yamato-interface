@@ -11,6 +11,7 @@ export const AppDataProvider: React.FC<{ children: ReactNode }> = ({
   const { chain } = useAccount();
   const [chainId, setChainId] = useState<number>(SupportedChainId.MAINNET);
   const [ethPrice, setEthPrice] = useState<bigint>(BigInt(0));
+  const [prevEthPrice, setPrevEthPrice] = useState<bigint>(BigInt(0));
 
   useEffect(() => {
     if (chain) {
@@ -26,6 +27,9 @@ export const AppDataProvider: React.FC<{ children: ReactNode }> = ({
 
   useEffect(() => {
     if (fetchedEthPrice) {
+      if (fetchedEthPrice === BigInt(0)) {
+        setPrevEthPrice(fetchedEthPrice);
+      }
       setEthPrice(fetchedEthPrice);
     }
   }, [fetchedEthPrice]);
@@ -40,6 +44,7 @@ export const AppDataProvider: React.FC<{ children: ReactNode }> = ({
 
   const value: AppDataContextType = {
     chainId,
+    prevEthPrice,
     ethPrice,
   };
 
