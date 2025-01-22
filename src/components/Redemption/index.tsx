@@ -1,3 +1,4 @@
+import { Divider } from '@chakra-ui/react';
 import { CategoryTitle, ConentBox, HeaderBox2 } from '../CommonItem';
 import CoreRedemption from './CoreRedemption';
 import SelfRedemption from './SelfRedemption';
@@ -11,7 +12,9 @@ export default function Redemption() {
       </HeaderBox2>
       <ConentBox>
         <SelfRedemption />
+        <Divider my={6} borderColor="gray.200" />
         <CoreRedemption />
+        <Divider my={6} borderColor="gray.200" />
         <Sweep />
       </ConentBox>
     </>
