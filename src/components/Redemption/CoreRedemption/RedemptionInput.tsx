@@ -192,6 +192,7 @@ export default function RedemptionInput(props: Props) {
                 isLoading={formikProps.isSubmitting}
                 type="submit"
                 isDisabled={!expectedReward.eth}
+                minWidth="80px"
               >
                 {'Yamato' + t('redemption.coreRedemption.redemptionExecution')}
               </CustomButton>

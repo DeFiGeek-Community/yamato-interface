@@ -197,7 +197,7 @@ export function CustomButton(
         background: '#F9AEA5',
         boxShadow: '2px 2px 0px rgba(0, 0, 0, 0.25)',
         maxWidth: '180px',
-        minWidth: '120px',
+        // minWidth: '120px',
         height: '2.6rem',
       }}
     >

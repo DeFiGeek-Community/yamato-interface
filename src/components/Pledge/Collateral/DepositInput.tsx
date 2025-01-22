@@ -138,6 +138,7 @@ export default function DepositInput(props: Props) {
                 type="submit"
                 data-testid="collateral-act-deposit"
                 isDisabled={!deposit}
+                minWidth="80px"
               >
                 {t('pledge.collateral.depositExecution')}
               </CustomButton>
