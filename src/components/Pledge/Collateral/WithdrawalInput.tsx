@@ -132,6 +132,7 @@ export default function WithdrawalInput(props: Props) {
                 type="submit"
                 data-testid="collateral-act-withdraw"
                 isDisabled={!withdrawal}
+                minWidth="80px"
               >
                 {t('pledge.collateral.withdrawalExecution')}
               </CustomButton>
