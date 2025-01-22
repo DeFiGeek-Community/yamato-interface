@@ -1,4 +1,4 @@
-import { Grid, GridItem, Skeleton } from '@chakra-ui/react';
+import { Grid, GridItem, Skeleton, Box } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 import { useCurrency } from '../../../context/CurrencyContext';
 import { usePledgeData } from '../../../state/pledge/hooks';
@@ -44,107 +44,130 @@ export default function Debt() {
 
   return (
     <>
-      <Grid templateColumns="repeat(8, 1fr)" gap={4} mb={4}>
-        <GridItem colSpan={1}>
-          <ItemTitleForPledge marginTop={26}>
-            {t('pledge.debt.maximumBorrowableAmount')}
-          </ItemTitleForPledge>
-        </GridItem>
-        <GridItem colSpan={2}>
-          <ItemTitleValue marginTop={26}>
-            {firstLoadCompleted ? (
-              <>
-                {
-                  formatPrice(
-                    getBorrowableAmount(collateral, debt, rateOfEthJpy, MCR),
-                    'jpy'
-                  ).value
-                }
-                {` `}
-                {currency}
-              </>
-            ) : (
-              <Skeleton
-                height="1.4rem"
-                width="7rem"
-                style={{
-                  lineHeight: '1.4rem',
-                }}
-              />
-            )}
-          </ItemTitleValue>
-        </GridItem>
-      </Grid>
-      <Grid templateColumns="repeat(16, 1fr)" gap={4} mb={4}>
-        <GridItem colSpan={2}>
-          <ItemTitleForPledge marginTop={26}>
-            {t('pledge.debt.borrowBalance')}
-          </ItemTitleForPledge>
+      <Grid
+        templateColumns={{
+          base: 'repeat(1, 1fr)',
+          md: 'repeat(3, 1fr)',
+        }}
+        gap={4}
+      >
+        <GridItem my={4} maxWidth={{ base: '400px', md: '100%' }}>
+          <Grid templateRows="repeat(3, 1fr)" gap={4}>
+            <Box mt={8}>
+              <Grid templateColumns="repeat(2, 1fr)" gap={4}>
+                <Box>
+                  <ItemTitleForPledge>
+                    {t('pledge.debt.maximumBorrowableAmount')}
+                  </ItemTitleForPledge>
+                </Box>
+                <Box>
+                  <ItemTitleValue>
+                    {firstLoadCompleted ? (
+                      <>
+                        {
+                          formatPrice(
+                            getBorrowableAmount(
+                              collateral,
+                              debt,
+                              rateOfEthJpy,
+                              MCR
+                            ),
+                            'jpy'
+                          ).value
+                        }
+                        {` `}
+                        {currency}
+                      </>
+                    ) : (
+                      <Skeleton height="1.4rem" width="7rem" />
+                    )}
+                  </ItemTitleValue>
+                </Box>
+              </Grid>
+            </Box>
+
+            <Box mt={8}>
+              <Grid templateColumns="repeat(2, 1fr)" gap={4}>
+                <Box>
+                  <ItemTitleForPledge>
+                    {t('pledge.debt.borrowBalance')}
+                  </ItemTitleForPledge>
+                </Box>
+                <Box>
+                  <ItemTitleValue data-testid="borrowing-data-currentAmount">
+                    {firstLoadCompleted ? (
+                      <>
+                        {formatPrice(debt, 'jpy').value}
+                        {` `}
+                        {currency}
+                      </>
+                    ) : (
+                      <Skeleton height="1.4rem" width="7rem" />
+                    )}
+                  </ItemTitleValue>
+                </Box>
+              </Grid>
+            </Box>
+
+            <Box mt={8}>
+              <Grid templateColumns="repeat(2, 1fr)" gap={4}>
+                <Box>
+                  <ItemTitleForPledge>
+                    {t('pledge.debt.collateralRate')}
+                  </ItemTitleForPledge>
+                </Box>
+                <Box>
+                  <ItemTitleValue>
+                    {firstLoadCompleted ? (
+                      <>
+                        {formatCollateralizationRatio(
+                          collateral * rateOfEthJpy,
+                          debt
+                        )}
+                        %
+                      </>
+                    ) : (
+                      <Skeleton height="1.4rem" width="7rem" />
+                    )}
+                  </ItemTitleValue>
+                </Box>
+              </Grid>
+            </Box>
+          </Grid>
         </GridItem>
 
-        <GridItem colSpan={3}>
-          <ItemTitleValue
-            marginTop={26}
-            data-testid="borrowing-data-currentAmount"
+        <GridItem
+          colSpan={{
+            base: 1,
+            md: 2,
+          }}
+        >
+          <Grid
+            templateColumns={{
+              base: 'repeat(1, 1fr)',
+              md: 'repeat(2, 1fr)',
+            }}
+            gap={4}
+            mt={8}
           >
-            {firstLoadCompleted ? (
-              <>
-                {formatPrice(debt, 'jpy').value}
-                {` `}
-                {currency}
-              </>
-            ) : (
-              <Skeleton
-                height="1.4rem"
-                width="7rem"
-                style={{
-                  lineHeight: '1.4rem',
-                }}
+            <Box>
+              <BorrowInput
+                collateral={collateral}
+                debt={debt}
+                rateOfEthJpy={rateOfEthJpy}
+                MCR={MCR}
               />
-            )}
-          </ItemTitleValue>
-        </GridItem>
+            </Box>
 
-        <GridItem colSpan={5}>
-          <BorrowInput
-            collateral={collateral}
-            debt={debt}
-            rateOfEthJpy={rateOfEthJpy}
-            MCR={MCR}
-          />
-        </GridItem>
-
-        <GridItem colSpan={6}>
-          <RepayInput
-            collateral={collateral}
-            debt={debt}
-            rateOfEthJpy={rateOfEthJpy}
-            cjpy={cjpy}
-          />
-        </GridItem>
-      </Grid>
-      <Grid templateColumns="repeat(8, 1fr)" gap={4} mb={4}>
-        <GridItem colSpan={1}>
-          <ItemTitleForPledge marginTop={26}>
-            {t('pledge.debt.collateralRate')}
-          </ItemTitleForPledge>
-        </GridItem>
-        <GridItem colSpan={1}>
-          <ItemTitleValue marginTop={26}>
-            {firstLoadCompleted ? (
-              <>
-                {formatCollateralizationRatio(collateral * rateOfEthJpy, debt)}%
-              </>
-            ) : (
-              <Skeleton
-                height="1.4rem"
-                width="7rem"
-                style={{
-                  lineHeight: '1.4rem',
-                }}
+            <Box mt={{ base: 6, md: 0 }}>
+              <RepayInput
+                collateral={collateral}
+                debt={debt}
+                rateOfEthJpy={rateOfEthJpy}
+                cjpy={cjpy}
               />
-            )}
-          </ItemTitleValue>
+            </Box>
+          </Grid>
         </GridItem>
       </Grid>
     </>
