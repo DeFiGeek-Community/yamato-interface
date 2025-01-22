@@ -14,11 +14,19 @@ export default function Index() {
     <Layout>
       {!!account ? (
         <Grid
-          templateColumns="repeat(4, 1fr)"
+          templateColumns={{
+            base: '1fr',
+            lg: 'repeat(4, 1fr)',
+          }}
           gap={8}
           style={{ maxWidth: '1280px', margin: 'auto' }}
         >
-          <GridItem colSpan={3}>
+          <GridItem
+            colSpan={{
+              base: 1,
+              lg: 3,
+            }}
+          >
             <Dashboard />
 
             <Box className="divider" mt={'20px'} />
@@ -30,12 +38,19 @@ export default function Index() {
             <Redemption />
           </GridItem>
 
-          <GridItem colSpan={1}>
+          <GridItem
+            colSpan={{
+              base: 1,
+              lg: 1,
+            }}
+          >
             <World />
 
             <Box className="divider" mt={'20px'} />
 
-            <Infographics />
+            <Box maxW="300px" mx="auto">
+              <Infographics />
+            </Box>
           </GridItem>
         </Grid>
       ) : (
@@ -75,7 +90,9 @@ export default function Index() {
               md: 1,
             }}
           >
-            <Infographics />
+            <Box maxW="300px" mx="auto">
+              <Infographics />
+            </Box>
           </GridItem>
         </Grid>
       )}
