@@ -1,4 +1,4 @@
-import { Grid, GridItem } from '@chakra-ui/react';
+import { Grid, GridItem, Box } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 import { useYamatoStateForPledge } from '../../../state/yamato-entirety/hooks';
 import { ItemTitleForPledge } from '../../CommonItem';
@@ -16,14 +16,27 @@ export default function Sweep() {
   const { t } = useTranslation();
 
   return (
-    <Grid templateColumns="repeat(6, 1fr)" gap={4}>
-      <GridItem colSpan={1}>
-        <ItemTitleForPledge width="150px" marginTop={24}>
-          Yamato{t('redemption.sweep.subrogation')}
-        </ItemTitleForPledge>
+    <Grid
+      templateColumns={{
+        base: 'repeat(1, 1fr)',
+        md: 'repeat(3, 1fr)',
+      }}
+      gap={4}
+    >
+      <GridItem maxWidth={{ base: '100%', md: '300px' }}>
+        <Box my={4}>
+          <ItemTitleForPledge>
+            Yamato{t('redemption.sweep.subrogation')}
+          </ItemTitleForPledge>
+        </Box>
       </GridItem>
 
-      <GridItem colSpan={5}>
+      <GridItem
+        colSpan={{
+          base: 1,
+          md: 2,
+        }}
+      >
         <SweepInput
           rateOfEthJpy={rateOfEthJpy}
           sweepReserve={sweepReserve}
