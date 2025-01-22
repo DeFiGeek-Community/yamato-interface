@@ -123,8 +123,20 @@ export default function RedemptionInput(props: Props) {
     >
       {(formikProps) => (
         <Form>
-          <Grid templateColumns="repeat(4, 1fr)" gap={4}>
-            <GridItem colSpan={1}>
+          <Grid
+            templateColumns={{
+              base: 'repeat(3, 1fr)',
+              sm: 'repeat(4, 1fr)',
+            }}
+            gap={4}
+          >
+            <GridItem
+              colSpan={{
+                base: 1,
+                sm: 1,
+                md: 1,
+              }}
+            >
               <Field name="redemption" validate={validateRedemption}>
                 {({ field, form }: FieldProps) => (
                   <FormControl
@@ -165,7 +177,13 @@ export default function RedemptionInput(props: Props) {
               )}
             </GridItem>
 
-            <GridItem colSpan={2}>
+            <GridItem
+              colSpan={{
+                base: 1,
+                sm: 1,
+                md: 2,
+              }}
+            >
               <VStack align="start">
                 <CustomFormLabel
                   text={t('redemption.selfRedemption.totalContenderRedemption')}

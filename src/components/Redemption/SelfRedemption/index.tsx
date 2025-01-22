@@ -1,4 +1,4 @@
-import { Grid, GridItem } from '@chakra-ui/react';
+import { Grid, GridItem, Box } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 import { useYamatoStateForPledge } from '../../../state/yamato-entirety/hooks';
 import { ItemTitleForPledge } from '../../CommonItem';
@@ -10,14 +10,29 @@ export default function SelfRedemption() {
   const { t } = useTranslation();
 
   return (
-    <Grid templateColumns="repeat(6, 1fr)" gap={4} mb={12}>
-      <GridItem colSpan={1}>
-        <ItemTitleForPledge width="150px" marginTop={26}>
-          {t('redemption.selfRedemption.redemption')}
-        </ItemTitleForPledge>
+    <Grid
+      templateColumns={{
+        base: 'repeat(1, 1fr)',
+        md: 'repeat(3, 1fr)',
+      }}
+      gap={4}
+      mt={2}
+      mb={8}
+    >
+      <GridItem maxWidth={{ base: '100%', md: '300px' }}>
+        <Box my={4}>
+          <ItemTitleForPledge>
+            {t('redemption.selfRedemption.redemption')}
+          </ItemTitleForPledge>
+        </Box>
       </GridItem>
 
-      <GridItem colSpan={5}>
+      <GridItem
+        colSpan={{
+          base: 1,
+          md: 2,
+        }}
+      >
         <RedemptionInput
           redeemableCandidate={redeemableCandidate}
           rateOfEthJpy={rateOfEthJpy}
