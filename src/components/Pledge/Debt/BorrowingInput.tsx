@@ -148,6 +148,7 @@ export default function BorrowingInput(props: Props) {
                 type="submit"
                 data-testid="borrowing-act-borrow"
                 isDisabled={!borrowing}
+                minWidth="80px"
               >
                 {t('pledge.debt.borrowExecution')}
               </CustomButton>
