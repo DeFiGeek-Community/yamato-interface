@@ -88,7 +88,7 @@ export default function Collateral() {
             mt={4}
             ml={{
               base: 6,
-              md: 0
+              md: 0,
             }}
           >
             <Box>

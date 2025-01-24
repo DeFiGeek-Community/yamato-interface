@@ -151,7 +151,7 @@ export default function Debt() {
             mt={8}
             ml={{
               base: 6,
-              md: 0
+              md: 0,
             }}
           >
             <Box>
