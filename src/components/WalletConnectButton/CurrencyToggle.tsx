@@ -1,3 +1,4 @@
+import { Box } from '@chakra-ui/react';
 import React, { useState, useRef, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
@@ -94,35 +95,50 @@ const CurrencyToggle: React.FC = () => {
     <>
       <CurrencyToggleButton ref={buttonRef} onClick={handleCurrencyToggle}>
         <CurrentLogoComponent width="35px" height="35px" />
-        <FlexText
-          style={{
-            fontSize: '2rem',
-            lineHeight: '2.2rem',
-            display: 'flex',
-            flexDirection: 'column',
-            marginLeft: '0.5rem',
-          }}
-        >
-          <span
+        <Box display={{ base: 'none', sm: 'block' }}>
+          <FlexText
             style={{
-              fontSize: '1rem',
-              color: '#888888',
-              lineHeight: '1rem',
+              fontSize: '2rem',
+              lineHeight: '2.2rem',
+              display: 'flex',
+              flexDirection: 'column',
+              marginLeft: '0.5rem',
             }}
           >
-            Balance
-          </span>
-          <span>
             <span
               style={{
-                fontSize: '1.6rem',
+                fontSize: '1rem',
+                color: '#888888',
+                lineHeight: '1rem',
               }}
             >
-              {formatPrice(cjpy, 'jpy').value}
-            </span>{' '}
+              Balance
+            </span>
+            <span>
+              <span
+                style={{
+                  fontSize: '1.6rem',
+                }}
+              >
+                {formatPrice(cjpy, 'jpy').value}
+              </span>{' '}
+              {currency}
+            </span>
+          </FlexText>
+        </Box>
+        <Box display={{ base: 'block', sm: 'none' }}>
+          <FlexText
+            style={{
+              fontSize: '2rem',
+              lineHeight: '2.2rem',
+              display: 'flex',
+              flexDirection: 'column',
+              marginLeft: '0.5rem',
+            }}
+          >
             {currency}
-          </span>
-        </FlexText>
+          </FlexText>
+        </Box>
       </CurrencyToggleButton>
       {isDropdownOpen && (
         <DropdownMenu style={{ left: dropdownLeft }}>
