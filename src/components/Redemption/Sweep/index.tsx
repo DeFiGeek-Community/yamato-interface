@@ -16,17 +16,17 @@ export default function Sweep() {
   const { t } = useTranslation();
 
   return (
-    <Grid 
+    <Grid
       templateColumns={{
         base: 'repeat(1, 1fr)',
-        md: 'repeat(6, 1fr)'
-      }} 
+        md: 'repeat(6, 1fr)',
+      }}
       gap={4}
     >
-      <GridItem 
+      <GridItem
         colSpan={{
           base: 1,
-          md: 1
+          md: 1,
         }}
       >
         <ItemTitleForPledge width="150px" marginTop={24}>
@@ -34,10 +34,10 @@ export default function Sweep() {
         </ItemTitleForPledge>
       </GridItem>
 
-      <GridItem 
+      <GridItem
         colSpan={{
           base: 1,
-          md: 5
+          md: 5,
         }}
       >
         <SweepInput

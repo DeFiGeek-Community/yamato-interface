@@ -118,20 +118,6 @@ function MobileNav({
             >
               {t('layout.tool')}
             </Link>
-            <Link
-              href={`${VE_INTERFACE_URL}yamato/`}
-              onClick={onClose}
-              style={{ fontWeight: 'bold' }}
-            >
-              {t('layout.ve')}
-            </Link>
-            <Link
-              href={`${VE_INTERFACE_URL}yamato/weight/`}
-              onClick={onClose}
-              style={{ fontWeight: 'bold' }}
-            >
-              {t('layout.vote')}
-            </Link>
           </VStack>
         </DrawerBody>
         <DrawerFooter>

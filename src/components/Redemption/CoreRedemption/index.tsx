@@ -16,17 +16,17 @@ export default function CoreRedemption() {
   const { t } = useTranslation();
 
   return (
-    <Grid 
+    <Grid
       templateColumns={{
         base: 'repeat(1, 1fr)',
-        md: 'repeat(12, 1fr)'
-      }} 
+        md: 'repeat(12, 1fr)',
+      }}
       gap={4}
     >
-      <GridItem 
+      <GridItem
         colSpan={{
           base: 1,
-          md: 2
+          md: 2,
         }}
       >
         <ItemTitleForPledge width="150px" marginTop={24}>
@@ -34,10 +34,10 @@ export default function CoreRedemption() {
         </ItemTitleForPledge>
       </GridItem>
 
-      <GridItem 
+      <GridItem
         colSpan={{
           base: 1,
-          md: 10
+          md: 10,
         }}
       >
         <RedemptionInput
