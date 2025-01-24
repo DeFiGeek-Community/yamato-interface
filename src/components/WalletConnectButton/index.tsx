@@ -1,3 +1,4 @@
+import { Box } from '@chakra-ui/react';
 import { UnsupportedChainIdError, useWeb3React } from '@web3-react/core';
 import { useMemo } from 'react';
 import { Button as RebassButton } from 'rebass/styled-components';
@@ -61,13 +62,34 @@ export const FlexText = styled(WalletText)`
   color: ${({ theme }) => theme.text3};
 `;
 
+export function ChainInfo() {
+  const { chainId } = useWeb3React();
+
+  if (!chainId || chainId === 1) return null;
+
+  return (
+    <Box>
+      <WalletText
+        style={{
+          color: 'orange',
+
+          marginLeft: '1rem',
+          marginRight: '0.5rem',
+        }}
+      >
+        {CHAIN_INFO[chainId].label}
+      </WalletText>
+    </Box>
+  );
+}
+
 // we want the latest one to come first, so return negative if a is after b
 function newTransactionsFirst(a: TransactionDetails, b: TransactionDetails) {
   return b.addedTime - a.addedTime;
 }
 
 function Web3StatusInner() {
-  const { account, chainId, error } = useWeb3React();
+  const { account, error } = useWeb3React();
 
   const { ENSName } = useENSName(account ?? undefined);
 
@@ -86,17 +108,10 @@ function Web3StatusInner() {
     return (
       <>
         <CurrencyToggle />
-        {chainId && chainId !== 1 && (
-          <WalletText
-            style={{
-              color: 'orange',
-              marginLeft: '1rem',
-              marginRight: '0.5rem',
-            }}
-          >
-            {CHAIN_INFO[chainId].label}
-          </WalletText>
-        )}
+        <Box display={{ base: 'none', md: 'block' }}>
+          <ChainInfo />
+        </Box>
+
         <WalletButton id="web3-status-connected" onClick={toggleWalletModal}>
           <span
             style={{
