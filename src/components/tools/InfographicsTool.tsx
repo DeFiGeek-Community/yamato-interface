@@ -62,14 +62,14 @@ export default function InfographicsTool() {
           </HeaderBox1>
           <ConentBox>
             <Grid
-              templateRows="repeat(5, 1fr)"
-              templateColumns="repeat(2, 1fr)"
+              templateRows={{ base: 'repeat(2, 1fr)', sm: 'repeat(5, 1fr)' }}
+              templateColumns={{ base: '1fr', sm: 'repeat(2, 1fr)' }}
               gap={8}
             >
-              <GridItem rowSpan={5} colSpan={1}>
+              <GridItem rowSpan={{ base: 1, sm: 5 }} colSpan={1}>
                 <InfographicsContent {...formik.values} />
               </GridItem>
-              <GridItem rowSpan={5} colSpan={1}>
+              <GridItem rowSpan={{ base: 1, sm: 5 }} colSpan={1}>
                 <Stack>
                   <InputField
                     name="totalCollateral"
