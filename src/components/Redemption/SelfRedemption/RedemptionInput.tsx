@@ -125,32 +125,31 @@ export default function RedemptionInput(props: Props) {
     >
       {(formikProps) => (
         <Form>
-          <Grid
-            templateColumns={{
-              base: 'repeat(3, 1fr)',
-              sm: 'repeat(4, 1fr)',
-            }}
-            gap={4}
+        <Grid 
+          templateColumns={{
+            base: 'repeat(1, 1fr)',
+            sm: 'repeat(2, 1fr)',
+            md: 'repeat(4, 1fr)'
+          }} 
+          gap={8}
+          ml={{
+            base: 6,
+            md: 0
+          }}
+        >
+          <GridItem 
+            colSpan={1}
+            mb={{ base: 4, md: 0 }}
           >
-            <GridItem
-              colSpan={{
-                base: 1,
-                sm: 1,
-                md: 1,
-              }}
-            >
+            <VStack align="start" height="100%">
+              <CustomFormLabel
+                text={t('redemption.selfRedemption.redemptionAmountInput')}
+              />
               <Field name="redemption" validate={validateRedemption}>
                 {({ field, form }: FieldProps) => (
                   <FormControl
                     isInvalid={!!form.errors.redemption}
-                    style={{ maxWidth: '200px' }}
                   >
-                    <CustomFormLabel
-                      htmlFor="redemption"
-                      text={t(
-                        'redemption.selfRedemption.redemptionAmountInput'
-                      )}
-                    />
                     <CustomInput
                       {...field}
                       id="redemption"
@@ -163,52 +162,45 @@ export default function RedemptionInput(props: Props) {
                   </FormControl>
                 )}
               </Field>
-              {typeof redemption === 'number' && redemption > 0 && (
-                <VStack align="start" mt={4}>
-                  <CustomFormLabel
-                    text={t(
-                      'redemption.selfRedemption.predictedCollateralGainAmount'
-                    )}
-                  />
-                  <Text>
-                    {formatPrice(expectedReward.eth, 'eth').value}
-                    {` `}
-                    {YAMATO_SYMBOL.COLLATERAL}
-                  </Text>
-                </VStack>
-              )}
-            </GridItem>
+            </VStack>
+          </GridItem>
 
-            <GridItem
-              colSpan={{
-                base: 1,
-                sm: 1,
-                md: 2,
-              }}
-            >
-              <VStack align="start">
-                <CustomFormLabel
-                  text={t('redemption.selfRedemption.totalContenderRedemption')}
-                />
+          <GridItem 
+            colSpan={1}
+            mb={{ base: 4, md: 0 }}
+          >
+            <VStack align="start" height="100%">
+              <CustomFormLabel
+                text={t('redemption.selfRedemption.predictedCollateralGainAmount')}
+              />
+              {typeof redemption === 'number' && redemption > 0 && (
+                <Text>
+                  {formatPrice(expectedReward.eth, 'eth').value}
+                  {` `}
+                  {YAMATO_SYMBOL.COLLATERAL}
+                </Text>
+              )}
+            </VStack>
+          </GridItem>
+
+          <GridItem 
+            colSpan={1}
+            mb={{ base: 4, md: 0 }}
+          >
+            <VStack align="start" height="100%">
+              <CustomFormLabel
+                text={t('redemption.selfRedemption.totalContenderRedemption')}
+              />
+              <VStack align="start" spacing={1}>
                 <Text>
                   {firstLoadCompleted ? (
                     <>
-                      {
-                        formatPrice(formattedRedeemableCandidate.cjpy, 'jpy')
-                          .value
-                      }
+                      {formatPrice(formattedRedeemableCandidate.cjpy, 'jpy').value}
                       {` `}
                       {currency}
                     </>
                   ) : (
-                    <Skeleton
-                      height="1.4rem"
-                      width="4rem"
-                      style={{
-                        display: 'inline-block',
-                        lineHeight: '1.4rem',
-                      }}
-                    />
+                    <Skeleton height="1.4rem" width="4rem" />
                   )}
                 </Text>
                 <Text>
@@ -217,25 +209,27 @@ export default function RedemptionInput(props: Props) {
                   {YAMATO_SYMBOL.COLLATERAL})
                 </Text>
               </VStack>
-            </GridItem>
+            </VStack>
+          </GridItem>
 
-            <GridItem colSpan={1}>
-              <div
-                style={{
-                  marginTop: '1.5rem',
-                }}
-              >
-                <CustomButton
-                  isLoading={formikProps.isSubmitting}
-                  type="submit"
-                  isDisabled={!redemption}
-                >
-                  {t('redemption.selfRedemption.redemptionExecution')}
-                </CustomButton>
-              </div>
-            </GridItem>
-          </Grid>
-        </Form>
+          <GridItem 
+            colSpan={1}
+            display="flex"
+            alignItems="flex-end"
+            height="100%"
+          >
+            <CustomButton
+              isLoading={formikProps.isSubmitting}
+              type="submit"
+              isDisabled={!redemption}
+              width={{ base: "100%", md: "auto" }}
+              minWidth="80px"
+            >
+              {t('redemption.selfRedemption.redemptionExecution')}
+            </CustomButton>
+          </GridItem>
+        </Grid>
+      </Form>
       )}
     </Formik>
   );
