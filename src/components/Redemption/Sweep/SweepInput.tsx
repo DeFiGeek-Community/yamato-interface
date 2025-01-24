@@ -76,8 +76,22 @@ export default function SweepInput(props: Props) {
     <Formik initialValues={{ sweep: 0 }} onSubmit={submitSweep}>
       {(formikProps) => (
         <Form>
-          <Grid templateColumns="repeat(4, 1fr)" gap={4}>
-            <GridItem colSpan={1}>
+          <Grid 
+            templateColumns={{
+              base: 'repeat(1, 1fr)',
+              sm: 'repeat(2, 1fr)',
+              md: 'repeat(4, 1fr)'
+            }} 
+            gap={4}
+            ml={{
+              base: 6,
+              md: 0
+            }}
+          >
+            <GridItem 
+              colSpan={1}
+              mb={{ base: 4, md: 0 }}
+            >
               <VStack align="start">
                 <CustomFormLabel text={t('redemption.sweep.totalPoolVolume')} />
                 <Text>
@@ -101,7 +115,10 @@ export default function SweepInput(props: Props) {
               </VStack>
             </GridItem>
 
-            <GridItem colSpan={1}>
+            <GridItem 
+              colSpan={1}
+              mb={{ base: 4, md: 0 }}
+            >
               <VStack align="start">
                 <CustomFormLabel
                   text={t('redemption.sweep.totalContenderLiquidation')}
@@ -126,7 +143,10 @@ export default function SweepInput(props: Props) {
               </VStack>
             </GridItem>
 
-            <GridItem colSpan={1}>
+            <GridItem 
+              colSpan={1}
+              mb={{ base: 4, md: 0 }}
+            >
               <VStack align="start">
                 <CustomFormLabel
                   text={t('redemption.sweep.executionRewardPrediction')}
@@ -157,11 +177,16 @@ export default function SweepInput(props: Props) {
               </VStack>
             </GridItem>
 
-            <GridItem colSpan={1}>
+            <GridItem 
+              colSpan={1}
+              display="flex"
+              alignItems={{ base: "flex-start", md: "flex-end" }}
+            >
               <CustomButton
                 isLoading={formikProps.isSubmitting}
                 type="submit"
                 isDisabled={!expectedReward.cjpy}
+                width={{ base: "100%", md: "auto" }}
               >
                 {t('redemption.sweep.subrogationExecution')}
               </CustomButton>
