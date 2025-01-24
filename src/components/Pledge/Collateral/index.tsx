@@ -86,6 +86,10 @@ export default function Collateral() {
             }}
             gap={4}
             mt={4}
+            ml={{
+              base: 6,
+              md: 0
+            }}
           >
             <Box>
               <DepositInput

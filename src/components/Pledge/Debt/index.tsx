@@ -148,6 +148,10 @@ export default function Debt() {
             }}
             gap={4}
             mt={8}
+            ml={{
+              base: 6,
+              md: 0
+            }}
           >
             <Box>
               <BorrowInput
