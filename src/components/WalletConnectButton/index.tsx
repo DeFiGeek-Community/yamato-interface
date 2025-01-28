@@ -107,8 +107,10 @@ function Web3StatusInner() {
   if (account) {
     return (
       <>
-        <CurrencyToggle />
-        <Box display={{ base: 'none', md: 'block' }}>
+        <Box display={{ base: 'none', sm: 'block' }}>
+          <CurrencyToggle />
+        </Box>
+        <Box display={{ base: 'none', sm: 'block' }}>
           <ChainInfo />
         </Box>
 

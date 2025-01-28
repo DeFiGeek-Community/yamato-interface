@@ -115,7 +115,7 @@ export default function RedemptionInput(props: Props) {
                         }
                         {` `}
                         {YAMATO_SYMBOL.YEN}
-                        </>
+                      </>
                     ) : (
                       <Skeleton height="1.4rem" width="5rem" />
                     )}
@@ -144,7 +144,7 @@ export default function RedemptionInput(props: Props) {
                         }
                         {` `}
                         {YAMATO_SYMBOL.YEN}
-                        </>
+                      </>
                     ) : (
                       <Skeleton height="1.4rem" width="4rem" />
                     )}
