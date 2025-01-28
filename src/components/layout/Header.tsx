@@ -125,8 +125,10 @@ function MobileNav({
         <DrawerFooter>
           <VStack mx={'auto'} display={{ base: 'flex', sm: 'none' }}>
             <CurrencyToggle />
-            <Box mt={10}>
+            <Box pt={4}>
               <ChainInfo />
+            </Box>
+            <Box pt={4}>
               <LangugeChange />
             </Box>
           </VStack>
