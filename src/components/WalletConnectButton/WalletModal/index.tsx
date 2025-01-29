@@ -29,6 +29,12 @@ const Wrapper = styled.div`
   width: 45rem;
   font-size: 1.6rem;
   background-color: ${({ theme }) => theme.bg2};
+
+  // スマホ幅でのスタイル調整
+  ${({ theme }) => theme.mediaWidth.upToMedium`
+    width: 100%;
+    padding: 1rem;
+  `};
 `;
 
 const HeaderRow = styled.div`
@@ -45,7 +51,9 @@ const ContentWrapper = styled.div`
   background-color: ${({ theme }) => theme.bg0};
   padding: 2rem;
   border-radius: 20px;
-  ${({ theme }) => theme.mediaWidth.upToMedium`padding: 1rem`};
+  ${({ theme }) => theme.mediaWidth.upToMedium`
+    padding: 1rem;
+  `};
 `;
 
 const UpperSection = styled.div`
@@ -359,7 +367,7 @@ export default function WalletModal({
   return (
     <Modal isOpen={walletModalOpen} onClose={toggleWalletModal}>
       <ModalOverlay />
-      <ModalContent>
+      <ModalContent maxWidth="450px">
         <Wrapper>{getModalContent()}</Wrapper>
       </ModalContent>
     </Modal>

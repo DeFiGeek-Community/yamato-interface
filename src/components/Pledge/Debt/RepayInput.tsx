@@ -87,7 +87,6 @@ export default function RepayInput(props: Props) {
     },
     [callback]
   );
-
   return (
     <Formik
       initialValues={{ repayment: '' as number | '' }}
@@ -95,25 +94,18 @@ export default function RepayInput(props: Props) {
     >
       {(formikProps) => (
         <Form>
-          <VStack spacing={4} align="start">
-            <HStack
-              spacing={4}
-              align={
-                formikProps.errors.repayment && formikProps.touched.repayment
-                  ? 'center'
-                  : 'end'
-              }
-            >
-              <Field name="repayment" validate={validateRepayment}>
-                {({ field, form }: FieldProps) => (
-                  <FormControl
-                    isInvalid={!!formikProps.errors.repayment}
-                    style={{ maxWidth: '200px' }}
-                  >
-                    <CustomFormLabel
-                      htmlFor="repayment"
-                      text={t('pledge.debt.repaymentAmountInput')}
-                    />
+          <VStack spacing={4} align="start" width="100%">
+            <Field name="repayment" validate={validateRepayment}>
+              {({ field, form }: FieldProps) => (
+                <FormControl
+                  isInvalid={!!formikProps.errors.repayment}
+                  width="100%"
+                >
+                  <CustomFormLabel
+                    htmlFor="repayment"
+                    text={t('pledge.debt.repaymentAmountInput')}
+                  />
+                  <HStack width="100%" spacing={2}>
                     <CustomInput
                       {...field}
                       id="repayment"
@@ -125,32 +117,33 @@ export default function RepayInput(props: Props) {
                       <Button
                         variant="outline"
                         size="sm"
-                        style={{ marginLeft: '5px' }}
                         onClick={() => {
                           const value = Math.min(debt, cjpy);
                           form.setFieldValue('repayment', value);
                         }}
+                        minWidth="40px"
                       >
                         MAX
                       </Button>
                     )}
-                    <FormErrorMessage>
-                      {formikProps.errors.repayment}
-                    </FormErrorMessage>
-                  </FormControl>
-                )}
-              </Field>
-              <CustomButton
-                isLoading={formikProps.isSubmitting}
-                type="submit"
-                data-testid="borrowing-act-repay"
-                isDisabled={!repayment}
-              >
-                {t('pledge.debt.repaymentExecution')}
-              </CustomButton>
-            </HStack>
+                    <CustomButton
+                      isLoading={formikProps.isSubmitting}
+                      type="submit"
+                      data-testid="borrowing-act-repay"
+                      isDisabled={!repayment}
+                      minWidth="80px"
+                    >
+                      {t('pledge.debt.repaymentExecution')}
+                    </CustomButton>
+                  </HStack>
+                  <FormErrorMessage>
+                    {formikProps.errors.repayment}
+                  </FormErrorMessage>
+                </FormControl>
+              )}
+            </Field>
             {repayment && repayment > 0 && (
-              <VStack spacing={4} align="start">
+              <VStack spacing={4} align="start" width="100%">
                 <CustomFormLabel
                   text={`${t('pledge.debt.predictedFluctuation')} ${
                     formatPrice(subtractToNum(debt, repayment), 'jpy').value

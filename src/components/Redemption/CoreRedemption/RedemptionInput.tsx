@@ -88,108 +88,113 @@ export default function RedemptionInput(props: Props) {
     <Formik initialValues={{ redemption: 0 }} onSubmit={submitRedemption}>
       {(formikProps) => (
         <Form>
-          <Grid templateColumns="repeat(4, 1fr)" gap={4}>
-            <GridItem colSpan={1}>
-              <VStack align="start">
+          <Grid
+            templateColumns={{
+              base: 'repeat(1, 1fr)',
+              sm: 'repeat(2, 1fr)',
+              md: 'repeat(4, 1fr)',
+            }}
+            gap={8}
+            ml={{
+              base: 6,
+              md: 0,
+            }}
+          >
+            <GridItem colSpan={1} mb={{ base: 4, md: 0 }}>
+              <VStack align="start" height="100%">
                 <CustomFormLabel
                   text={t('redemption.coreRedemption.totalPoolVolume')}
                 />
-                <Text>
-                  {firstLoadCompleted ? (
-                    <>
-                      {
-                        formatPrice(formattedRedemptionReserve.cjpy, 'jpy')
-                          .value
-                      }
-                      {` `}
-                      {YAMATO_SYMBOL.YEN}
-                    </>
-                  ) : (
-                    <Skeleton
-                      height="1.4rem"
-                      width="5rem"
-                      style={{
-                        lineHeight: '1.4rem',
-                      }}
-                    />
-                  )}
-                </Text>
-                <Text>
-                  ({formatPrice(formattedRedemptionReserve.eth, 'eth').value}
-                  {` `}
-                  {YAMATO_SYMBOL.COLLATERAL})
-                </Text>
+                <VStack align="start" spacing={1}>
+                  <Text>
+                    {firstLoadCompleted ? (
+                      <>
+                        {
+                          formatPrice(formattedRedemptionReserve.cjpy, 'jpy')
+                            .value
+                        }
+                        {` `}
+                        {YAMATO_SYMBOL.YEN}
+                      </>
+                    ) : (
+                      <Skeleton height="1.4rem" width="5rem" />
+                    )}
+                  </Text>
+                  <Text>
+                    ({formatPrice(formattedRedemptionReserve.eth, 'eth').value}
+                    {` `}
+                    {YAMATO_SYMBOL.COLLATERAL})
+                  </Text>
+                </VStack>
               </VStack>
             </GridItem>
 
-            <GridItem colSpan={1}>
-              <VStack align="start">
+            <GridItem colSpan={1} mb={{ base: 4, md: 0 }}>
+              <VStack align="start" height="100%">
                 <CustomFormLabel
                   text={t('redemption.coreRedemption.totalContenderRedemption')}
                 />
-                <Text>
-                  {firstLoadCompleted ? (
-                    <>
-                      {
-                        formatPrice(formattedRedeemableCandidate.cjpy, 'jpy')
-                          .value
-                      }
-                      {` `}
-                      {YAMATO_SYMBOL.YEN}
-                    </>
-                  ) : (
-                    <Skeleton
-                      height="1.4rem"
-                      width="4rem"
-                      style={{
-                        display: 'inline-block',
-                        lineHeight: '1.4rem',
-                      }}
-                    />
-                  )}
-                </Text>
-                <Text>
-                  ({formatPrice(formattedRedeemableCandidate.eth, 'eth').value}
-                  {` `}
-                  {YAMATO_SYMBOL.COLLATERAL})
-                </Text>
+                <VStack align="start" spacing={1}>
+                  <Text>
+                    {firstLoadCompleted ? (
+                      <>
+                        {
+                          formatPrice(formattedRedeemableCandidate.cjpy, 'jpy')
+                            .value
+                        }
+                        {` `}
+                        {YAMATO_SYMBOL.YEN}
+                      </>
+                    ) : (
+                      <Skeleton height="1.4rem" width="4rem" />
+                    )}
+                  </Text>
+                  <Text color="gray.600">
+                    (
+                    {formatPrice(formattedRedeemableCandidate.eth, 'eth').value}
+                    {` `}
+                    {YAMATO_SYMBOL.COLLATERAL})
+                  </Text>
+                </VStack>
               </VStack>
             </GridItem>
 
-            <GridItem colSpan={1}>
-              <VStack align="start">
+            <GridItem colSpan={1} mb={{ base: 4, md: 0 }}>
+              <VStack align="start" height="100%">
                 <CustomFormLabel
                   text={t(
                     'redemption.coreRedemption.executionRewardPrediction'
                   )}
                 />
-                <Text>
-                  {firstLoadCompleted ? (
-                    <>
-                      {formatPrice(expectedReward.eth, 'eth').value}
-                      {` `}
-                      {YAMATO_SYMBOL.COLLATERAL}
-                    </>
-                  ) : (
-                    <Skeleton
-                      height="1.4rem"
-                      width="4rem"
-                      style={{
-                        display: 'inline-block',
-                        lineHeight: '1.4rem',
-                      }}
-                    />
-                  )}
-                </Text>
+                <VStack align="start" spacing={1}>
+                  <Text>
+                    {firstLoadCompleted ? (
+                      <>
+                        {formatPrice(expectedReward.eth, 'eth').value}
+                        {` `}
+                        {YAMATO_SYMBOL.COLLATERAL}
+                      </>
+                    ) : (
+                      <Skeleton height="1.4rem" width="4rem" />
+                    )}
+                  </Text>
+                </VStack>
               </VStack>
             </GridItem>
 
-            <GridItem colSpan={1}>
+            <GridItem
+              colSpan={1}
+              display="flex"
+              alignItems="flex-end"
+              height="100%"
+            >
               <CustomButton
                 colorScheme="teal"
                 isLoading={formikProps.isSubmitting}
                 type="submit"
                 isDisabled={!expectedReward.eth}
+                width={{ base: '100%', md: 'auto' }}
+                minWidth="80px"
               >
                 {'Yamato' + t('redemption.coreRedemption.redemptionExecution')}
               </CustomButton>

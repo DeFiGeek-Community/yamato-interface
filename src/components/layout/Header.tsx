@@ -1,3 +1,4 @@
+import { HamburgerIcon } from '@chakra-ui/icons';
 import { HStack, VStack } from '@chakra-ui/layout';
 import {
   Popover,
@@ -10,6 +11,15 @@ import {
   Container,
   Text,
   Flex,
+  IconButton,
+  Drawer,
+  DrawerBody,
+  DrawerHeader,
+  DrawerFooter,
+  DrawerOverlay,
+  DrawerContent,
+  DrawerCloseButton,
+  useDisclosure,
 } from '@chakra-ui/react';
 import i18next from 'i18next';
 import { useTranslation } from 'react-i18next';
@@ -17,6 +27,8 @@ import { BsTranslate } from 'react-icons/bs';
 import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import Web3Status from '../WalletConnectButton';
+import { ChainInfo } from '../WalletConnectButton';
+import CurrencyToggle from '../WalletConnectButton/CurrencyToggle';
 import SvgYamatoLogWithTitle from '../svgs/YamatoLogoWithTitle';
 
 const LanguageButton = styled.button`
@@ -65,14 +77,75 @@ export function LangugeChange() {
   );
 }
 
-export default function Header() {
+function MobileNav({
+  isOpen,
+  onClose,
+}: {
+  isOpen: boolean;
+  onClose: () => void;
+}) {
   const location = useLocation();
-
   const { t } = useTranslation();
-
   const isActiveLink = (path: string) => location.pathname === path;
 
-  console.log(location.pathname);
+  return (
+    <Drawer isOpen={isOpen} placement="left" onClose={onClose}>
+      <DrawerOverlay />
+      <DrawerContent>
+        <DrawerCloseButton />
+        <DrawerHeader mt={10}>
+          <SvgYamatoLogWithTitle width={150} height={25} />
+        </DrawerHeader>
+        <DrawerBody>
+          <VStack align="start" spacing={6}>
+            <Link
+              href="/#/"
+              onClick={onClose}
+              style={
+                isActiveLink('/')
+                  ? { fontWeight: 'bold', pointerEvents: 'none', opacity: 0.6 }
+                  : {}
+              }
+            >
+              <Text fontWeight="bold">{t('layout.home')}</Text>
+            </Link>
+            <Link
+              href="/#/tools/"
+              onClick={onClose}
+              style={
+                isActiveLink('/tools/')
+                  ? { fontWeight: 'bold', pointerEvents: 'none', opacity: 0.6 }
+                  : { fontWeight: 'bold' }
+              }
+            >
+              {t('layout.tool')}
+            </Link>
+          </VStack>
+        </DrawerBody>
+        <DrawerFooter>
+          <VStack mx={'auto'} display={{ base: 'flex', sm: 'none' }}>
+            <Box pt={4}>
+              <ChainInfo />
+            </Box>
+            <Box pt={4}>
+              <LangugeChange />
+            </Box>
+            <Box pt={4}>
+              <CurrencyToggle />
+            </Box>
+          </VStack>
+        </DrawerFooter>
+      </DrawerContent>
+    </Drawer>
+  );
+}
+
+export default function Header() {
+  const location = useLocation();
+  const { t } = useTranslation();
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const isActiveLink = (path: string) => location.pathname === path;
+
   return (
     <Box
       px={{ base: 0, md: 4 }}
@@ -89,9 +162,23 @@ export default function Header() {
           justifyContent="space-between"
           alignItems="center"
         >
-          <HStack fontSize="16px" color="#818181" style={{ gap: '1.9rem' }}>
+          <Box display={{ base: 'block', lg: 'none' }}>
+            <IconButton
+              aria-label="Open menu"
+              icon={<HamburgerIcon boxSize={8} />}
+              variant="ghost"
+              onClick={onOpen}
+              size="lg"
+            />
+          </Box>
+          <HStack
+            fontSize="16px"
+            color="#818181"
+            style={{ gap: '1.9rem' }}
+            display={{ base: 'none', lg: 'flex' }}
+          >
             <Link href="/#/">
-              <Box display={{ base: 'none', md: 'block' }}>
+              <Box>
                 <SvgYamatoLogWithTitle width={200} height={30} />
               </Box>
             </Link>
@@ -108,7 +195,7 @@ export default function Header() {
                   : { marginLeft: '2rem' }
               }
             >
-              <Text fontWeight="bold"> {t('layout.home')}</Text>
+              <Text fontWeight="bold">{t('layout.home')}</Text>
             </Link>
             <Link
               href="/#/tools/"
@@ -122,11 +209,16 @@ export default function Header() {
             </Link>
           </HStack>
           <HStack>
-            <LangugeChange />
+            <Box display={{ base: 'none', md: 'block' }}>
+              <LangugeChange />
+            </Box>{' '}
             <Web3Status />
           </HStack>
         </Flex>
       </Container>
+
+      {/* Mobile Navigation */}
+      <MobileNav isOpen={isOpen} onClose={onClose} />
     </Box>
   );
 }
