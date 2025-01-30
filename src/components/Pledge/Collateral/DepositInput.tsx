@@ -101,7 +101,7 @@ export default function DepositInput(props: Props) {
     >
       {(formikProps) => (
         <Form>
-          <VStack spacing={4} align="start">
+          <VStack spacing={2} align="start">
             <HStack
               spacing={4}
               align={
@@ -143,8 +143,15 @@ export default function DepositInput(props: Props) {
                 {t('pledge.collateral.depositExecution')}
               </CustomButton>
             </HStack>
+            <VStack spacing={0} align="start">
+              <CustomFormLabel
+                text={`${t('pledge.collateral.walletBalance')} ${
+                  formatPrice(eth, 'jpy').value
+                } ${YAMATO_SYMBOL.COLLATERAL}`}
+              />
+            </VStack>
             {deposit && deposit > 0 && (
-              <VStack spacing={4} align="start">
+              <VStack spacing={2} align="start">
                 <CustomFormLabel
                   text={`${t('pledge.collateral.predictedFluctuation')} ${
                     formatPrice(addToNum(collateral, deposit), 'jpy').value

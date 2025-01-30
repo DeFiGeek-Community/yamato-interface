@@ -35,7 +35,8 @@
       "collateralBalance" : "Collateral Balance",
       "valuation" : "Valuation",
       "withdrawalAmountInput" : "Withdrawal Amount",
-      "withdrawalExecution" : "Withdrawal"
+      "withdrawalExecution" : "Withdrawal",
+      "walletBalance": "Wallet Balance"
     },
     "debt": {
       "alert1" : "Connect your wallet. Or switch networks.",
