@@ -29,7 +29,7 @@ export default function CoreRedemption() {
           md: 2,
         }}
       >
-        <ItemTitleForPledge width="150px" marginTop={24}>
+        <ItemTitleForPledge  marginTop={24}>
           Yamato{t('redemption.coreRedemption.redemption')}
         </ItemTitleForPledge>
       </GridItem>
