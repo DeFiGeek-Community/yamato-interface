@@ -47,7 +47,7 @@ export const ItemTitleForPledge = styled.label<{
   width?: string;
   marginTop?: number;
 }>`
-  width: ${({ width }) => width ?? '100px'};
+  width: ${({ width }) => width ?? '150px'};
   color: ${({ theme }) => theme.text1};
   margin-top: ${({ marginTop }) => marginTop ?? 0}px;
   display: inline-block;
