@@ -3,6 +3,7 @@ import {
   FormErrorMessage,
   HStack,
   VStack,
+  Button,
 } from '@chakra-ui/react';
 import { Formik, Form, Field, FormikHelpers, FieldProps } from 'formik';
 import { useCallback, useState } from 'react';
@@ -95,7 +96,7 @@ export default function WithdrawalInput(props: Props) {
     >
       {(formikProps) => (
         <Form>
-          <VStack spacing={4} align="start">
+          <VStack spacing={4} align="start" width="100%">
             <HStack
               spacing={4}
               align={
@@ -105,7 +106,7 @@ export default function WithdrawalInput(props: Props) {
               }
             >
               <Field name="withdrawal" validate={validateWithdrawal}>
-                {({ field }: FieldProps) => (
+                {({ field, form }: FieldProps) => (
                   <FormControl
                     isInvalid={!!formikProps.errors.withdrawal}
                     style={{ maxWidth: '200px' }}
@@ -114,28 +115,43 @@ export default function WithdrawalInput(props: Props) {
                       htmlFor="withdrawal"
                       text={t('pledge.collateral.withdrawalAmountInput')}
                     />
-                    <CustomInput
-                      {...field}
-                      id="withdrawal"
-                      type="number"
-                      placeholder={YAMATO_SYMBOL.COLLATERAL}
-                      data-testid="collateral-data-withdrawalAmount"
-                    />
-                    <FormErrorMessage>
-                      {formikProps.errors.withdrawal}
-                    </FormErrorMessage>
+                    <HStack width="100%" spacing={2}>
+                      <CustomInput
+                        {...field}
+                        id="withdrawal"
+                        type="number"
+                        placeholder={YAMATO_SYMBOL.COLLATERAL}
+                        data-testid="collateral-data-withdrawalAmount"
+                      />
+                      <FormErrorMessage>
+                        {formikProps.errors.withdrawal}
+                      </FormErrorMessage>
+
+                      {collateral > 0 && debt == 0 && (
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => {
+                            form.setFieldValue('withdrawal', collateral);
+                          }}
+                          minWidth="40px"
+                        >
+                          MAX
+                        </Button>
+                      )}
+                      <CustomButton
+                        isLoading={formikProps.isSubmitting}
+                        type="submit"
+                        data-testid="collateral-act-withdraw"
+                        isDisabled={!withdrawal}
+                        minWidth="80px"
+                      >
+                        {t('pledge.collateral.withdrawalExecution')}
+                      </CustomButton>
+                    </HStack>
                   </FormControl>
                 )}
               </Field>
-              <CustomButton
-                isLoading={formikProps.isSubmitting}
-                type="submit"
-                data-testid="collateral-act-withdraw"
-                isDisabled={!withdrawal}
-                minWidth="80px"
-              >
-                {t('pledge.collateral.withdrawalExecution')}
-              </CustomButton>
             </HStack>
             {withdrawal && withdrawal > 0 && (
               <VStack spacing={4} align="start">
