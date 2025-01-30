@@ -171,6 +171,7 @@ export function CustomInput(
         border: '1px solid #F9AEA5',
         boxSizing: 'border-box',
         boxShadow: '1px 1px 0px rgba(0, 0, 0, 0.25)',
+        minWidth: '90px',
         maxWidth: '140px',
       }}
     />
