@@ -145,7 +145,7 @@ export default function WithdrawalInput(props: Props) {
               )}
             </Field>
             {withdrawal && withdrawal > 0 && (
-              <VStack spacing={4} align="start">
+              <VStack spacing={2} align="start">
                 <CustomFormLabel
                   text={`${t('pledge.collateral.predictedFluctuation')} ${
                     formatPrice(subtractToNum(collateral, withdrawal), 'jpy')
