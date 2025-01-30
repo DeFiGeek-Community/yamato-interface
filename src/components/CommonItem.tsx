@@ -47,7 +47,7 @@ export const ItemTitleForPledge = styled.label<{
   width?: string;
   marginTop?: number;
 }>`
-  width: ${({ width }) => width ?? '100px'};
+  width: ${({ width }) => width ?? '150px'};
   color: ${({ theme }) => theme.text1};
   margin-top: ${({ marginTop }) => marginTop ?? 0}px;
   display: inline-block;
@@ -55,7 +55,9 @@ export const ItemTitleForPledge = styled.label<{
   font-weight: bold;
   font-size: 1.4rem;
   line-height: 1.6rem;
-`;
+  white-space: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;`;
 
 export const ItemTitleForInfographics = styled.label<{
   marginTop?: number;

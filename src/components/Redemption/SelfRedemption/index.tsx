@@ -23,7 +23,7 @@ export default function SelfRedemption() {
           md: 2,
         }}
       >
-        <ItemTitleForPledge width="150px" marginTop={24}>
+        <ItemTitleForPledge marginTop={24}>
           {t('redemption.selfRedemption.redemption')}
         </ItemTitleForPledge>
       </GridItem>
