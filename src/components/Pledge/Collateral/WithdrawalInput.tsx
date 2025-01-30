@@ -123,9 +123,6 @@ export default function WithdrawalInput(props: Props) {
                         placeholder={YAMATO_SYMBOL.COLLATERAL}
                         data-testid="collateral-data-withdrawalAmount"
                       />
-                      <FormErrorMessage>
-                        {formikProps.errors.withdrawal}
-                      </FormErrorMessage>
 
                       {collateral > 0 && debt == 0 && (
                         <Button
@@ -149,6 +146,9 @@ export default function WithdrawalInput(props: Props) {
                         {t('pledge.collateral.withdrawalExecution')}
                       </CustomButton>
                     </HStack>
+                    <FormErrorMessage>
+                      {formikProps.errors.withdrawal}
+                    </FormErrorMessage>
                   </FormControl>
                 )}
               </Field>
