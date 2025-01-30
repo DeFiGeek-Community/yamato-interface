@@ -55,7 +55,9 @@ export const ItemTitleForPledge = styled.label<{
   font-weight: bold;
   font-size: 1.4rem;
   line-height: 1.6rem;
-`;
+  white-space: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;`;
 
 export const ItemTitleForInfographics = styled.label<{
   marginTop?: number;

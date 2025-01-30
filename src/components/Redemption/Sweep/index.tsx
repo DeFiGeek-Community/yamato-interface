@@ -29,7 +29,7 @@ export default function Sweep() {
           md: 1,
         }}
       >
-        <ItemTitleForPledge width="150px" marginTop={24}>
+        <ItemTitleForPledge marginTop={24}>
           Yamato{t('redemption.sweep.subrogation')}
         </ItemTitleForPledge>
       </GridItem>
