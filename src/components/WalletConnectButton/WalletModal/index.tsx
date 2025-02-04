@@ -1,4 +1,5 @@
-import { Modal, ModalOverlay, ModalContent } from '@chakra-ui/react';
+import { CloseIcon } from '@chakra-ui/icons';
+import { Modal, ModalOverlay, ModalContent, IconButton } from '@chakra-ui/react';
 import { AbstractConnector } from '@web3-react/abstract-connector';
 import { UnsupportedChainIdError, useWeb3React } from '@web3-react/core';
 import { WalletConnectConnector } from '@web3-react/walletconnect-connector';
@@ -14,6 +15,7 @@ import { injected } from '../../../infrastructures/connectors';
 import { ApplicationModal } from '../../../state/application/actions';
 import {
   useModalOpen,
+  useCloseModal,
   useWalletModalToggle,
 } from '../../../state/application/hooks';
 import { CategoryTitle, Text } from '../../CommonItem';
@@ -121,6 +123,7 @@ export default function WalletModal({
   const [pendingError, setPendingError] = useState<boolean>();
 
   const walletModalOpen = useModalOpen(ApplicationModal.WALLET);
+  const closeModal = useCloseModal();
   const toggleWalletModal = useWalletModalToggle();
 
   const previousAccount = usePrevious(account);
@@ -367,7 +370,18 @@ export default function WalletModal({
   return (
     <Modal isOpen={walletModalOpen} onClose={toggleWalletModal}>
       <ModalOverlay />
-      <ModalContent maxWidth="450px">
+      <ModalContent maxWidth="450px" position="relative" >
+        <IconButton
+          aria-label="Close modal"
+          zIndex={1500}
+          icon={<CloseIcon />}
+          onClick={closeModal}
+          position="absolute"
+          top="1rem"
+          right="1rem"
+          background="transparent"
+          _hover={{ background: 'transparent' }}
+        />
         <Wrapper>{getModalContent()}</Wrapper>
       </ModalContent>
     </Modal>

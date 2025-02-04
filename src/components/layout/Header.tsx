@@ -138,9 +138,11 @@ function MobileNav({
           </VStack>
         </DrawerBody>
         <DrawerFooter>
-          <VStack mx={'auto'} display={{ base: 'flex', sm: 'none' }}>
-            <CurrencyToggle />
-            <Box mt={10}>
+          <VStack mx={'auto'}>
+            <Box mt={10} display={{ base: 'flex', sm: 'none' }}>
+              <Web3Status />
+            </Box>
+            <Box mt={10} display={{ base: 'flex', md: 'none' }}>
               <ChainInfo />
               <LangugeChange />
             </Box>
@@ -235,7 +237,12 @@ export default function Header() {
             <Box display={{ base: 'none', md: 'block' }}>
               <LangugeChange />
             </Box>{' '}
+            <CurrencyToggle />
+        {/* </Box> */}
+        <Box display={{ base: 'none', sm: 'block' }}>
+          <ChainInfo />
             <Web3Status />
+        </Box>
           </HStack>
         </Flex>
       </Container>

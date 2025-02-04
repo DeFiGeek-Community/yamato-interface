@@ -15,7 +15,6 @@ import { TransactionDetails } from '../../state/transactions/reducer';
 import { shortenAddress } from '../../utils/web3';
 import { Text } from '../CommonItem';
 import Loader from '../Loader';
-import CurrencyToggle from './CurrencyToggle';
 import Row from './Row';
 import WalletModal from './WalletModal';
 
@@ -107,13 +106,6 @@ function Web3StatusInner() {
   if (account) {
     return (
       <>
-        <Box display={{ base: 'none', sm: 'block' }}>
-          <CurrencyToggle />
-        </Box>
-        <Box display={{ base: 'none', sm: 'block' }}>
-          <ChainInfo />
-        </Box>
-
         <WalletButton id="web3-status-connected" onClick={toggleWalletModal}>
           <span
             style={{
