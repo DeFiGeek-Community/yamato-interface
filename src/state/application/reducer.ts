@@ -7,6 +7,7 @@ import {
   setOpenModal,
   updateBlockNumber,
   updateChainId,
+  closeModal,
 } from './actions';
 
 export interface ApplicationState {
@@ -50,5 +51,8 @@ export default createReducer(initialState, (builder) =>
     })
     .addCase(setChainConnectivityWarning, (state, { payload: { warn } }) => {
       state.chainConnectivityWarning = warn;
+    })
+    .addCase(closeModal, (state) => {
+      state.openModal = null;
     })
 );

@@ -16,14 +16,30 @@ export default function CoreRedemption() {
   const { t } = useTranslation();
 
   return (
-    <Grid templateColumns="repeat(6, 1fr)" gap={4} mb={12}>
-      <GridItem colSpan={1}>
-        <ItemTitleForPledge width="150px" marginTop={25}>
+    <Grid
+      templateColumns={{
+        base: 'repeat(1, 1fr)',
+        md: 'repeat(12, 1fr)',
+      }}
+      gap={4}
+    >
+      <GridItem
+        colSpan={{
+          base: 1,
+          md: 2,
+        }}
+      >
+        <ItemTitleForPledge width="100%" marginTop={24}>
           Yamato{t('redemption.coreRedemption.redemption')}
         </ItemTitleForPledge>
       </GridItem>
 
-      <GridItem colSpan={5}>
+      <GridItem
+        colSpan={{
+          base: 1,
+          md: 10,
+        }}
+      >
         <RedemptionInput
           rateOfEthJpy={rateOfEthJpy}
           redemptionReserve={redemptionReserve}

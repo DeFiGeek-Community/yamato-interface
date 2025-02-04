@@ -3,7 +3,7 @@ import { useActiveWeb3React } from '../../hooks/web3';
 import { useAppDispatch, useAppSelector } from '../hooks';
 
 import { AppState } from '../index';
-import { ApplicationModal, setOpenModal } from './actions';
+import { ApplicationModal, setOpenModal, closeModal } from './actions';
 
 export function useBlockNumber(): number | undefined {
   const { chainId } = useActiveWeb3React();
@@ -31,4 +31,9 @@ export function useToggleModal(modal: ApplicationModal): () => void {
 
 export function useWalletModalToggle(): () => void {
   return useToggleModal(ApplicationModal.WALLET);
+}
+
+export function useCloseModal() {
+  const dispatch = useAppDispatch();
+  return () => dispatch(closeModal());
 }

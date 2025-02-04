@@ -1,5 +1,5 @@
 import { useBreakpointValue } from '@chakra-ui/react';
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import CEURLogo from '../../components/svgs/CeurLogo';
@@ -67,6 +67,8 @@ const CurrencyToggle: React.FC = () => {
   const { currency, setCurrency } = useCurrency();
 
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [dropdownLeft, setDropdownLeft] = useState(0);
+  const buttonRef = useRef<HTMLDivElement>(null);
 
   const handleCurrencyToggle = () => {
     setIsDropdownOpen(!isDropdownOpen);
@@ -79,31 +81,38 @@ const CurrencyToggle: React.FC = () => {
     setIsDropdownOpen(false);
   };
 
+  useEffect(() => {
+    if (buttonRef.current) {
+      const rect = buttonRef.current.getBoundingClientRect();
+      setDropdownLeft(rect.left);
+    }
+  }, [isDropdownOpen]);
 
   const CurrentLogoComponent =
     currencies.find((c) => c.name === currency)?.logo || CJPYLogo;
 
-    const fontSize = useBreakpointValue<string>({ base: '1.6rem', sm: '1.6rem' });
+    const fontSize = useBreakpointValue<string>({ base: '1.2rem', sm: '1.6rem' });
     const mainFontSize = useBreakpointValue<string>({
-      base: '2rem',
+      base: '1.4rem',
       sm: '2rem',
     });
     const flexDirection = useBreakpointValue<'row' | 'column'>({
-      base: 'row',
+      base: 'column',
       sm: 'row',
     });
     const padding = useBreakpointValue<string>({
-      base: '0rem 1rem',
+      base: '0.5rem 1rem',
       sm: '0rem 1rem',
     });
     const lineHeight = useBreakpointValue<string>({
-      base: '2.2rem',
+      base: '1.8rem',
       sm: '2.2rem',
     });
 
+
   return (
     <>
-      <CurrencyToggleButton style={{ padding }} onClick={handleCurrencyToggle}>
+      <CurrencyToggleButton style={{ padding }}>
         <CurrentLogoComponent width="35px" />
         <FlexText
           style={{
@@ -116,9 +125,11 @@ const CurrencyToggle: React.FC = () => {
         >
           <span
             style={{
-              fontSize: '1rem',
-              color: '#888888',
-              lineHeight: '1rem',
+              fontSize: '2rem',
+              lineHeight: '2.2rem',
+              display: 'flex',
+              flexDirection: 'column',
+              marginLeft: '0.5rem',
             }}
           >
             Balance
@@ -148,7 +159,7 @@ const CurrencyToggle: React.FC = () => {
         </FlexText>
       </CurrencyToggleButton>
       {isDropdownOpen && (
-        <DropdownMenu >
+        <DropdownMenu style={{ left: dropdownLeft }}>
           {currencies.map((currency) => {
             const LogoComponent = currency.logo;
             return (

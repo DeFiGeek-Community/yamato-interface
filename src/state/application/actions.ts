@@ -12,7 +12,7 @@ export enum ApplicationModal {
   MENU,
   NETWORK_SELECTOR,
 }
-
+export const closeModal = createAction('application/closeModal');
 export const updateChainId = createAction<{ chainId: number | null }>(
   'application/updateChainId'
 );

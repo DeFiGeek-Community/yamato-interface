@@ -37,7 +37,8 @@
       "collateralBalance" : "担保量",
       "valuation" : "評価額",
       "withdrawalAmountInput" : "引出量入力",
-      "withdrawalExecution" : "引出実行"
+      "withdrawalExecution" : "引出実行",
+      "walletBalance": "ウォレット残高"
     },
     "debt": {
       "alert1" : "ウォレットを接続してください。またはネットワークを切り替えてください。",

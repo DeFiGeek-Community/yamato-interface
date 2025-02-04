@@ -1,4 +1,4 @@
-import { Grid, GridItem, Skeleton } from '@chakra-ui/react';
+import { Grid, GridItem, Skeleton, Box } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 import { YAMATO_SYMBOL } from '../../../constants/yamato';
 import { usePledgeData } from '../../../state/pledge/hooks';
@@ -16,79 +16,97 @@ export default function Collateral() {
 
   return (
     <>
-      <Grid templateColumns="repeat(16, 1fr)" gap={4} mb={4}>
-        <GridItem colSpan={2}>
-          <ItemTitleForPledge marginTop={26}>
-            {t('pledge.collateral.collateralBalance')}
-          </ItemTitleForPledge>
+      <Grid
+        templateColumns={{
+          base: 'repeat(1, 1fr)',
+          md: 'repeat(3, 1fr)',
+        }}
+        gap={4}
+      >
+        <GridItem maxWidth={{ base: '400px', md: '100%' }}>
+          <Box my={4}>
+            <Grid templateColumns="repeat(2, 1fr)" gap={4} mt={6}>
+              <Box>
+                <ItemTitleForPledge>
+                  {t('pledge.collateral.collateralBalance')}
+                </ItemTitleForPledge>
+              </Box>
+              <Box>
+                <ItemTitleValue data-testid="collateral-data-currentAmount">
+                  {firstLoadCompleted ? (
+                    <>
+                      {formatPrice(collateral, 'eth').value}
+                      {` `}
+                      {YAMATO_SYMBOL.COLLATERAL}
+                    </>
+                  ) : (
+                    <Skeleton height="1.4rem" width="7rem" />
+                  )}
+                </ItemTitleValue>
+              </Box>
+            </Grid>
+
+            <Grid templateColumns="repeat(2, 1fr)" gap={4} mt={8}>
+              <Box>
+                <ItemTitleForPledge>
+                  {t('pledge.collateral.valuation')}
+                </ItemTitleForPledge>
+              </Box>
+              <Box>
+                <ItemTitleValue>
+                  {firstLoadCompleted ? (
+                    <>
+                      ¥
+                      {
+                        formatPrice(
+                          multiplyToNum(collateral, rateOfEthJpy),
+                          'jpy'
+                        ).value
+                      }
+                    </>
+                  ) : (
+                    <Skeleton height="1.4rem" width="7rem" />
+                  )}
+                </ItemTitleValue>
+              </Box>
+            </Grid>
+          </Box>
         </GridItem>
 
-        <GridItem colSpan={3}>
-          <ItemTitleValue
-            marginTop={26}
-            data-testid="collateral-data-currentAmount"
+        <GridItem
+          colSpan={{
+            base: 1,
+            md: 2,
+          }}
+        >
+          <Grid
+            templateColumns={{
+              base: 'repeat(1, 1fr)',
+              md: 'repeat(2, 1fr)',
+            }}
+            gap={4}
+            mt={4}
+            ml={{
+              base: 6,
+              md: 0,
+            }}
           >
-            {firstLoadCompleted ? (
-              <>
-                {formatPrice(collateral, 'eth').value}
-                {` `}
-                {YAMATO_SYMBOL.COLLATERAL}
-              </>
-            ) : (
-              <Skeleton
-                height="1.4rem"
-                width="7rem"
-                style={{
-                  lineHeight: '1.4rem',
-                }}
+            <Box>
+              <DepositInput
+                collateral={collateral}
+                debt={debt}
+                rateOfEthJpy={rateOfEthJpy}
               />
-            )}
-          </ItemTitleValue>
-        </GridItem>
+            </Box>
 
-        <GridItem colSpan={5}>
-          <DepositInput
-            collateral={collateral}
-            debt={debt}
-            rateOfEthJpy={rateOfEthJpy}
-          />
-        </GridItem>
-
-        <GridItem colSpan={6}>
-          <WithdrawalInput
-            collateral={collateral}
-            debt={debt}
-            rateOfEthJpy={rateOfEthJpy}
-          />
-        </GridItem>
-      </Grid>
-
-      <Grid templateColumns="repeat(8, 1fr)" gap={4} mb={4}>
-        <GridItem colSpan={1}>
-          <ItemTitleForPledge marginTop={26}>
-            {t('pledge.collateral.valuation')}
-          </ItemTitleForPledge>
-        </GridItem>
-        <GridItem colSpan={2}>
-          <ItemTitleValue marginTop={26}>
-            {firstLoadCompleted ? (
-              <>
-                ¥
-                {
-                  formatPrice(multiplyToNum(collateral, rateOfEthJpy), 'jpy')
-                    .value
-                }
-              </>
-            ) : (
-              <Skeleton
-                height="1.4rem"
-                width="7rem"
-                style={{
-                  lineHeight: '1.4rem',
-                }}
+            <Box mt={{ base: 6, md: 0 }}>
+              <WithdrawalInput
+                collateral={collateral}
+                debt={debt}
+                rateOfEthJpy={rateOfEthJpy}
               />
-            )}
-          </ItemTitleValue>
+            </Box>
+          </Grid>
         </GridItem>
       </Grid>
     </>

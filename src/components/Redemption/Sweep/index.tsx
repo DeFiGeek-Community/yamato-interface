@@ -16,14 +16,30 @@ export default function Sweep() {
   const { t } = useTranslation();
 
   return (
-    <Grid templateColumns="repeat(6, 1fr)" gap={4}>
-      <GridItem colSpan={1}>
-        <ItemTitleForPledge width="150px" marginTop={24}>
+    <Grid
+      templateColumns={{
+        base: 'repeat(1, 1fr)',
+        md: 'repeat(6, 1fr)',
+      }}
+      gap={4}
+    >
+      <GridItem
+        colSpan={{
+          base: 1,
+          md: 1,
+        }}
+      >
+        <ItemTitleForPledge marginTop={24}>
           Yamato{t('redemption.sweep.subrogation')}
         </ItemTitleForPledge>
       </GridItem>
 
-      <GridItem colSpan={5}>
+      <GridItem
+        colSpan={{
+          base: 1,
+          md: 5,
+        }}
+      >
         <SweepInput
           rateOfEthJpy={rateOfEthJpy}
           sweepReserve={sweepReserve}
