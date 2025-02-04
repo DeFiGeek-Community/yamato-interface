@@ -112,7 +112,7 @@ const CurrencyToggle: React.FC = () => {
 
   return (
     <>
-      <CurrencyToggleButton style={{ padding }}>
+      <CurrencyToggleButton style={{ padding }} onClick={handleCurrencyToggle}>
         <CurrentLogoComponent width="35px" />
         <FlexText
           style={{
@@ -125,11 +125,9 @@ const CurrencyToggle: React.FC = () => {
         >
           <span
             style={{
-              fontSize: '2rem',
-              lineHeight: '2.2rem',
-              display: 'flex',
-              flexDirection: 'column',
-              marginLeft: '0.5rem',
+              fontSize: '1rem',
+              color: '#888888',
+              lineHeight: '1rem',
             }}
           >
             Balance
@@ -159,7 +157,7 @@ const CurrencyToggle: React.FC = () => {
         </FlexText>
       </CurrencyToggleButton>
       {isDropdownOpen && (
-        <DropdownMenu style={{ left: dropdownLeft }}>
+        <DropdownMenu>
           {currencies.map((currency) => {
             const LogoComponent = currency.logo;
             return (
