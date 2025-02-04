@@ -29,7 +29,9 @@ import styled from 'styled-components';
 import { VE_INTERFACE_URL } from '../../constants/yamato';
 import Web3Status from '../WalletConnectButton';
 import { ChainInfo } from '../WalletConnectButton';
+import CurrencyToggle from '../WalletConnectButton/CurrencyToggle';
 import SvgYamatoLogWithTitle from '../svgs/YamatoLogoWithTitle';
+
 const LanguageButton = styled.button`
   margin: 0 1rem;
 `;
@@ -136,12 +138,13 @@ function MobileNav({
           </VStack>
         </DrawerBody>
         <DrawerFooter>
-          <Box mx={'auto'}>
-            <ChainInfo />
-          </Box>
-          <Box mx={'auto'}>
-            <LangugeChange />
-          </Box>
+          <VStack mx={'auto'} display={{ base: 'flex', sm: 'none' }}>
+            <CurrencyToggle />
+            <Box mt={10}>
+              <ChainInfo />
+              <LangugeChange />
+            </Box>
+          </VStack>
         </DrawerFooter>
       </DrawerContent>
     </Drawer>
