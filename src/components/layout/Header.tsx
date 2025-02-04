@@ -24,7 +24,7 @@ import {
 import i18next from 'i18next';
 import { useTranslation } from 'react-i18next';
 import { BsTranslate } from 'react-icons/bs';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import { VE_INTERFACE_URL } from '../../constants/yamato';
 import Web3Status from '../WalletConnectButton';
@@ -47,11 +47,21 @@ const LanguageListButton = styled.button`
   color: ${({ theme }) => theme.text1};
 `;
 
-const changeLanguage = (i18next: any, lang: any) => {
-  i18next.changeLanguage(lang);
-};
-
 export function LangugeChange() {
+  const history = useHistory();
+
+  const changeLanguage = (i18next: any, lang: any) => {
+    i18next.changeLanguage(lang);
+
+    const currentPath = window.location.pathname;
+
+    if (lang === 'en') {
+      history.replace(`${currentPath}?lang=en`);
+    } else {
+      history.replace(currentPath);
+    }
+  };
+
   return (
     <Popover trigger="hover">
       <PopoverTrigger>
