@@ -24,7 +24,7 @@ import {
 import i18next from 'i18next';
 import { useTranslation } from 'react-i18next';
 import { BsTranslate } from 'react-icons/bs';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import Web3Status from '../WalletConnectButton';
 import { ChainInfo } from '../WalletConnectButton';
@@ -46,11 +46,21 @@ const LanguageListButton = styled.button`
   color: ${({ theme }) => theme.text1};
 `;
 
-const changeLanguage = (i18next: any, lang: any) => {
-  i18next.changeLanguage(lang);
-};
-
 export function LangugeChange() {
+  const history = useHistory();
+
+  const changeLanguage = (i18next: any, lang: any) => {
+    i18next.changeLanguage(lang);
+
+    const currentPath = window.location.pathname;
+
+    if (lang === 'en') {
+      history.replace(`${currentPath}?lang=en`);
+    } else {
+      history.replace(currentPath);
+    }
+  };
+
   return (
     <Popover trigger="hover">
       <PopoverTrigger>
@@ -146,6 +156,9 @@ export default function Header() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const isActiveLink = (path: string) => location.pathname === path;
 
+  // 現在のクエリパラメータを取得
+  const currentSearch = location.search;
+
   return (
     <Box
       px={{ base: 0, md: 4 }}
@@ -177,13 +190,13 @@ export default function Header() {
             style={{ gap: '1.9rem' }}
             display={{ base: 'none', lg: 'flex' }}
           >
-            <Link href="/#/">
+            <Link href={`/#/${currentSearch}`}>
               <Box>
                 <SvgYamatoLogWithTitle width={200} height={30} />
               </Box>
             </Link>
             <Link
-              href="/#/"
+              href={`/#/${currentSearch}`}
               style={
                 isActiveLink('/')
                   ? {
@@ -198,7 +211,7 @@ export default function Header() {
               <Text fontWeight="bold">{t('layout.home')}</Text>
             </Link>
             <Link
-              href="/#/tools/"
+              href={`/#/tools/${currentSearch}`}
               style={
                 isActiveLink('/tools/')
                   ? { fontWeight: 'bold', pointerEvents: 'none', opacity: 0.6 }
