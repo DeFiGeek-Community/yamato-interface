@@ -156,6 +156,9 @@ export default function Header() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const isActiveLink = (path: string) => location.pathname === path;
 
+  // 現在のクエリパラメータを取得
+  const currentSearch = location.search;
+
   return (
     <Box
       px={{ base: 0, md: 4 }}
@@ -187,13 +190,13 @@ export default function Header() {
             style={{ gap: '1.9rem' }}
             display={{ base: 'none', lg: 'flex' }}
           >
-            <Link href="/#/">
+            <Link href={`/#/${currentSearch}`}>
               <Box>
                 <SvgYamatoLogWithTitle width={200} height={30} />
               </Box>
             </Link>
             <Link
-              href="/#/"
+              href={`/#/${currentSearch}`}
               style={
                 isActiveLink('/')
                   ? {
@@ -208,7 +211,7 @@ export default function Header() {
               <Text fontWeight="bold">{t('layout.home')}</Text>
             </Link>
             <Link
-              href="/#/tools/"
+              href={`/#/tools/${currentSearch}`}
               style={
                 isActiveLink('/tools/')
                   ? { fontWeight: 'bold', pointerEvents: 'none', opacity: 0.6 }
