@@ -97,6 +97,7 @@ function MobileNav({
   const location = useLocation();
   const { t } = useTranslation();
   const isActiveLink = (path: string) => location.pathname === path;
+  const currentSearch = location.search;
 
   return (
     <Drawer isOpen={isOpen} placement="left" onClose={onClose}>
@@ -109,7 +110,7 @@ function MobileNav({
         <DrawerBody>
           <VStack align="start" spacing={6}>
             <Link
-              href="/#/"
+              href={`/#/${currentSearch}`}
               onClick={onClose}
               style={
                 isActiveLink('/')
@@ -120,7 +121,7 @@ function MobileNav({
               <Text fontWeight="bold">{t('layout.home')}</Text>
             </Link>
             <Link
-              href="/#/tools/"
+              href={`/#/tools/${currentSearch}`}
               onClick={onClose}
               style={
                 isActiveLink('/tools/')
