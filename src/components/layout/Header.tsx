@@ -98,6 +98,7 @@ function MobileNav({
   const location = useLocation();
   const { t } = useTranslation();
   const isActiveLink = (path: string) => location.pathname === path;
+  const currentSearch = location.search;
 
   return (
     <Drawer isOpen={isOpen} placement="left" onClose={onClose}>
@@ -110,7 +111,7 @@ function MobileNav({
         <DrawerBody>
           <VStack align="start" spacing={6}>
             <Link
-              href="/#/"
+              href={`/#/${currentSearch}`}
               onClick={onClose}
               style={
                 isActiveLink('/')
@@ -121,7 +122,7 @@ function MobileNav({
               <Text fontWeight="bold">{t('layout.home')}</Text>
             </Link>
             <Link
-              href="/#/tools/"
+              href={`/#/tools/${currentSearch}`}
               onClick={onClose}
               style={
                 isActiveLink('/tools/')
@@ -132,14 +133,14 @@ function MobileNav({
               {t('layout.tool')}
             </Link>
             <Link
-              href={`${VE_INTERFACE_URL}yamato/`}
+              href={`${VE_INTERFACE_URL}yamato/${currentSearch}`}
               onClick={onClose}
               style={{ fontWeight: 'bold' }}
             >
               {t('layout.ve')}
             </Link>
             <Link
-              href={`${VE_INTERFACE_URL}yamato/weight/`}
+              href={`${VE_INTERFACE_URL}yamato/weight/${currentSearch}`}
               onClick={onClose}
               style={{ fontWeight: 'bold' }}
             >
@@ -234,13 +235,13 @@ export default function Header() {
               {t('layout.tool')}
             </Link>
             <Link
-              href={`${VE_INTERFACE_URL}yamato/`}
+              href={`${VE_INTERFACE_URL}yamato/${currentSearch}`}
               style={{ fontWeight: 'bold' }}
             >
               {t('layout.ve')}
             </Link>
             <Link
-              href={`${VE_INTERFACE_URL}yamato/weight/`}
+              href={`${VE_INTERFACE_URL}yamato/weight/${currentSearch}`}
               style={{ fontWeight: 'bold' }}
             >
               {t('layout.vote')}
