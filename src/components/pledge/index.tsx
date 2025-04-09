@@ -1,4 +1,6 @@
 import { usePledge } from "@/hooks/pledge";
+import { useDeposit } from "@/hooks/deposit";
+import { useState } from "react";
 import { formatWithComma } from "@/utils";
 import {
   Box,
@@ -12,6 +14,15 @@ import {
 
 const MyPledge = () => {
   const { pledge } = usePledge();
+  const { deposit, isLoading } = useDeposit();
+  const [depositAmount, setDepositAmount] = useState("");
+  
+  const handleDeposit = async () => {
+    if (!depositAmount || parseFloat(depositAmount) <= 0) return;
+    await deposit(depositAmount);
+    setDepositAmount("");
+  };
+  
   return (
     <Box p={2} m={2} bg="brand.white" borderRadius="md" shadow="lg">
       <Heading fontWeight="bold" mb={2}>
@@ -59,8 +70,18 @@ const MyPledge = () => {
                   mb="2"
                   bg="brand.whitelight"
                   borderColor="brand.green"
+                  value={depositAmount}
+                  onChange={(e) => setDepositAmount(e.target.value)}
+                  type="number"
+                  min="0"
                 />
-                <Button bg="brand.greendark" color="white" fontWeight="bold">
+                <Button 
+                  bg="brand.greendark"
+                  color="white"
+                  fontWeight="bold"
+                  onClick={handleDeposit}
+                  disabled={isLoading || !depositAmount || parseFloat(depositAmount) <= 0}
+                >
                   預入実行
                 </Button>
               </Card.Body>
