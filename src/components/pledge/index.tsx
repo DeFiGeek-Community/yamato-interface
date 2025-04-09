@@ -1,5 +1,6 @@
 import { usePledge } from "@/hooks/pledge";
 import { useDeposit } from "@/hooks/deposit";
+import { useWithdraw } from "@/hooks/withdraw";
 import { useState } from "react";
 import { formatWithComma } from "@/utils";
 import {
@@ -14,13 +15,21 @@ import {
 
 const MyPledge = () => {
   const { pledge } = usePledge();
-  const { deposit, isLoading } = useDeposit();
+  const { deposit, isLoading: isDepositLoading } = useDeposit();
+  const { withdraw, isLoading: isWithdrawLoading } = useWithdraw();
   const [depositAmount, setDepositAmount] = useState("");
+  const [withdrawAmount, setWithdrawAmount] = useState("");
   
   const handleDeposit = async () => {
     if (!depositAmount || parseFloat(depositAmount) <= 0) return;
     await deposit(depositAmount);
     setDepositAmount("");
+  };
+
+  const handleWithdraw = async () => {
+    if (!withdrawAmount || parseFloat(withdrawAmount) <= 0) return;
+    await withdraw(withdrawAmount);
+    setWithdrawAmount("");
   };
   
   return (
@@ -80,7 +89,7 @@ const MyPledge = () => {
                   color="white"
                   fontWeight="bold"
                   onClick={handleDeposit}
-                  disabled={isLoading || !depositAmount || parseFloat(depositAmount) <= 0}
+                  disabled={isDepositLoading || !depositAmount || parseFloat(depositAmount) <= 0}
                 >
                   預入実行
                 </Button>
@@ -96,8 +105,18 @@ const MyPledge = () => {
                   mb="2"
                   bg="brand.whitelight"
                   borderColor="brand.green"
+                  value={withdrawAmount}
+                  onChange={(e) => setWithdrawAmount(e.target.value)}
+                  type="number"
+                  min="0"
                 />
-                <Button bg="brand.greendark" color="white" fontWeight="bold">
+                <Button
+                  bg="brand.greendark"
+                  color="white"
+                  fontWeight="bold"
+                  onClick={handleWithdraw}
+                  disabled={isWithdrawLoading || !withdrawAmount || parseFloat(withdrawAmount) <= 0}
+                >
                   引出実行
                 </Button>
               </Card.Body>
