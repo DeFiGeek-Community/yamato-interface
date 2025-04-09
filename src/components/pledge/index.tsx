@@ -1,6 +1,8 @@
 import { usePledge } from "@/hooks/pledge";
 import { useDeposit } from "@/hooks/deposit";
 import { useWithdraw } from "@/hooks/withdraw";
+import { useBorrow } from "@/hooks/borrow";
+import { useRepay } from "@/hooks/repay";
 import { useState } from "react";
 import { formatWithComma } from "@/utils";
 import {
@@ -17,8 +19,12 @@ const MyPledge = () => {
   const { pledge } = usePledge();
   const { deposit, isLoading: isDepositLoading } = useDeposit();
   const { withdraw, isLoading: isWithdrawLoading } = useWithdraw();
+  const { borrow, isLoading: isBorrowLoading } = useBorrow();
+  const { repay, isLoading: isRepayLoading } = useRepay();
   const [depositAmount, setDepositAmount] = useState("");
   const [withdrawAmount, setWithdrawAmount] = useState("");
+  const [borrowAmount, setBorrowAmount] = useState("");
+  const [repayAmount, setRepayAmount] = useState("");
   
   const handleDeposit = async () => {
     if (!depositAmount || parseFloat(depositAmount) <= 0) return;
@@ -30,6 +36,18 @@ const MyPledge = () => {
     if (!withdrawAmount || parseFloat(withdrawAmount) <= 0) return;
     await withdraw(withdrawAmount);
     setWithdrawAmount("");
+  };
+
+  const handleBorrow = async () => {
+    if (!borrowAmount || parseFloat(borrowAmount) <= 0) return;
+    await borrow(borrowAmount);
+    setBorrowAmount("");
+  };
+
+  const handleRepay = async () => {
+    if (!repayAmount || parseFloat(repayAmount) <= 0) return;
+    await repay(repayAmount);
+    setRepayAmount("");
   };
   
   return (
@@ -183,8 +201,18 @@ const MyPledge = () => {
                   mb="2"
                   bg="brand.whitelight"
                   borderColor="brand.pink"
+                  value={borrowAmount}
+                  onChange={(e) => setBorrowAmount(e.target.value)}
+                  type="number"
+                  min="0"
                 />
-                <Button bg="brand.pinkdark" color="white" fontWeight="bold">
+                <Button
+                  bg="brand.pinkdark"
+                  color="white"
+                  fontWeight="bold"
+                  onClick={handleBorrow}
+                  disabled={isBorrowLoading || !borrowAmount || parseFloat(borrowAmount) <= 0}
+                >
                   借入実行
                 </Button>
               </Card.Body>
@@ -199,8 +227,18 @@ const MyPledge = () => {
                   mb="2"
                   bg="brand.whitelight"
                   borderColor="brand.pink"
+                  value={repayAmount}
+                  onChange={(e) => setRepayAmount(e.target.value)}
+                  type="number"
+                  min="0"
                 />
-                <Button bg="brand.pinkdark" color="white" fontWeight="bold">
+                <Button
+                  bg="brand.pinkdark"
+                  color="white"
+                  fontWeight="bold"
+                  onClick={handleRepay}
+                  disabled={isRepayLoading || !repayAmount || parseFloat(repayAmount) <= 0}
+                >
                   返済実行
                 </Button>
               </Card.Body>
