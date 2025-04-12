@@ -101,6 +101,7 @@ const MyPledge = () => {
                   onChange={(e) => setDepositAmount(e.target.value)}
                   type="number"
                   min="0"
+                  step="0.1"
                 />
                 <Button 
                   bg="brand.greendark"
@@ -127,6 +128,7 @@ const MyPledge = () => {
                   onChange={(e) => setWithdrawAmount(e.target.value)}
                   type="number"
                   min="0"
+                  step="0.1"
                 />
                 <Button
                   bg="brand.greendark"
@@ -205,6 +207,7 @@ const MyPledge = () => {
                   onChange={(e) => setBorrowAmount(e.target.value)}
                   type="number"
                   min="0"
+                  step="0.01"
                 />
                 <Button
                   bg="brand.pinkdark"
@@ -231,6 +234,7 @@ const MyPledge = () => {
                   onChange={(e) => setRepayAmount(e.target.value)}
                   type="number"
                   min="0"
+                  step="0.01"
                 />
                 <Button
                   bg="brand.pinkdark"

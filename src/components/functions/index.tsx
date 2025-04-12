@@ -1,4 +1,6 @@
 import { useYamatoFunctions } from "@/hooks/functions";
+import { useRedeem } from "@/hooks/redeem";
+import { useState } from "react";
 import { formatWithComma } from "@/utils";
 import {
   Box,
@@ -9,9 +11,27 @@ import {
   Heading,
   Grid,
 } from "@chakra-ui/react";
+import { useSweep } from "@/hooks/sweep";
 
 const YamatoFunctions = () => {
   const { functionsData } = useYamatoFunctions();
+  const { redeem, isLoading: isRedeemLoading } = useRedeem();
+  const { sweep, isLoading: isSweepLoading } = useSweep();
+  const [redeemAmount, setRedeemAmount] = useState("");
+
+  const handleRedeem = async (isCoreRedemption: boolean = false) => {
+    if (isCoreRedemption) {
+      await redeem(functionsData.redemptionReserve, isCoreRedemption);
+    } else {
+      if (!redeemAmount || parseFloat(redeemAmount) <= 0) return;
+      await redeem(redeemAmount, isCoreRedemption);
+      setRedeemAmount("");
+    }
+  };
+
+  const handleSweep = async () => {
+    await sweep();
+  };
 
   return (
     <Box p={2} m={2} bg="brand.white" borderRadius="md" shadow="lg">
@@ -72,8 +92,21 @@ const YamatoFunctions = () => {
                   mb="2"
                   bg="brand.whitelight"
                   borderColor="brand.green"
+                  value={redeemAmount}
+                  onChange={(e) => setRedeemAmount(e.target.value)}
+                  type="number"
+                  min="0"
+                  step="0.01"
                 />
-                <Button bg="brand.greendark" color="white" fontWeight="bold">
+                <Button
+                  bg="brand.greendark"
+                  color="white"
+                  fontWeight="bold"
+                  onClick={() => handleRedeem(false)}
+                  disabled={
+                    isRedeemLoading || !redeemAmount || parseFloat(redeemAmount) <= 0
+                  }
+                >
                   償還実行
                 </Button>
               </Card.Body>
@@ -87,7 +120,13 @@ const YamatoFunctions = () => {
                 <Text>
                   {formatWithComma(functionsData.redemptionReward)} ETH
                 </Text>
-                <Button bg="brand.greendark" color="white" fontWeight="bold">
+                <Button
+                  bg="brand.greendark"
+                  color="white"
+                  fontWeight="bold"
+                  onClick={() => handleRedeem(true)}
+                  disabled={isRedeemLoading}
+                >
                   償還実行
                 </Button>
               </Card.Body>
@@ -138,7 +177,13 @@ const YamatoFunctions = () => {
                 実行リワード予測: {formatWithComma(functionsData.sweepReward)}{" "}
                 CJPY
               </Text>
-              <Button bg="brand.pinkdark" color="white" fontWeight="bold">
+              <Button 
+                bg="brand.pinkdark"
+                color="white"
+                fontWeight="bold"
+                onClick={handleSweep}
+                disabled={isSweepLoading}
+              >
                 弁済実行
               </Button>
             </Card.Body>
