@@ -4,11 +4,13 @@ import {
 } from "@/constants/addresses";
 import { useAppData } from "@/contexts/AppDataContext";
 import { useReadContracts } from "wagmi";
+import { useBaseTransaction } from "@/hooks/transaction";
 import YAMATO_POOL_ABI from "@/constants/abis/yamato/PoolV2.json";
 import YAMATO_PRIORITY_REGISTRY_ABI from "@/constants/abis/yamato/PriorityRegistryV6.json";
-import { formatUnits } from "viem";
+import { formatUnits, parseEther } from "viem";
 import { minBigInt } from "@/utils";
-import { useRef, useState } from "react";
+import { useRef } from "react";
+
 type FunctionsData = {
   prevRedemptionReserve: string;
   redemptionReserve: string;
@@ -117,3 +119,37 @@ export const useYamatoFunctions = () => {
 
   return { functionsData };
 };
+
+export const useRedeem = () => {
+  const { executeTransaction, isLoading, isSuccess } = useBaseTransaction();
+
+  const handleRedeem = async (amount: string, isCoreRedemption: boolean = false) => {
+    await executeTransaction(
+      "redeem", 
+      [parseEther(amount), isCoreRedemption],
+    );
+  };
+
+  return {
+    redeem: handleRedeem,
+    isLoading,
+    isSuccess,
+  };
+};
+
+export const useSweep = () => {
+  const { executeTransaction, isLoading, isSuccess } = useBaseTransaction();
+
+  const handleSweep = async () => {
+    await executeTransaction(
+      "sweep", 
+    );
+  };
+
+  return {
+    sweep: handleSweep,
+    isLoading,
+    isSuccess,
+  };
+};
+

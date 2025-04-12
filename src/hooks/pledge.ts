@@ -1,8 +1,9 @@
 import { YAMATO_MAIN_ADDRESSES } from "@/constants/addresses";
 import { useAppData } from "@/contexts/AppDataContext";
 import { useAccount, useReadContract } from "wagmi";
+import { useBaseTransaction } from "@/hooks/transaction";
 import YAMATO_ABI from "@/constants/abis/yamato/YamatoV3.json";
-import { formatUnits } from "viem";
+import { formatUnits, parseEther } from "viem";
 
 type Pledge = {
   collateral: string;
@@ -49,4 +50,73 @@ export const usePledge = () => {
   }
 
   return { pledge };
+};
+
+export const useDeposit = () => {
+  const { executeTransaction, isLoading, isSuccess } = useBaseTransaction();
+
+  const handleDeposit = async (amount: string) => {
+    await executeTransaction(
+      "deposit", 
+      undefined,
+      parseEther(amount),
+    );
+  };
+
+  return {
+    deposit: handleDeposit,
+    isLoading,
+    isSuccess,
+  };
+};
+
+export const useWithdraw = () => {
+  const { executeTransaction, isLoading, isSuccess } = useBaseTransaction();
+
+  const handleWithdraw = async (amount: string) => {    
+    await executeTransaction(
+      "withdraw", 
+      [parseEther(amount)]
+    );
+  };
+
+  return {
+    withdraw: handleWithdraw,
+    isLoading,
+    isSuccess,
+  };
+};
+
+export const useBorrow = () => {
+  const { executeTransaction, isLoading, isSuccess } = useBaseTransaction();
+
+  const handleBorrow = async (amount: string) => {
+    await executeTransaction(
+      "borrow", 
+      [parseEther(amount)]
+    );
+  };
+
+  return {
+    borrow: handleBorrow,
+    isLoading,
+    isSuccess,
+  };
+};
+
+export const useRepay = () => {
+  const { executeTransaction, isLoading, isSuccess } = useBaseTransaction();
+
+  const handleRepay = async (amount: string) => {    
+    await executeTransaction(
+      "repay", 
+      [parseEther(amount)]
+    );
+  };
+
+  return {
+    repay: handleRepay,
+    isLoading,
+    isSuccess,
+  };
 };

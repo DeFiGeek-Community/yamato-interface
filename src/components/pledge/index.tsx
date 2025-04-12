@@ -1,8 +1,4 @@
-import { usePledge } from "@/hooks/pledge";
-import { useDeposit } from "@/hooks/deposit";
-import { useWithdraw } from "@/hooks/withdraw";
-import { useBorrow } from "@/hooks/borrow";
-import { useRepay } from "@/hooks/repay";
+import { usePledge, useDeposit, useWithdraw, useBorrow, useRepay } from "@/hooks/pledge";
 import { useState } from "react";
 import { formatWithComma } from "@/utils";
 import {
@@ -14,6 +10,7 @@ import {
   Heading,
   Grid,
 } from "@chakra-ui/react";
+import { toaster } from "@/components/ui/toaster";
 
 const MyPledge = () => {
   const { pledge } = usePledge();
@@ -27,25 +24,57 @@ const MyPledge = () => {
   const [repayAmount, setRepayAmount] = useState("");
   
   const handleDeposit = async () => {
-    if (!depositAmount || parseFloat(depositAmount) <= 0) return;
+    if (!depositAmount || parseFloat(depositAmount) <= 0) {
+      toaster.create({
+        title: "入力エラー",
+        description: "0以上の有効な金額を入力してください",
+        duration: 3000,
+        type: "error"
+      });
+      return;
+    };
     await deposit(depositAmount);
     setDepositAmount("");
   };
 
   const handleWithdraw = async () => {
-    if (!withdrawAmount || parseFloat(withdrawAmount) <= 0) return;
+    if (!withdrawAmount || parseFloat(withdrawAmount) <= 0) {
+      toaster.create({
+        title: "入力エラー",
+        description: "0以上の有効な金額を入力してください",
+        duration: 3000,
+        type: "error"
+      });
+      return;
+    };
     await withdraw(withdrawAmount);
     setWithdrawAmount("");
   };
 
   const handleBorrow = async () => {
-    if (!borrowAmount || parseFloat(borrowAmount) <= 0) return;
+    if (!borrowAmount || parseFloat(borrowAmount) <= 0) {
+      toaster.create({
+        title: "入力エラー",
+        description: "0以上の有効な金額を入力してください",
+        duration: 3000,
+        type: "error"
+      });
+      return;
+    };
     await borrow(borrowAmount);
     setBorrowAmount("");
   };
 
   const handleRepay = async () => {
-    if (!repayAmount || parseFloat(repayAmount) <= 0) return;
+    if (!repayAmount || parseFloat(repayAmount) <= 0) {
+      toaster.create({
+        title: "入力エラー",
+        description: "0以上の有効な金額を入力してください",
+        duration: 3000,
+        type: "error"
+      });
+      return;
+    };
     await repay(repayAmount);
     setRepayAmount("");
   };

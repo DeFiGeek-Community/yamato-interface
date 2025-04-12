@@ -1,5 +1,4 @@
-import { useYamatoFunctions } from "@/hooks/functions";
-import { useRedeem } from "@/hooks/redeem";
+import { useYamatoFunctions, useRedeem, useSweep } from "@/hooks/functions";
 import { useState } from "react";
 import { formatWithComma } from "@/utils";
 import {
@@ -11,7 +10,7 @@ import {
   Heading,
   Grid,
 } from "@chakra-ui/react";
-import { useSweep } from "@/hooks/sweep";
+import { toaster } from "@/components/ui/toaster";
 
 const YamatoFunctions = () => {
   const { functionsData } = useYamatoFunctions();
@@ -23,7 +22,15 @@ const YamatoFunctions = () => {
     if (isCoreRedemption) {
       await redeem(functionsData.redemptionReserve, isCoreRedemption);
     } else {
-      if (!redeemAmount || parseFloat(redeemAmount) <= 0) return;
+      if (!redeemAmount || parseFloat(redeemAmount) <= 0) {
+        toaster.create({
+          title: "入力エラー",
+          description: "0以上の有効な金額を入力してください",
+          duration: 3000,
+          type: "error"
+        });
+        return;
+      };
       await redeem(redeemAmount, isCoreRedemption);
       setRedeemAmount("");
     }
