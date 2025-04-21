@@ -4,7 +4,7 @@ import {
 } from "@/constants/addresses";
 import { useAppData } from "@/contexts/AppDataContext";
 import { useReadContracts } from "wagmi";
-import { useBaseTransaction } from "@/hooks/transaction";
+import { useBaseTransaction } from "@/hooks/useBaseTransaction";
 import YAMATO_POOL_ABI from "@/constants/abis/yamato/PoolV2.json";
 import YAMATO_PRIORITY_REGISTRY_ABI from "@/constants/abis/yamato/PriorityRegistryV6.json";
 import { formatUnits, parseEther } from "viem";
@@ -47,6 +47,7 @@ export const useYamatoFunctions = () => {
   });
 
   const { chainId, ethPrice } = useAppData();
+  const { executeTransaction, isLoading, isSuccess } = useBaseTransaction();
 
   const priorityRegistryContract = {
     address: YAMATO_PRIORITY_REGISTRY_ADDRESSES[chainId],
@@ -117,39 +118,25 @@ export const useYamatoFunctions = () => {
     functionsData.prevSweepReserve = initialValues.current.prevSweepReserve;
   }
 
-  return { functionsData };
-};
-
-export const useRedeem = () => {
-  const { executeTransaction, isLoading, isSuccess } = useBaseTransaction();
-
-  const handleRedeem = async (amount: string, isCoreRedemption: boolean = false) => {
+  const redeem = async (amount: string, isCoreRedemption: boolean = false) => {
     await executeTransaction(
       "redeem", 
       [parseEther(amount), isCoreRedemption],
     );
   };
 
-  return {
-    redeem: handleRedeem,
-    isLoading,
-    isSuccess,
-  };
-};
-
-export const useSweep = () => {
-  const { executeTransaction, isLoading, isSuccess } = useBaseTransaction();
-
-  const handleSweep = async () => {
+  const sweep = async () => {
     await executeTransaction(
       "sweep", 
     );
   };
 
-  return {
-    sweep: handleSweep,
+  return { 
+    functionsData,
+    redeem,
+    sweep,
     isLoading,
-    isSuccess,
+    isSuccess
   };
 };
 

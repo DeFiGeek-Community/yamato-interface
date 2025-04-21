@@ -1,7 +1,7 @@
 import { YAMATO_MAIN_ADDRESSES } from "@/constants/addresses";
 import { useAppData } from "@/contexts/AppDataContext";
 import { useAccount, useReadContract } from "wagmi";
-import { useBaseTransaction } from "@/hooks/transaction";
+import { useBaseTransaction } from "@/hooks/useBaseTransaction";
 import YAMATO_ABI from "@/constants/abis/yamato/YamatoV3.json";
 import { formatUnits, parseEther } from "viem";
 
@@ -24,6 +24,7 @@ export const usePledge = () => {
 
   const { chainId, ethPrice } = useAppData();
   const { address } = useAccount();
+  const { executeTransaction, isLoading, isSuccess } = useBaseTransaction();
 
   const { data: pledgeData } = useReadContract({
     address: YAMATO_MAIN_ADDRESSES[chainId],
@@ -49,13 +50,7 @@ export const usePledge = () => {
     );
   }
 
-  return { pledge };
-};
-
-export const useDeposit = () => {
-  const { executeTransaction, isLoading, isSuccess } = useBaseTransaction();
-
-  const handleDeposit = async (amount: string) => {
+  const deposit = async (amount: string) => {
     await executeTransaction(
       "deposit", 
       undefined,
@@ -63,60 +58,34 @@ export const useDeposit = () => {
     );
   };
 
-  return {
-    deposit: handleDeposit,
-    isLoading,
-    isSuccess,
-  };
-};
-
-export const useWithdraw = () => {
-  const { executeTransaction, isLoading, isSuccess } = useBaseTransaction();
-
-  const handleWithdraw = async (amount: string) => {    
+  const withdraw = async (amount: string) => {    
     await executeTransaction(
       "withdraw", 
       [parseEther(amount)]
     );
   };
 
-  return {
-    withdraw: handleWithdraw,
-    isLoading,
-    isSuccess,
-  };
-};
-
-export const useBorrow = () => {
-  const { executeTransaction, isLoading, isSuccess } = useBaseTransaction();
-
-  const handleBorrow = async (amount: string) => {
+  const borrow = async (amount: string) => {
     await executeTransaction(
       "borrow", 
       [parseEther(amount)]
     );
   };
 
-  return {
-    borrow: handleBorrow,
-    isLoading,
-    isSuccess,
-  };
-};
-
-export const useRepay = () => {
-  const { executeTransaction, isLoading, isSuccess } = useBaseTransaction();
-
-  const handleRepay = async (amount: string) => {    
+  const repay = async (amount: string) => {    
     await executeTransaction(
       "repay", 
       [parseEther(amount)]
     );
   };
 
-  return {
-    repay: handleRepay,
+  return { 
+    pledge,
+    deposit,
+    withdraw,
+    borrow,
+    repay,
     isLoading,
-    isSuccess,
+    isSuccess
   };
 };

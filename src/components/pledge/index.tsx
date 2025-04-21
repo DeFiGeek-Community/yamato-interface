@@ -1,4 +1,4 @@
-import { usePledge, useDeposit, useWithdraw, useBorrow, useRepay } from "@/hooks/pledge";
+import { usePledge } from "@/hooks/usePledge";
 import { useState } from "react";
 import { formatWithComma } from "@/utils";
 import {
@@ -13,11 +13,7 @@ import {
 import { toaster } from "@/components/ui/toaster";
 
 const MyPledge = () => {
-  const { pledge } = usePledge();
-  const { deposit, isLoading: isDepositLoading } = useDeposit();
-  const { withdraw, isLoading: isWithdrawLoading } = useWithdraw();
-  const { borrow, isLoading: isBorrowLoading } = useBorrow();
-  const { repay, isLoading: isRepayLoading } = useRepay();
+  const { pledge, deposit, withdraw, borrow, repay, isLoading } = usePledge();
   const [depositAmount, setDepositAmount] = useState("");
   const [withdrawAmount, setWithdrawAmount] = useState("");
   const [borrowAmount, setBorrowAmount] = useState("");
@@ -137,7 +133,7 @@ const MyPledge = () => {
                   color="white"
                   fontWeight="bold"
                   onClick={handleDeposit}
-                  disabled={isDepositLoading || !depositAmount || parseFloat(depositAmount) <= 0}
+                  disabled={isLoading || !depositAmount || parseFloat(depositAmount) <= 0}
                 >
                   預入実行
                 </Button>
@@ -164,7 +160,7 @@ const MyPledge = () => {
                   color="white"
                   fontWeight="bold"
                   onClick={handleWithdraw}
-                  disabled={isWithdrawLoading || !withdrawAmount || parseFloat(withdrawAmount) <= 0}
+                  disabled={isLoading || !withdrawAmount || parseFloat(withdrawAmount) <= 0}
                 >
                   引出実行
                 </Button>
@@ -243,7 +239,7 @@ const MyPledge = () => {
                   color="white"
                   fontWeight="bold"
                   onClick={handleBorrow}
-                  disabled={isBorrowLoading || !borrowAmount || parseFloat(borrowAmount) <= 0}
+                  disabled={isLoading || !borrowAmount || parseFloat(borrowAmount) <= 0}
                 >
                   借入実行
                 </Button>
@@ -270,7 +266,7 @@ const MyPledge = () => {
                   color="white"
                   fontWeight="bold"
                   onClick={handleRepay}
-                  disabled={isRepayLoading || !repayAmount || parseFloat(repayAmount) <= 0}
+                  disabled={isLoading || !repayAmount || parseFloat(repayAmount) <= 0}
                 >
                   返済実行
                 </Button>

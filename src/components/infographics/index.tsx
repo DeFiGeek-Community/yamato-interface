@@ -17,7 +17,7 @@ import { Tooltip } from "../ui/tooltip";
 import { RxQuestionMarkCircled } from "react-icons/rx";
 import { MarketPriceDiff, useYamatoStatistics } from "@/hooks/statistics";
 import { useAppData } from "@/contexts/AppDataContext";
-import { useYamatoFunctions } from "@/hooks/functions";
+import { useYamatoFunctions } from "@/hooks/useYamatoFunctions";
 import { formatUnits } from "viem";
 
 function getChangePercent(current: number, previous: number): number {

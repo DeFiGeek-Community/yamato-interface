@@ -1,4 +1,4 @@
-import { useYamatoFunctions, useRedeem, useSweep } from "@/hooks/functions";
+import { useYamatoFunctions } from "@/hooks/useYamatoFunctions";
 import { useState } from "react";
 import { formatWithComma } from "@/utils";
 import {
@@ -13,9 +13,7 @@ import {
 import { toaster } from "@/components/ui/toaster";
 
 const YamatoFunctions = () => {
-  const { functionsData } = useYamatoFunctions();
-  const { redeem, isLoading: isRedeemLoading } = useRedeem();
-  const { sweep, isLoading: isSweepLoading } = useSweep();
+  const { functionsData, redeem, sweep, isLoading } = useYamatoFunctions();
   const [redeemAmount, setRedeemAmount] = useState("");
 
   const handleRedeem = async (isCoreRedemption: boolean = false) => {
@@ -111,7 +109,7 @@ const YamatoFunctions = () => {
                   fontWeight="bold"
                   onClick={() => handleRedeem(false)}
                   disabled={
-                    isRedeemLoading || !redeemAmount || parseFloat(redeemAmount) <= 0
+                    isLoading || !redeemAmount || parseFloat(redeemAmount) <= 0
                   }
                 >
                   償還実行
@@ -132,7 +130,7 @@ const YamatoFunctions = () => {
                   color="white"
                   fontWeight="bold"
                   onClick={() => handleRedeem(true)}
-                  disabled={isRedeemLoading}
+                  disabled={isLoading}
                 >
                   償還実行
                 </Button>
@@ -189,7 +187,7 @@ const YamatoFunctions = () => {
                 color="white"
                 fontWeight="bold"
                 onClick={handleSweep}
-                disabled={isSweepLoading}
+                disabled={isLoading}
               >
                 弁済実行
               </Button>
