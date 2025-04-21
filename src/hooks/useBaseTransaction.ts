@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { YAMATO_MAIN_ADDRESSES } from "@/constants/addresses";
 import { useAppData } from "@/contexts/AppDataContext";
 import { useWriteContract, useWaitForTransactionReceipt } from "wagmi";
+import { useAddRecentTransaction } from '@rainbow-me/rainbowkit';
 import YAMATO_ABI from "@/constants/abis/yamato/YamatoV3.json";
 import { toaster } from "@/components/ui/toaster";
 
@@ -13,6 +14,7 @@ export function useBaseTransaction() {
   const { isLoading: isConfirming, isSuccess, isError } = useWaitForTransactionReceipt({
     hash,
   });
+  const addRecentTransaction = useAddRecentTransaction();
 
   const executeTransaction = async (
     functionName: string,
@@ -41,6 +43,10 @@ export function useBaseTransaction() {
         onSuccess: (tx) => {
           console.log(`${functionName} success:`, tx);
           setHash(tx);
+          addRecentTransaction({
+            hash: tx,
+            description: `${functionName} transaction`,
+          })
           toaster.create({
             title: "トランザクション送信",
             description: "トランザクションが送信されました",
