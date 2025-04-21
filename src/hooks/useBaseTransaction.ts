@@ -10,7 +10,7 @@ export function useBaseTransaction() {
   const [hash, setHash] = useState<`0x${string}` | undefined>();
   const { chainId } = useAppData();
   const { writeContractAsync } = useWriteContract();
-  const { isLoading: isConfirming, isSuccess } = useWaitForTransactionReceipt({
+  const { isLoading: isConfirming, isSuccess, isError } = useWaitForTransactionReceipt({
     hash,
   });
 
@@ -37,18 +37,51 @@ export function useBaseTransaction() {
         contractCallParams.value = value;
       }
 
-      const txHash = await writeContractAsync(contractCallParams);
-      
-      setHash(txHash);
-      
-      toaster.create({
-        title: "トランザクション送信",
-        description: "トランザクションを送信しました",
-        duration: 5000,
-        type: "info",
+      await writeContractAsync(contractCallParams, {
+        onSuccess: (tx) => {
+          console.log(`${functionName} success:`, tx);
+          setHash(tx);
+          toaster.create({
+            title: "トランザクション送信",
+            description: "トランザクションが送信されました",
+            duration: 5000,
+            type: "info",
+          });
+        },
+        onError: (error) => {
+          console.error(`${functionName} error:`, error);
+          toaster.create({
+            title: "トランザクションエラー",
+            description: "トランザクションに失敗しました",
+            duration: 5000,
+            type: "error",
+          });
+          setIsLoading(false);
+          setHash(undefined);
+        },
       });
     } catch (error) {
       console.error(`${functionName} error:`, error);
+    }
+  };
+
+  // Handle transaction confirmation
+  useEffect(() => {
+    if (hash && isSuccess) {
+      toaster.create({
+        title: "トランザクション完了",
+        description: "トランザクションが完了しました",
+        duration: 5000,
+        type: "success"
+      });
+      setIsLoading(false);
+      setHash(undefined);
+    }
+  }, [isSuccess, hash]);
+
+  // Handle transaction error
+  useEffect(() => {
+    if (isError) {
       toaster.create({
         title: "トランザクションエラー",
         description: "トランザクションに失敗しました",
@@ -56,36 +89,14 @@ export function useBaseTransaction() {
         type: "error",
       });
       setIsLoading(false);
+      setHash(undefined);
     }
-  };
-
-  useEffect(() => {
-    if (hash) {
-      if (isConfirming) {
-        toaster.create({
-          title: "トランザクション確認中",
-          description: "トランザクションを確認中です",
-          duration: 3000,
-          type: "info",
-        });
-      }
-      
-      if (isSuccess) {
-        toaster.create({
-          title: "トランザクション完了",
-          description: "トランザクションが完了しました",
-          duration: 5000,
-          type: "success"
-        });
-        setIsLoading(false);
-        setHash(undefined);
-      }
-    }
-  }, [isConfirming, isSuccess, hash]);
+  }, [isError]);
 
   return {
     executeTransaction,
     isLoading: isLoading || isConfirming,
     isSuccess,
+    isError,
   };
 }
