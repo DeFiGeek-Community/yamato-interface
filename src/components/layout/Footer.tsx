@@ -63,7 +63,7 @@ export default function Footer() {
           </HStack>
         </VStack>
       </Box>
-      <Box>
+      <Box px={4}>
         <LangugeChange />
       </Box>
     </Flex>
