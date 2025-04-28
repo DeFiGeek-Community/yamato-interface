@@ -100,7 +100,7 @@ const YamatoWorldLogEvents = () => {
   return (
     <Box p={2} m={2} bg="brand.white" borderRadius="md" shadow="lg">
       <Heading fontWeight="bold" bg="brand.green" mb={2}>
-        <HStack>
+        <HStack px={2}>
           <Text fontSize="lg" fontWeight="bold" color="white">
             Real Time TX
           </Text>
