@@ -46,8 +46,8 @@ const YamatoFunctions = () => {
 
       {/* Redemption Section */}
       <Card.Root mb={2} bg="brand.whitelight" borderRadius="md" shadow="md">
-        <Card.Header bg="brand.green" borderRadius="md">
-          <Text fontSize="lg" fontWeight="bold" color="white" mb="2">
+        <Card.Header bg="brand.green" borderRadius="md" py={3} display="flex" alignItems="center">
+          <Text fontSize="lg" fontWeight="bold" color="white">
             償還
           </Text>
         </Card.Header>
@@ -140,8 +140,8 @@ const YamatoFunctions = () => {
         </Card.Body>
       </Card.Root>
       <Card.Root bg="brand.whitelight" borderRadius="md" shadow="md">
-        <Card.Header bg="brand.pink" borderRadius="md">
-          <Text fontSize="lg" fontWeight="bold" color="white" mb="2">
+        <Card.Header bg="brand.pink" borderRadius="md" py={3} display="flex" alignItems="center">
+          <Text fontSize="lg" fontWeight="bold" color="white">
             Yamato代位弁済
           </Text>
         </Card.Header>
