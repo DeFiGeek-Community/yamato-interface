@@ -1,4 +1,5 @@
-import { usePledge } from "@/hooks/pledge";
+import { usePledge } from "@/hooks/usePledge";
+import { useState } from "react";
 import { formatWithComma } from "@/utils";
 import {
   Box,
@@ -9,9 +10,71 @@ import {
   Heading,
   Grid,
 } from "@chakra-ui/react";
+import { toaster } from "@/components/ui/toaster";
 
 const MyPledge = () => {
-  const { pledge } = usePledge();
+  const { pledge, deposit, withdraw, borrow, repay, isLoading } = usePledge();
+  const [depositAmount, setDepositAmount] = useState("");
+  const [withdrawAmount, setWithdrawAmount] = useState("");
+  const [borrowAmount, setBorrowAmount] = useState("");
+  const [repayAmount, setRepayAmount] = useState("");
+  
+  const handleDeposit = async () => {
+    if (!depositAmount || parseFloat(depositAmount) <= 0) {
+      toaster.create({
+        title: "入力エラー",
+        description: "0以上の有効な金額を入力してください",
+        duration: 3000,
+        type: "error"
+      });
+      return;
+    };
+    await deposit(depositAmount);
+    setDepositAmount("");
+  };
+
+  const handleWithdraw = async () => {
+    if (!withdrawAmount || parseFloat(withdrawAmount) <= 0) {
+      toaster.create({
+        title: "入力エラー",
+        description: "0以上の有効な金額を入力してください",
+        duration: 3000,
+        type: "error"
+      });
+      return;
+    };
+    await withdraw(withdrawAmount);
+    setWithdrawAmount("");
+  };
+
+  const handleBorrow = async () => {
+    if (!borrowAmount || parseFloat(borrowAmount) <= 0) {
+      toaster.create({
+        title: "入力エラー",
+        description: "0以上の有効な金額を入力してください",
+        duration: 3000,
+        type: "error"
+      });
+      return;
+    };
+    await borrow(borrowAmount);
+    setBorrowAmount("");
+  };
+
+  const handleRepay = async () => {
+    if (!repayAmount || parseFloat(repayAmount) <= 0) {
+      toaster.create({
+        title: "入力エラー",
+        description: "0以上の有効な金額を入力してください",
+        duration: 3000,
+        type: "error"
+      });
+      return;
+    };
+    await repay(repayAmount);
+    setRepayAmount("");
+  };
+  
   return (
     <Box p={2} m={2} bg="brand.white" borderRadius="md" shadow="lg">
       <Heading fontWeight="bold" mb={2}>
@@ -59,8 +122,19 @@ const MyPledge = () => {
                   mb="2"
                   bg="brand.whitelight"
                   borderColor="brand.green"
+                  value={depositAmount}
+                  onChange={(e) => setDepositAmount(e.target.value)}
+                  type="number"
+                  min="0"
+                  step="0.1"
                 />
-                <Button bg="brand.greendark" color="white" fontWeight="bold">
+                <Button 
+                  bg="brand.greendark"
+                  color="white"
+                  fontWeight="bold"
+                  onClick={handleDeposit}
+                  disabled={isLoading || !depositAmount || parseFloat(depositAmount) <= 0}
+                >
                   預入実行
                 </Button>
               </Card.Body>
@@ -75,8 +149,19 @@ const MyPledge = () => {
                   mb="2"
                   bg="brand.whitelight"
                   borderColor="brand.green"
+                  value={withdrawAmount}
+                  onChange={(e) => setWithdrawAmount(e.target.value)}
+                  type="number"
+                  min="0"
+                  step="0.1"
                 />
-                <Button bg="brand.greendark" color="white" fontWeight="bold">
+                <Button
+                  bg="brand.greendark"
+                  color="white"
+                  fontWeight="bold"
+                  onClick={handleWithdraw}
+                  disabled={isLoading || !withdrawAmount || parseFloat(withdrawAmount) <= 0}
+                >
                   引出実行
                 </Button>
               </Card.Body>
@@ -143,8 +228,19 @@ const MyPledge = () => {
                   mb="2"
                   bg="brand.whitelight"
                   borderColor="brand.pink"
+                  value={borrowAmount}
+                  onChange={(e) => setBorrowAmount(e.target.value)}
+                  type="number"
+                  min="0"
+                  step="0.01"
                 />
-                <Button bg="brand.pinkdark" color="white" fontWeight="bold">
+                <Button
+                  bg="brand.pinkdark"
+                  color="white"
+                  fontWeight="bold"
+                  onClick={handleBorrow}
+                  disabled={isLoading || !borrowAmount || parseFloat(borrowAmount) <= 0}
+                >
                   借入実行
                 </Button>
               </Card.Body>
@@ -159,8 +255,19 @@ const MyPledge = () => {
                   mb="2"
                   bg="brand.whitelight"
                   borderColor="brand.pink"
+                  value={repayAmount}
+                  onChange={(e) => setRepayAmount(e.target.value)}
+                  type="number"
+                  min="0"
+                  step="0.01"
                 />
-                <Button bg="brand.pinkdark" color="white" fontWeight="bold">
+                <Button
+                  bg="brand.pinkdark"
+                  color="white"
+                  fontWeight="bold"
+                  onClick={handleRepay}
+                  disabled={isLoading || !repayAmount || parseFloat(repayAmount) <= 0}
+                >
                   返済実行
                 </Button>
               </Card.Body>

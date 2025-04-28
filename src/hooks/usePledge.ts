@@ -1,8 +1,9 @@
 import { YAMATO_MAIN_ADDRESSES } from "@/constants/addresses";
 import { useAppData } from "@/contexts/AppDataContext";
 import { useAccount, useReadContract } from "wagmi";
+import { useBaseTransaction } from "@/hooks/useBaseTransaction";
 import YAMATO_ABI from "@/constants/abis/yamato/YamatoV3.json";
-import { formatUnits } from "viem";
+import { formatUnits, parseEther } from "viem";
 
 type Pledge = {
   collateral: string;
@@ -23,6 +24,7 @@ export const usePledge = () => {
 
   const { chainId, ethPrice } = useAppData();
   const { address } = useAccount();
+  const { executeTransaction, isLoading, isSuccess } = useBaseTransaction();
 
   const { data: pledgeData } = useReadContract({
     address: YAMATO_MAIN_ADDRESSES[chainId],
@@ -48,5 +50,42 @@ export const usePledge = () => {
     );
   }
 
-  return { pledge };
+  const deposit = async (amount: string) => {
+    await executeTransaction(
+      "deposit", 
+      undefined,
+      parseEther(amount),
+    );
+  };
+
+  const withdraw = async (amount: string) => {    
+    await executeTransaction(
+      "withdraw", 
+      [parseEther(amount)]
+    );
+  };
+
+  const borrow = async (amount: string) => {
+    await executeTransaction(
+      "borrow", 
+      [parseEther(amount)]
+    );
+  };
+
+  const repay = async (amount: string) => {    
+    await executeTransaction(
+      "repay", 
+      [parseEther(amount)]
+    );
+  };
+
+  return { 
+    pledge,
+    deposit,
+    withdraw,
+    borrow,
+    repay,
+    isLoading,
+    isSuccess
+  };
 };

@@ -8,6 +8,7 @@ import YamatoFunctions from "@/components/functions";
 import { Grid, GridItem } from "@chakra-ui/react";
 import YamatoWorldLogEvents from "@/components/world";
 import Infographics from "@/components/infographics";
+import { Toaster } from "@/components/ui/toaster";
 
 const Home: NextPage = () => {
   return (
@@ -44,6 +45,7 @@ const Home: NextPage = () => {
               </GridItem>
             </Grid>
           </Grid>
+          <Toaster />
         </Layout>
       </main>
     </div>
