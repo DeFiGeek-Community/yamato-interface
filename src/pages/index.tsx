@@ -2,11 +2,11 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import Layout from "@/components/layout";
 import "@/i18n/configs";
-import MyPledge from "@/components/pledge";
-import YamatoStatistics from "@/components/statistics";
-import YamatoFunctions from "@/components/functions";
+import MyPledge from "@/features/pledge";
+import YamatoStatistics from "@/features/statistics";
+import YamatoFunctions from "@/features/functions";
 import { Grid, GridItem } from "@chakra-ui/react";
-import YamatoWorldLogEvents from "@/components/world";
+import YamatoWorldLogEvents from "@/features/world";
 import Infographics from "@/components/infographics";
 
 const Home: NextPage = () => {
