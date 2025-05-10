@@ -1,6 +1,8 @@
 import { UseToastOptions } from '@chakra-ui/toast';
 import { LogEventType } from '../state/yamato-entirety/reducer';
 
+export const VE_INTERFACE_URL = 'https://ve.yamato.fi/';
+
 export const YAMATO_SYMBOL = {
   COLLATERAL: 'ETH',
   YEN: 'CJPY',

@@ -26,6 +26,7 @@ import { useTranslation } from 'react-i18next';
 import { BsTranslate } from 'react-icons/bs';
 import { useLocation, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
+import { VE_INTERFACE_URL } from '../../constants/yamato';
 import Web3Status from '../WalletConnectButton';
 import { ChainInfo } from '../WalletConnectButton';
 import CurrencyToggle from '../WalletConnectButton/CurrencyToggle';
@@ -130,6 +131,13 @@ function MobileNav({
             >
               {t('layout.tool')}
             </Link>
+            <Link
+              href={`${VE_INTERFACE_URL}`}
+              onClick={onClose}
+              style={{ fontWeight: 'bold' }}
+            >
+              {t('layout.ve')}
+            </Link>
           </VStack>
         </DrawerBody>
         <DrawerFooter>
@@ -219,6 +227,12 @@ export default function Header() {
               }
             >
               {t('layout.tool')}
+            </Link>
+            <Link
+              href={`${VE_INTERFACE_URL}${currentSearch}`}
+              style={{ fontWeight: 'bold' }}
+            >
+              {t('layout.ve')}
             </Link>
           </HStack>
           <HStack>
