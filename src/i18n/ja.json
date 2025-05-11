@@ -17,8 +17,9 @@
     "liquidationPool": "弁済プール"
   },
   "layout": {
-    "home": "ホーム",
-    "tool": "ツール"
+    "home": "Home",
+    "tool": "Tool",
+    "ve": "veYMT"
   },
   "pledge": {
     "collateral" : {

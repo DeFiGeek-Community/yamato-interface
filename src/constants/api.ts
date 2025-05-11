@@ -19,6 +19,7 @@ export const NETWORK_URLS: { [key in SupportedChainId]: string } = {
   [SupportedChainId.OPTIMISTIC_KOVAN]: `https://optimism-kovan.infura.io/v3/${INFURA_KEY}`,
   [SupportedChainId.ARBITRUM_ONE]: `https://arbitrum-mainnet.infura.io/v3/${INFURA_KEY}`,
   [SupportedChainId.ARBITRUM_RINKEBY]: `https://arbitrum-rinkeby.infura.io/v3/${INFURA_KEY}`,
+  [SupportedChainId.LOCALHOST]: `http://127.0.0.1:8545/`,
 };
 
 const ENABLE_SUBGRAPH = process.env.REACT_APP_ENABLE_SUBGRAPH;
@@ -31,6 +32,7 @@ export const SUBGRAPH_YAMATO_URLS: Record<number, string> = {
     'https://api.thegraph.com/subgraphs/name/subgraph-account/yamato_test_subgraph',
   [SupportedChainId.SEPOLIA]:
     'https://api.studio.thegraph.com/query/35420/yamato-subgraph/version/latest',
+  [SupportedChainId.LOCALHOST]: '',
 };
 
 export const SUBGRAPH_UNISWAP_V3_URLS: Record<number, string> = {
@@ -42,6 +44,7 @@ export const SUBGRAPH_UNISWAP_V3_URLS: Record<number, string> = {
     'https://api.thegraph.com/subgraphs/name/ianlapham/uniswap-arbitrum-one',
   [SupportedChainId.OPTIMISM]:
     'https://api.thegraph.com/subgraphs/name/ianlapham/uniswap-optimism-dev',
+  [SupportedChainId.LOCALHOST]: '',
 };
 
 export const SUBGRAPH_UNISWAP_V2_URLS: Record<number, string> = {
@@ -52,4 +55,5 @@ export const SUBGRAPH_UNISWAP_V2_URLS: Record<number, string> = {
     'https://api.thegraph.com/subgraphs/name/ianlapham/uniswap-arbitrum-one',
   [SupportedChainId.OPTIMISM]:
     'https://api.thegraph.com/subgraphs/name/ianlapham/uniswap-optimism-dev',
+  [SupportedChainId.LOCALHOST]: '',
 };

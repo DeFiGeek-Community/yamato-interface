@@ -26,6 +26,7 @@ import { useTranslation } from 'react-i18next';
 import { BsTranslate } from 'react-icons/bs';
 import { useLocation, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
+import { VE_INTERFACE_URL } from '../../constants/yamato';
 import Web3Status from '../WalletConnectButton';
 import { ChainInfo } from '../WalletConnectButton';
 import CurrencyToggle from '../WalletConnectButton/CurrencyToggle';
