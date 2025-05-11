@@ -130,6 +130,13 @@ function MobileNav({
             >
               {t('layout.tool')}
             </Link>
+            {/* <Link
+              href={`${VE_INTERFACE_URL}`}
+              onClick={onClose}
+              style={{ fontWeight: 'bold' }}
+            >
+              {t('layout.ve')}
+            </Link> */}
           </VStack>
         </DrawerBody>
         <DrawerFooter>
@@ -220,6 +227,12 @@ export default function Header() {
             >
               {t('layout.tool')}
             </Link>
+            {/* <Link
+              href={`${VE_INTERFACE_URL}${currentSearch}`}
+              style={{ fontWeight: 'bold' }}
+            >
+              {t('layout.ve')}
+            </Link> */}
           </HStack>
           <HStack>
             <Box display={{ base: 'none', md: 'block' }}>
