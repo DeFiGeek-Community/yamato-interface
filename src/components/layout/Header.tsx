@@ -72,16 +72,14 @@ export function LangugeChange() {
       <PopoverContent>
         <PopoverArrow />
         <PopoverBody>
-          <>
-            <VStack>
-              <LanguageListButton onClick={() => changeLanguage(i18next, 'en')}>
-                english
-              </LanguageListButton>
-              <LanguageListButton onClick={() => changeLanguage(i18next, 'ja')}>
-                日本語
-              </LanguageListButton>
-            </VStack>
-          </>
+          <VStack>
+            <LanguageListButton onClick={() => changeLanguage(i18next, 'en')}>
+              english
+            </LanguageListButton>
+            <LanguageListButton onClick={() => changeLanguage(i18next, 'ja')}>
+              日本語
+            </LanguageListButton>
+          </VStack>
         </PopoverBody>
       </PopoverContent>
     </Popover>
@@ -131,13 +129,13 @@ function MobileNav({
             >
               {t('layout.tool')}
             </Link>
-            {/* <Link
+            <Link
               href={`${VE_INTERFACE_URL}`}
               onClick={onClose}
               style={{ fontWeight: 'bold' }}
             >
               {t('layout.ve')}
-            </Link> */}
+            </Link>
           </VStack>
         </DrawerBody>
         <DrawerFooter>
@@ -228,12 +226,12 @@ export default function Header() {
             >
               {t('layout.tool')}
             </Link>
-            {/* <Link
+            <Link
               href={`${VE_INTERFACE_URL}${currentSearch}`}
               style={{ fontWeight: 'bold' }}
             >
               {t('layout.ve')}
-            </Link> */}
+            </Link>
           </HStack>
           <HStack>
             <Box display={{ base: 'none', md: 'block' }}>
