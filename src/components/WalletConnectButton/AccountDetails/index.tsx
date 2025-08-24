@@ -7,10 +7,11 @@ import styled from 'styled-components';
 import CJPYLogo from '../../../assets/images/cjpy_logo.png';
 import MetamaskIcon from '../../../assets/images/metamask_logo.png';
 import TXJPLogo from '../../../assets/images/txjp_logo.png';
+import YMTLogo from '../../../assets/images/ymt_logo.png';
 import {
   CJPY_ADDRESSES,
   TXJP_ADDRESSES,
-  // YMT_ADDRESSES,
+  YMT_ADDRESSES,
 } from '../../../constants/addresses';
 import { SUPPORTED_WALLETS } from '../../../constants/web3';
 import { YAMATO_SYMBOL } from '../../../constants/yamato';
@@ -260,6 +261,16 @@ const getToken = (chainId: number, symbol: string): WatchAssetParams => {
     //       image: generateTokenImagePath(YMTLogo),
     //     },
     //   };
+    case YAMATO_SYMBOL.GOVERNANCE:
+      return {
+        type: 'ERC20',
+        options: {
+          address: YMT_ADDRESSES[chainId],
+          symbol: YAMATO_SYMBOL.GOVERNANCE,
+          decimals: 18,
+          image: YMTLogo,
+        },
+      };
     case YAMATO_SYMBOL.TXJP:
       return {
         type: 'ERC20',
@@ -405,6 +416,7 @@ export default function AccountDetails({
       {chainId != null ? (
         <>
           {renderTokenButton(chainId, CJPYLogo, YAMATO_SYMBOL.YEN)}
+          {renderTokenButton(chainId, YMTLogo, YAMATO_SYMBOL.GOVERNANCE)}
           {renderTokenButton(chainId, TXJPLogo, YAMATO_SYMBOL.TXJP)}
         </>
       ) : (
