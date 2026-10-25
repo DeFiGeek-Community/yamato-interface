@@ -1,0 +1,19 @@
+version: 1
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - nvm install 16 --skip-default-packages
+        - nvm use 16
+        - npm install -g yarn@1.22.22
+        - yarn install --frozen-lockfile
+    build:
+      commands:
+        - yarn build
+  artifacts:
+    baseDirectory: build
+    files:
+      - '**/*'
+  cache:
+    paths:
+      - node_modules/**/*
