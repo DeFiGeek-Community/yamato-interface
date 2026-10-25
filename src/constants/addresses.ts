@@ -115,13 +115,13 @@ export const CJPY_ADDRESSES: TokenAddressMap = {
   },
 };
 export const YMT_ADDRESSES: AddressMap = {
-  [SupportedChainId.MAINNET]: ZERO_ADDRESS,
+  [SupportedChainId.MAINNET]: '0x0F4Fc7d24F28C4373097733aAE53f0025D4c9C09',
   [SupportedChainId.GOERLI]: ZERO_ADDRESS,
   [SupportedChainId.SEPOLIA]: '0x67bE87A96bF2306D0bc42c60EdAc51637b882eB9',
   [SupportedChainId.LOCALHOST]: '0x1fA02b2d6A771842690194Cf62D91bdd92BfE28d',
 };
 export const VEYMT_ADDRESSES: AddressMap = {
-  [SupportedChainId.MAINNET]: ZERO_ADDRESS,
+  [SupportedChainId.MAINNET]: '0x9E3Ce75131bd03ef6Ea79e5ED68E889cc9B66A0c',
   [SupportedChainId.GOERLI]: ZERO_ADDRESS,
   [SupportedChainId.SEPOLIA]: '0xfF62eFe9097467Fb2B2adD94B2334764a57bD197',
   [SupportedChainId.LOCALHOST]: '0xdbC43Ba45381e02825b14322cDdd15eC4B3164E6',
@@ -160,6 +160,7 @@ export const MULTICALL_ADDRESS: AddressMap = {
   [SupportedChainId.ARBITRUM_ONE]: '0xadF885960B47eA2CD9B55E6DAc6B42b7Cb2806dB',
   [SupportedChainId.ARBITRUM_RINKEBY]:
     '0xa501c031958F579dB7676fF1CE78AD305794d579',
+  [SupportedChainId.LOCALHOST]: '0x0000000000000000000000000000000000000000',
 };
 export const CURVE_POOL_ADDRESS: TokenAddressMap = {
   CJPY: {

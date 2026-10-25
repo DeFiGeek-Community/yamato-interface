@@ -60,7 +60,7 @@ export default function Dashboard() {
         return `https://app.uniswap.org/#/swap?inputCurrency=eth&outputCurrency=${cjpyAddress}`;
       }
       if (exchangeName.includes('Curve')) {
-        return `https://curve.fi/#/ethereum/pools/factory-twocrypto-5/swap`;
+        return `https://www.curve.finance/#/ethereum/pools/factory-twocrypto-5/swap`;
       }
       return '';
     },

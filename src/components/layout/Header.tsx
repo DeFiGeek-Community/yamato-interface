@@ -72,16 +72,14 @@ export function LangugeChange() {
       <PopoverContent>
         <PopoverArrow />
         <PopoverBody>
-          <>
-            <VStack>
-              <LanguageListButton onClick={() => changeLanguage(i18next, 'en')}>
-                english
-              </LanguageListButton>
-              <LanguageListButton onClick={() => changeLanguage(i18next, 'ja')}>
-                日本語
-              </LanguageListButton>
-            </VStack>
-          </>
+          <VStack>
+            <LanguageListButton onClick={() => changeLanguage(i18next, 'en')}>
+              english
+            </LanguageListButton>
+            <LanguageListButton onClick={() => changeLanguage(i18next, 'ja')}>
+              日本語
+            </LanguageListButton>
+          </VStack>
         </PopoverBody>
       </PopoverContent>
     </Popover>
